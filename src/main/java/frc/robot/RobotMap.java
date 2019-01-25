@@ -13,7 +13,7 @@ package frc.robot;
  * the wiring easier and significantly reduces the number of magic numbers
  * floating around.
  */
-public class RobotMap {
+public interface RobotMap {
      public static int floopForwardChannel = -1;
      public static int floopReverseChannel = -1;
   // For example to map the left and right motors, you could define the
