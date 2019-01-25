@@ -25,7 +25,7 @@ public class IRSensor {
 //    public static final double EQUATION_EXPONENT = -0.9779601588;
 //    public static final double CONVERSION_FACTOR_CM_TO_INCHES = 0.393701;
 
-    private static DigitalInput cubeSensor;
+    private static DigitalInput catchSensor;
 
     // Create instance of a timer that we can use to keep track of how long the
     // gear is kept in the position for.
@@ -34,23 +34,13 @@ public class IRSensor {
 //    private boolean isTimerRunning;
 
     public IRSensor(int port) {
-        cubeSensor = new DigitalInput(port);
+      catchSensor = new DigitalInput(port);
 //        timeSinceEntry = new Timer();
 //        isTimerRunning = false;
     }
 
     public boolean isSensorTriggered() {
-        return !cubeSensor.get();
+        return !catchSensor.get();
     }
 
-    // The use of LEDs for the robot is currently unclear so this needs further detail in the future
-    /*
-    public void cubeLEDSignalControl() {
-        if (isCubeDetected()) {
-            Robot.ledCubeSensingSignal.stayOn();
-        } else {
-            Robot.ledCubeSensingSignal.stayOff();
-        }
-    }
-    */
 }
