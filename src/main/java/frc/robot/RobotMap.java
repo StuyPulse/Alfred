@@ -14,8 +14,6 @@ package frc.robot;
  * floating around.
  */
 public interface RobotMap {
-    public static int FLOOP_FORWARD_CHANNEL = -1;
-    public static int FLOOP_REVERSE_CHANNEL = -1;
     // For example to map the left and right motors, you could define the
     // following variables to use with your drivetrain subsystem.
     // public static int leftMotor = 1;
@@ -25,4 +23,11 @@ public interface RobotMap {
     // number and the module. For example you with a rangefinder:
     // public static int rangefinderPort = 1;
     // public static int rangefinderModule = 1;
+
+    public static final int FLOOP_FORWARD_CHANNEL = -1;
+    public static final int FLOOP_REVERSE_CHANNEL = -1;
+    public static final int ABOM_SOLENOID = -1;
+    public static final int TAIL_MOTOR = -1;
+    public static final int RAISE_TAIL_SOLENOID = -1;
+    public static final int RELEASE_ABOM_SOLENOID = -1;
 }
