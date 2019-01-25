@@ -30,10 +30,9 @@ public class Floop extends Subsystem {
   }
 
   public void toggle() {
-    if(floopSolenoid.get() == DoubleSolenoid.Value.kForward) {
+    if (floopSolenoid.get() == DoubleSolenoid.Value.kForward) {
       close();
-    }
-    else {
+    } else {
       open();
     }
   }
