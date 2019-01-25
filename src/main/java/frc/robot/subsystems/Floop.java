@@ -18,7 +18,7 @@ public class Floop extends Subsystem {
   private DoubleSolenoid floopSolenoid;
 
   public Floop() {
-    floopSolenoid = new DoubleSolenoid(RobotMap.forwardFloopChannel, RobotMap.reverseFloopChannel);
+    floopSolenoid = new DoubleSolenoid(RobotMap.floopForwardChannel, RobotMap.floopReverseChannel);
   }
 
   public void open() {
