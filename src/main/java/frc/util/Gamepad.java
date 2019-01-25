@@ -1,4 +1,4 @@
-package org.usfirst.frc.team694.util;
+package frc.util;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
