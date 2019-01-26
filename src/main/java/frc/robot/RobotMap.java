@@ -14,60 +14,52 @@ package frc.robot;
  * floating around.
  */
 public interface RobotMap {
-  // For example to map the left and right motors, you could define the
-  // following variables to use with your drivetrain subsystem.
-  // public static int leftMotor = 1;
-  // public static int rightMotor = 2;
 
-  // If you are using multiple modules, make sure to define both the port
-  // number and the module. For example you with a rangefinder:
-  // public static int rangefinderPort = 1;
-  // public static int rangefinderModule = 1;
+    /*CV VARIABLES*/  
+    
+	  // Using averages, you can allow for smoother movement
+	  double ACCELERATION_DIV = 4;
+	  double CV_SPEED = 0; // Speed that stays the same through movements
 
-  /*CV VARIABLES*/  
+	  /* AIM ASSIST */
+	  // Changes the speed that the robot will turn
+	  double TURN_DIV = 24;
+
+	  // Changes the speed that the robot will turn
+	  double MOVE_DIV = 2;
+
+	  /* AUTO ACCELERATE VARIABLES */
+	  // Area at which robot will move forward
+	  double FORWARD_AREA = 0.0145;
+
+	  // Slowest speed for auto accelerate
+	  double MIN_SPEED = 0.25;
+
+	  // Auto Drive Speed
+	  double AUTO_SPEED = 1.5 / FORWARD_AREA;
+
+	  // Prevent overwriting to the network table
+    boolean DRIVER_MODE = false;
   
-  /* MANUAL DRIVE VARIABLES */
-	// Using averages, you can allow for smoother movement
-	double ACCELERATION_DIV = 4;
-	double CV_SPEED = 0; // Speed that stays the same through movements
+    //Used to make joystick values smaller (Must be an odd number)(for CV)
+    int JOYSTICK_SCALAR = 3;
 
-	/* AIM ASSIST */
-	// Changes the speed that the robot will turn
-	double TURN_DIV = 24;
+    //Driver&Operator ports
+    int DRIVER_PORT = -1;
 
-	// Changes the speed that the robot will turn
-	double MOVE_DIV = 2;
+    //Drivetrain ports
+    int LEFT_TOP_MOTOR_PORT = -1;
+    int LEFT_MIDDLE_MOTOR_PORT = -1;
+    int LEFT_BOTTOM_MOTOR_PORT = -1;
 
-	/* AUTO ACCELERATE VARIABLES */
-	// Area at which robot will move forward
-	double FORWARD_AREA = 0.0145;
-
-	// Slowest speed for auto accelerate
-	double MIN_SPEED = 0.25;
-
-	// Auto Drive Speed
-	double AUTO_SPEED = 1.5 / FORWARD_AREA;
-
-	// Prevent overwriting to the network table
-  boolean DRIVER_MODE = false;
+    int RIGHT_TOP_MOTOR_PORT = -1;
+    int RIGHT_MIDDLE_MOTOR_PORT = -1;
+    int RIGHT_BOTTOM_MOTOR_PORT = -1;
   
-  //Used to make joystick values smaller (Must be an odd number)(for CV)
-  int JOYSTICK_SCALAR = 3;
-
-  //Driver&Operator ports
-  int DRIVER_PORT = -1;
-
-  //Drivetrain ports
-  int LEFT_TOP_MOTOR_PORT = -1;
-  int LEFT_MIDDLE_MOTOR_PORT = -1;
-  int LEFT_BOTTOM_MOTOR_PORT = -1;
-
-  int RIGHT_TOP_MOTOR_PORT = -1;
-  int RIGHT_MIDDLE_MOTOR_PORT = -1;
-  int RIGHT_BOTTOM_MOTOR_PORT = -1;
-
-  double WHEEL_DIAMETER = 6;
-  double WHEEL_INCHES_PER_REVOLLUTION = WHEEL_DIAMETER*Math.PI;
+    double WHEEL_DIAMETER = 6;
+    double WHEEL_INCHES_PER_REVOLLUTION = WHEEL_DIAMETER*Math.PI;
 
 
+    int FLOOP_FORWARD_CHANNEL = -1;
+    int FLOOP_REVERSE_CHANNEL = -1;
 }
