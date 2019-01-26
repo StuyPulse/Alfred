@@ -63,7 +63,7 @@ public interface RobotMap {
     int RIGHT_BOTTOM_MOTOR_PORT = -1;
 
     double WHEEL_DIAMETER = 6;
-    double WHEEL_INCHES_PER_REVOLLUTION = WHEEL_DIAMETER * Math.PI;
+    double WHEEL_INCHES_PER_REVOLUTION = WHEEL_DIAMETER * Math.PI;
 
     /***************************************************************************************
     *      Floop Solenoid Constants                                                                    

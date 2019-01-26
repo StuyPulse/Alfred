@@ -10,13 +10,13 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class ClimbCommand extends Command {
+public class TailClimbCommand extends Command {
 
     private double speed;
     private boolean isRaised;
     private boolean isRetracted;
 
-    public ClimbCommand() {
+    public TailClimbCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         requires(Robot.tail);
@@ -45,8 +45,7 @@ public class ClimbCommand extends Command {
         }
         // Makes the lift go up and down
         if (speed < 0) {
-            // ASK ENGINEERING IF THE MOTOR GOES FORWARDS OR BACKWARDS
-            Robot.tail.setSpeed(-speed);
+            Robot.tail.setSpeed(speed);
         }
     }
 

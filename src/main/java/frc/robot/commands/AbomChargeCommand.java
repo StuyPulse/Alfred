@@ -10,11 +10,11 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class AbomClimbCommand extends Command {
+public class AbomChargeCommand extends Command {
     private boolean climb;
     private int count;
 
-    public AbomClimbCommand(boolean climb) {
+    public AbomChargeCommand(boolean climb) {
         requires(Robot.abom);
         this.climb = climb;
     }

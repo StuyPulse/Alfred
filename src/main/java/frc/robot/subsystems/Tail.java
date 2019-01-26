@@ -8,7 +8,7 @@
 package frc.robot.subsystems;
 
 import frc.robot.RobotMap;
-import frc.robot.commands.ClimbCommand;
+import frc.robot.commands.TailClimbCommand;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 import com.revrobotics.CANSparkMax;
@@ -35,12 +35,12 @@ public class Tail extends Subsystem {
 
     @Override
     public void initDefaultCommand() {
-        // Default Command is the Climb Command
-        setDefaultCommand(new ClimbCommand());
+        setDefaultCommand(new TailClimbCommand());
     }
 
     // Speed of the Tail Motor
     public void setSpeed(double speed) {
+        // ASK ENGINEERING IF THE MOTOR GOES FORWARDS OR BACKWARDS
         tailMotor.set(speed);
     }
 

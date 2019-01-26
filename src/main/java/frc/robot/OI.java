@@ -9,7 +9,7 @@ package frc.robot;
 
 import frc.util.Gamepad;
 
-import frc.robot.commands.AbomClimbCommand;
+import frc.robot.commands.AbomChargeCommand;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -20,8 +20,8 @@ public class OI {
 
     public OI() {
         operator = new Gamepad(1);
-        operator.getDPadUp().whenPressed(new AbomClimbCommand(true));
-        operator.getDPadDown().whenPressed(new AbomClimbCommand(false));
+        operator.getDPadUp().whenPressed(new AbomChargeCommand(true));
+        operator.getDPadDown().whenPressed(new AbomChargeCommand(false));
     }
     //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a

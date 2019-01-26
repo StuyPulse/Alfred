@@ -15,12 +15,12 @@ import frc.robot.RobotMap;
  * Add your docs here.
  */
 public class Abom extends Subsystem {
-    Solenoid Abom_Solenoid;
+    Solenoid abomSolenoid;
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
     public Abom() {
-        Abom_Solenoid = new Solenoid(RobotMap.ABOM_SOLENOID);
+        abomSolenoid = new Solenoid(RobotMap.ABOM_SOLENOID);
     }
 
     @Override
@@ -31,15 +31,11 @@ public class Abom extends Subsystem {
 
     // Toggles between out and in for the solenoid
     public void toggle() {
-        if (Abom_Solenoid.get()) {
-            Abom_Solenoid.set(false);
-        } else {
-            Abom_Solenoid.set(true);
-        }
+        abomSolenoid.set(!abomSolenoid.get());
     }
 
     // Retracts the Solenoid
     public void stop() {
-        Abom_Solenoid.set(false);
+        abomSolenoid.set(false);
     }
 }
