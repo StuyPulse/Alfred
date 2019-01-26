@@ -25,10 +25,6 @@ public class Fangs extends Subsystem {
         );
     }
 
-    public boolean isUp() {
-        return fangSolenoid.get() == DoubleSolenoid.Value.kForward;
-    }
-
     @Override
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
@@ -50,10 +46,14 @@ public class Fangs extends Subsystem {
     }
 
     public void toggle() {
-        if(isUp()) {
+        if( isUp()) {
             lower();
         } else {
             raise();
         }
+    }
+
+    public boolean isUp() {
+        return fangSolenoid.get() == DoubleSolenoid.Value.kForward;
     }
 }
