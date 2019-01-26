@@ -51,6 +51,7 @@ public class Tail extends Subsystem {
 
     // Gets the speed of the Tail Motor
     public double getSpeed() {
+        // ASK ENGINEERING IF THE MOTOR GOES FORWARDS OR BACKWARDS
         return tailMotor.get();
     }
 
