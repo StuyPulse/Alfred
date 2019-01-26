@@ -17,19 +17,16 @@ import frc.robot.RobotMap;
 public class Fangs extends Subsystem {
 
     private DoubleSolenoid fangSolenoid;
-    private boolean isUp;
 
     public Fangs() {
         fangSolenoid = new DoubleSolenoid(
             RobotMap.FANG_SOLENOID_OPEN_PORT,
             RobotMap.FANG_SOLENOID_CLOSE_PORT
         );
-        // TODO: Figure out the starting config of the fangs
-        isUp = false;
     }
 
     public boolean isUp() {
-        return isUp;
+        return fangSolenoid.get() == DoubleSolenoid.Value.kForward;
     }
 
     @Override
