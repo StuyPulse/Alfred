@@ -1,9 +1,3 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
 
 package frc.robot.subsystems;
 
@@ -16,17 +10,10 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.LiftMoveCommand;
 
-/**
- * Add your docs here.
- */
-
 public class Lift extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
   private WPI_TalonSRX masterTalon; 
   private WPI_TalonSRX followerTalon; 
 
@@ -64,8 +51,7 @@ public class Lift extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    //TODO: Implement oi
-    //setDefaultCommand(new LiftMoveCommand(Robot.m_oi.operatorGamepad.getY()));
+    setDefaultCommand(new LiftMoveCommand());
   }
 
   public void resetEncoder() {
@@ -90,19 +76,18 @@ public class Lift extends Subsystem {
 
   public void stopLift() {
     masterTalon.set(ControlMode.PercentOutput, 0);
-    brake();
+    enableBrake();
   }
 
   public void moveLift(double speed) {
-    if (speed < RobotMap.LIFT_MIN_SPEED && speed > -RobotMap.LIFT_MIN_SPEED) {
+    if (Math.abs(speed) < RobotMap.LIFT_MIN_SPEED) {
       stopLift();  
     } else if ((speed >= RobotMap.LIFT_MIN_SPEED && isAtTop()) || (speed <= -RobotMap.LIFT_MIN_SPEED && isAtBottom())) {
       stopLift();
     } else {
-      release();
+      releaseBreak();
       masterTalon.set(ControlMode.PercentOutput, speed);
     }
-    
   }
 
   public void moveRamp(double desiredSpeed) {
@@ -118,24 +103,19 @@ public class Lift extends Subsystem {
     moveLift(speed); 
   }
 
-  public void setHeight(double height) {
-    release();
-    masterTalon.set(ControlMode.Position, height / RobotMap.LIFT_ENCODER_RAW_MULTIPLIER);
-  }
-
-  public void tiltLiftUp() {
+  public void straightUp() {
     tiltSolenoid.set(Value.kForward);
   }
 
-  public void tiltLiftDown() {
+  public void tiltBack() {
     tiltSolenoid.set(Value.kReverse);
   }
 
-  public void brake() {
+  public void enableBrake() {
     brakeSolenoid.set(Value.kForward);
   }
 
-  public void release() {
+  public void releaseBreak() {
     brakeSolenoid.set(Value.kReverse);
   } 
 

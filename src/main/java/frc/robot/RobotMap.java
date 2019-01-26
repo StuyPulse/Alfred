@@ -56,7 +56,6 @@ public interface RobotMap {
     /**************************************************************************
      * Lift Ports
      *************************************************************************/
-
     public static final int LIFT_MASTER_TALON_MOTOR_PORT = -1;
     public static final int LIFT_FOLLOWER_TALON_MOTOR_PORT = -1;
 
@@ -72,10 +71,14 @@ public interface RobotMap {
     /**************************************************************************
      * Lift Constants
      *************************************************************************/
-
-    public static final double LIFT_ENCODER_RAW_MULTIPLIER = 1;
+    public static final double LIFT_WINCH_DIAMETER = 1.75; //in
+    public static final double LIFT_EMPIRACAL_RAW_MULTIPLIER = 1;
+    public static final double LIFT_ENCODER_RAW_MULTIPLIER = 
+        LIFT_EMPIRACAL_RAW_MULTIPLIER * (LIFT_WINCH_DIAMETER * Math.PI); 
     public static final double LIFT_MIN_SPEED = 0.1;
+    //Waiting on eng for the height 
     public static final double LIFT_MAX_HEIGHT = 1;
+    public static final double LIFT_MIN_HEIGHT = -1; 
     public static final double LIFT_RAMP_HEIGHT_THRESHOLD = 1;
     public static final double LIFT_RAMP_SLOPE = 1;
 }
