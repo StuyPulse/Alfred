@@ -17,10 +17,9 @@ import frc.robot.RobotMap;
 
 public class Fangs extends Subsystem {
   private DoubleSolenoid fangSolenoid;
-  private boolean isUp;
   
   public Fangs() {
-    isUp = false; //TODO: Figure out the starting config of the fangs
+    //TODO: Figure out the starting config of the fangs
     fangSolenoid = new DoubleSolenoid(
       RobotMap.FANG_SOLENOID_OPEN_PORT,
       RobotMap.FANG_SOLENOID_CLOSE_PORT
@@ -36,6 +35,10 @@ public class Fangs extends Subsystem {
   @Override
   public void periodic() {
     super.periodic();
+  }
+
+  public boolean isUp() {
+    return fangSolenoid.get() == DoubleSolenoid.Value.kForward;
   }
 
   public void fangsDown() {
