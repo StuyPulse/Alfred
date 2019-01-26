@@ -7,14 +7,7 @@
 
 package frc.robot;
 
-/**
- * The RobotMap is a mapping from the ports sensors and actuators are wired into
- * to a variable name. This provides flexibility changing wiring, makes checking
- * the wiring easier and significantly reduces the number of magic numbers
- * floating around.
- */
 public interface RobotMap {
-
     /*CV VARIABLES*/  
     
 	  // Using averages, you can allow for smoother movement
@@ -62,4 +55,9 @@ public interface RobotMap {
 
     int FLOOP_FORWARD_CHANNEL = -1;
     int FLOOP_REVERSE_CHANNEL = -1;
+  
+    public static int FLOOP_FORWARD_CHANNEL = -1;
+    public static int FLOOP_REVERSE_CHANNEL = -1;
+
+    
 }
