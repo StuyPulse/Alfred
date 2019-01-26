@@ -14,7 +14,6 @@ import frc.robot.RobotMap;
 /**
  * Add your docs here.
  */
-
 public class Fangs extends Subsystem {
   private DoubleSolenoid fangSolenoid;
   
@@ -50,10 +49,7 @@ public class Fangs extends Subsystem {
   }
 
   public void toggleFangs() {
-    if (isUp = false) {
-      fangsUp();
-    } else {
-      fangsDown();
-    }
+    if (isUp() == false) {fangsUp();}
+    else {fangsDown();}
   }
 }
