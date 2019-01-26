@@ -52,4 +52,10 @@ public interface RobotMap {
     ****************************************************************************************/
     int FLOOP_FORWARD_CHANNEL = -1;
     int FLOOP_REVERSE_CHANNEL = -1;
+
+    /***************************************************************************************
+    *      Fangs Solenoid Constants                                                                    
+    ****************************************************************************************/
+    int FANG_SOLENOID_OPEN_PORT = -1;
+    int FANG_SOLENOID_CLOSE_PORT = -1;
 }
