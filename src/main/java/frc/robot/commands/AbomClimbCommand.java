@@ -12,6 +12,7 @@ import frc.robot.Robot;
 
 public class AbomClimbCommand extends Command {
     private boolean climb;
+    private int count;
 
     public AbomClimbCommand(boolean climb) {
         requires(Robot.abom);
@@ -26,7 +27,8 @@ public class AbomClimbCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        if (climb) {
+        count++;
+        if (climb && count % 15 == 0) {
             Robot.abom.toggle();
         }
     }
