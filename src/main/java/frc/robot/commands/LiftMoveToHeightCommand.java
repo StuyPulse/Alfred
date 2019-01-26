@@ -14,12 +14,12 @@ public class LiftMoveToHeightCommand extends Command {
 
   @Override
   protected void initialize() {
-    Robot.lift.setManual();
+    Robot.lift.setAutomatic();
   }
 
   @Override
   protected void execute() {
-    if (Robot.lift.getHeight() >= targetHeight) {
+    if (Robot.lift.getHeight() > targetHeight) {
       Robot.lift.moveRamp(-1);
     } else {
       Robot.lift.moveRamp(1);
