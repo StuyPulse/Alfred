@@ -49,7 +49,7 @@ public class Fangs extends Subsystem {
         fangSolenoid.set(DoubleSolenoid.Value.kReverse);
     }
 
-    public void toggleFangs() {
+    public void toggle() {
         if(isUp()) {
             lower();
         } else {
