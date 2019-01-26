@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Compressor;
 import frc.robot.subsystems.Drivetrain;
 import frc.util.Gamepad;
 
@@ -32,6 +33,7 @@ public class Robot extends TimedRobot {
     public static Drivetrain drivetrain;
     public static OI oi;
     public static Floop floop;
+    public static Compressor compressor;
 
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<>();
@@ -44,6 +46,7 @@ public class Robot extends TimedRobot {
     public void robotInit() {
         drivetrain = new Drivetrain();
         floop = new Floop();
+        compressor = new Compressor();
         oi = new OI();
         // chooser.addOption("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
@@ -60,6 +63,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotPeriodic() {
+        enableCompressor();
     }
 
     /**
@@ -137,5 +141,13 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void testPeriodic() {
+    }
+
+    public void enableCompressor() {
+        if (!drivetrain.isMoving()) {
+            compressor.start();
+        } else {
+            compressor.stop();
+        }
     }
 }
