@@ -10,8 +10,8 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class ReleaseAbomCommand extends Command {
-    public ReleaseAbomCommand() {
+public class TailReleaseAbomCommand extends Command {
+    public TailReleaseAbomCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         requires(Robot.tail);
