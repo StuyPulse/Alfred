@@ -13,6 +13,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.subsystems.Drivetrain;
+import frc.util.Gamepad;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -22,6 +24,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * project.
  */
 public class Robot extends TimedRobot {
+    public static OI m_oi;
+
+    Command m_autonomousCommand;
+    public static Gamepad DriverPad = new Gamepad(RobotMap.DRIVER_PORT);
+    SendableChooser<Command> m_chooser = new SendableChooser<>();
+    public static Drivetrain drivetrain;
     public static OI oi;
     public static Floop floop;
 
@@ -34,6 +42,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotInit() {
+        drivetrain = new Drivetrain();
         floop = new Floop();
         oi = new OI();
         // chooser.addOption("My Auto", new MyAutoCommand());

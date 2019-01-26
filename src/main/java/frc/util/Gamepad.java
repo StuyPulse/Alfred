@@ -567,4 +567,3 @@ public class Gamepad extends Joystick {
         setRumble(GenericHID.RumbleType.kRightRumble, intensity);
     }
 }
-
