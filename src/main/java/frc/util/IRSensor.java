@@ -11,7 +11,7 @@ public class IRSensor {
     private static DigitalInput cargoSensor;
 
     public IRSensor(int port) {
-      cargoSensor = new DigitalInput(port);
+        cargoSensor = new DigitalInput(port);
     }
 
     public boolean isSensorTriggered() {
