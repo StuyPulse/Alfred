@@ -27,8 +27,6 @@ public class Lift extends Subsystem {
 
     public boolean rampDisabled;
 
-    public boolean isAutomatic;
-
     public Lift() {
         masterTalon = new WPI_TalonSRX(RobotMap.LIFT_MASTER_TALON_MOTOR_PORT);
         followerTalon = new WPI_TalonSRX(RobotMap.LIFT_FOLLOWER_TALON_MOTOR_PORT);
@@ -47,7 +45,6 @@ public class Lift extends Subsystem {
         bottomLimitSwitch = new DigitalInput(RobotMap.LIFT_BOTTOM_LIMIT_SWITCH_PORT);
 
         enableRamping();
-        setManual();
     }
 
     @Override
@@ -86,7 +83,7 @@ public class Lift extends Subsystem {
         enableBrake();
     }
 
-    public void moveLift(double speed) {
+    public void moveNoRamp(double speed) {
         if (Math.abs(speed) < RobotMap.LIFT_MIN_SPEED) {
             stopLift();
         } else if (isAtTop() || isAtBottom()) {
@@ -125,7 +122,15 @@ public class Lift extends Subsystem {
             speed = rampMultiplier(distanceFromTop) * desiredSpeed;
             speed = Math.max(speed, RobotMap.LIFT_MIN_SPEED);
         }
-        moveLift(speed);
+        moveNoRamp(speed);
+    }
+
+    public void moveLift(double speed) {
+        if(rampDisabled) {
+            moveNoRamp(speed);
+        }else {
+            moveRamp(speed);
+        }
     }
 
     public void straightUp() {
@@ -146,28 +151,9 @@ public class Lift extends Subsystem {
 
     public void enableRamping() {
         rampDisabled = false;
-        /*if (!isAutomatic) {
-            masterTalon.configOpenloopRamp(0.5, 0);
-        } else {
-            masterTalon.configOpenloopRamp(0.2, 0);
-        }*/
     }
 
-    public void disableOpenLoopRamping() {
+    public void disableRamping() {
         rampDisabled = true;
-        //masterTalon.configOpenloopRamp(0.2, 0);
-    }
-
-    public void disableAllRamping() {
-        rampDisabled = true;
-        //masterTalon.configOpenloopRamp(0, 0);
-    }
-
-    public void setAutomatic() {
-        isAutomatic = true;
-    }
-
-    public void setManual() {
-        isAutomatic = false;
     }
 }

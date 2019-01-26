@@ -6,6 +6,7 @@ import frc.robot.Robot;
 
 public class LiftMoveToHeightCommand extends Command {
   private double targetHeight; 
+  private double ACCEPTED_ERROR_RANGE = 2; 
 
   public LiftMoveToHeightCommand(double targetHeight) {
     requires(Robot.lift);
@@ -14,7 +15,6 @@ public class LiftMoveToHeightCommand extends Command {
 
   @Override
   protected void initialize() {
-    Robot.lift.setAutomatic();
   }
 
   @Override
@@ -28,8 +28,14 @@ public class LiftMoveToHeightCommand extends Command {
 
   @Override
   protected boolean isFinished() {
+    /*
+     * Finish if: 
+     * are within the height
+     * at the top and still trying to go up
+     * at the bottom and still trying to go down
+     */
     double error = targetHeight - Robot.lift.getHeight(); 
-    return Math.abs(error) < 2 || 
+    return Math.abs(error) < ACCEPTED_ERROR_RANGE || 
       (Robot.lift.isAtBottom() && error < 0) || 
       (Robot.lift.isAtTop() && error > 0);
   }

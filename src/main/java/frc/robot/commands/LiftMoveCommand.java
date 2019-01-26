@@ -11,7 +11,6 @@ public class LiftMoveCommand extends Command {
 
   @Override
   protected void initialize() {
-    Robot.lift.setManual();
   }
 
   @Override
@@ -19,11 +18,7 @@ public class LiftMoveCommand extends Command {
     //TODO: Implement OI
     //double speed = Robot.m_oi.operatorGamepad.getY(); 
     double speed = 0; 
-    if (Robot.lift.rampDisabled) {
-      Robot.lift.moveLift(speed);
-    } else {
-      Robot.lift.moveRamp(speed);
-    }
+    Robot.lift.moveLift(speed);
   }
 
   @Override
