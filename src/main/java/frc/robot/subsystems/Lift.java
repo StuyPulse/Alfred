@@ -120,7 +120,7 @@ public class Lift extends Subsystem {
         double currentHeight = getHeight();
         double speed = desiredSpeed;
         if (desiredSpeed < 0 && currentHeight < RobotMap.LIFT_RAMP_HEIGHT_THRESHOLD) {
-            double distanceFromBottom = RobotMap.LIFT_MIN_HEIGHT + currentHeight;
+            double distanceFromBottom = currentHeight;
             speed = rampMultiplier(distanceFromBottom) * desiredSpeed;
             speed = Math.min(speed, -RobotMap.LIFT_MIN_SPEED);
         } else if (currentHeight > RobotMap.LIFT_MAX_HEIGHT - RobotMap.LIFT_RAMP_HEIGHT_THRESHOLD) {
