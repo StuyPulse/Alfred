@@ -55,9 +55,4 @@ public interface RobotMap {
 
     int FLOOP_FORWARD_CHANNEL = -1;
     int FLOOP_REVERSE_CHANNEL = -1;
-  
-    public static int FLOOP_FORWARD_CHANNEL = -1;
-    public static int FLOOP_REVERSE_CHANNEL = -1;
-
-    
 }
