@@ -15,6 +15,7 @@ package frc.robot;
  */
 public class RobotMap {
   public static final int ROLLER_MOTOR_PORT = 1;
+  public static final int SLOW_ROLLER_MULTIPLIER = 0.5;
   // For example to map the left and right motors, you could define the
   // following variables to use with your drivetrain subsystem.
   // public static int leftMotor = 1;

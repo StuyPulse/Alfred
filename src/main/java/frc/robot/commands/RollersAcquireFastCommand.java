@@ -12,10 +12,9 @@ import frc.robot.Robot;
 
 private double speed;
 
-public class RollersDeacquireCommand extends Command {
-  public RollersDeacquireCommand(double speed) {
+public class RollersAcquireFastCommand extends Command {
+  public RollersAcquireFastCommand() {
     requires(Robot.rollers);
-    this.speed = speed;
   }
 
   @Override
@@ -24,6 +23,7 @@ public class RollersDeacquireCommand extends Command {
 
   @Override
   protected void execute() {
+    this.speed = Robot.oi.driverGamepad.getRawRightTriggerAxis();
     Robot.rollers.acquireSpeed(speed);
   }
 
