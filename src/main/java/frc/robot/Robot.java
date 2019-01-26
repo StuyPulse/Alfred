@@ -27,7 +27,7 @@ public class Robot extends TimedRobot {
     public static OI m_oi;
 
     Command m_autonomousCommand;
-    public static Gamepad DriverPad = new Gamepad(RobotMap.DRIVER_PORT);
+    public static Gamepad DriverPad = new Gamepad(RobotMap.DRIVER_GAMEPAD_PORT);
     SendableChooser<Command> m_chooser = new SendableChooser<>();
     public static Drivetrain drivetrain;
     public static OI oi;
