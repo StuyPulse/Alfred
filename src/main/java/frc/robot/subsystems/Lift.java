@@ -69,7 +69,7 @@ public class Lift extends Subsystem {
     }
 
     public boolean isAtBottom() {
-        boolean atBottom = topLimitSwitch.get();
+        boolean atBottom = bottomLimitSwitch.get();
         if (atBottom) {
             setEncoder(RobotMap.LIFT_MIN_HEIGHT);
         }
@@ -100,7 +100,7 @@ public class Lift extends Subsystem {
         }
     }
 
-    // rampMultiplier takes a distance and threshold from a hard limit, calculates
+    // rampMultiplier takes a distance from a hard limit, and calculates
     // multiplier for linear ramping
     public double rampMultiplier(double distance) {
         double threshold = RobotMap.LIFT_RAMP_HEIGHT_THRESHOLD;
