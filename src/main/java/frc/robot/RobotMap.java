@@ -18,46 +18,42 @@ public interface RobotMap {
     // public static int rangefinderPort = 1;
     // public static int rangefinderModule = 1;
 
-    public static final int FLOOP_FORWARD_CHANNEL = -1;
-    public static final int FLOOP_REVERSE_CHANNEL = -1;
-    public static final int ABOM_SOLENOID = -1;
-    public static final int TAIL_MOTOR = -1;
-    public static final int RAISE_TAIL_SOLENOID = -1;
-    public static final int RELEASE_ABOM_SOLENOID = -1;
 
-    /* CV VARIABLES */
+    /***************************************************************************************
+    *      Tail and Abom Ports                                                                
+    ****************************************************************************************/
+    int ABOM_SOLENOID = -1;
+    int TAIL_MOTOR = -1;
+    int RAISE_TAIL_SOLENOID = -1;
+    int RELEASE_ABOM_SOLENOID = -1;
+    /***************************************************************************************
+    *      CV Constants                                                                    
+    ****************************************************************************************/
+	double ACCELERATION_DIV = 4; // Using averages, you can allow for smoother movement
+	double CV_SPEED = 0; // Speed that stays the same through movements
+    /***************************************************************************************
+    *      Aim Assist Constants                                                                    
+    ****************************************************************************************/
+	double TURN_DIV = 24; // Changes the speed that the robot will turn
+	double MOVE_DIV = 2; // Changes the speed that the robot will turn
+	/***************************************************************************************
+    *      Auton Assist Variables                                                                    
+    ****************************************************************************************/
+	double FORWARD_AREA = 0.0145; // Area at which robot will move forward
+    double MIN_SPEED = 0.25; // Slowest speed for auto accelerate
+	double AUTO_SPEED = 1.5 / FORWARD_AREA; // Auto Drive Speed
+    boolean DRIVER_MODE = false; // Prevent overwriting to the network table
+    int JOYSTICK_SCALAR = 3; //Used to make joystick values smaller (Must be an odd number)(for CV)
 
-    // Using averages, you can allow for smoother movement
-    double ACCELERATION_DIV = 4;
-    double CV_SPEED = 0; // Speed that stays the same through movements
+    /***************************************************************************************
+    *      Gamepad Ports                                                                    
+    ****************************************************************************************/
+    int DRIVER_GAMEPAD_PORT = -1;
+    int OPERATOR_GAMEPAD_PORT = -1;
 
-    /* AIM ASSIST */
-    // Changes the speed that the robot will turn
-    double TURN_DIV = 24;
-
-    // Changes the speed that the robot will turn
-    double MOVE_DIV = 2;
-
-    /* AUTO ACCELERATE VARIABLES */
-    // Area at which robot will move forward
-    double FORWARD_AREA = 0.0145;
-
-    // Slowest speed for auto accelerate
-    double MIN_SPEED = 0.25;
-
-    // Auto Drive Speed
-    double AUTO_SPEED = 1.5 / FORWARD_AREA;
-
-    // Prevent overwriting to the network table
-    boolean DRIVER_MODE = false;
-
-    // Used to make joystick values smaller (Must be an odd number)(for CV)
-    int JOYSTICK_SCALAR = 3;
-
-    // Driver&Operator ports
-    int DRIVER_PORT = -1;
-
-    // Drivetrain ports
+    /***************************************************************************************
+    *      Drivetrain Motor Ports                                                                    
+    ****************************************************************************************/
     int LEFT_TOP_MOTOR_PORT = -1;
     int LEFT_MIDDLE_MOTOR_PORT = -1;
     int LEFT_BOTTOM_MOTOR_PORT = -1;
@@ -69,4 +65,9 @@ public interface RobotMap {
     double WHEEL_DIAMETER = 6;
     double WHEEL_INCHES_PER_REVOLLUTION = WHEEL_DIAMETER * Math.PI;
 
+    /***************************************************************************************
+    *      Floop Solenoid Constants                                                                    
+    ****************************************************************************************/
+    int FLOOP_FORWARD_CHANNEL = -1;
+    int FLOOP_REVERSE_CHANNEL = -1;
 }
