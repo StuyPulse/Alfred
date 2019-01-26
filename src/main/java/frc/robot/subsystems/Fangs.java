@@ -51,9 +51,9 @@ public class Fangs extends Subsystem {
 
     public void toggleFangs() {
         if(isUp()) {
-            raise();
-        } else {
             lower();
+        } else {
+            raise();
         }
     }
 }
