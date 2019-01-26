@@ -70,10 +70,10 @@ public interface RobotMap {
     /**************************************************************************
      * Lift Constants
      *************************************************************************/
-    public static final double LIFT_WINCH_DIAMETER = 1.75; //in
+    public static final double LIFT_WINCH_DIAMETER_INCHES = 1.75; 
     public static final double LIFT_EMPIRICAL_RAW_MULTIPLIER = 1;
     public static final double LIFT_ENCODER_RAW_MULTIPLIER = 
-        LIFT_EMPIRICAL_RAW_MULTIPLIER * (LIFT_WINCH_DIAMETER * Math.PI); 
+        LIFT_EMPIRICAL_RAW_MULTIPLIER * (LIFT_WINCH_DIAMETER_INCHES * Math.PI); 
     public static final double LIFT_MIN_SPEED = 0.1;
     //Waiting on eng for the height 
     public static final double LIFT_MAX_HEIGHT = 1;
@@ -82,9 +82,8 @@ public interface RobotMap {
     public static final double LIFT_RAMP_SLOPE = 1;
 
     /***************************************************************************************
-    *      Fangs Solenoid Constants                                                                    
+    * Fangs Solenoid Constants                                                                    
     ****************************************************************************************/
     int FANG_SOLENOID_OPEN_PORT = -1;
     int FANG_SOLENOID_CLOSE_PORT = -1;
-
 }

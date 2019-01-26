@@ -9,5 +9,5 @@
     "bin/": true,
     ".classpath": true,
     ".project": true
-}
+  }
 }

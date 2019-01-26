@@ -1,4 +1,3 @@
-
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -15,9 +14,9 @@ public class LiftMoveCommand extends Command {
 
   @Override
   protected void execute() {
-    //TODO: Implement OI
-    //double speed = Robot.m_oi.operatorGamepad.getY(); 
-    double speed = 0; 
+    // TODO: Implement OI
+    // double speed = Robot.m_oi.operatorGamepad.getY();
+    double speed = 0;
     Robot.lift.moveLift(speed);
   }
 

@@ -14,8 +14,6 @@ import frc.robot.RobotMap;
 import frc.robot.commands.LiftMoveCommand;
 
 public class Lift extends Subsystem {
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
     private WPI_TalonSRX masterTalon;
     private WPI_TalonSRX followerTalon;
 
@@ -38,8 +36,10 @@ public class Lift extends Subsystem {
 
         masterTalon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 
-        tiltSolenoid = new DoubleSolenoid(RobotMap.LIFT_TILT_SOLENOID_FORWARD_PORT, RobotMap.LIFT_TILT_SOLENOID_REVERSE_PORT);
-        brakeSolenoid = new DoubleSolenoid(RobotMap.LIFT_BRAKE_SOLENOID_FORWARD_PORT, RobotMap.LIFT_BRAKE_SOLENOID_REVERSE_PORT);
+        tiltSolenoid = new DoubleSolenoid(RobotMap.LIFT_TILT_SOLENOID_FORWARD_PORT,
+                RobotMap.LIFT_TILT_SOLENOID_REVERSE_PORT);
+        brakeSolenoid = new DoubleSolenoid(RobotMap.LIFT_BRAKE_SOLENOID_FORWARD_PORT,
+                RobotMap.LIFT_BRAKE_SOLENOID_REVERSE_PORT);
 
         topLimitSwitch = new DigitalInput(RobotMap.LIFT_TOP_LIMIT_SWITCH_PORT);
         bottomLimitSwitch = new DigitalInput(RobotMap.LIFT_BOTTOM_LIMIT_SWITCH_PORT);
@@ -49,7 +49,7 @@ public class Lift extends Subsystem {
 
     @Override
     public void initDefaultCommand() {
-      setDefaultCommand(new LiftMoveCommand());    
+        setDefaultCommand(new LiftMoveCommand());
     }
 
     public void resetEncoder() {
@@ -57,17 +57,23 @@ public class Lift extends Subsystem {
     }
 
     public void setEncoder(double height) {
-      masterTalon.setSelectedSensorPosition((int) (height / RobotMap.LIFT_ENCODER_RAW_MULTIPLIER), 0, 0);
+        masterTalon.setSelectedSensorPosition((int) (height / RobotMap.LIFT_ENCODER_RAW_MULTIPLIER), 0, 0);
     }
 
     public boolean isAtTop() {
-        if(topLimitSwitch.get()) setEncoder(RobotMap.LIFT_MAX_HEIGHT);
-        return topLimitSwitch.get();
+        boolean atTop = topLimitSwitch.get();
+        if (atTop) {
+            setEncoder(RobotMap.LIFT_MAX_HEIGHT);
+        }
+        return atTop;
     }
 
     public boolean isAtBottom() {
-        if(bottomLimitSwitch.get()) setEncoder(RobotMap.LIFT_MIN_HEIGHT);
-        return bottomLimitSwitch.get();
+        boolean atBottom = topLimitSwitch.get();
+        if (atBottom) {
+            setEncoder(RobotMap.LIFT_MIN_HEIGHT);
+        }
+        return atBottom;
     }
 
     public int getRawHeight() {
@@ -114,7 +120,7 @@ public class Lift extends Subsystem {
         double currentHeight = getHeight();
         double speed = desiredSpeed;
         if (desiredSpeed < 0 && currentHeight < RobotMap.LIFT_RAMP_HEIGHT_THRESHOLD) {
-            double distanceFromBottom = currentHeight;
+            double distanceFromBottom = RobotMap.LIFT_MIN_HEIGHT + currentHeight;
             speed = rampMultiplier(distanceFromBottom) * desiredSpeed;
             speed = Math.min(speed, -RobotMap.LIFT_MIN_SPEED);
         } else if (currentHeight > RobotMap.LIFT_MAX_HEIGHT - RobotMap.LIFT_RAMP_HEIGHT_THRESHOLD) {
@@ -126,14 +132,14 @@ public class Lift extends Subsystem {
     }
 
     public void moveLift(double speed) {
-        if(rampDisabled) {
+        if (rampDisabled) {
             moveNoRamp(speed);
-        }else {
+        } else {
             moveRamp(speed);
         }
     }
 
-    public void straightUp() {
+    public void tiltFoward() {
         tiltSolenoid.set(Value.kForward);
     }
 
