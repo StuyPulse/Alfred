@@ -20,6 +20,7 @@ public class ReleaseAbomCommand extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
+        // Release the Abom!
         Robot.tail.releaseAbom();
     }
 
@@ -37,6 +38,7 @@ public class ReleaseAbomCommand extends Command {
     // Called once after isFinished returns true
     @Override
     protected void end() {
+        // Bring back the Solenoid
         Robot.tail.retractSolenoid();
     }
 

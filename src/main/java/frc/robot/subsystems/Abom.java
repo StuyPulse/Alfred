@@ -29,6 +29,7 @@ public class Abom extends Subsystem {
         // setDefaultCommand(new MySpecialCommand());
     }
 
+    // Toggles between out and in for the solenoid
     public void toggle() {
         if (Abom_Solenoid.get()) {
             Abom_Solenoid.set(false);
@@ -37,6 +38,7 @@ public class Abom extends Subsystem {
         }
     }
 
+    // Retracts the Solenoid
     public void stop() {
         Abom_Solenoid.set(false);
     }

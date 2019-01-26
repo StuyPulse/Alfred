@@ -27,7 +27,9 @@ public class AbomClimbCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
+        // Count the times execute has run, to know when to fire the pistons
         count++;
+        // Fire the piston repeatedly so that it fully extends before retracting 
         if (climb && count % 15 == 0) {
             Robot.abom.toggle();
         }
