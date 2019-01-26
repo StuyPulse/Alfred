@@ -9,6 +9,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
 
 public class AbomChargeCommand extends Command {
     private boolean climb;
@@ -30,7 +31,7 @@ public class AbomChargeCommand extends Command {
         // Count the times execute has run, to know when to fire the pistons
         count++;
         // Fire the piston repeatedly so that it fully extends before retracting 
-        if (climb && count % 15 == 0) {
+        if (climb && count % RobotMap.ABOM_CHARGE_DELAY == 0) {
             Robot.abom.toggle();
         }
     }

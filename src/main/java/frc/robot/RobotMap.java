@@ -27,6 +27,10 @@ public interface RobotMap {
     int RAISE_TAIL_SOLENOID = -1;
     int RELEASE_ABOM_SOLENOID = -1;
     /***************************************************************************************
+    *      Abom Charge Constants                                                                
+    ****************************************************************************************/
+    int ABOM_CHARGE_DELAY = 15;
+    /***************************************************************************************
     *      CV Constants                                                                    
     ****************************************************************************************/
 	double ACCELERATION_DIV = 4; // Using averages, you can allow for smoother movement
