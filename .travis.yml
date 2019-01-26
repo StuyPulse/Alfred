@@ -1,0 +1,13 @@
+language: minimal
+
+install:
+  - mkdir ~/frc2019
+  - wget https://github.com/wpilibsuite/allwpilib/releases/download/v2019.2.1/WPILib_Linux-2019.2.1.tar.gz
+  - mv WPILib_Linux-2019.2.1.tar.gz ~/frc2019
+  - cd ~/frc2019
+  - tar xf WPILib_Linux-2019.2.1.tar.gz
+  - export JAVA_HOME=~/frc2019/jdk
+  - export PATH=$PATH:~/frc2019/jdk/bin
+
+script:
+  - ./gradlew build
