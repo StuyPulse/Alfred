@@ -10,18 +10,10 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 
-/**
- * Add your docs here.
- */
 public class LiftEnableRampingCommand extends InstantCommand {
-  /**
-   * Add your docs here.
-   */
   public LiftEnableRampingCommand() {
     super();
     requires(Robot.lift);
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
   }
 
   // Called once when the command executes

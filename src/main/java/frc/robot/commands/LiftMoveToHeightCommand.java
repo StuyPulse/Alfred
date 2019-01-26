@@ -15,9 +15,7 @@ public class LiftMoveToHeightCommand extends Command {
 
   public LiftMoveToHeightCommand(double targetHeight) {
     requires(Robot.lift);
-    this.targetHeight = targetHeight; 
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+    this.targetHeight = targetHeight;
   }
 
   // Called just before this Command runs the first time
@@ -29,7 +27,7 @@ public class LiftMoveToHeightCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if (Robot.lift.getHeight() >= targetHeight) {
+    if (Robot.lift.getHeight() > targetHeight) {
       Robot.lift.moveRamp(-1);
     } else {
       Robot.lift.moveRamp(1);

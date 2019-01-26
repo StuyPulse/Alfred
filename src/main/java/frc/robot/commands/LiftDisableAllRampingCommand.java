@@ -9,14 +9,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
-
-/**
- * Add your docs here.
- */
 public class LiftDisableAllRampingCommand extends InstantCommand {
-  /**
-   * Add your docs here.
-   */
   public LiftDisableAllRampingCommand() {
     super();
     requires(Robot.lift);

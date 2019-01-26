@@ -16,8 +16,6 @@ public class LiftMoveCommand extends Command {
   public LiftMoveCommand(double speed) {
     requires(Robot.lift);
     this.speed = speed; 
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
   }
 
   // Called just before this Command runs the first time

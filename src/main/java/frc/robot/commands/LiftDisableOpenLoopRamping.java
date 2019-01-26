@@ -9,22 +9,13 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
-
-/**
- * Add your docs here.
- */
 public class LiftDisableOpenLoopRamping extends InstantCommand {
-  /**
-   * Add your docs here.
-   */
+
   public LiftDisableOpenLoopRamping() {
     super();
     requires(Robot.lift);
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
   }
 
-  // Called once when the command executes
   @Override
   protected void initialize() {
     Robot.lift.disableOpenLoopRamping();
