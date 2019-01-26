@@ -63,7 +63,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotPeriodic() {
-        enableCompressor();
+        controlCompressor();
     }
 
     /**
@@ -143,7 +143,7 @@ public class Robot extends TimedRobot {
     public void testPeriodic() {
     }
 
-    public void enableCompressor() {
+    public void controlCompressor() {
         if (!drivetrain.isMoving()) {
             compressor.start();
         } else {
