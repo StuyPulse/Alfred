@@ -94,11 +94,11 @@ public class Lift extends Subsystem {
   }
 
   public void moveLift(double speed) {
-    if(speed < RobotMap.LIFT_MIN_SPEED && speed > -RobotMap.LIFT_MIN_SPEED) {
+    if (speed < RobotMap.LIFT_MIN_SPEED && speed > -RobotMap.LIFT_MIN_SPEED) {
       stopLift();  
-    }else if((speed >= RobotMap.LIFT_MIN_SPEED && isAtTop()) || (speed <= -RobotMap.LIFT_MIN_SPEED && isAtBottom())) {
+    } else if ((speed >= RobotMap.LIFT_MIN_SPEED && isAtTop()) || (speed <= -RobotMap.LIFT_MIN_SPEED && isAtBottom())) {
       stopLift();
-    }else {
+    } else {
       release();
       masterTalon.set(ControlMode.PercentOutput, speed);
     }
@@ -108,10 +108,10 @@ public class Lift extends Subsystem {
   public void moveRamp(double desiredSpeed) {
     double currentHeight = getHeight(); 
     double speed = desiredSpeed;
-    if(desiredSpeed < 0 && currentHeight < RobotMap.LIFT_RAMP_HEIGHT_THRESHOLD) {
+    if (desiredSpeed < 0 && currentHeight < RobotMap.LIFT_RAMP_HEIGHT_THRESHOLD) {
       speed = -(RobotMap.LIFT_RAMP_HEIGHT_THRESHOLD * currentHeight + RobotMap.LIFT_MIN_SPEED);
       speed = Math.max(speed, desiredSpeed); 
-    }else if(currentHeight > RobotMap.LIFT_MAX_HEIGHT - RobotMap.LIFT_RAMP_HEIGHT_THRESHOLD) {
+    } else if (currentHeight > RobotMap.LIFT_MAX_HEIGHT - RobotMap.LIFT_RAMP_HEIGHT_THRESHOLD) {
       speed = RobotMap.LIFT_RAMP_HEIGHT_THRESHOLD * (RobotMap.LIFT_MAX_HEIGHT - currentHeight) + RobotMap.LIFT_MIN_SPEED;
       speed = Math.min(speed, desiredSpeed);
     }
@@ -141,9 +141,9 @@ public class Lift extends Subsystem {
 
   public void enableRamping() {
     rampDisabled = false; 
-    if(!isAutomatic) {
+    if (!isAutomatic) {
       masterTalon.configOpenloopRamp(0.5, 0);
-    }else {
+    } else {
       masterTalon.configOpenloopRamp(0.2, 0);
     }
   }

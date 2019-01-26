@@ -29,9 +29,9 @@ public class LiftMoveCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if(Robot.lift.rampDisabled) {
+    if (Robot.lift.rampDisabled) {
       Robot.lift.moveLift(speed);
-    }else {
+    } else {
       Robot.lift.moveRamp(speed);
     }
   }
