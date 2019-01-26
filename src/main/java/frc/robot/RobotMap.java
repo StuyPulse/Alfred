@@ -77,4 +77,11 @@ public interface RobotMap {
     public static final double LIFT_MAX_HEIGHT = 1;
     public static final double LIFT_RAMP_HEIGHT_THRESHOLD = 1;
     public static final double LIFT_RAMP_SLOPE = 1;
+
+    /***************************************************************************************
+    *      Fangs Solenoid Constants                                                                    
+    ****************************************************************************************/
+    int FANG_SOLENOID_OPEN_PORT = -1;
+    int FANG_SOLENOID_CLOSE_PORT = -1;
+
 }
