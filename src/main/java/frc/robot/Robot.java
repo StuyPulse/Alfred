@@ -22,7 +22,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * project.
  */
 public class Robot extends TimedRobot {
-    public static OI m_oi;
+    public static OI oi;
     public static Floop floop;
 
     Command m_autonomousCommand;
@@ -35,7 +35,7 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() {
         floop = new Floop();
-        m_oi = new OI();
+        oi = new OI();
         // chooser.addOption("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", m_chooser);
     }
