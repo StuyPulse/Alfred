@@ -18,14 +18,16 @@ import edu.wpi.first.wpilibj.Solenoid;
  */
 public class Tail extends Subsystem {
 
-    Victor tailMotor;
+    CANSparkMax tailMotor;
     Solenoid releaseAbomSolenoid;
     Solenoid elevateSolenoid;
 
     public Tail() {
-        tailMotor = new Victor(RobotMap.TAIL_MOTOR);
+        tailMotor = new CANSparkMax(RobotMap.TAIL_MOTOR, MotorType.kBrushless);
         elevateSolenoid = new Solenoid(RobotMap.RAISE_TAIL_SOLENOID);
         releaseAbomSolenoid = new Solenoid(RobotMap.RELEASE_ABOM_SOLENOID);
+
+        tailMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
     }
 
     @Override
