@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * Add your docs here.
  */
 public class Floop extends Subsystem {
+
     private DoubleSolenoid floopSolenoid;
 
     public Floop() {
@@ -30,14 +31,14 @@ public class Floop extends Subsystem {
     }
 
     public void toggle() {
-        if (opened()) {
+        if(isOpen()) {
             close();
         } else {
             open();
         }
     }
 
-    public boolean opened() {
+    public boolean isOpen() {
         return floopSolenoid.get() == DoubleSolenoid.Value.kForward;
     }
     // Put methods for controlling this subsystem
