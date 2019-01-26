@@ -10,7 +10,10 @@ package frc.robot.subsystems;
 import frc.robot.RobotMap;
 import frc.robot.commands.ClimbCommand;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.Victor;
+
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj.Solenoid;
 
 /**
@@ -49,11 +52,6 @@ public class Tail extends Subsystem {
     // Gets the speed of the Tail Motor
     public double getSpeed() {
         return tailMotor.get();
-    }
-
-    // Motor Safety
-    public boolean isAlive() {
-        return tailMotor.isAlive();
     }
 
     // Abom Stuff
