@@ -8,34 +8,34 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
+
 public class Rollers extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
-  private WPI_TalonSRX motor;
+    private WPI_TalonSRX motor;
 
-  @Override
-  public void initDefaultCommand() {
-    motor = new WPI_TalonSRX(RobotMap.ROLLER_MOTOR_PORT);
-  }
+    public Rollers() {
+        motor = new WPI_TalonSRX(RobotMap.ROLLER_MOTOR_PORT);
+    }
 
-  public void acquire() {
-    motor.set(1);
-  }
+    @Override
+    public void initDefaultCommand() {
+    }
 
-  public void deacquire() {
-    motor.set(-1);
-  }
+    public void acquire() {
+        setSpeed(1);
+    }
 
-  public void stop() {
-    motor.set(0);
-  }
+    public void deacquire() {
+        setSpeed(-1);
+    }
 
-  public void acquireSpeed(double speed) {
-    motor.set(speed);
-  }
+    public void stop() {
+        setSpeed(0);
+    }
 
-  
+    public void setSpeed(double speed) {
+        motor.set(speed);
+    }
+
 }
