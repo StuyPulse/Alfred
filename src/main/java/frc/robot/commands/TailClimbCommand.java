@@ -32,7 +32,7 @@ public class TailClimbCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        this.speed = Robot.oi.operator.getLeftY();
+        this.speed = Robot.oi.operatorGamepad.getLeftY();
         // Raises the lift once
         if (speed > .9 && !isRaised) {
             Robot.tail.raiseTail();

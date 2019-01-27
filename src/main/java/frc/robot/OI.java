@@ -7,46 +7,48 @@
 
 package frc.robot;
 
-import frc.util.Gamepad;
-
 import frc.robot.commands.AbomChargeCommand;
+import frc.robot.commands.CVAutoCommand;
+import frc.robot.commands.CVTurnCommand;
+import frc.robot.commands.DrivetrainGearshiftCommand;
+import frc.robot.commands.FangsLowerCommand;
+import frc.robot.commands.FangsRaiseCommand;
+import frc.robot.commands.FloopCloseCommand;
+import frc.robot.commands.FloopOpenCommand;
+import frc.robot.commands.RollersAcquireCommand;
+import frc.robot.commands.RollersDeacquireCommand;
+import frc.robot.commands.RollersMoveSpeedCommand;
+import frc.util.Gamepad;
+import frc.util.Gamepad.GamepadSwitchMode;
 
-/**
- * This class is the glue that binds the controls on the physical operator
- * interface to the commands and command groups that allow control of the robot.
- */
 public class OI {
-    public Gamepad operator;
+    public Gamepad driverGamepad;
+    public Gamepad operatorGamepad;
 
     public OI() {
-        operator = new Gamepad(1);
-        operator.getDPadUp().whenPressed(new AbomChargeCommand(true));
-        operator.getDPadDown().whenPressed(new AbomChargeCommand(false));
+        driverGamepad = new Gamepad(RobotMap.DRIVER_GAMEPAD_PORT, GamepadSwitchMode.SWITCH_X);
+        operatorGamepad = new Gamepad(RobotMap.OPERATOR_GAMEPAD_PORT, GamepadSwitchMode.SWITCH_X);
+        /******************************************
+        * Driver Code
+        ******************************************/
+        // TODO: Make these real!
+        driverGamepad.getLeftButton().whileHeld(new CVTurnCommand());
+        driverGamepad.getBottomButton().whileActive(new DrivetrainGearshiftCommand());
+        driverGamepad.getTopButton().whileHeld(new CVAutoCommand());
+
+        /******************************************
+        * Operator Code
+         ******************************************/
+        //TODO: Make these real!
+        operatorGamepad.getRightTrigger().whileHeld(new RollersMoveSpeedCommand(1));
+        operatorGamepad.getLeftTrigger().whileHeld(new RollersMoveSpeedCommand(-1));
+        operatorGamepad.getRightBumper().whileHeld(new RollersMoveSpeedCommand(0.4));
+        operatorGamepad.getLeftBumper().whileHeld(new RollersMoveSpeedCommand(-0.4));
+        operatorGamepad.getTopButton().whileHeld(new FangsRaiseCommand());
+        operatorGamepad.getBottomButton().whileHeld(new FangsLowerCommand());
+        operatorGamepad.getRightButton().whileHeld(new FloopCloseCommand());
+        operatorGamepad.getLeftButton().whileHeld(new FloopOpenCommand());
+        operatorGamepad.getDPadUp().whenPressed(new AbomChargeCommand(true));
+        operatorGamepad.getDPadDown().whenPressed(new AbomChargeCommand(false));
     }
-    //// CREATING BUTTONS
-    // One type of button is a joystick button which is any button on a
-    //// joystick.
-    // You create one by telling it which joystick it's on and which button
-    // number it is.
-    // Joystick stick = new Joystick(port);
-    // Button button = new JoystickButton(stick, buttonNumber);
-    // There are a few additional built in buttons you can use. Additionally,
-    // by subclassing Button you can create custom triggers and bind those to
-    // commands the same as any other Button.
-
-    //// TRIGGERING COMMANDS WITH BUTTONS
-    // Once you have a button, it's trivial to bind it to a button in one of
-    // three ways:
-
-    // Start the command when the button is pressed and let it run the command
-    // until it is finished as determined by it's isFinished method.
-    // button.whenPressed(new ExampleCommand());
-
-    // Run the command while the button is being held down and interrupt it once
-    // the button is released.
-    // button.whileHeld(new ExampleCommand());
-
-    // Start the command when the button is released and let it run the command
-    // until it is finished as determined by it's isFinished method.
-    // button.whenReleased(new ExampleCommand());
 }

@@ -31,8 +31,8 @@ public interface RobotMap {
     ****************************************************************************************/
     int ABOM_CHARGE_DELAY = 300; // Time it takes for a piston to fire and retract
     /***************************************************************************************
-    *      CV Constants                                                                    
-    ****************************************************************************************/
+     * CV Constants
+     ****************************************************************************************/
 	double ACCELERATION_DIV = 4; // Using averages, you can allow for smoother movement
 	double CV_SPEED = 0; // Speed that stays the same through movements
     /***************************************************************************************
@@ -69,9 +69,21 @@ public interface RobotMap {
     double WHEEL_DIAMETER = 6;
     double WHEEL_INCHES_PER_REVOLUTION = WHEEL_DIAMETER * Math.PI;
 
+    int GEAR_SHIFT_CHANNEL = -1;
+
     /***************************************************************************************
     *      Floop Solenoid Constants                                                                    
     ****************************************************************************************/
     int FLOOP_FORWARD_CHANNEL = -1;
     int FLOOP_REVERSE_CHANNEL = -1;
+    /***************************************************************************************
+    *      Fangs Solenoid Constants                                                                    
+    ****************************************************************************************/
+    int FANGS_OPEN_CHANNEL = -1;
+    int FANGS_CLOSE_CHANNEL = -1;
+
+    /***************************************************************************************
+    *      Rollers Constants                                                                   
+    ****************************************************************************************/
+    public static final int ROLLER_MOTOR_PORT = -1;
 }
