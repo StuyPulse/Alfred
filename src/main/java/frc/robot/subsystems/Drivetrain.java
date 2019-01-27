@@ -126,6 +126,6 @@ public class Drivetrain extends Subsystem {
     }
 
     public boolean isMoving() {
-        return (rightEncoder.getVelocity() > 0 || leftEncoder.getVelocity() > 0);
-    }
-}
+        return (rightEncoder.getBusVoltage() > 0 || leftEncoder.getBusVoltage() > 0);
+    }`
+}   
