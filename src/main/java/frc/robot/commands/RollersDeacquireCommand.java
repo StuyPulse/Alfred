@@ -10,9 +10,11 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-private double speed;
 
 public class RollersDeacquireCommand extends Command {
+
+  private double speed;
+
   public RollersDeacquireCommand(double speed) {
     requires(Robot.rollers);
     this.speed = speed;

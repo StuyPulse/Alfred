@@ -10,9 +10,12 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-private double speed;
 
 public class RollersAcquireFastCommand extends Command {
+
+
+  private double speed;
+
   public RollersAcquireFastCommand() {
     requires(Robot.rollers);
   }
@@ -23,7 +26,7 @@ public class RollersAcquireFastCommand extends Command {
 
   @Override
   protected void execute() {
-    this.speed = Robot.oi.driverGamepad.getRawRightTriggerAxis();
+    this.speed = Robot.oi.driverGamepad.getRawRightBumper();
     Robot.rollers.acquireSpeed(speed);
   }
 
