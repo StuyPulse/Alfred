@@ -9,8 +9,8 @@ package frc.robot;
 public interface RobotMap {
 
     /***************************************************************************************
-    *      CV Constants                                                                    
-    ****************************************************************************************/
+     * CV Constants
+     ****************************************************************************************/
 	double ACCELERATION_DIV = 4; // Using averages, you can allow for smoother movement
 	double CV_SPEED = 0; // Speed that stays the same through movements
     /***************************************************************************************
@@ -45,7 +45,9 @@ public interface RobotMap {
     int RIGHT_BOTTOM_MOTOR_PORT = -1;
   
     double WHEEL_DIAMETER = 6;
-    double WHEEL_INCHES_PER_REVOLLUTION = WHEEL_DIAMETER*Math.PI;
+    double WHEEL_INCHES_PER_REVOLUTION = WHEEL_DIAMETER * Math.PI;
+
+    int GEAR_SHIFT_CHANNEL = -1;
 
     /***************************************************************************************
     *      Floop Solenoid Constants                                                                    
@@ -84,8 +86,8 @@ public interface RobotMap {
     /***************************************************************************************
     * Fangs Solenoid Constants                                                                    
     ****************************************************************************************/
-    int FANG_SOLENOID_OPEN_PORT = -1;
-    int FANG_SOLENOID_CLOSE_PORT = -1;
+    int FANGS_OPEN_CHANNEL = -1;
+    int FANGS_CLOSE_CHANNEL = -1;
 
     /***************************************************************************************
     *      Rollers Constants                                                                   

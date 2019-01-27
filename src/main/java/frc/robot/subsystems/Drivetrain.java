@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.RobotMap;
 
@@ -38,6 +39,8 @@ public class Drivetrain extends Subsystem {
     private CANEncoder leftEncoder, rightEncoder;
 
     public static AHRS navX;
+    
+    private Solenoid gearShift;
 
     public Drivetrain() {
         // Left Side Motors
@@ -58,6 +61,8 @@ public class Drivetrain extends Subsystem {
         leftSpeedGroup = new SpeedControllerGroup(leftTopMotor, leftMiddleMotor, leftBottomMotor);
         rightSpeedGroup = new SpeedControllerGroup(rightTopMotor, rightMiddleMotor, rightBottomMotor);
 
+        //Gear Shift
+        gearShift = new Solenoid(RobotMap.GEAR_SHIFT_CHANNEL);
         // navx
         navX = new AHRS(SPI.Port.kMXP);
         // Drive
@@ -110,11 +115,11 @@ public class Drivetrain extends Subsystem {
     }
 
     public double getLeftDistance() {
-        return leftEncoder.getPosition() * RobotMap.WHEEL_INCHES_PER_REVOLLUTION;
+        return leftEncoder.getPosition() * RobotMap.WHEEL_INCHES_PER_REVOLUTION;
     }
 
     public double getRightDistance() {
-        return rightEncoder.getPosition() * RobotMap.WHEEL_INCHES_PER_REVOLLUTION;
+        return rightEncoder.getPosition() * RobotMap.WHEEL_INCHES_PER_REVOLUTION;
     }
 
     public double getDistance() {
@@ -127,5 +132,17 @@ public class Drivetrain extends Subsystem {
 
     public boolean isMoving() {
         return (rightSpeedGroup.get() > 0 || leftSpeedGroup.get() > 0);
+    }
+
+    public void highGearShift() {
+        gearShift.set(false);
+    }
+
+    public void lowGearShift() {
+        gearShift.set(true);
+    }
+
+    public void toggleGearShift(){
+        gearShift.set(!(gearShift.get()));
     }
 }
