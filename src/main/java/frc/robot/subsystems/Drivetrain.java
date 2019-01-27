@@ -124,4 +124,8 @@ public class Drivetrain extends Subsystem {
     public double getGyroAngle() {
         return navX.getAngle();
     }
+
+    public boolean isMoving() {
+        return (rightEncoder.getVelocity() > 0 || leftEncoder.getVelocity() > 0);
+    }
 }
