@@ -7,14 +7,15 @@
 
 package frc.robot;
 
-import frc.robot.subsystems.Floop;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.Compressor;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Floop;
+import frc.robot.subsystems.Rollers;
 import frc.util.Gamepad;
 
 /**
@@ -25,15 +26,12 @@ import frc.util.Gamepad;
  * project.
  */
 public class Robot extends TimedRobot {
-    public static OI m_oi;
-
-    Command m_autonomousCommand;
     public static Gamepad DriverPad = new Gamepad(RobotMap.DRIVER_GAMEPAD_PORT);
-    SendableChooser<Command> m_chooser = new SendableChooser<>();
     public static Drivetrain drivetrain;
     public static OI oi;
     public static Floop floop;
     public static Compressor compressor;
+    public static Rollers rollers;
 
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<>();
@@ -47,6 +45,7 @@ public class Robot extends TimedRobot {
         drivetrain = new Drivetrain();
         floop = new Floop();
         compressor = new Compressor();
+        rollers = new Rollers();
         oi = new OI();
         // chooser.addOption("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
