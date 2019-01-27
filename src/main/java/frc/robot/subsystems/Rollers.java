@@ -34,7 +34,7 @@ public class Rollers extends Subsystem {
         setSpeed(0);
     }
 
-    public void setSpeed(double speed) {
+    public void acquireSpeed(double speed) {
         motor.set(speed);
     }
 
