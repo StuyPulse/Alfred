@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import frc.robot.subsystems.Lift;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Fangs;
@@ -32,6 +33,7 @@ public class Robot extends TimedRobot {
     public static Drivetrain drivetrain;
     public static OI oi;
     public static Floop floop;
+    public static Lift lift; 
     public static Compressor compressor;
     public static Rollers rollers;
     public static Fangs fangs;
@@ -47,6 +49,7 @@ public class Robot extends TimedRobot {
     public void robotInit() {
         drivetrain = new Drivetrain();
         floop = new Floop();
+        lift = new Lift(); 
         compressor = new Compressor();
         rollers = new Rollers();
         oi = new OI();
