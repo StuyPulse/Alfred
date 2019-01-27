@@ -34,7 +34,7 @@ public class Robot extends TimedRobot {
     public static Floop floop;
     public static Compressor compressor;
     public static Rollers rollers;
-	public static Fangs fangs;
+    public static Fangs fangs;
 
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<>();

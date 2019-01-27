@@ -9,9 +9,6 @@ package frc.robot;
 
 public interface RobotMap {
 
-    /**
-     *
-     */
     /***************************************************************************************
      * CV Constants
      ****************************************************************************************/
@@ -49,7 +46,7 @@ public interface RobotMap {
     int RIGHT_BOTTOM_MOTOR_PORT = -1;
   
     double WHEEL_DIAMETER = 6;
-    double WHEEL_INCHES_PER_REVOLUTION = WHEEL_DIAMETER*Math.PI;
+    double WHEEL_INCHES_PER_REVOLUTION = WHEEL_DIAMETER * Math.PI;
 
     int GEAR_SHIFT_CHANNEL = -1;
 

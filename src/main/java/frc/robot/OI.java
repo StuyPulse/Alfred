@@ -9,6 +9,7 @@ package frc.robot;
 
 import frc.robot.commands.CVAutoCommand;
 import frc.robot.commands.CVTurnCommand;
+import frc.robot.commands.DrivetrainGearshiftCommand;
 import frc.robot.commands.FangsLowerCommand;
 import frc.robot.commands.FangsRaiseCommand;
 import frc.robot.commands.FloopCloseCommand;
@@ -31,7 +32,7 @@ public class OI {
         ******************************************/
         // TODO: Make these real!
         driverGamepad.getLeftButton().whileHeld(new CVTurnCommand());
-        // driverGamepad.getBottomButton().whileActive(new GearShiftCommand());
+        driverGamepad.getBottomButton().whileActive(new DrivetrainGearshiftCommand());
         driverGamepad.getTopButton().whileHeld(new CVAutoCommand());
 
         /******************************************

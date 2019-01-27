@@ -28,6 +28,10 @@ public class Fangs extends Subsystem {
         // setDefaultCommand(new MySpecialCommand());
     }
 
+    public void periodic(){
+
+    }
+    
     public void raise() {
         // TODO: Figure out which setting opens/which closes
         fangsSolenoid.set(DoubleSolenoid.Value.kForward);
