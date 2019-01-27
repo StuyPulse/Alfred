@@ -18,7 +18,6 @@ import frc.robot.subsystems.Abom;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Floop;
 import frc.robot.subsystems.Tail;
-import frc.util.Gamepad;
 import frc.robot.subsystems.Fangs;
 import frc.robot.subsystems.Rollers;
 
@@ -30,7 +29,6 @@ import frc.robot.subsystems.Rollers;
  * project.
  */
 public class Robot extends TimedRobot {
-    public static Gamepad DriverPad = new Gamepad(0);
     public static Drivetrain drivetrain;
     public static OI oi;
     public static Floop floop;

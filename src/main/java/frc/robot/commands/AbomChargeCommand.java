@@ -13,7 +13,7 @@ import frc.robot.RobotMap;
 
 public class AbomChargeCommand extends Command {
     private boolean climb;
-    private long start;
+    private long lastToggled;
 
     public AbomChargeCommand(boolean climb) {
         requires(Robot.abom);
@@ -23,18 +23,17 @@ public class AbomChargeCommand extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        start = System.currentTimeMillis();
+        lastToggled = System.currentTimeMillis();
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
         // Fire the piston repeatedly so that it fully extends before retracting 
-        if (climb && System.currentTimeMillis() - start <= RobotMap.ABOM_CHARGE_DELAY) {
+        if (climb && System.currentTimeMillis() - lastToggled <= RobotMap.ABOM_CHARGE_DELAY_MS) {
             Robot.abom.toggle();
-            start = System.currentTimeMillis();
+            lastToggled = System.currentTimeMillis();
         }
-        // Count the times execute has run, to know when to fire the pistons
     }
 
     // Make this return true when this Command no longer needs to run execute()

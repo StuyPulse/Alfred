@@ -41,18 +41,18 @@ public class CVTurnCommand extends Command {
     }
 
     protected void setTurn() {
-        turn = Math.pow(Robot.DriverPad.getLeftX(), RobotMap.JOYSTICK_SCALAR); // Left Stick
+        turn = Math.pow(Robot.oi.driverGamepad.getLeftX(), RobotMap.JOYSTICK_SCALAR); // Left Stick
         turn += LimeLight.getTargetXOffset() / (RobotMap.TURN_DIV * Math.max(RobotMap.MOVE_DIV * speed, 1));
     }
 
     protected void setSpeed() {
         quickTurn = true;
         speed *= RobotMap.ACCELERATION_DIV - 1;
-        if (Robot.DriverPad.getRawRightTrigger()) {
+        if (Robot.oi.driverGamepad.getRawRightTrigger()) {
             speed++;
             quickTurn = false;
         }
-        if (Robot.DriverPad.getRawLeftTrigger()) {
+        if (Robot.oi.driverGamepad.getRawLeftTrigger()) {
             speed--;
             quickTurn = false;
         }
@@ -62,6 +62,6 @@ public class CVTurnCommand extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return !(Robot.DriverPad.getRawLeftButton());
+        return !(Robot.oi.driverGamepad.getRawLeftButton());
     }
 }
