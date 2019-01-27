@@ -13,10 +13,8 @@ import frc.util.Gamepad.GamepadSwitchMode;
 public class OI {
 
     public Gamepad driverGamepad;
-
     public OI() {
 
         driverGamepad = new Gamepad(RobotMap.DRIVER_GAMEPAD_PORT, GamepadSwitchMode.SWITCH_X);
-
     }
 }
