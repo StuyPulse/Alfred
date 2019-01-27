@@ -1,0 +1,5 @@
+language: java
+jdk:
+  - openjdk11
+notifications:
+    slack: stuypulse:6q6rLeQYkkcJqsfc3YRDVEbq

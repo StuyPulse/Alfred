@@ -7,18 +7,45 @@
 
 package frc.robot.subsystems;
 
+import frc.robot.RobotMap;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  * Add your docs here.
  */
 public class Floop extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
+    private DoubleSolenoid floopSolenoid;
 
-  @Override
-  public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
-  }
+    public Floop() {
+        floopSolenoid = new DoubleSolenoid(RobotMap.FLOOP_FORWARD_CHANNEL, RobotMap.FLOOP_REVERSE_CHANNEL);
+    }
+
+    public void open() {
+        floopSolenoid.set(DoubleSolenoid.Value.kForward);
+    }
+
+    public void close() {
+        floopSolenoid.set(DoubleSolenoid.Value.kReverse);
+    }
+
+    public void toggle() {
+        if (opened()) {
+            close();
+        } else {
+            open();
+        }
+    }
+
+    public boolean opened() {
+        return floopSolenoid.get() == DoubleSolenoid.Value.kForward;
+    }
+    // Put methods for controlling this subsystem
+    // here. Call these from Commands.
+
+    @Override
+    public void initDefaultCommand() {
+        // Set the default command for a subsystem here.
+        // setDefaultCommand(new MySpecialCommand());
+    }
 }
