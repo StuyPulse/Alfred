@@ -6,12 +6,11 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot;
-
 public interface RobotMap {
 
     /***************************************************************************************
-    *      CV Constants                                                                    
-    ****************************************************************************************/
+     * CV Constants
+     ****************************************************************************************/
 	double ACCELERATION_DIV = 4; // Using averages, you can allow for smoother movement
 	double CV_SPEED = 0; // Speed that stays the same through movements
     /***************************************************************************************
@@ -46,7 +45,9 @@ public interface RobotMap {
     int RIGHT_BOTTOM_MOTOR_PORT = -1;
   
     double WHEEL_DIAMETER = 6;
-    double WHEEL_INCHES_PER_REVOLLUTION = WHEEL_DIAMETER*Math.PI;
+    double WHEEL_INCHES_PER_REVOLUTION = WHEEL_DIAMETER * Math.PI;
+
+    int GEAR_SHIFT_CHANNEL = -1;
 
     /***************************************************************************************
     *      Floop Solenoid Constants                                                                    
@@ -54,11 +55,39 @@ public interface RobotMap {
     int FLOOP_FORWARD_CHANNEL = -1;
     int FLOOP_REVERSE_CHANNEL = -1;
 
+    /**************************************************************************
+     * Lift Ports
+     *************************************************************************/
+    public static final int LIFT_MASTER_TALON_MOTOR_PORT = -1;
+    public static final int LIFT_FOLLOWER_TALON_MOTOR_PORT = -1;
+
+    public static final int LIFT_TILT_SOLENOID_FORWARD_PORT = -1;
+    public static final int LIFT_TILT_SOLENOID_REVERSE_PORT = -1;
+
+    public static final int LIFT_BRAKE_SOLENOID_FORWARD_PORT = -1;
+    public static final int LIFT_BRAKE_SOLENOID_REVERSE_PORT = -1;
+
+    public static final int LIFT_TOP_LIMIT_SWITCH_PORT = -1;
+    public static final int LIFT_BOTTOM_LIMIT_SWITCH_PORT = -1;
+
+    /**************************************************************************
+     * Lift Constants
+     *************************************************************************/
+    public static final double LIFT_WINCH_DIAMETER_INCHES = 1.75; 
+    public static final double LIFT_EMPIRICAL_RAW_MULTIPLIER = 1;
+    public static final double LIFT_ENCODER_RAW_MULTIPLIER = 
+        LIFT_EMPIRICAL_RAW_MULTIPLIER * (LIFT_WINCH_DIAMETER_INCHES * Math.PI); 
+    public static final double LIFT_MIN_SPEED = 0.1;
+    //Waiting on eng for the height 
+    public static final double LIFT_MAX_HEIGHT = -1;
+    public static final double LIFT_MIN_HEIGHT = -1;  
+    public static final double LIFT_RAMP_HEIGHT_THRESHOLD = 1;
+
     /***************************************************************************************
-    *      Fangs Solenoid Constants                                                                    
+    * Fangs Solenoid Constants                                                                    
     ****************************************************************************************/
-    int FANG_SOLENOID_OPEN_PORT = -1;
-    int FANG_SOLENOID_CLOSE_PORT = -1;
+    int FANGS_OPEN_CHANNEL = -1;
+    int FANGS_CLOSE_CHANNEL = -1;
 
     /***************************************************************************************
     *      Rollers Constants                                                                   
