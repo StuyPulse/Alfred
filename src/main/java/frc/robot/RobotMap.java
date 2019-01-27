@@ -63,6 +63,6 @@ public interface RobotMap {
     /***************************************************************************************
     *      Rollers Constants                                                                   
     ****************************************************************************************/
-    public static final int ROLLER_MOTOR_PORT = -1;
-  public static final int SLOW_ROLLER_MULTIPLIER = 0.75;
+    int ROLLER_MOTOR_PORT = -1;
+    double SLOW_ROLLER_MULTIPLIER = 0.75;
 }

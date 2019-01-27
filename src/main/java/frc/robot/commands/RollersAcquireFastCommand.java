@@ -13,9 +13,6 @@ import frc.robot.Robot;
 
 public class RollersAcquireFastCommand extends Command {
 
-
-  private double speed;
-
   public RollersAcquireFastCommand() {
     requires(Robot.rollers);
   }
@@ -26,8 +23,7 @@ public class RollersAcquireFastCommand extends Command {
 
   @Override
   protected void execute() {
-    this.speed = Robot.oi.driverGamepad.getRawRightBumper();
-    Robot.rollers.setSpeed(speed);
+    Robot.rollers.acquire();
   }
 
   @Override
