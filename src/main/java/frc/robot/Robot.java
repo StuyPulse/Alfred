@@ -11,9 +11,11 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Fangs;
 import frc.robot.subsystems.Floop;
 import frc.robot.subsystems.Rollers;
 import frc.util.Gamepad;
@@ -32,6 +34,7 @@ public class Robot extends TimedRobot {
     public static Floop floop;
     public static Compressor compressor;
     public static Rollers rollers;
+	public static Fangs fangs;
 
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<>();

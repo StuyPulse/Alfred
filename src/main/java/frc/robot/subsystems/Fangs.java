@@ -16,14 +16,10 @@ import frc.robot.RobotMap;
  */
 
 public class Fangs extends Subsystem {
-
-    private DoubleSolenoid fangSolenoid;
+    private DoubleSolenoid fangsSolenoid;
 
     public Fangs() {
-        fangSolenoid = new DoubleSolenoid(
-            RobotMap.FANG_SOLENOID_OPEN_PORT,
-            RobotMap.FANG_SOLENOID_CLOSE_PORT
-        );
+        fangsSolenoid = new DoubleSolenoid(RobotMap.FANGS_OPEN_CHANNEL, RobotMap.FANGS_CLOSE_CHANNEL);
     }
 
     @Override
@@ -32,18 +28,13 @@ public class Fangs extends Subsystem {
         // setDefaultCommand(new MySpecialCommand());
     }
 
-    @Override
-    public void periodic() {
-        super.periodic();
+    public void raise() {
+        // TODO: Figure out which setting opens/which closes
+        fangsSolenoid.set(DoubleSolenoid.Value.kForward);
     }
 
     public void lower() {
-        // TODO: Figure out which setting opens/which closes
-        fangSolenoid.set(DoubleSolenoid.Value.kForward);
-    }
-
-    public void raise() {
-        fangSolenoid.set(DoubleSolenoid.Value.kReverse);
+        fangsSolenoid.set(DoubleSolenoid.Value.kReverse);
     }
 
     public void toggle() {
@@ -55,6 +46,6 @@ public class Fangs extends Subsystem {
     }
 
     public boolean isUp() {
-        return fangSolenoid.get() == DoubleSolenoid.Value.kForward;
+        return fangsSolenoid.get() == DoubleSolenoid.Value.kForward;
     }
 }

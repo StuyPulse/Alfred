@@ -30,6 +30,10 @@ public class Rollers extends Subsystem {
         setSpeed(-1);
     }
 
+    public void acquireSpeed(double speed) {
+        setSpeed(speed);
+    }
+
     public void stop() {
         setSpeed(0);
     }

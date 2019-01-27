@@ -9,8 +9,13 @@ package frc.robot;
 
 import frc.robot.commands.CVAutoCommand;
 import frc.robot.commands.CVTurnCommand;
+import frc.robot.commands.FangsLowerCommand;
+import frc.robot.commands.FangsRaiseCommand;
 import frc.robot.commands.FloopCloseCommand;
 import frc.robot.commands.FloopOpenCommand;
+import frc.robot.commands.RollersAcquireCommand;
+import frc.robot.commands.RollersDeacquireCommand;
+import frc.robot.commands.RollersMoveSpeedCommand;
 import frc.util.Gamepad;
 import frc.util.Gamepad.GamepadSwitchMode;
 
@@ -33,12 +38,12 @@ public class OI {
         * Operator Code
          ******************************************/
         //TODO: Make these real!
-        // operatorGamepad.getRightTrigger().whileHeld(new RollersAcquireCommand(1));
-        // operatorGamepad.getLeftTrigger().whileHeld(new RollersDeacquireCommand());
-        // operatorGamepad.getRightBumper().whileHeld(new RollersAcquireCommand(.5));
-        // operatorGamepad.getLeftBumper().whileHeld(new RollersDeacquireCommand());
-        // operatorGamepad.getTopButton().whileHeld(new FangsUpCommand());
-        // operatorGamepad.getBottomButton().whileHeld(new FangsDownCommand());
+        operatorGamepad.getRightTrigger().whileHeld(new RollersMoveSpeedCommand(1));
+        operatorGamepad.getLeftTrigger().whileHeld(new RollersMoveSpeedCommand(-1));
+        operatorGamepad.getRightBumper().whileHeld(new RollersMoveSpeedCommand(0.4));
+        operatorGamepad.getLeftBumper().whileHeld(new RollersMoveSpeedCommand(-0.4));
+        operatorGamepad.getTopButton().whileHeld(new FangsRaiseCommand());
+        operatorGamepad.getBottomButton().whileHeld(new FangsLowerCommand());
         operatorGamepad.getRightButton().whileHeld(new FloopCloseCommand());
         operatorGamepad.getLeftButton().whileHeld(new FloopOpenCommand());
     }
