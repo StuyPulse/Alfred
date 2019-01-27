@@ -26,7 +26,7 @@ public class RollersDeacquireCommand extends Command {
 
   @Override
   protected void execute() {
-    Robot.rollers.acquireSpeed(speed);
+    Robot.rollers.setSpeed(speed);
   }
 
   @Override

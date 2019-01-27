@@ -28,7 +28,7 @@ public class RollersAcquireSlowCommand extends Command {
   @Override
   protected void execute() {
     this.speed = Robot.oi.driverGamepad.getRawRightTriggerAxis();
-    Robot.rollers.acquireSpeed(speed * RobotMap.SLOW_ROLLER_MULTIPLIER);
+    Robot.rollers.setSpeed(speed * RobotMap.SLOW_ROLLER_MULTIPLIER);
   }
 
   @Override
