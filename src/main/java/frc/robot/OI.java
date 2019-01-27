@@ -8,6 +8,7 @@
 package frc.robot;
 
 import frc.robot.commands.CVAutoCommand;
+import frc.robot.commands.CVTurnCommand;
 import frc.robot.commands.FloopCloseCommand;
 import frc.robot.commands.FloopOpenCommand;
 import frc.util.Gamepad;
@@ -24,7 +25,7 @@ public class OI {
         * Driver Code
         ******************************************/
         // TODO: Make these real!
-        // driverGamepad.getLeftButton().whileHeld(new CVLaneCommand());
+        driverGamepad.getLeftButton().whileHeld(new CVTurnCommand());
         // driverGamepad.getBottomButton().whileActive(new GearShiftCommand());
         driverGamepad.getTopButton().whileHeld(new CVAutoCommand());
 
