@@ -21,14 +21,6 @@ public class Rollers extends Subsystem {
     motor = new WPI_TalonSRX(RobotMap.ROLLER_MOTOR_PORT);
   }
 
-  public void acquire() {
-    motor.set(1);
-  }
-
-  public void deacquire() {
-    motor.set(-1);
-  }
-
   public void stop() {
     motor.set(0);
   }

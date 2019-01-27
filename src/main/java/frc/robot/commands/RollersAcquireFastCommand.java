@@ -23,7 +23,7 @@ public class RollersAcquireFastCommand extends Command {
 
   @Override
   protected void execute() {
-    this.speed = Robot.oi.driverGamepad.getRawRightTriggerAxis();
+    this.speed = Robot.oi.driverGamepad.getRawRightBumper();
     Robot.rollers.acquireSpeed(speed);
   }
 
