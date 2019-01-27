@@ -7,6 +7,7 @@
 
 package frc.robot;
 public interface RobotMap {
+
     /***************************************************************************************
     *      CV Constants                                                                    
     ****************************************************************************************/
@@ -76,14 +77,18 @@ public interface RobotMap {
         LIFT_EMPIRICAL_RAW_MULTIPLIER * (LIFT_WINCH_DIAMETER_INCHES * Math.PI); 
     public static final double LIFT_MIN_SPEED = 0.1;
     //Waiting on eng for the height 
-    public static final double LIFT_MAX_HEIGHT = 1;
+    public static final double LIFT_MAX_HEIGHT = -1;
     public static final double LIFT_MIN_HEIGHT = -1;  
     public static final double LIFT_RAMP_HEIGHT_THRESHOLD = 1;
-    public static final double LIFT_RAMP_SLOPE = 1;
 
     /***************************************************************************************
     * Fangs Solenoid Constants                                                                    
     ****************************************************************************************/
     int FANG_SOLENOID_OPEN_PORT = -1;
     int FANG_SOLENOID_CLOSE_PORT = -1;
+
+    /***************************************************************************************
+    *      Rollers Constants                                                                   
+    ****************************************************************************************/
+    public static final int ROLLER_MOTOR_PORT = -1;
 }

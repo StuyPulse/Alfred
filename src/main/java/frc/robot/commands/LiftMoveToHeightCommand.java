@@ -27,8 +27,10 @@ public class LiftMoveToHeightCommand extends Command {
 
   @Override
   protected boolean isFinished() {
-    /* Finish if: are within the height at the top and still trying to go up at the
-     * bottom and still trying to go down
+    /* Finish if:
+    -are within the height
+    -at the top and still trying to go up
+    -at the bottom and still trying to go down
      */
     double error = targetHeight - Robot.lift.getHeight();
     return Math.abs(error) < ACCEPTED_ERROR_RANGE || (Robot.lift.isAtBottom() && error < 0)
