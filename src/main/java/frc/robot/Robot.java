@@ -11,15 +11,15 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.subsystems.Lift;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.subsystems.Abom;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.Fangs;
 import frc.robot.subsystems.Floop;
+import frc.robot.subsystems.Tail;
+import frc.robot.subsystems.Fangs;
 import frc.robot.subsystems.Rollers;
-import frc.util.Gamepad;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -29,10 +29,11 @@ import frc.util.Gamepad;
  * project.
  */
 public class Robot extends TimedRobot {
-    public static Gamepad DriverPad = new Gamepad(RobotMap.DRIVER_GAMEPAD_PORT);
     public static Drivetrain drivetrain;
     public static OI oi;
     public static Floop floop;
+    public static Abom abom;
+    public static Tail tail;
     public static Lift lift; 
     public static Compressor compressor;
     public static Rollers rollers;
@@ -49,6 +50,8 @@ public class Robot extends TimedRobot {
     public void robotInit() {
         drivetrain = new Drivetrain();
         floop = new Floop();
+        abom = new Abom();
+        tail = new Tail();
         lift = new Lift(); 
         compressor = new Compressor();
         rollers = new Rollers();

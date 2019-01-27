@@ -7,18 +7,35 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.RobotMap;
 
 /**
  * Add your docs here.
  */
 public class Abom extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
+    Solenoid abomSolenoid;
 
-  @Override
-  public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
-  }
+    // Put methods for controlling this subsystem
+    // here. Call these from Commands.
+    public Abom() {
+        abomSolenoid = new Solenoid(RobotMap.ABOM_SOLENOID);
+    }
+
+    @Override
+    public void initDefaultCommand() {
+        // Set the default command for a subsystem here.
+        // setDefaultCommand(new MySpecialCommand());
+    }
+
+    // Toggles between out and in for the solenoid
+    public void toggle() {
+        abomSolenoid.set(!abomSolenoid.get());
+    }
+
+    // Retracts the Solenoid
+    public void stop() {
+        abomSolenoid.set(false);
+    }
 }

@@ -7,7 +7,28 @@
 
 package frc.robot;
 public interface RobotMap {
+    // For example to map the left and right motors, you could define the
+    // following variables to use with your drivetrain subsystem.
+    // public static int leftMotor = 1;
+    // public static int rightMotor = 2;
 
+    // If you are using multiple modules, make sure to define both the port
+    // number and the module. For example you with a rangefinder:
+    // public static int rangefinderPort = 1;
+    // public static int rangefinderModule = 1;
+
+
+    /***************************************************************************************
+    *      Tail and Abom Ports                                                                
+    ****************************************************************************************/
+    int ABOM_SOLENOID = -1;
+    int TAIL_MOTOR = -1;
+    int RAISE_TAIL_SOLENOID = -1;
+    int RELEASE_ABOM_SOLENOID = -1;
+    /***************************************************************************************
+    *      Abom Charge Constants                                                                
+    ****************************************************************************************/
+    int ABOM_CHARGE_DELAY_MS = 300; // Time it takes for a piston to fire and retract
     /***************************************************************************************
      * CV Constants
      ****************************************************************************************/
@@ -43,7 +64,7 @@ public interface RobotMap {
     int RIGHT_TOP_MOTOR_PORT = -1;
     int RIGHT_MIDDLE_MOTOR_PORT = -1;
     int RIGHT_BOTTOM_MOTOR_PORT = -1;
-  
+
     double WHEEL_DIAMETER = 6;
     double WHEEL_INCHES_PER_REVOLUTION = WHEEL_DIAMETER * Math.PI;
 

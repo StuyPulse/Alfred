@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import frc.robot.commands.AbomChargeCommand;
 import frc.robot.commands.CVAutoCommand;
 import frc.robot.commands.CVTurnCommand;
 import frc.robot.commands.DrivetrainGearshiftCommand;
@@ -47,5 +48,7 @@ public class OI {
         operatorGamepad.getBottomButton().whileHeld(new FangsLowerCommand());
         operatorGamepad.getRightButton().whileHeld(new FloopCloseCommand());
         operatorGamepad.getLeftButton().whileHeld(new FloopOpenCommand());
+        operatorGamepad.getDPadUp().whenPressed(new AbomChargeCommand(true));
+        operatorGamepad.getDPadDown().whenPressed(new AbomChargeCommand(false));
     }
 }
