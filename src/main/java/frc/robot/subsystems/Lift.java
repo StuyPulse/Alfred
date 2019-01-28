@@ -9,6 +9,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 import frc.robot.commands.LiftMoveCommand;
@@ -21,7 +22,7 @@ public class Lift extends Subsystem {
     private DigitalInput bottomLimitSwitch;
 
     private DoubleSolenoid tiltSolenoid;
-    private DoubleSolenoid brakeSolenoid;
+    private Solenoid brakeSolenoid;
 
     public boolean rampDisabled;
 
@@ -38,8 +39,7 @@ public class Lift extends Subsystem {
 
         tiltSolenoid = new DoubleSolenoid(RobotMap.LIFT_TILT_SOLENOID_FORWARD_PORT,
                 RobotMap.LIFT_TILT_SOLENOID_REVERSE_PORT);
-        brakeSolenoid = new DoubleSolenoid(RobotMap.LIFT_BRAKE_SOLENOID_FORWARD_PORT,
-                RobotMap.LIFT_BRAKE_SOLENOID_REVERSE_PORT);
+        brakeSolenoid = new Solenoid(RobotMap.LIFT_BRAKE_SOLENOID_CHANNEL);
 
         topLimitSwitch = new DigitalInput(RobotMap.LIFT_TOP_LIMIT_SWITCH_PORT);
         bottomLimitSwitch = new DigitalInput(RobotMap.LIFT_BOTTOM_LIMIT_SWITCH_PORT);
@@ -148,11 +148,11 @@ public class Lift extends Subsystem {
     }
 
     public void enableBrake() {
-        brakeSolenoid.set(Value.kForward);
+        brakeSolenoid.set(false);
     }
 
     public void releaseBrake() {
-        brakeSolenoid.set(Value.kReverse);
+        brakeSolenoid.set(true);
     }
 
     public void enableRamping() {

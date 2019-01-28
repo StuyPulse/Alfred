@@ -79,30 +79,29 @@ public interface RobotMap {
     /**************************************************************************
      * Lift Ports
      *************************************************************************/
-    public static final int LIFT_MASTER_TALON_MOTOR_PORT = -1;
-    public static final int LIFT_FOLLOWER_TALON_MOTOR_PORT = -1;
+    int LIFT_MASTER_TALON_MOTOR_PORT = -1;
+    int LIFT_FOLLOWER_TALON_MOTOR_PORT = -1;
 
-    public static final int LIFT_TILT_SOLENOID_FORWARD_PORT = -1;
-    public static final int LIFT_TILT_SOLENOID_REVERSE_PORT = -1;
+    int LIFT_TILT_SOLENOID_FORWARD_PORT = -1;
+    int LIFT_TILT_SOLENOID_REVERSE_PORT = -1;
 
-    public static final int LIFT_BRAKE_SOLENOID_FORWARD_PORT = -1;
-    public static final int LIFT_BRAKE_SOLENOID_REVERSE_PORT = -1;
+    int LIFT_BRAKE_SOLENOID_CHANNEL = -1;
 
-    public static final int LIFT_TOP_LIMIT_SWITCH_PORT = -1;
-    public static final int LIFT_BOTTOM_LIMIT_SWITCH_PORT = -1;
+    int LIFT_TOP_LIMIT_SWITCH_PORT = -1;
+    int LIFT_BOTTOM_LIMIT_SWITCH_PORT = -1;
 
     /**************************************************************************
      * Lift Constants
      *************************************************************************/
-    public static final double LIFT_WINCH_DIAMETER_INCHES = 1.75; 
-    public static final double LIFT_EMPIRICAL_RAW_MULTIPLIER = 1;
-    public static final double LIFT_ENCODER_RAW_MULTIPLIER = 
+    double LIFT_WINCH_DIAMETER_INCHES = 1.75; 
+    double LIFT_EMPIRICAL_RAW_MULTIPLIER = 1;
+    double LIFT_ENCODER_RAW_MULTIPLIER = 
         LIFT_EMPIRICAL_RAW_MULTIPLIER * (LIFT_WINCH_DIAMETER_INCHES * Math.PI); 
-    public static final double LIFT_MIN_SPEED = 0.1;
+    double LIFT_MIN_SPEED = 0.1;
     //Waiting on eng for the height 
-    public static final double LIFT_MAX_HEIGHT = -1;
-    public static final double LIFT_MIN_HEIGHT = -1;  
-    public static final double LIFT_RAMP_HEIGHT_THRESHOLD = 1;
+    double LIFT_MAX_HEIGHT = -1;
+    double LIFT_MIN_HEIGHT = -1;  
+    double LIFT_RAMP_HEIGHT_THRESHOLD = 1;
 
     /***************************************************************************************
     * Fangs Solenoid Constants                                                                    
