@@ -27,12 +27,14 @@ public class AutomaticDrive extends AutoTurnDrive {
             // Set speed depending on how far away the goal is
             speed = RobotMap.MIN_AUTO_SPEED + Math.max(RobotMap.FORWARD_AREA - AREA, 0) * RobotMap.AUTO_SPEED_MUL;
         } else {
+            // Stop Robot
             speed = 0;
         }
     }
 
     @Override
     protected boolean isFinished() {
+        // Stop when button is let go
         return !(Robot.oi.driverGamepad.getRawTopButton());
     }
 }

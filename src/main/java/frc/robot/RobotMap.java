@@ -38,14 +38,13 @@ public interface RobotMap {
     *      Aim Assist Constants                                                                    
     ****************************************************************************************/
 	double TURN_DIV = 24; // Changes the speed that the robot will turn
-	double MOVE_DIV = 2; // Changes the speed that the robot will turn
+	double MOVE_TURN_DIV = 2; // Changes the speed that the robot will turn while moving
 	/***************************************************************************************
     *      Auton Assist Variables                                                                    
     ****************************************************************************************/
 	double FORWARD_AREA = 0.0145; // Area at which robot will move forward
-    double MIN_SPEED = 0.25; // Slowest speed for auto accelerate
-	double AUTO_SPEED = 1.5 / FORWARD_AREA; // Auto Drive Speed
-    boolean DRIVER_MODE = false; // Prevent overwriting to the network table
+    double MIN_AUTO_SPEED = 0.25; // Slowest speed for auto accelerate
+	double AUTO_SPEED_MUL = 1.5 / FORWARD_AREA; // Auto Drive Speed
     int JOYSTICK_SCALAR = 3; //Used to make joystick values smaller (Must be an odd number)(for CV)
 
     /***************************************************************************************

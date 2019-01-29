@@ -25,12 +25,13 @@ public class AutoTurnDrive extends ManualDrive {
         // Set the turn value to the joysticks x value
         turn = Math.pow(Robot.oi.driverGamepad.getLeftX(), RobotMap.JOYSTICK_SCALAR);
 
-        // Add corrective values to turn
+        // Add corrective values to turn based on how fast the robot is moving
         turn += LimeLight.getTargetXOffset() / (RobotMap.TURN_DIV * Math.max(RobotMap.MOVE_TURN_DIV * speed, 1));
     }
 
     @Override
     protected boolean isFinished() {
+        // Stop when button is let go
         return !(Robot.oi.driverGamepad.getRawLeftButton());
     }
 }
