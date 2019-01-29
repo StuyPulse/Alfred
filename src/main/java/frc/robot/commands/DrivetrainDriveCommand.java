@@ -47,8 +47,8 @@ public class DrivetrainDriveCommand extends Command {
     }
 
     protected void setSpeed() {
-        // Enable quick turn if no triggers are pressed, or if both are pressed (!= is xor)
-        quickTurn = !(Robot.oi.driverGamepad.getRawRightTrigger() != Robot.oi.driverGamepad.getRawLeftTrigger());
+        // Enable quick turn if no triggers are pressed, or if both are pressed
+        quickTurn = Robot.oi.driverGamepad.getRawRightTrigger() == Robot.oi.driverGamepad.getRawLeftTrigger();
         
         // Set speed to the axis' of the triggers
         speed += Robot.oi.driverGamepad.getRawRightTriggerAxis();
