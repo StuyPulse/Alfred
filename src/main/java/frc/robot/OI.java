@@ -17,6 +17,7 @@ import frc.robot.commands.FloopOpenCommand;
 import frc.robot.commands.RollersAcquireCommand;
 import frc.robot.commands.RollersDeacquireCommand;
 import frc.robot.commands.RollersMoveSpeedCommand;
+import frc.robot.commands.RollersRampingCommand;
 import frc.util.Gamepad;
 import frc.util.Gamepad.GamepadSwitchMode;
 
@@ -39,13 +40,15 @@ public class OI {
         * Operator Code
          ******************************************/
         //TODO: Make these real!
-        operatorGamepad.getRightTrigger().whileHeld(new RollersMoveSpeedCommand(1));
-        operatorGamepad.getLeftTrigger().whileHeld(new RollersMoveSpeedCommand(-1));
-        operatorGamepad.getRightBumper().whileHeld(new RollersMoveSpeedCommand(0.4));
-        operatorGamepad.getLeftBumper().whileHeld(new RollersMoveSpeedCommand(-0.4));
+        operatorGamepad.getRightTrigger().whileHeld(new RollersRampingCommand(operatorGamepad.getRawRightTriggerAxis()));
+        operatorGamepad.getLeftTrigger().whileHeld(new RollersRampingCommand(operatorGamepad.getRawLeftTriggerAxis()));
+        operatorGamepad.getRightBumper().whileHeld(new RollersMoveSpeedCommand(1));
+        operatorGamepad.getLeftBumper().whileHeld(new RollersMoveSpeedCommand(-1));
         operatorGamepad.getTopButton().whileHeld(new FangsRaiseCommand());
         operatorGamepad.getBottomButton().whileHeld(new FangsLowerCommand());
         operatorGamepad.getRightButton().whileHeld(new FloopCloseCommand());
         operatorGamepad.getLeftButton().whileHeld(new FloopOpenCommand());
+        // operatorGamepad.getLeftAnalogButton().whenPressed(new LiftTiltBackCommand); TODO: Make command
+        // operatorGamepad.getRightAnalogButton().whenPressed(new LiftTiltForwardCommand)
     }
 }
