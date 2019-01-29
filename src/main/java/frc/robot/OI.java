@@ -48,7 +48,7 @@ public class OI {
         operatorGamepad.getBottomButton().whileHeld(new FangsLowerCommand());
         operatorGamepad.getRightButton().whileHeld(new FloopCloseCommand());
         operatorGamepad.getLeftButton().whileHeld(new FloopOpenCommand());
-        // operatorGamepad.getLeftAnalogButton().whenPressed(new LiftTiltBackCommand); TODO: Make command
-        // operatorGamepad.getRightAnalogButton().whenPressed(new LiftTiltForwardCommand)
+        // operatorGamepad.getLeftAnalogButton().whenPressed(); TODO: Make command
+        // operatorGamepad.getRightAnalogButton().whenPressed(new AbomPumpCommand)
     }
 }
