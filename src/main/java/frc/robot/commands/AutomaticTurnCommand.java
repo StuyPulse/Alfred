@@ -8,7 +8,6 @@
 package frc.robot.commands;
 
 import frc.robot.commands.DrivetrainDriveCommand;
-import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.util.LimeLight;
 
@@ -23,7 +22,7 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
     @Override
     protected void setTurn() {
         // Set the turn value to the joysticks x value
-        turn = Math.pow(Robot.oi.driverGamepad.getLeftX(), RobotMap.JOYSTICK_SCALAR);
+        super.setTurn();
 
         // Add corrective values to turn based on how fast the robot is moving
         turn += LimeLight.getTargetXOffset() / (RobotMap.TURN_DIV * Math.max(RobotMap.MOVE_TURN_DIV * speed, 1));

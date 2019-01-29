@@ -7,7 +7,6 @@
 
 package frc.robot.commands;
 
-import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.util.LimeLight;
 
@@ -21,8 +20,8 @@ public class AutomaticDriveCommand extends AutomaticTurnCommand {
             // Set speed depending on how far away the goal is
             speed = RobotMap.MIN_AUTO_SPEED + Math.max(RobotMap.FORWARD_AREA - AREA, 0) * RobotMap.AUTO_SPEED_MUL;
         } else {
-            // Stop Robot
-            speed = 0;
+            // if no target is found, fall back on gamepad speed
+            super.setSpeed();
         }
     }
 }
