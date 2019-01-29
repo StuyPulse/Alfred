@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.RobotMap;
+import frc.robot.commands.ManualDrive;
 
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
@@ -86,8 +87,7 @@ public class Drivetrain extends Subsystem {
 
     @Override
     public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        // setDefaultCommand(new MySpecialCommand());
+        setDefaultCommand(new ManualDrive());
     }
 
     public void curvatureDrive(double speed, double angle) {

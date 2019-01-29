@@ -47,17 +47,12 @@ public class ManualDrive extends Command {
     }
 
     protected void setSpeed() {
-        quickTurn = true;
-        speed *= RobotMap.ACCELERATION_DIV - 1;
-        if (Robot.oi.driverGamepad.getRawRightTrigger()) {
-            speed++;
-            quickTurn = false;
-        }
-        if (Robot.oi.driverGamepad.getRawLeftTrigger()) {
-            speed--;
-            quickTurn = false;
-        }
-        speed /= RobotMap.ACCELERATION_DIV;
+        // Enable quick turn if no triggers are pressed
+        quickTurn = !(Robot.oi.driverGamepad.getRawRightTrigger() || Robot.oi.driverGamepad.getRawLeftTrigger());
+        
+        // Set speed to the axis' of the triggers
+        speed += Robot.oi.driverGamepad.getRawRightTriggerAxis();
+        speed -= Robot.oi.driverGamepad.getRawLeftTriggerAxis();
     }
 
     // Make this return true when this Command no longer needs to run execute()

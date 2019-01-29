@@ -14,14 +14,8 @@ import frc.util.LimeLight;
 public class AutomaticDrive extends AutoTurnDrive {
 
     @Override
-    protected void initialize() {
-        // Enable CV on the limelight
-        LimeLight.setCamMode(LimeLight.CAM_MODE.VISION);
-        quickTurn = true; // Automatic Drive Uses Quick Turn
-    }
-
-    @Override
     protected void setSpeed() {
+        quickTurn = true; // Automatic Drive Uses Quick Turn
         final double AREA = LimeLight.getTargetArea();
         if (AREA != 0) {
             // Set speed depending on how far away the goal is
@@ -30,11 +24,5 @@ public class AutomaticDrive extends AutoTurnDrive {
             // Stop Robot
             speed = 0;
         }
-    }
-
-    @Override
-    protected boolean isFinished() {
-        // Stop when button is let go
-        return !(Robot.oi.driverGamepad.getRawTopButton());
     }
 }

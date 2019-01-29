@@ -28,10 +28,4 @@ public class AutoTurnDrive extends ManualDrive {
         // Add corrective values to turn based on how fast the robot is moving
         turn += LimeLight.getTargetXOffset() / (RobotMap.TURN_DIV * Math.max(RobotMap.MOVE_TURN_DIV * speed, 1));
     }
-
-    @Override
-    protected boolean isFinished() {
-        // Stop when button is let go
-        return !(Robot.oi.driverGamepad.getRawLeftButton());
-    }
 }
