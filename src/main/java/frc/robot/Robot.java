@@ -56,8 +56,11 @@ public class Robot extends TimedRobot {
         compressor = new Compressor();
         rollers = new Rollers();
         oi = new OI();
+        fangs = new Fangs();
         // chooser.addOption("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
+        lift.tiltBack();
+        fangs.lower();
     }
 
     /**
