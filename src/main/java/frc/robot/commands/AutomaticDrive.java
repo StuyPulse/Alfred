@@ -26,7 +26,8 @@ public class AutomaticDrive extends AutoTurnDrive {
         if (AREA != 0) {
             // Set speed depending on how far away the goal is
             speed = RobotMap.MIN_AUTO_SPEED + Math.max(RobotMap.FORWARD_AREA - AREA, 0) * RobotMap.AUTO_SPEED_MUL;
-            return;
+        } else {
+            speed = 0;
         }
     }
 
