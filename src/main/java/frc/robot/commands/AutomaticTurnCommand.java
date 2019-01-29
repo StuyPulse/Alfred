@@ -7,12 +7,12 @@
 
 package frc.robot.commands;
 
-import frc.robot.commands.ManualDrive;
+import frc.robot.commands.DrivetrainDriveCommand;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.util.LimeLight;
 
-public class AutoTurnDrive extends ManualDrive {
+public class AutomaticTurnCommand extends DrivetrainDriveCommand {
 
     @Override
     protected void initialize() {

@@ -11,7 +11,7 @@ import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.util.LimeLight;
 
-public class AutomaticDrive extends AutoTurnDrive {
+public class AutomaticDriveCommand extends AutomaticTurnCommand {
 
     @Override
     protected void setSpeed() {

@@ -12,12 +12,12 @@ import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.util.LimeLight;
 
-public class ManualDrive extends Command {
+public class DrivetrainDriveCommand extends Command {
     // Variables to feed to curvature drive
     double speed = 0, turn = 0;
     boolean quickTurn = true;
 
-    public ManualDrive() {
+    public DrivetrainDriveCommand() {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.drivetrain);
     }

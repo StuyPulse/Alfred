@@ -9,14 +9,14 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.commands.AbomChargeCommand;
-import frc.robot.commands.AutoTurnDrive;
-import frc.robot.commands.AutomaticDrive;
+import frc.robot.commands.AutomaticTurnCommand;
+import frc.robot.commands.AutomaticDriveCommand;
 import frc.robot.commands.DrivetrainGearshiftCommand;
 import frc.robot.commands.FangsLowerCommand;
 import frc.robot.commands.FangsRaiseCommand;
 import frc.robot.commands.FloopCloseCommand;
 import frc.robot.commands.FloopOpenCommand;
-import frc.robot.commands.ManualDrive;
+import frc.robot.commands.DrivetrainDriveCommand;
 import frc.robot.commands.RollersAcquireFastCommand;
 import frc.robot.commands.RollersAcquireSlowCommand;
 import frc.robot.commands.RollersDeacquireSlowCommand;
@@ -35,8 +35,8 @@ public class OI {
         * Driver Code
         ******************************************/
         // TODO: Make these real!
-        driverGamepad.getLeftButton().whileHeld(new AutoTurnDrive());
-        driverGamepad.getTopButton().whileHeld(new AutomaticDrive());
+        driverGamepad.getLeftButton().whileHeld(new AutomaticTurnCommand());
+        driverGamepad.getTopButton().whileHeld(new AutomaticDriveCommand());
         driverGamepad.getBottomButton().whileActive(new DrivetrainGearshiftCommand());
 
         /******************************************
