@@ -7,12 +7,19 @@
 
 package frc.robot;
 
-import frc.robot.subsystems.Floop;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import frc.robot.subsystems.Lift;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.subsystems.Abom;
+import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Floop;
+import frc.robot.subsystems.Tail;
+import frc.robot.subsystems.Fangs;
+import frc.robot.subsystems.Rollers;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -22,8 +29,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * project.
  */
 public class Robot extends TimedRobot {
+    public static Drivetrain drivetrain;
     public static OI oi;
     public static Floop floop;
+    public static Abom abom;
+    public static Tail tail;
+    public static Lift lift; 
+    public static Compressor compressor;
+    public static Rollers rollers;
+    public static Fangs fangs;
 
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<>();
@@ -34,7 +48,13 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotInit() {
+        drivetrain = new Drivetrain();
         floop = new Floop();
+        abom = new Abom();
+        tail = new Tail();
+        lift = new Lift(); 
+        compressor = new Compressor();
+        rollers = new Rollers();
         oi = new OI();
         // chooser.addOption("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
@@ -51,6 +71,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotPeriodic() {
+        controlCompressor();
     }
 
     /**
@@ -128,5 +149,13 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void testPeriodic() {
+    }
+
+    public void controlCompressor() {
+        if (!drivetrain.isMoving()) {
+            compressor.start();
+        } else {
+            compressor.stop();
+        }
     }
 }

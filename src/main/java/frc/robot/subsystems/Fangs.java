@@ -7,18 +7,49 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.RobotMap;
 
 /**
  * Add your docs here.
  */
-public class Fangs extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
 
-  @Override
-  public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
-  }
+public class Fangs extends Subsystem {
+    private DoubleSolenoid fangsSolenoid;
+
+    public Fangs() {
+        fangsSolenoid = new DoubleSolenoid(RobotMap.FANGS_OPEN_CHANNEL, RobotMap.FANGS_CLOSE_CHANNEL);
+    }
+
+    @Override
+    public void initDefaultCommand() {
+        // Set the default command for a subsystem here.
+        // setDefaultCommand(new MySpecialCommand());
+    }
+    @Override
+    public void periodic(){
+        super.periodic();
+    }
+    
+    public void raise() {
+        // TODO: Figure out which setting opens/which closes
+        fangsSolenoid.set(DoubleSolenoid.Value.kForward);
+    }
+
+    public void lower() {
+        fangsSolenoid.set(DoubleSolenoid.Value.kReverse);
+    }
+
+    public void toggle() {
+        if( isUp()) {
+            lower();
+        } else {
+            raise();
+        }
+    }
+
+    public boolean isUp() {
+        return fangsSolenoid.get() == DoubleSolenoid.Value.kForward;
+    }
 }
