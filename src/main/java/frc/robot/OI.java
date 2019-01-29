@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import frc.robot.commands.AbomChargeCommand;
 import frc.robot.commands.CVAutoCommand;
 import frc.robot.commands.CVTurnCommand;
 import frc.robot.commands.DrivetrainGearshiftCommand;
@@ -14,10 +15,12 @@ import frc.robot.commands.FangsLowerCommand;
 import frc.robot.commands.FangsRaiseCommand;
 import frc.robot.commands.FloopCloseCommand;
 import frc.robot.commands.FloopOpenCommand;
-import frc.robot.commands.RollersAcquireCommand;
-import frc.robot.commands.RollersDeacquireCommand;
+import frc.robot.commands.RollersAcquireFastCommand;
+import frc.robot.commands.RollersAcquireSlowCommand;
+import frc.robot.commands.RollersDeacquireSlowCommand;
 import frc.robot.commands.RollersMoveSpeedCommand;
 import frc.robot.commands.RollersRampingCommand;
+import frc.robot.commands.RollersDeacquireFastCommand;
 import frc.util.Gamepad;
 import frc.util.Gamepad.GamepadSwitchMode;
 
@@ -50,5 +53,7 @@ public class OI {
         operatorGamepad.getLeftButton().whileHeld(new FloopOpenCommand());
         // operatorGamepad.getLeftAnalogButton().whenPressed(); TODO: Make command
         // operatorGamepad.getRightAnalogButton().whenPressed(new AbomPumpCommand)
+        operatorGamepad.getDPadUp().whenPressed(new AbomChargeCommand(true));
+        operatorGamepad.getDPadDown().whenPressed(new AbomChargeCommand(false));
     }
 }

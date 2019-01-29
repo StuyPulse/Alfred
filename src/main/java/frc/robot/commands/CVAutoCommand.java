@@ -27,6 +27,6 @@ public class CVAutoCommand extends CVTurnCommand {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return !(Robot.DriverPad.getRawTopButton());
+        return !(Robot.oi.driverGamepad.getRawTopButton());
     }
 }
