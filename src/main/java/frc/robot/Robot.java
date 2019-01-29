@@ -58,6 +58,9 @@ public class Robot extends TimedRobot {
         oi = new OI();
         // chooser.addOption("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
+        // Initializing DoubleSolenoid to default positions
+        lift.tiltBack();
+        fangs.lower();
     }
 
     /**
