@@ -58,6 +58,7 @@ public class Robot extends TimedRobot {
         compressor = new Compressor();
         rollers = new Rollers();
         oi = new OI();
+        fangs = new Fangs();
         // chooser.addOption("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
     }
@@ -104,6 +105,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousInit() {
+        setUpDoubleSolenoids(lift, fangs);
         autonomousCommand = chooser.getSelected();
 
         /*
@@ -159,5 +161,10 @@ public class Robot extends TimedRobot {
         } else {
             compressor.stop();
         }
+    }
+
+    private void setUpDoubleSolenoids(Lift lift, Fangs fangs) {
+        lift.tiltBack();
+        fangs.lower();
     }
 }

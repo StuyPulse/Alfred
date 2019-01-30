@@ -10,8 +10,8 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class FloopCloseCommand extends Command {
-    public FloopCloseCommand() {
+public class FloopStopCommand extends Command {
+    public FloopStopCommand() {
         requires(Robot.floop);
     }
 
@@ -23,7 +23,7 @@ public class FloopCloseCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        Robot.floop.close();
+        Robot.floop.stop();
     }
 
     // Make this return true when this Command no longer needs to run execute()
