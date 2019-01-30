@@ -14,7 +14,8 @@ import frc.util.LimeLight;
 
 public class DrivetrainDriveCommand extends Command {
     // Variables to feed to curvature drive
-    double speed = 0, turn = 0;
+    double speed = 0;
+    double turn = 0;
     boolean quickTurn = true;
 
     public DrivetrainDriveCommand() {
@@ -42,17 +43,17 @@ public class DrivetrainDriveCommand extends Command {
     }
 
     protected void setTurn() {
-        // Set the turn value to the joysticks x value
+        // Set the turn value to the joystick's x value
         turn = Math.pow(Robot.oi.driverGamepad.getLeftX(), RobotMap.JOYSTICK_SCALAR);
     }
 
     protected void setSpeed() {
-        // Enable quick turn if no triggers are pressed
-        quickTurn = !(Robot.oi.driverGamepad.getRawRightTrigger() || Robot.oi.driverGamepad.getRawLeftTrigger());
-        
-        // Set speed to the axis' of the triggers
+        // Set speed to the axes of the triggers
         speed += Math.pow(Robot.oi.driverGamepad.getRawRightTriggerAxis(), 2);
         speed -= Math.pow(Robot.oi.driverGamepad.getRawLeftTriggerAxis(), 2);
+
+        // Enable Quick Turn if robot is not moving
+        quickTurn = speed < 0.125;
     }
 
     // Make this return true when this Command no longer needs to run execute()
