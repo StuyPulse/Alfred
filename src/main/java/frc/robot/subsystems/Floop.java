@@ -26,13 +26,13 @@ public class Floop extends Subsystem {
         floopSolenoid.set(true);
     }
 
-    public void stop() {
+    public void close() {
         floopSolenoid.set(false);
     }
 
     public void toggle() {
         if(floopSolenoid.get()) {
-            stop();
+            close();
         } else {
             open();
         }
