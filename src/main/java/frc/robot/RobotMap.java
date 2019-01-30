@@ -21,16 +21,16 @@ public interface RobotMap {
     /***************************************************************************************
     *      Tail and Abom Ports                                                                
     ****************************************************************************************/
-    int ABOM_SOLENOID = -1;
-    int TAIL_MOTOR = -1;
-    int RAISE_TAIL_SOLENOID = -1;
-    int RELEASE_ABOM_SOLENOID = -1;
+    int ABOM_SOLENOID_PORT = -1;
+    int TAIL_MOTOR_PORT = -1;
+    int RAISE_TAIL_SOLENOID_PORT = -1;
+    int RELEASE_ABOM_SOLENOID_PORT = -1;
     /***************************************************************************************
     *      Abom Charge Constants                                                                
     ****************************************************************************************/
     int ABOM_CHARGE_DELAY_MS = 300; // Time it takes for a piston to fire and retract
     /***************************************************************************************
-     * CV Constants
+     *     CV Constants
      ****************************************************************************************/
 	double ACCELERATION_DIV = 4; // Using averages, you can allow for smoother movement
 	double CV_SPEED = 0; // Speed that stays the same through movements
@@ -76,7 +76,7 @@ public interface RobotMap {
     int FLOOP_CHANNEL = -1;
 
     /**************************************************************************
-     * Lift Ports
+     *     Lift Ports
      *************************************************************************/
     int LIFT_MASTER_TALON_MOTOR_PORT = -1;
     int LIFT_FOLLOWER_TALON_MOTOR_PORT = -1;
@@ -90,7 +90,7 @@ public interface RobotMap {
     int LIFT_BOTTOM_LIMIT_SWITCH_PORT = -1;
 
     /**************************************************************************
-     * Lift Constants
+     *     Lift Constants
      *************************************************************************/
     double LIFT_WINCH_DIAMETER_INCHES = 1.75; 
     double LIFT_EMPIRICAL_RAW_MULTIPLIER = 1;
@@ -103,7 +103,7 @@ public interface RobotMap {
     double LIFT_RAMP_HEIGHT_THRESHOLD = 1;
 
     /***************************************************************************************
-    * Fangs Solenoid Constants                                                                    
+    *      Fangs Solenoid Constants                                                                    
     ****************************************************************************************/
     int FANGS_OPEN_CHANNEL = -1;
     int FANGS_CLOSE_CHANNEL = -1;

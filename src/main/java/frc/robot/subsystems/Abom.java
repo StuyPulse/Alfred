@@ -20,7 +20,7 @@ public class Abom extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
     public Abom() {
-        abomSolenoid = new Solenoid(RobotMap.ABOM_SOLENOID);
+        abomSolenoid = new Solenoid(RobotMap._PORT);
     }
 
     @Override
