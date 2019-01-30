@@ -14,6 +14,7 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
 
     @Override
     protected void initialize() {
+        setInterruptible(false);
         // Enable CV on the limelight
         LimeLight.setCamMode(LimeLight.CAM_MODE.VISION);
     }
