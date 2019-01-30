@@ -62,6 +62,7 @@ private void runAutoComp() {
 
     if (!Robot.oi.operatorGamepad.getRawLeftAnalogButton()) {
       autoComp = 0;
+      level = 0;
     }
   }
 
