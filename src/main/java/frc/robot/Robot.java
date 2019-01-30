@@ -59,8 +59,6 @@ public class Robot extends TimedRobot {
         fangs = new Fangs();
         // chooser.addOption("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
-        lift.tiltBack();
-        fangs.lower();
     }
 
     /**
@@ -105,6 +103,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousInit() {
+        setUpDoubleSolenoids(lift, fangs);
         autonomousCommand = chooser.getSelected();
 
         /*
@@ -134,6 +133,7 @@ public class Robot extends TimedRobot {
         // teleop starts running. If you want the autonomous to
         // continue until interrupted by another command, remove
         // this line or comment it out.
+        setUpDoubleSolenoids(lift, fangs);
         if (autonomousCommand != null) {
             autonomousCommand.cancel();
         }
@@ -160,5 +160,10 @@ public class Robot extends TimedRobot {
         } else {
             compressor.stop();
         }
+    }
+
+    private void setUpDoubleSolenoids(Lift lift, Fangs fangs) {
+        lift.tiltBack();
+        fangs.lower();
     }
 }
