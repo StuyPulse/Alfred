@@ -7,26 +7,40 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.RobotMap;
-import frc.util.LimeLight;
 
-public class CVAutoCommand extends CVTurnCommand {
+public class FloopStopCommand extends Command {
+    public FloopStopCommand() {
+        requires(Robot.floop);
+    }
 
+    // Called just before this Command runs the first time
     @Override
-    protected void setSpeed() {
-        quickTurn = true;
-        double Area = LimeLight.getTargetArea();
-        if (Area != 0) {
-            speed = RobotMap.MIN_SPEED + Math.max(RobotMap.FORWARD_AREA - Area, 0) * RobotMap.AUTO_SPEED;
-            return;
-        }
-        speed *= (RobotMap.ACCELERATION_DIV - 1) / RobotMap.ACCELERATION_DIV;
+    protected void initialize() {
+    }
+
+    // Called repeatedly when this Command is scheduled to run
+    @Override
+    protected void execute() {
+        Robot.floop.stop();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return !(Robot.oi.driverGamepad.getRawTopButton());
+        return false;
+    }
+
+    // Called once after isFinished returns true
+    @Override
+    protected void end() {
+    }
+
+    // Called when another command which requires one or more of the same
+    // subsystems is scheduled to run
+    @Override
+    protected void interrupted() {
+
     }
 }

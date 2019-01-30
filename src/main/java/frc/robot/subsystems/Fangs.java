@@ -16,39 +16,40 @@ import frc.robot.RobotMap;
  */
 
 public class Fangs extends Subsystem {
-  private DoubleSolenoid fangSolenoid;
-  
-  public Fangs() {
-    fangSolenoid = new DoubleSolenoid(
-      RobotMap.FANG_SOLENOID_OPEN_PORT,
-      RobotMap.FANG_SOLENOID_CLOSE_PORT
-    );
-  }
+    private DoubleSolenoid fangsSolenoid;
 
-  @Override
-  public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
-  }
-
-  @Override
-  public void periodic() {
-    super.periodic();
-  }
-
-  public void fangsDown() {
-    fangSolenoid.set(DoubleSolenoid.Value.kForward); //TODO: Figure out which setting opens/which closes
-  }
-
-  public void fangsUp() {
-    fangSolenoid.set(DoubleSolenoid.Value.kReverse);
-  }
-
-  public void toggleFangs() {
-    if (fangSolenoid.get() == DoubleSolenoid.Value.kReverse) {
-      fangsDown();
-    } else {
-      fangsUp();
+    public Fangs() {
+        fangsSolenoid = new DoubleSolenoid(RobotMap.FANGS_OPEN_CHANNEL, RobotMap.FANGS_CLOSE_CHANNEL);
     }
-  }
+
+    @Override
+    public void initDefaultCommand() {
+        // Set the default command for a subsystem here.
+        // setDefaultCommand(new MySpecialCommand());
+    }
+    @Override
+    public void periodic(){
+        super.periodic();
+    }
+    
+    public void raise() {
+        // TODO: Figure out which setting opens/which closes
+        fangsSolenoid.set(DoubleSolenoid.Value.kForward);
+    }
+
+    public void lower() {
+        fangsSolenoid.set(DoubleSolenoid.Value.kReverse);
+    }
+
+    public void toggle() {
+        if( isUp()) {
+            lower();
+        } else {
+            raise();
+        }
+    }
+
+    public boolean isUp() {
+        return fangsSolenoid.get() == DoubleSolenoid.Value.kForward;
+    }
 }

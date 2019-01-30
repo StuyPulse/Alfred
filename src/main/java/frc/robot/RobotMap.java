@@ -6,11 +6,32 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot;
-
 public interface RobotMap {
+    // For example to map the left and right motors, you could define the
+    // following variables to use with your drivetrain subsystem.
+    // public static int leftMotor = 1;
+    // public static int rightMotor = 2;
+
+    // If you are using multiple modules, make sure to define both the port
+    // number and the module. For example you with a rangefinder:
+    // public static int rangefinderPort = 1;
+    // public static int rangefinderModule = 1;
+
+
     /***************************************************************************************
-    *      CV Constants                                                                    
+    *      Tail and Abom Ports                                                                
     ****************************************************************************************/
+    int ABOM_SOLENOID = -1;
+    int TAIL_MOTOR = -1;
+    int RAISE_TAIL_SOLENOID = -1;
+    int RELEASE_ABOM_SOLENOID = -1;
+    /***************************************************************************************
+    *      Abom Charge Constants                                                                
+    ****************************************************************************************/
+    int ABOM_CHARGE_DELAY_MS = 300; // Time it takes for a piston to fire and retract
+    /***************************************************************************************
+     * CV Constants
+     ****************************************************************************************/
 	double ACCELERATION_DIV = 4; // Using averages, you can allow for smoother movement
 	double CV_SPEED = 0; // Speed that stays the same through movements
     /***************************************************************************************
@@ -43,19 +64,53 @@ public interface RobotMap {
     int RIGHT_TOP_MOTOR_PORT = -1;
     int RIGHT_MIDDLE_MOTOR_PORT = -1;
     int RIGHT_BOTTOM_MOTOR_PORT = -1;
-  
+
     double WHEEL_DIAMETER = 6;
-    double WHEEL_INCHES_PER_REVOLUTION = WHEEL_DIAMETER*Math.PI;
+    double WHEEL_INCHES_PER_REVOLUTION = WHEEL_DIAMETER * Math.PI;
+
+    int GEAR_SHIFT_CHANNEL = -1;
 
     /***************************************************************************************
     *      Floop Solenoid Constants                                                                    
     ****************************************************************************************/
-    int FLOOP_FORWARD_CHANNEL = -1;
-    int FLOOP_REVERSE_CHANNEL = -1;
-    
+    int FLOOP_CHANNEL = -1;
+
+    /**************************************************************************
+     * Lift Ports
+     *************************************************************************/
+    int LIFT_MASTER_TALON_MOTOR_PORT = -1;
+    int LIFT_FOLLOWER_TALON_MOTOR_PORT = -1;
+
+    int LIFT_TILT_SOLENOID_FORWARD_PORT = -1;
+    int LIFT_TILT_SOLENOID_REVERSE_PORT = -1;
+
+    int LIFT_BRAKE_SOLENOID_PORT = -1;
+
+    int LIFT_TOP_LIMIT_SWITCH_PORT = -1;
+    int LIFT_BOTTOM_LIMIT_SWITCH_PORT = -1;
+
+    /**************************************************************************
+     * Lift Constants
+     *************************************************************************/
+    double LIFT_WINCH_DIAMETER_INCHES = 1.75; 
+    double LIFT_EMPIRICAL_RAW_MULTIPLIER = 1;
+    double LIFT_ENCODER_RAW_MULTIPLIER = 
+        LIFT_EMPIRICAL_RAW_MULTIPLIER * (LIFT_WINCH_DIAMETER_INCHES * Math.PI); 
+    double LIFT_MIN_SPEED = 0.1;
+    //Waiting on eng for the height 
+    double LIFT_MAX_HEIGHT = -1;
+    double LIFT_MIN_HEIGHT = -1;  
+    double LIFT_RAMP_HEIGHT_THRESHOLD = 1;
+
     /***************************************************************************************
-    *      Fangs Solenoid Constants                                                                    
+    * Fangs Solenoid Constants                                                                    
     ****************************************************************************************/
-    int FANG_SOLENOID_OPEN_PORT = -1;
-    int FANG_SOLENOID_CLOSE_PORT = -1;
+    int FANGS_OPEN_CHANNEL = -1;
+    int FANGS_CLOSE_CHANNEL = -1;
+
+    /***************************************************************************************
+    *      Rollers Constants                                                                   
+    ****************************************************************************************/
+    int ROLLER_MOTOR_PORT = -1;
+    double SLOW_ROLLER_MULTIPLIER = 0.75;
 }
