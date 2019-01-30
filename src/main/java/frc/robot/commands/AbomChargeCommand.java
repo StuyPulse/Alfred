@@ -47,11 +47,5 @@ public class AbomChargeCommand extends Command {
     protected void end() {
         Robot.abom.stop();
     }
-
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    @Override
-    protected void interrupted() {
-
-    }
+    
 }
