@@ -103,7 +103,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousInit() {
-        setUpDoubleSolenoids(lift, fangs);
+        setUpDoubleSolenoids();
         autonomousCommand = chooser.getSelected();
 
         /*
@@ -161,7 +161,7 @@ public class Robot extends TimedRobot {
         }
     }
 
-    private void setUpDoubleSolenoids(Lift lift, Fangs fangs) {
+    private void setUpDoubleSolenoids() {
         lift.tiltBack();
         fangs.lower();
     }

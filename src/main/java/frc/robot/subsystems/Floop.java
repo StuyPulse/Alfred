@@ -26,25 +26,22 @@ public class Floop extends Subsystem {
         floopSolenoid.set(true);
     }
 
-<<<<<<< HEAD
     public void close() {
-=======
-    public void stop() {
->>>>>>> master
         floopSolenoid.set(false);
     }
 
     public void toggle() {
-        if(floopSolenoid.get()) {
-<<<<<<< HEAD
+        if(isOpen()) {
             close();
-=======
-            stop();
->>>>>>> master
         } else {
             open();
         }
     }
+
+    public boolean isOpen() {
+        return floopSolenoid.get();
+    }
+    
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
