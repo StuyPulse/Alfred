@@ -10,14 +10,13 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 
-public class FloopOpenCommand extends InstantCommand {
-    public FloopOpenCommand() {
+public class FloopCloseCommand extends InstantCommand {
+    public FloopCloseCommand() {
         requires(Robot.floop);
     }
 
     @Override
     protected void initialize() {
-        Robot.floop.open();
+        Robot.floop.close();
     }
-
 }
