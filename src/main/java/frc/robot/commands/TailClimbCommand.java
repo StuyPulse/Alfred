@@ -13,13 +13,15 @@ import frc.robot.Robot;
 public class TailClimbCommand extends Command {
 
     private double speed;
-    private boolean isRaised,isRetracted;
+    private boolean isRaised;
+    private boolean isRetracted;
 
     public TailClimbCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         requires(Robot.tail);
-        isRaised = isRetracted = false;
+        isRaised = false;
+        isRetracted = false;
     }
 
     // Called repeatedly when this Command is scheduled to run
