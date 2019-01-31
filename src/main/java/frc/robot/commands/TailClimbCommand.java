@@ -20,8 +20,8 @@ public class TailClimbCommand extends Command {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         requires(Robot.tail);
-        isRaised = false;
-        isRetracted = false;
+        this.isRaised = false;
+        this.isRetracted = false;
     }
 
     // Called repeatedly when this Command is scheduled to run
