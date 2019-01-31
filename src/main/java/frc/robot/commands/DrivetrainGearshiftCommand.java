@@ -7,24 +7,17 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 
-public class DrivetrainGearshiftCommand extends Command {
+public class DrivetrainGearshiftCommand extends InstantCommand {
   public DrivetrainGearshiftCommand() {
     requires(Robot.drivetrain);
   }
 
-  // Called repeatedly when this Command is scheduled to run
   @Override
-  protected void execute() {
-    Robot.drivetrain.lowGearShift();
+  protected void initialize() {
+    Robot.drivetrain.toggleGearShift();
   }
 
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() {
-    return false;
-  }
-  
 }
