@@ -25,16 +25,17 @@ import frc.util.Gamepad;
 import frc.util.Gamepad.GamepadSwitchMode;
 
 public class OI {
+
     public Gamepad driverGamepad;
     public Gamepad operatorGamepad;
 
     public OI() {
         driverGamepad = new Gamepad(RobotMap.DRIVER_GAMEPAD_PORT, GamepadSwitchMode.SWITCH_X);
         operatorGamepad = new Gamepad(RobotMap.OPERATOR_GAMEPAD_PORT, GamepadSwitchMode.SWITCH_X);
+
         /******************************************
         * Driver Code
         ******************************************/
-        // TODO: Make these real!
         driverGamepad.getLeftButton().whileHeld(new CVTurnCommand());
         driverGamepad.getBottomButton().whileActive(new DrivetrainGearshiftCommand());
         driverGamepad.getTopButton().whileHeld(new CVAutoCommand());
@@ -42,17 +43,20 @@ public class OI {
         /******************************************
         * Operator Code
         ******************************************/
-        //TODO: Make these real!
         operatorGamepad.getRightTrigger().whileHeld(new RollersRampingCommand(operatorGamepad.getRawRightTriggerAxis()));
         operatorGamepad.getLeftTrigger().whileHeld(new RollersRampingCommand(operatorGamepad.getRawLeftTriggerAxis()));
+
         operatorGamepad.getRightBumper().whileHeld(new RollersMoveSpeedCommand(1));
         operatorGamepad.getLeftBumper().whileHeld(new RollersMoveSpeedCommand(-1));
+
         operatorGamepad.getTopButton().whileHeld(new FangsRaiseCommand());
         operatorGamepad.getBottomButton().whileHeld(new FangsLowerCommand());
         operatorGamepad.getRightButton().whileHeld(new FloopStopCommand());
         operatorGamepad.getLeftButton().whileHeld(new FloopOpenCommand());
+
         // operatorGamepad.getLeftAnalogButton().whenPressed(); TODO: Make command
         // operatorGamepad.getRightAnalogButton().whenPressed(new AbomPumpCommand)
+
         operatorGamepad.getDPadUp().whenPressed(new AbomChargeCommand(true));
         operatorGamepad.getDPadDown().whenPressed(new AbomChargeCommand(false));
     }
