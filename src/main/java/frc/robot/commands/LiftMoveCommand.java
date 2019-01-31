@@ -24,7 +24,7 @@ public class LiftMoveCommand extends Command {
     protected void execute() {
     // TODO: Implement OI
     // double speed = Robot.m_oi.operatorGamepad.getY();
-    //AutoComp assumes level 1 = 5 inches up, level 2 = 10 inches up, level 3 = 15 inches up (CHANGE THIS)
+    // AutoComp assumes level 1 = 5 inches up, level 2 = 10 inches up, level 3 = 15 inches up (CHANGE THIS)
     if(level == 0) { Robot.lift.moveLift(Robot.oi.operatorGamepad.getLeftY()); }
         setAutoComp();
         calibrateAutoComp();
@@ -52,19 +52,23 @@ public class LiftMoveCommand extends Command {
         }
     }
 
+    // value is used many times, setAutoComp() and calibrateAutoComp()
     private boolean isLeftAnalogPressed() {
         return Robot.oi.operatorGamepad.getRawLeftAnalogButton();
     }
 
     private void setAutoComp() {
+        // if LEFT STICK is PRESSED and pushed UP
         if(isLeftAnalogPressed() && Robot.oi.operatorGamepad.getLeftY() > 0.25) {
             autoComp = 1;
         }
 
+        // if LEFT STICK is HELD and pushed DOWN
         if(isleftAnalogPressed() && Robot.oi.operatorGamepad.getLeftY() < -0.25) {
             autoComp = -1;
         }
 
+        // while LEFT STICK is not HELD
         if(!isLeftAnalogPressed()) {
             autoComp = 0;
             level = 0;
