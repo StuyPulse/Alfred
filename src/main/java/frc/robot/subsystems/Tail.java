@@ -26,9 +26,9 @@ public class Tail extends Subsystem {
     Solenoid elevateSolenoid;
 
     public Tail() {
-        tailMotor = new CANSparkMax(RobotMap.TAIL_MOTOR, MotorType.kBrushless);
-        elevateSolenoid = new Solenoid(RobotMap.RAISE_TAIL_SOLENOID);
-        releaseAbomSolenoid = new Solenoid(RobotMap.RELEASE_ABOM_SOLENOID);
+        tailMotor = new CANSparkMax(RobotMap.TAIL_MOTOR_PORT, MotorType.kBrushless);
+        elevateSolenoid = new Solenoid(RobotMap.RAISE_TAIL_SOLENOID_PORT);
+        releaseAbomSolenoid = new Solenoid(RobotMap.RELEASE_ABOM_SOLENOID_PORT);
 
         tailMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
     }
@@ -46,7 +46,7 @@ public class Tail extends Subsystem {
 
     // Stops the Tail Motor
     public void stop() {
-        tailMotor.set(0);
+        tailMotor.set(0.0);
     }
 
     // Gets the speed of the Tail Motor
