@@ -22,23 +22,27 @@ public class LiftMoveCommand extends Command {
 
     @Override
     protected void execute() {
-    // TODO: Implement OI
-    // double speed = Robot.m_oi.operatorGamepad.getY();
-    // AutoComp assumes level 1 = 5 inches up, level 2 = 10 inches up, level 3 = 15 inches up (CHANGE THIS)
-    if(level == 0) { Robot.lift.moveLift(Robot.oi.operatorGamepad.getLeftY()); }
+        // TODO: Implement OI
+        // double speed = Robot.m_oi.operatorGamepad.getY();
+        // AutoComp assumes level 1 = 5 inches up, level 2 = 10 inches up, level 3 = 15 inches up (CHANGE THIS)
+
+        if(level == 0) {
+            Robot.lift.moveLift(Robot.oi.operatorGamepad.getLeftY());
+        }
+
         setAutoComp();
         calibrateAutoComp();
         runAutoComp();
     }
 
     private void runAutoComp() {
-      if(level == 1) {
-          moveToNumInches(5);
-      } else if(level == 2) {
-          moveToNumInches(10);
-      } else if (level == 3) {
-          moveToNumInches(15);
-      }
+        if(level == 1) {
+            moveToNumInches(5);
+        } else if(level == 2) {
+            moveToNumInches(10);
+        } else if(level == 3) {
+            moveToNumInches(15);
+        }
     }
 
     private void moveToNumInches(double numInches) {
