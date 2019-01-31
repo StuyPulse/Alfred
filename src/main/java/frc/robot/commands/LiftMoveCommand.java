@@ -58,7 +58,7 @@ public class LiftMoveCommand extends Command {
     }
 
     private void setAutoComp() {
-        // if LEFT STICK is PRESSED and pushed UP
+        // if LEFT STICK is HELD and pushed UP
         if(isLeftAnalogPressed() && Robot.oi.operatorGamepad.getLeftY() > 0.25) {
             autoComp = 1;
         }
