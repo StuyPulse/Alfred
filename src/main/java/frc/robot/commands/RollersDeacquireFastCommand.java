@@ -17,10 +17,6 @@ public class RollersDeacquireFastCommand extends Command {
   }
 
   @Override
-  protected void initialize() {
-  }
-
-  @Override
   protected void execute() {
     Robot.rollers.deacquire();
   }
@@ -35,7 +31,4 @@ public class RollersDeacquireFastCommand extends Command {
     Robot.rollers.stop();
   }
 
-  @Override
-  protected void interrupted() {
-  }
 }
