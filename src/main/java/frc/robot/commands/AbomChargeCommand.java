@@ -48,7 +48,7 @@ public class AbomChargeCommand extends Command {
         Robot.abom.stop();
     }
     @Override
-    protected void interrupted(){
+    protected void interrupted() {
 
     }
 }
