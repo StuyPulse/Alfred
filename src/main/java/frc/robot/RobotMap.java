@@ -100,6 +100,10 @@ public interface RobotMap {
     double LIFT_MIN_HEIGHT = -1;
     double LIFT_RAMP_HEIGHT_THRESHOLD = 1;
 
+    int PEAK_LIMIT_AMPS = 23;
+    int LIFT_AUTON_CURRENT_LIMIT = -1;
+    int LIFT_TELEOP_CURRENT_LIMIT = -1;
+
     /***************************************************************************************
     *      Fangs Solenoid Constants                                                                    
     ****************************************************************************************/
