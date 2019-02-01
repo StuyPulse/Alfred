@@ -13,32 +13,32 @@ import frc.robot.RobotMap;
 
 public class RollersDeacquireSlowCommand extends Command {
 
-  public RollersDeacquireSlowCommand() {
-    requires(Robot.rollers);
-  }
+    public RollersDeacquireSlowCommand() {
+        requires(Robot.rollers);
+    }
 
-  @Override
-  protected void initialize() {
-  }
+    @Override
+    protected void initialize() {
+    }
 
-  @Override
-  protected void execute() {
-    double speed = Robot.oi.driverGamepad.getRawLeftTriggerAxis();
-    double tunedSpeed = Math.pow(speed, 2) * RobotMap.SLOW_ROLLER_MULTIPLIER;
-    Robot.rollers.setSpeed(-tunedSpeed);
-  }
+    @Override
+    protected void execute() {
+        double speed = Robot.oi.driverGamepad.getRawLeftTriggerAxis();
+        double tunedSpeed = Math.pow(speed, 2) * RobotMap.SLOW_ROLLER_MULTIPLIER;
+        Robot.rollers.setSpeed(-tunedSpeed);
+    }
 
-  @Override
-  protected boolean isFinished() {
-    return false;
-  }
+    @Override
+    protected boolean isFinished() {
+        return false;
+    }
 
-  @Override
-  protected void end() {
-    Robot.rollers.stop();
-  }
+    @Override
+    protected void end() {
+        Robot.rollers.stop();
+    }
 
-  @Override
-  protected void interrupted() {
-  }
+    @Override
+    protected void interrupted() {
+    }
 }

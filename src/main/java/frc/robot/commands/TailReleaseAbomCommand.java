@@ -22,5 +22,4 @@ public class TailReleaseAbomCommand extends InstantCommand {
         Robot.tail.releaseAbom();
         Robot.tail.retractSolenoid();
     }
-
 }

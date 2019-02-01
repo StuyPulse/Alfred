@@ -16,9 +16,7 @@ public class TailClimbCommand extends Command {
     private boolean isRaised;
     private boolean isRetracted;
 
-    public TailClimbCommand() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+    public TailClimbCommand() {;
         requires(Robot.tail);
         this.isRaised = false;
         this.isRetracted = false;
@@ -55,5 +53,4 @@ public class TailClimbCommand extends Command {
     protected void end() {
         Robot.tail.setSpeed(0);
     }
-
 }

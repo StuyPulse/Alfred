@@ -9,5 +9,6 @@
     "bin/": true,
     ".classpath": true,
     ".project": true
-  }
+  },
+  "wpilib.online": true
 }
