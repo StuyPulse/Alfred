@@ -7,26 +7,21 @@
 
 package frc.robot.commands;
 
-import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.util.LimeLight;
 
-public class CVAutoCommand extends CVTurnCommand {
+public class AutomaticDriveCommand extends AutomaticTurnCommand {
 
     @Override
     protected void setSpeed() {
-        quickTurn = true;
+        quickTurn = true; // Automatic Drive Uses Quick Turn
         double Area = LimeLight.getTargetArea();
         if (Area != 0) {
-            speed = RobotMap.MIN_SPEED + Math.max(RobotMap.FORWARD_AREA - Area, 0) * RobotMap.AUTO_SPEED;
-            return;
+            // Set speed depending on how far away the goal is
+            speed = RobotMap.MIN_AUTO_SPEED + Math.max(RobotMap.FORWARD_AREA - Area, 0) * RobotMap.AUTO_SPEED_MUL;
+        } else {
+            // if no target is found, fall back on gamepad speed
+            super.setSpeed();
         }
-        speed *= (RobotMap.ACCELERATION_DIV - 1) / RobotMap.ACCELERATION_DIV;
-    }
-
-    // Make this return true when this Command no longer needs to run execute()
-    @Override
-    protected boolean isFinished() {
-        return !(Robot.oi.driverGamepad.getRawTopButton());
     }
 }
