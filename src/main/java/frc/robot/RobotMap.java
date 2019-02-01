@@ -38,10 +38,11 @@ public interface RobotMap {
      /***************************************************************************************
      * Brownout Protection Constants:
      ****************************************************************************************/
-    double DRIVETRAIN_AUTON_CURRENT_LIMIT = 0;
-    double DRIVETRAIN_TELEOP_CURRENT_LIMIT = 0;
-    double LIFT_AUTON_CURRENT_LIMIT = 0;
-    double LIFT_TELEOP_CURRENT_LIMIT = 0;
+    int DRIVETRAIN_AUTON_CURRENT_LIMIT = 0;
+    int DRIVETRAIN_TELEOP_CURRENT_LIMIT = 0;
+    int LIFT_AUTON_CURRENT_LIMIT = 0;
+    int LIFT_TELEOP_CURRENT_LIMIT = 0;
+    int PEAK_LIMIT_AMPS = 23;
 
     /***************************************************************************************
      * Aim Assist Constants
@@ -109,10 +110,6 @@ public interface RobotMap {
     double LIFT_MAX_HEIGHT = -1;
     double LIFT_MIN_HEIGHT = -1;
     double LIFT_RAMP_HEIGHT_THRESHOLD = 1;
-
-    int PEAK_LIMIT_AMPS = 23;
-    int LIFT_AUTON_CURRENT_LIMIT = -1;
-    int LIFT_TELEOP_CURRENT_LIMIT = -1;
 
     /***************************************************************************************
     *      Fangs Solenoid Constants                                                                    

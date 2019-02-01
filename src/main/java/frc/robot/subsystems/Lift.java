@@ -45,6 +45,8 @@ public class Lift extends Subsystem {
         topLimitSwitch = new DigitalInput(RobotMap.LIFT_TOP_LIMIT_SWITCH_PORT);
         bottomLimitSwitch = new DigitalInput(RobotMap.LIFT_BOTTOM_LIMIT_SWITCH_PORT);
 
+        masterTalon.configContinuousCurrentLimit(RobotMap.PEAK_LIMIT_AMPS);
+
         enableRamping();
     }
 

@@ -165,11 +165,11 @@ public class Drivetrain extends Subsystem {
     }
 
     public double getLeftCurrent() {
-        return leftBottomMotor.getOutputCurrent() + leftMiddleMotor.getOutputCurrent() + leftTopMotor.getOutputCurrent())
+        return leftBottomMotor.getOutputCurrent() + leftMiddleMotor.getOutputCurrent() + leftTopMotor.getOutputCurrent();
     }
 
     public double getRightCurrent() {
-        return rightBottomMotor.getOutputCurrent() + rightMiddleMotor.getOutputCurrent() + rightTopMotor.getOutputCurrent())
+        return rightBottomMotor.getOutputCurrent() + rightMiddleMotor.getOutputCurrent() + rightTopMotor.getOutputCurrent();
     }
 
     public double getTotalCurrent() {
