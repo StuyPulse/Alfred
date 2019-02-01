@@ -43,6 +43,8 @@ public class Drivetrain extends Subsystem {
     
     private Solenoid gearShift;
 
+    private boolean brownoutProtectionEnabled;
+
     public Drivetrain() {
         // Left Side Motors
         leftTopMotor = new CANSparkMax(RobotMap.LEFT_TOP_MOTOR_PORT, MotorType.kBrushless);
@@ -61,6 +63,12 @@ public class Drivetrain extends Subsystem {
         // Speed Groups
         leftSpeedGroup = new SpeedControllerGroup(leftTopMotor, leftMiddleMotor, leftBottomMotor);
         rightSpeedGroup = new SpeedControllerGroup(rightTopMotor, rightMiddleMotor, rightBottomMotor);
+
+        // Followers
+        leftTopMotor.follow(leftMiddleMotor);
+        leftBottomMotor.follow(leftMiddleMotor);
+        rightTopMotor.follow(rightMiddleMotor);
+        rightBottomMotor.follow(rightMiddleMotor);
 
         //Gear Shift
         gearShift = new Solenoid(RobotMap.GEAR_SHIFT_CHANNEL);
@@ -144,5 +152,35 @@ public class Drivetrain extends Subsystem {
 
     public void toggleGearShift(){
         gearShift.set(!(gearShift.get()));
+    }
+
+    public void setTeleopCurrentLimit() {
+        leftMiddleMotor.setSmartCurrentLimit(RobotMap.DRIVETRAIN_TELEOP_CURRENT_LIMIT);
+        rightMiddleMotor.setSmartCurrentLimit(RobotMap.DRIVETRAIN_TELEOP_CURRENT_LIMIT);
+    }
+
+    public void setAutonCurrentLimit() {
+        leftMiddleMotor.setSmartCurrentLimit(RobotMap.DRIVETRAIN_AUTON_CURRENT_LIMIT);
+        rightMiddleMotor.setSmartCurrentLimit(RobotMap.DRIVETRAIN_AUTON_CURRENT_LIMIT);
+    }
+
+    public double getLeftCurrent() {
+        return leftBottomMotor.getOutputCurrent() + leftMiddleMotor.getOutputCurrent() + leftTopMotor.getOutputCurrent())
+    }
+
+    public double getRightCurrent() {
+        return rightBottomMotor.getOutputCurrent() + rightMiddleMotor.getOutputCurrent() + rightTopMotor.getOutputCurrent())
+    }
+
+    public double getTotalCurrent() {
+        return getLeftCurrent() + getRightCurrent();
+    }
+
+    public void enableBrownoutProtection() {
+        brownoutProtectionEnabled = true;
+    }
+
+    public void disableBrownoutProtection() {
+        brownoutProtectionEnabled = false;
     }
 }

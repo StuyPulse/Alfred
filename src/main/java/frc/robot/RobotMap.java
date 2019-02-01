@@ -34,11 +34,21 @@ public interface RobotMap {
      ****************************************************************************************/
     double ACCELERATION_DIV = 4; // Using averages, you can allow for smoother movement
     double CV_SPEED = 0; // Speed that stays the same through movements
+
+     /***************************************************************************************
+     * Brownout Protection Constants:
+     ****************************************************************************************/
+    double DRIVETRAIN_AUTON_CURRENT_LIMIT = 0;
+    double DRIVETRAIN_TELEOP_CURRENT_LIMIT = 0;
+    double LIFT_AUTON_CURRENT_LIMIT = 0;
+    double LIFT_TELEOP_CURRENT_LIMIT = 0;
+
     /***************************************************************************************
      * Aim Assist Constants
      ****************************************************************************************/
     double TURN_DIV = 24; // Changes the speed that the robot will turn
     double MOVE_TURN_DIV = 2; // Changes the speed that the robot will turn while moving
+
     /***************************************************************************************
      * Auton Assist Variables
      ****************************************************************************************/
