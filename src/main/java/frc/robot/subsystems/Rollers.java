@@ -23,15 +23,15 @@ public class Rollers extends Subsystem {
     }
 
     public void acquire() {
-        setSpeed(1);
+        setSpeed(1.0);
     }
 
     public void deacquire() {
-        setSpeed(-1);
+        setSpeed(-1.0);
     }
 
     public void stop() {
-        setSpeed(0);
+        setSpeed(0.0);
     }
 
     public void setSpeed(double speed) {
