@@ -15,6 +15,7 @@ import frc.robot.RobotMap;
 import frc.robot.commands.LiftMoveCommand;
 
 public class Lift extends Subsystem {
+
     private WPI_TalonSRX masterTalon;
     private WPI_TalonSRX followerTalon;
 
@@ -161,5 +162,29 @@ public class Lift extends Subsystem {
 
     public void disableRamping() {
         rampDisabled = true;
+    }
+
+    public void enableCurrentLimit() {
+        masterTalon.enableCurrentLimit(true);
+    }
+
+    public void disableCurrentLimit() {
+        masterTalon.enableCurrentLimit(false);
+    }
+
+    public void setAutonCurrentLimit () {
+        masterTalon.configContinuousCurrentLimit(RobotMap.LIFT_AUTON_CURRENT_LIMIT,0);
+        masterTalon.configPeakCurrentLimit(0, 0);
+        masterTalon.enableCurrentLimit(true);
+    }
+
+    public void setTeleopCurrentLimit () {
+        masterTalon.configContinuousCurrentLimit(RobotMap.LIFT_TELEOP_CURRENT_LIMIT,0);
+        masterTalon.configPeakCurrentLimit(0, 0);
+        masterTalon.enableCurrentLimit(false);
+    }
+
+    public double getCurrent() {
+        return masterTalon.getOutputCurrent() + followerTalon.getOutputCurrent();
     }
 }
