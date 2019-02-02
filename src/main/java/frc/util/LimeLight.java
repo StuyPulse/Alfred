@@ -1,3 +1,4 @@
+ 
 /* Lime Light Docs: http://docs.limelightvision.io/en/latest/networktables_api.html# */
 
 package frc.util;
@@ -11,6 +12,7 @@ public class LimeLight {
     private static NetworkTableClient table = new NetworkTableClient("limelight");
 
     /* Commonly Used Network Table Entries */
+    // Store these entrys as variables to prevent overcalling table.getEntry();
     private static NetworkTableEntry ValidTarget = table.getEntry("tv");
     private static NetworkTableEntry XOffset = table.getEntry("tx");
     private static NetworkTableEntry YOffset = table.getEntry("ty");
@@ -22,7 +24,7 @@ public class LimeLight {
     private static NetworkTableEntry HorizontalSideLength = table.getEntry("thoriz");
     private static NetworkTableEntry VerticalSideLength = table.getEntry("tvert");
 
-    /* Commonly Used Contor Information */
+    /* Commonly Used Contour Information */
     // Whether the limelight has any valid targets (0 or 1)
     public static boolean hasValidTarget() {
         // == 1 converts double to boolean
@@ -52,7 +54,7 @@ public class LimeLight {
     public static double getTargetArea() {
         // Lime light returns a double from 0 - 100
         // Divide by 100 to scale number from 0 - 1
-        return TargetArea.getDouble(0) / 100.0;
+        return Math.min(TargetArea.getDouble(0) / 100.0, 1);
     }
 
     // Skew or rotation (-90 degrees to 0 degrees)
@@ -67,15 +69,14 @@ public class LimeLight {
     // least 11ms for image capture latency.
     public static final double IMAGE_CAPTURE_LATENCY = 11;
 
-    public static double getLatency() {
-        // Add Image Capture Latency to
-        // get more accurate result
+    public static double getLatencyMs() {
+        // Add Image Capture Latency to get more accurate result
         return Latency.getDouble(0) + IMAGE_CAPTURE_LATENCY;
     }
 
     // Pixel information returned from these functions
-    public static final double MIN_PIXEL_LENGTH = 0;
-    public static final double MAX_PIXEL_LENGTH = 320;
+    public static final double MIN_SIDE_LENGTH = 0;
+    public static final double MAX_SIDE_LENGTH = 320;
 
     // Sidelength of shortest side of the fitted bounding box (0 - 320 pixels)
     public static double getShortestSidelength() {
@@ -98,39 +99,31 @@ public class LimeLight {
     }
 
     /* Advanced Usage with Raw Contours (Not sent by default) */
-
     // Raw Contours are formatted as tx0, ty0, tx1, ty1, tx2, ty2
     // So to make this easier, you pass an int and it formats it
 
-    // Raw Screenspace X
     public static double getRawTargetXOffset(int Target) {
         return table.getDouble("tx" + Integer.toString(Target));
     }
 
-    // Raw Screenspace Y
     public static double getRawTargetYOffset(int Target) {
         return table.getDouble("ty" + Integer.toString(Target));
     }
 
-    // Area (0% of image to 100% of image)
     public static double getRawTargetArea(int Target) {
         // Lime light returns a double from 0 - 100
         // Divide by 100 to scale number from 0 - 1
-        return table.getDouble("ta" + Integer.toString(Target)) / 100.0;
+        return Math.min(table.getDouble("ta" + Integer.toString(Target)) / 100.0, 1);
     }
 
-    // Skew or rotation (-90 degrees to 0 degrees)
     public static double getRawTargetSkew(int Target) {
         return table.getDouble("ts" + Integer.toString(Target));
     }
 
-    /* Raw Crosshairs */
-    // Crosshair A X in normalized screen space
     public static double getRawCrosshairX(int crosshair) {
         return table.getDouble("cx" + Integer.toString(crosshair));
     }
 
-    // Crosshair A Y in normalized screen space
     public static double getRawCrosshairY(int crosshair) {
         return table.getDouble("cy" + Integer.toString(crosshair));
     }
@@ -145,7 +138,6 @@ public class LimeLight {
         return table.setNumber(Element, Value);
     }
 
-    // Return data given by custom GRIP pipeline
     public static String getCustomString(String Element) {
         return table.getString(Element);
     }
@@ -155,14 +147,14 @@ public class LimeLight {
     }
 
     /* Camera Controls (Use Enums to prevent invalid inputs) */
-    // LED_MODE
-    public enum LED_MODE {
+    // LEDMode
+    public enum LEDMode {
         PIPELINE(0), // Use LED mode set in pipeline
         FORCE_OFF(1), // Force LEDs off
         FORCE_BLINK(2), // Force LEDs to blink
         FORCE_ON(3); // Force LEDs on
 
-        LED_MODE(int value) {
+        LEDMode(int value) {
             this.val = value;
         }
 
@@ -173,16 +165,16 @@ public class LimeLight {
         private int val;
     };
 
-    public static void setLEDMode(LED_MODE mode) {
+    public static void setLEDMode(LEDMode mode) {
         table.setNumber("ledMode", mode.getCodeValue());
     }
 
     // CAM_MODE
-    public enum CAM_MODE {
+    public enum CamMode {
         VISION(0), // Use limelight for CV
-        DRIVER(1); // Use limelight for driving (this is dumb, dont do this)
+        DRIVER(1); // Use limelight for driving 
 
-        CAM_MODE(int value) {
+        CamMode(int value) {
             this.val = value;
         }
 
@@ -193,7 +185,7 @@ public class LimeLight {
         private int val;
     };
 
-    public static void setCamMode(CAM_MODE mode) {
+    public static void setCamMode(CamMode mode) {
         table.setNumber("camMode", mode.getCodeValue());
     }
 
@@ -206,10 +198,10 @@ public class LimeLight {
     }
 
     // STREAM
-    public enum STREAM { // PIP = Picture-In-Picture
+    public enum CameraStream { // PIP = Picture-In-Picture
         STANDARD(0), PIP_MAIN(1), PIP_SECONDARY(2);
 
-        STREAM(int value) {
+        CameraStream(int value) {
             this.val = value;
         }
 
@@ -220,14 +212,14 @@ public class LimeLight {
         private int val;
     };
 
-    public static void setStream(STREAM stream) {
+    public static void setStream(CameraStream stream) {
         table.setNumber("stream", stream.getCodeValue());
     }
 
     // SNAPSHOT_MODE
     public enum SNAPSHOT_MODE {
         STOP(0), // Don't take snapshots
-        TAKE_TWO_PER_SECOND(1); // Take two snapshots per second
+        TAKE_TWO_PER_SECOND(1); 
 
         SNAPSHOT_MODE(int value) {
             this.val = value;
@@ -246,8 +238,8 @@ public class LimeLight {
 
     /* Math using limelight values */
     // Calculate Distance using TY
-    public static double getTargetDistance(double HeightFromCamera, double CameraAngle) {
-        return HeightFromCamera / Math.tan(Math.toRadians(getTargetYOffset() + CameraAngle));
+    public static double getTargetDistance(double heightFromCamera, double cameraAngle) {
+        return heightFromCamera / Math.tan(Math.toRadians(getTargetYOffset() + cameraAngle));
     }
 
     // Coordinates of limelight relative to the center of the robot
