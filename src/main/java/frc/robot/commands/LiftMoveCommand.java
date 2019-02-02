@@ -1,7 +1,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.OI;
 import frc.robot.Robot;
 
 public class LiftMoveCommand extends Command {
@@ -21,8 +20,6 @@ public class LiftMoveCommand extends Command {
 
     @Override
     protected void execute() {
-        // TODO: Implement OI
-        // double speed = Robot.m_oi.operatorGamepad.getY();
         // AutoComp assumes level 1 = 5 inches up, level 2 = 10 inches up, level 3 = 15 inches up (CHANGE THIS)
 
         if(level == 0) {
@@ -36,15 +33,15 @@ public class LiftMoveCommand extends Command {
 
     private void runAutoComp() {
         if(level == 1) {
-            moveToNumInches(5);
+            moveHeight(5);
         } else if(level == 2) {
-            moveToNumInches(10);
+            moveHeight(10);
         } else if(level == 3) {
-            moveToNumInches(15);
+            moveHeight(15);
         }
     }
 
-    private void moveToNumInches(double numInches) {
+    private void moveHeight(double numInches) {
         if (autoComp == 1 && Robot.lift.getHeight() < numInches) {
             Robot.lift.moveLift(1);
         } else if(autoComp == -1 && Robot.lift.getHeight() > numInches) {

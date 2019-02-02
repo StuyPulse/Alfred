@@ -16,13 +16,8 @@ import frc.robot.commands.FangsLowerCommand;
 import frc.robot.commands.FangsRaiseCommand;
 import frc.robot.commands.FloopCloseCommand;
 import frc.robot.commands.FloopOpenCommand;
-import frc.robot.commands.RollersAcquireFastCommand;
-import frc.robot.commands.RollersAcquireSlowCommand;
-import frc.robot.commands.RollersDeacquireSlowCommand;
 import frc.robot.commands.RollersMoveSpeedCommand;
-import frc.robot.commands.RollersRampingCommand;
-import frc.robot.commands.RollersDeacquireFastCommand;
-import frc.robot.commands.RollersDeacquireSlowCommand;
+import frc.robot.commands.RollersLimitSpeedCommand;
 import frc.util.Gamepad;
 import frc.util.Gamepad.GamepadSwitchMode;
 
@@ -47,8 +42,8 @@ public class OI {
         /******************************************
         * Operator Code
         ******************************************/
-        operatorGamepad.getRightTrigger().whileHeld(new RollersRampingCommand(operatorGamepad.getRawRightTriggerAxis()));
-        operatorGamepad.getLeftTrigger().whileHeld(new RollersRampingCommand(operatorGamepad.getRawLeftTriggerAxis()));
+        operatorGamepad.getRightTrigger().whileHeld(new RollersLimitSpeedCommand(operatorGamepad.getRawRightTriggerAxis()));
+        operatorGamepad.getLeftTrigger().whileHeld(new RollersLimitSpeedCommand(operatorGamepad.getRawLeftTriggerAxis()));
 
         operatorGamepad.getRightBumper().whileHeld(new RollersMoveSpeedCommand(1));
         operatorGamepad.getLeftBumper().whileHeld(new RollersMoveSpeedCommand(-1));

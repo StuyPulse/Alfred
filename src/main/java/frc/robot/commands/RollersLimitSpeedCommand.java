@@ -10,9 +10,9 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class RollersRampingCommand extends Command {
+public class RollersLimitSpeedCommand extends Command {
   private double speed;
-  public RollersRampingCommand(double speed) {
+  public RollersLimitSpeedCommand(double speed) {
     requires(Robot.rollers);
   }
 
