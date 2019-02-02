@@ -7,34 +7,30 @@
 
 package frc.robot.subsystems;
 
+import com.kauailabs.navx.frc.AHRS;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.RobotMap;
 import frc.robot.commands.DrivetrainDriveCommand;
-
-import com.kauailabs.navx.frc.AHRS;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
-import edu.wpi.first.wpilibj.command.Subsystem;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANEncoder;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import frc.util.NEOEncoder;
 
 public final class Drivetrain extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-    private CANSparkMax leftTopMotor,
-                        leftMiddleMotor,
-                        leftBottomMotor,
-                        rightTopMotor,
-                        rightMiddleMotor,
+    private CANSparkMax leftTopMotor, leftMiddleMotor, leftBottomMotor, rightTopMotor, rightMiddleMotor,
                         rightBottomMotor;
 
     private SpeedControllerGroup leftSpeedGroup, rightSpeedGroup;
 
     private DifferentialDrive differentialDrive;
 
-    private CANEncoder leftEncoder, rightEncoder;
+    private NEOEncoder leftEncoder, rightEncoder;
 
     private AHRS navX;
     
@@ -52,8 +48,8 @@ public final class Drivetrain extends Subsystem {
         rightBottomMotor = new CANSparkMax(RobotMap.RIGHT_BOTTOM_MOTOR_PORT, MotorType.kBrushless);
 
         // Encoders
-        leftEncoder = leftMiddleMotor.getEncoder();
-        rightEncoder = rightMiddleMotor.getEncoder();
+        leftEncoder = new NEOEncoder(leftMiddleMotor.getEncoder());
+        rightEncoder = new NEOEncoder(rightMiddleMotor.getEncoder());
 
         //Gear Shift
         gearShift = new Solenoid(RobotMap.GEAR_SHIFT_CHANNEL);
@@ -68,7 +64,7 @@ public final class Drivetrain extends Subsystem {
         rightMiddleMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
         rightBottomMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
 
-        //TODO:Ask engineering for motor polarity
+        //TODO: Ask engineering for motor polarity
         rightTopMotor.setInverted(true);
         rightMiddleMotor.setInverted(true);
         rightBottomMotor.setInverted(true);
@@ -120,6 +116,11 @@ public final class Drivetrain extends Subsystem {
 
     public double getDistance() {
         return Math.max(getLeftDistance(), getRightDistance());
+    }
+
+    public void resetEncoders(){
+        rightEncoder.resetEncoder();
+        leftEncoder.resetEncoder();
     }
 
     public double getGyroAngle() {
