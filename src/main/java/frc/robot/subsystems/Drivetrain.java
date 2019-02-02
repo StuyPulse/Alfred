@@ -135,6 +135,7 @@ public class Drivetrain extends Subsystem {
     }
 
     public void highGearShift() {
+        //TODO: test + find the correct boolean value
         gearShift.set(false);
     }
 

@@ -12,23 +12,23 @@ import frc.robot.Robot;
 
 public class RollersDeacquireFastCommand extends Command {
 
-  public RollersDeacquireFastCommand() {
-    requires(Robot.rollers);
-  }
+    public RollersDeacquireFastCommand() {
+        requires(Robot.rollers);
+    }
 
-  @Override
-  protected void execute() {
-    Robot.rollers.deacquire();
-  }
+    @Override
+    protected void execute() {
+        Robot.rollers.deacquire();
+    }
 
-  @Override
-  protected boolean isFinished() {
-    return false;
-  }
+    @Override
+    protected boolean isFinished() {
+        return false;
+    }
 
-  @Override
-  protected void end() {
-    Robot.rollers.stop();
-  }
+    @Override
+    protected void end() {
+        Robot.rollers.stop();
+    }
 
 }

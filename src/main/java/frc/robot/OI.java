@@ -10,7 +10,8 @@ package frc.robot;
 import frc.robot.commands.AbomChargeCommand;
 import frc.robot.commands.AutomaticDriveCommand;
 import frc.robot.commands.AutomaticTurnCommand;
-import frc.robot.commands.DrivetrainGearshiftCommand;
+import frc.robot.commands.DrivetrainHighGearCommand;
+import frc.robot.commands.DrivetrainLowGearCommand;
 import frc.robot.commands.FangsLowerCommand;
 import frc.robot.commands.FangsRaiseCommand;
 import frc.robot.commands.FloopCloseCommand;
@@ -35,7 +36,8 @@ public class OI {
         // TODO: Make these real!
         driverGamepad.getLeftButton().whileHeld(new AutomaticTurnCommand());
         driverGamepad.getTopButton().whileHeld(new AutomaticDriveCommand());
-        driverGamepad.getBottomButton().whileActive(new DrivetrainGearshiftCommand());
+        driverGamepad.getBottomButton().whenPressed(new DrivetrainLowGearCommand());
+        driverGamepad.getBottomButton().whenReleased(new DrivetrainHighGearCommand());
 
         /******************************************
         * Operator Code

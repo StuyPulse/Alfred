@@ -11,9 +11,6 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
-/**
- * Add your docs here.
- */
 public class Abom extends Subsystem {
     Solenoid abomSolenoid;
 
@@ -25,8 +22,6 @@ public class Abom extends Subsystem {
 
     @Override
     public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        // setDefaultCommand(new MySpecialCommand());
     }
 
     // Toggles between out and in for the solenoid
