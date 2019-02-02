@@ -20,10 +20,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-/**
- * Add your docs here.
- */
-public class Drivetrain extends Subsystem {
+public final class Drivetrain extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
     private CANSparkMax leftTopMotor,
@@ -39,7 +36,7 @@ public class Drivetrain extends Subsystem {
 
     private CANEncoder leftEncoder, rightEncoder;
 
-    public static AHRS navX;
+    private AHRS navX;
     
     private Solenoid gearShift;
 
@@ -58,30 +55,33 @@ public class Drivetrain extends Subsystem {
         leftEncoder = leftMiddleMotor.getEncoder();
         rightEncoder = rightMiddleMotor.getEncoder();
 
-        // Speed Groups
-        leftSpeedGroup = new SpeedControllerGroup(leftTopMotor, leftMiddleMotor, leftBottomMotor);
-        rightSpeedGroup = new SpeedControllerGroup(rightTopMotor, rightMiddleMotor, rightBottomMotor);
-
         //Gear Shift
         gearShift = new Solenoid(RobotMap.GEAR_SHIFT_CHANNEL);
+
         // navx
         navX = new AHRS(SPI.Port.kMXP);
-        // Drive
-        differentialDrive = new DifferentialDrive(leftSpeedGroup, rightSpeedGroup);
 
-        leftTopMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
+        leftTopMotor.setIdleMode(CANSparkMax.IdleMode.kCoast);
         leftMiddleMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
         leftBottomMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
-        rightTopMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
+        rightTopMotor.setIdleMode(CANSparkMax.IdleMode.kCoast);
         rightMiddleMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
         rightBottomMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
 
+        //TODO:Ask engineering for motor polarity
         rightTopMotor.setInverted(true);
         rightMiddleMotor.setInverted(true);
         rightBottomMotor.setInverted(true);
         leftTopMotor.setInverted(true);
         leftMiddleMotor.setInverted(true);
         leftBottomMotor.setInverted(true);
+        
+        // Speed Groups
+        leftSpeedGroup = new SpeedControllerGroup(leftTopMotor, leftMiddleMotor, leftBottomMotor);
+        rightSpeedGroup = new SpeedControllerGroup(rightTopMotor, rightMiddleMotor, rightBottomMotor);
+
+        // Drive
+        differentialDrive = new DifferentialDrive(leftSpeedGroup, rightSpeedGroup);
 
     }
 
@@ -98,28 +98,24 @@ public class Drivetrain extends Subsystem {
         differentialDrive.curvatureDrive(speed, angle, turn);
     }
 
-    public void tankDrive(double left, double right) {
-        differentialDrive.tankDrive(left, right);
-    }
-
     public void stop() {
         differentialDrive.tankDrive(0, 0);
     }
 
-    public double getLeftEncoderTicks() {
+    private double getLeftEncoderTicks() {
         return leftEncoder.getPosition();
     }
 
-    public double getRightEncoderTicks() {
+    private double getRightEncoderTicks() {
         return rightEncoder.getPosition();
     }
 
     public double getLeftDistance() {
-        return leftEncoder.getPosition() * RobotMap.WHEEL_INCHES_PER_REVOLUTION;
+        return getLeftEncoderTicks()* RobotMap.DRIVETRAIN_ENCODER_RAW_MULTIPLIER;
     }
 
     public double getRightDistance() {
-        return rightEncoder.getPosition() * RobotMap.WHEEL_INCHES_PER_REVOLUTION;
+        return getRightEncoderTicks() * RobotMap.DRIVETRAIN_ENCODER_RAW_MULTIPLIER;
     }
 
     public double getDistance() {
@@ -131,7 +127,7 @@ public class Drivetrain extends Subsystem {
     }
 
     public boolean isMoving() {
-        return (rightSpeedGroup.get() > 0 || leftSpeedGroup.get() > 0);
+        return (Math.abs(rightSpeedGroup.get()) > 0 || Math.abs(leftSpeedGroup.get()) > 0);
     }
 
     public void highGearShift() {
