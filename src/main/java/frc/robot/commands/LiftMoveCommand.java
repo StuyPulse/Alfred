@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
 
 public class LiftMoveCommand extends Command {
 
@@ -20,7 +21,6 @@ public class LiftMoveCommand extends Command {
 
     @Override
     protected void execute() {
-        // AutoComp assumes level 1 = 5 inches up, level 2 = 10 inches up, level 3 = 15 inches up (CHANGE THIS)
 
         if(level == 0) {
             Robot.lift.moveLift(Robot.oi.operatorGamepad.getLeftY());
@@ -33,11 +33,11 @@ public class LiftMoveCommand extends Command {
 
     private void runAutoComp() {
         if(level == 1) {
-            moveHeight(5);
+            moveHeight(RobotMap.LEVEL_1_HEIGHT);
         } else if(level == 2) {
-            moveHeight(10);
+            moveHeight(RobotMap.LEVEL_2_HEIGHT);
         } else if(level == 3) {
-            moveHeight(15);
+            moveHeight(RobotMap.LEVEL_3_HEIGHT);
         }
     }
 
@@ -77,9 +77,9 @@ public class LiftMoveCommand extends Command {
 
     private void calibrateAutoComp() {
         if (autoComp == 1 && level == 0 && isLeftAnalogPressed() && Robot.oi.operatorGamepad.getLeftY() <= 0.25) {
-            if (Robot.lift.getHeight() < 5) {
+            if (Robot.lift.getHeight() < RobotMap.LEVEL_1_HEIGHT) {
                 level = 1;
-            } else if (Robot.lift.getHeight() < 10) {
+            } else if (Robot.lift.getHeight() < RobotMap.LEVEL_2_HEIGHT) {
                 level = 2;
             } else {
                 level = 3;
@@ -87,9 +87,9 @@ public class LiftMoveCommand extends Command {
         }
 
         if(autoComp == -1 && isLeftAnalogPressed() && Robot.oi.operatorGamepad.getLeftY() >= -0.25) {
-            if(Robot.lift.getHeight() > 15) {
+            if(Robot.lift.getHeight() > RobotMap.LEVEL_3_HEIGHT) {
                 level = 3;
-            } else if(Robot.lift.getHeight() > 10) {
+            } else if(Robot.lift.getHeight() > RobotMap.LEVEL_2_HEIGHT) {
                 level = 2;
             } else {
                 level = 1;
