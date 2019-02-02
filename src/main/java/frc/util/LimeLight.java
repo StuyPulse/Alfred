@@ -3,17 +3,30 @@
 package frc.util;
 
 import frc.util.NetworkTableClient;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.drive.Vector2d; // Returning Goal Cordinates
 
 public class LimeLight {
     // Network Table used to contact Lime Light
     private static NetworkTableClient table = new NetworkTableClient("limelight");
 
-    /* “Best? Contour information */
+    /* Commonly Used Network Table Entries */
+    private static NetworkTableEntry ValidTarget = table.getEntry("tv");
+    private static NetworkTableEntry XOffset = table.getEntry("tx");
+    private static NetworkTableEntry YOffset = table.getEntry("ty");
+    private static NetworkTableEntry TargetArea = table.getEntry("ta");
+    private static NetworkTableEntry TargetSkew = table.getEntry("ts");
+    private static NetworkTableEntry Latency = table.getEntry("ts");
+    private static NetworkTableEntry ShortestSideLength = table.getEntry("tshort");
+    private static NetworkTableEntry LongestSideLength = table.getEntry("tlong");
+    private static NetworkTableEntry HorizontalSideLength = table.getEntry("thoriz");
+    private static NetworkTableEntry VerticalSideLength = table.getEntry("tvert");
+
+    /* Commonly Used Contor Information */
     // Whether the limelight has any valid targets (0 or 1)
     public static boolean hasValidTarget() {
         // == 1 converts double to boolean
-        return table.getDouble("tv") == 1;
+        return ValidTarget.getDouble(0) == 1;
     }
 
     // Horizontal Offset From Crosshair To Target (-27 degrees to 27 degrees)
@@ -21,7 +34,7 @@ public class LimeLight {
     public static final double MAX_X_OFFSET = 27;
 
     public static double getTargetXOffset() {
-        return table.getDouble("tx");
+        return XOffset.getDouble(0);
     }
 
     // Vertical Offset From Crosshair To Target (-20.5 degrees to 20.5 degrees)
@@ -29,24 +42,7 @@ public class LimeLight {
     public static final double MAX_Y_OFFSET = 20.5;
 
     public static double getTargetYOffset() {
-        return table.getDouble("ty");
-    }
-
-    // Calculate Distance using TY
-    public static double getTargetDistance(double HeightFromCamera, double CameraAngle) {
-        return HeightFromCamera / Math.tan(Math.toRadians(getTargetYOffset() + CameraAngle));
-    }
-
-    // Coordinates of limelight relative to the center of the robot
-    // This is necessary to make MP easier
-    public static final double LIMELIGHT_X_POS = 0;
-    public static final double LIMELIGHT_Y_POS = 0;
-
-    public static Vector2d getTargetCoordinates(double HeightFromCamera, double CameraAngle) {
-        final double DISTANCE = getTargetDistance(HeightFromCamera, CameraAngle);
-        final double XOFFSET = Math.toRadians(getTargetXOffset());
-        return new Vector2d(DISTANCE * Math.sin(XOFFSET) + LIMELIGHT_X_POS,
-                DISTANCE * Math.cos(XOFFSET) + LIMELIGHT_Y_POS);
+        return YOffset.getDouble(0);
     }
 
     // Target Area (0% of image to 100% of image)
@@ -56,7 +52,7 @@ public class LimeLight {
     public static double getTargetArea() {
         // Lime light returns a double from 0 - 100
         // Divide by 100 to scale number from 0 - 1
-        return table.getDouble("ta") / 100.0;
+        return TargetArea.getDouble(0) / 100.0;
     }
 
     // Skew or rotation (-90 degrees to 0 degrees)
@@ -64,7 +60,7 @@ public class LimeLight {
     public static final double MAX_SKEW = 0;
 
     public static double getTargetSkew() {
-        return table.getDouble("ts");
+        return TargetSkew.getDouble(0);
     }
 
     // The pipeline’s latency contribution (ms) Add at
@@ -74,43 +70,88 @@ public class LimeLight {
     public static double getLatency() {
         // Add Image Capture Latency to
         // get more accurate result
-        return table.getDouble("tl") + IMAGE_CAPTURE_LATENCY;
+        return Latency.getDouble(0) + IMAGE_CAPTURE_LATENCY;
     }
 
-    // Sidelength of shortest side of the fitted bounding box (pixels)
+    // Pixel information returned from these functions
+    public static final double MIN_PIXEL_LENGTH = 0;
+    public static final double MAX_PIXEL_LENGTH = 320;
+
+    // Sidelength of shortest side of the fitted bounding box (0 - 320 pixels)
     public static double getShortestSidelength() {
-        return table.getDouble("tshort");
+        return ShortestSideLength.getDouble(0);
     }
 
-    // Sidelength of longest side of the fitted bounding box (pixels)
+    // Sidelength of longest side of the fitted bounding box (0 - 320 pixels)
     public static double getLongestSidelength() {
-        return table.getDouble("tlong");
+        return LongestSideLength.getDouble(0);
     }
 
     // Horizontal sidelength of the rough bounding box (0 - 320 pixels)
-    public static final double MIN_HORIZ_SIDE_LENGTH = 0;
-    public static final double MAX_HORIZ_SIDE_LENGTH = 320;
-
     public static double getHorizontalSidelength() {
-        return table.getDouble("thoriz");
+        return HorizontalSideLength.getDouble(0);
     }
 
     // Vertical sidelength of the rough bounding box (0 - 320 pixels)
-    public static final double MIN_VIRT_SIDE_LENGTH = 0;
-    public static final double MAX_VIRT_SIDE_LENGTH = 320;
-
     public static double getVerticalSidelength() {
-        return table.getDouble("tvert");
+        return VerticalSideLength.getDouble(0);
     }
 
+    /* Advanced Usage with Raw Contours (Not sent by default) */
+
+    // Raw Contours are formatted as tx0, ty0, tx1, ty1, tx2, ty2
+    // So to make this easier, you pass an int and it formats it
+
+    // Raw Screenspace X
+    public static double getRawTargetXOffset(int Target) {
+        return table.getDouble("tx" + Integer.toString(Target));
+    }
+
+    // Raw Screenspace Y
+    public static double getRawTargetYOffset(int Target) {
+        return table.getDouble("ty" + Integer.toString(Target));
+    }
+
+    // Area (0% of image to 100% of image)
+    public static double getRawTargetArea(int Target) {
+        // Lime light returns a double from 0 - 100
+        // Divide by 100 to scale number from 0 - 1
+        return table.getDouble("ta" + Integer.toString(Target)) / 100.0;
+    }
+
+    // Skew or rotation (-90 degrees to 0 degrees)
+    public static double getRawTargetSkew(int Target) {
+        return table.getDouble("ts" + Integer.toString(Target));
+    }
+
+    /* Raw Crosshairs */
+    // Crosshair A X in normalized screen space
+    public static double getRawCrosshairX(int crosshair) {
+        return table.getDouble("cx" + Integer.toString(crosshair));
+    }
+
+    // Crosshair A Y in normalized screen space
+    public static double getRawCrosshairY(int crosshair) {
+        return table.getDouble("cy" + Integer.toString(crosshair));
+    }
+
+    /* Custom Grip Values */
     // Return data given by custom GRIP pipeline
     public static double getCustomDouble(String Element) {
         return table.getDouble(Element);
     }
 
+    public static boolean setCustomDouble(String Element, Number Value) {
+        return table.setNumber(Element, Value);
+    }
+
     // Return data given by custom GRIP pipeline
     public static String getCustomString(String Element) {
         return table.getString(Element);
+    }
+
+    public static boolean setCustomString(String Element, String Value) {
+        return table.setString(Element, Value);
     }
 
     /* Camera Controls (Use Enums to prevent invalid inputs) */
@@ -203,42 +244,21 @@ public class LimeLight {
         table.setNumber("snapshot", snapshot.getCodeValue());
     }
 
-    /* Advanced Usage with Raw Contours */
-    /* Raw Targets */
-
-    // Raw Contours are formatted as tx0, ty0, tx1, ty1, tx2, ty2
-    // So to make this easier, you pass an int and it formats it
-
-    // Raw Screenspace X
-    public static double getTargetXOffset(int Target) {
-        return table.getDouble("tx" + Integer.toString(Target));
+    /* Math using limelight values */
+    // Calculate Distance using TY
+    public static double getTargetDistance(double HeightFromCamera, double CameraAngle) {
+        return HeightFromCamera / Math.tan(Math.toRadians(getTargetYOffset() + CameraAngle));
     }
 
-    // Raw Screenspace Y
-    public static double getTargetYOffset(int Target) {
-        return table.getDouble("ty" + Integer.toString(Target));
-    }
+    // Coordinates of limelight relative to the center of the robot
+    // This is necessary to make MP easier
+    public static final double LIMELIGHT_X_POS = 0;
+    public static final double LIMELIGHT_Y_POS = 0;
 
-    // Area (0% of image to 100% of image)
-    public static double getTargetArea(int Target) {
-        // Lime light returns a double from 0 - 100
-        // Divide by 100 to scale number from 0 - 1
-        return table.getDouble("ta" + Integer.toString(Target)) / 100.0;
-    }
-
-    // Skew or rotation (-90 degrees to 0 degrees)
-    public static double getTargetSkew(int Target) {
-        return table.getDouble("ts" + Integer.toString(Target));
-    }
-
-    /* Raw Crosshairs */
-    // Crosshair A X in normalized screen space
-    public static double getCrosshairX(int crosshair) {
-        return table.getDouble("cx" + Integer.toString(crosshair));
-    }
-
-    // Crosshair A Y in normalized screen space
-    public static double getCrosshairY(int crosshair) {
-        return table.getDouble("cy" + Integer.toString(crosshair));
+    public static Vector2d getTargetCoordinates(double HeightFromCamera, double CameraAngle) {
+        final double DISTANCE = getTargetDistance(HeightFromCamera, CameraAngle);
+        final double XOFFSET = Math.toRadians(getTargetXOffset());
+        return new Vector2d(DISTANCE * Math.sin(XOFFSET) + LIMELIGHT_X_POS,
+                DISTANCE * Math.cos(XOFFSET) + LIMELIGHT_Y_POS);
     }
 }

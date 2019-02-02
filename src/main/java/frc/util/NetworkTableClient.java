@@ -7,7 +7,6 @@ import java.util.Set;
 import java.lang.Number;
 
 import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.TableEntryListener;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.PersistentException;
@@ -16,7 +15,7 @@ public class NetworkTableClient {
     /* Members */
     private NetworkTableInstance inst; // Instance contains IP/Related information
     private NetworkTable table; // Current Data Table
-    private String tableName = ""; // Name of Data Table
+    private String tableName; // Name of Data Table
 
     /* Constructors */
     // Default Instance and No DataTable
@@ -44,7 +43,7 @@ public class NetworkTableClient {
     }
 
     /* Returns name of the datatable */
-    public String tableName() {
+    public String getTableName() {
         return tableName;
     }
 
@@ -57,22 +56,6 @@ public class NetworkTableClient {
     // Save the network table to a file
     public void saveEntries(String FileName) throws PersistentException {
         table.saveEntries(FileName);
-    }
-
-    /* Table Listeners */
-    // Listen to a single key.
-    public int addEntryListener(String key, TableEntryListener listener, int flags) {
-        return table.addEntryListener(key, listener, flags);
-    }
-
-    // Listen to keys only within this table.
-    public int addEntryListener(TableEntryListener listener, int flags) {
-        return table.addEntryListener(listener, flags);
-    }
-
-    // When adding listeners, it returns an int. Use this to remove them
-    public void removeEntryListener(int listener) {
-        table.removeEntryListener(listener);
     }
 
     /* Table Information */
@@ -107,26 +90,22 @@ public class NetworkTableClient {
         return getEntry(EntryName).getBoolean(DEFAULT_BOOLEAN);
     }
 
-    public static final double DEFAULT_DOUBLE = 0.0;
+    public static final double DEFAULT_DOUBLE = 0;
 
     public double getDouble(String EntryName) {
         return getEntry(EntryName).getDouble(DEFAULT_DOUBLE);
     }
 
-    public static final Number DEFAULT_NUMBER = 0.0;
+    public static final Number DEFAULT_NUMBER = DEFAULT_DOUBLE;
 
     public Number getNumber(String EntryName) {
         return getEntry(EntryName).getNumber(DEFAULT_NUMBER);
     }
 
-    public static final String DEFAULT_STRING = "";
+    public static final String DEFAULT_STRING = "[ENTRY NOT FOUND]";
 
     public String getString(String EntryName) {
         return getEntry(EntryName).getString(DEFAULT_STRING);
-    }
-
-    public int getFlags(String EntryName) {
-        return getEntry(EntryName).getFlags();
     }
 
     /* Write Information to the Network Table */
@@ -145,14 +124,6 @@ public class NetworkTableClient {
 
     public boolean setString(String EntryName, String Value) {
         return getEntry(EntryName).setString(Value);
-    }
-
-    public void setFlags(String EntryName, int Value) {
-        getEntry(EntryName).setFlags(Value);
-    }
-
-    public void clearFlags(String EntryName, int Value) {
-        getEntry(EntryName).clearFlags(Value);
     }
 
     /* Make value persistent through program restarts. */
