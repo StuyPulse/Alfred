@@ -11,9 +11,6 @@ import frc.robot.RobotMap;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-/**
- * Add your docs here.
- */
 public class Floop extends Subsystem {
 
     private Solenoid floopSolenoid;
@@ -26,23 +23,23 @@ public class Floop extends Subsystem {
         floopSolenoid.set(true);
     }
 
-    public void stop() {
+    public void close() {
         floopSolenoid.set(false);
     }
 
     public void toggle() {
-        if(floopSolenoid.get()) {
-            stop();
+        if(isOpen()) {
+            close();
         } else {
             open();
         }
     }
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
+
+    public boolean isOpen() {
+        return floopSolenoid.get();
+    }
 
     @Override
     public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        // setDefaultCommand(new MySpecialCommand());
     }
 }

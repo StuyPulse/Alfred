@@ -17,7 +17,6 @@ public class LiftMoveCommand extends Command {
 
     @Override
     protected void initialize() {
-
     }
 
     @Override
@@ -68,7 +67,7 @@ public class LiftMoveCommand extends Command {
         }
 
         // if LEFT STICK is HELD and pushed DOWN
-        if(isleftAnalogPressed() && Robot.oi.operatorGamepad.getLeftY() < -0.25) {
+        if(isLeftAnalogPressed() && Robot.oi.operatorGamepad.getLeftY() < -0.25) {
             autoComp = -1;
         }
 
@@ -108,7 +107,6 @@ public class LiftMoveCommand extends Command {
 
     @Override
     protected void end() {
-
     }
 
     @Override

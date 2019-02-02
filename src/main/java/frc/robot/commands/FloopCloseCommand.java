@@ -10,14 +10,13 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 
-public class DrivetrainGearshiftCommand extends InstantCommand {
-    public DrivetrainGearshiftCommand() {
-        requires(Robot.drivetrain);
+public class FloopCloseCommand extends InstantCommand {
+    public FloopCloseCommand() {
+        requires(Robot.floop);
     }
 
     @Override
     protected void initialize() {
-        Robot.drivetrain.toggleGearShift();
+        Robot.floop.close();
     }
-
 }

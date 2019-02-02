@@ -7,35 +7,24 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Robot;
+import frc.robot.RobotMap;
+import frc.util.LimeLight;
 
-public class RollersAcquireFastCommand extends Command {
-
-    public RollersAcquireFastCommand() {
-        requires(Robot.rollers);
-    }
+public class AutomaticTurnCommand extends DrivetrainDriveCommand {
 
     @Override
     protected void initialize() {
+        setInterruptible(false);
+        // Enable CV on the limelight
+        LimeLight.setCamMode(LimeLight.CAM_MODE.VISION);
     }
 
     @Override
-    protected void execute() {
-        Robot.rollers.acquire();
-    }
+    protected void setTurn() {
+        // Set the turn value to the joysticks x value
+        super.setTurn();
 
-    @Override
-    protected boolean isFinished() {
-        return false;
-    }
-
-    @Override
-    protected void end() {
-        Robot.rollers.stop();
-    }
-
-    @Override
-    protected void interrupted() {
+        // Add corrective values to turn based on how fast the robot is moving
+        turn += LimeLight.getTargetXOffset() / (RobotMap.TURN_DIV * Math.max(RobotMap.MOVE_TURN_DIV * speed, 1));
     }
 }

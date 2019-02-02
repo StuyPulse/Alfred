@@ -13,15 +13,14 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import frc.robot.subsystems.Lift;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Abom;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Fangs;
 import frc.robot.subsystems.Floop;
-import frc.robot.subsystems.Tail;
-import frc.robot.subsystems.Fangs;
+import frc.robot.subsystems.Lift;
 import frc.robot.subsystems.Rollers;
+import frc.robot.subsystems.Tail;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -51,13 +50,13 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() {
         drivetrain = new Drivetrain();
+        oi = new OI();
         floop = new Floop();
         abom = new Abom();
         tail = new Tail();
         lift = new Lift(); 
         compressor = new Compressor();
         rollers = new Rollers();
-        oi = new OI();
         fangs = new Fangs();
         // chooser.addOption("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
@@ -105,7 +104,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousInit() {
-        setUpDoubleSolenoids(lift, fangs);
+        setUpDoubleSolenoids();
         autonomousCommand = chooser.getSelected();
 
         /*
@@ -163,7 +162,7 @@ public class Robot extends TimedRobot {
         }
     }
 
-    private void setUpDoubleSolenoids(Lift lift, Fangs fangs) {
+    private void setUpDoubleSolenoids() {
         lift.tiltBack();
         fangs.lower();
     }

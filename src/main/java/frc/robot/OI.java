@@ -8,12 +8,13 @@
 package frc.robot;
 
 import frc.robot.commands.AbomChargeCommand;
-import frc.robot.commands.CVAutoCommand;
-import frc.robot.commands.CVTurnCommand;
-import frc.robot.commands.DrivetrainGearshiftCommand;
+import frc.robot.commands.AutomaticDriveCommand;
+import frc.robot.commands.AutomaticTurnCommand;
+import frc.robot.commands.DrivetrainHighGearCommand;
+import frc.robot.commands.DrivetrainLowGearCommand;
 import frc.robot.commands.FangsLowerCommand;
 import frc.robot.commands.FangsRaiseCommand;
-import frc.robot.commands.FloopStopCommand;
+import frc.robot.commands.FloopCloseCommand;
 import frc.robot.commands.FloopOpenCommand;
 import frc.robot.commands.RollersAcquireFastCommand;
 import frc.robot.commands.RollersAcquireSlowCommand;
@@ -21,6 +22,7 @@ import frc.robot.commands.RollersDeacquireSlowCommand;
 import frc.robot.commands.RollersMoveSpeedCommand;
 import frc.robot.commands.RollersRampingCommand;
 import frc.robot.commands.RollersDeacquireFastCommand;
+import frc.robot.commands.RollersDeacquireSlowCommand;
 import frc.util.Gamepad;
 import frc.util.Gamepad.GamepadSwitchMode;
 
@@ -36,9 +38,11 @@ public class OI {
         /******************************************
         * Driver Code
         ******************************************/
-        driverGamepad.getLeftButton().whileHeld(new CVTurnCommand());
-        driverGamepad.getBottomButton().whileActive(new DrivetrainGearshiftCommand());
-        driverGamepad.getTopButton().whileHeld(new CVAutoCommand());
+        // TODO: Make these real!
+        driverGamepad.getLeftButton().whileHeld(new AutomaticTurnCommand());
+        driverGamepad.getTopButton().whileHeld(new AutomaticDriveCommand());
+        driverGamepad.getBottomButton().whenPressed(new DrivetrainLowGearCommand());
+        driverGamepad.getBottomButton().whenReleased(new DrivetrainHighGearCommand());
 
         /******************************************
         * Operator Code
@@ -51,7 +55,7 @@ public class OI {
 
         operatorGamepad.getTopButton().whileHeld(new FangsRaiseCommand());
         operatorGamepad.getBottomButton().whileHeld(new FangsLowerCommand());
-        operatorGamepad.getRightButton().whileHeld(new FloopStopCommand());
+        operatorGamepad.getRightButton().whileHeld(new FloopCloseCommand());
         operatorGamepad.getLeftButton().whileHeld(new FloopOpenCommand());
 
         // operatorGamepad.getLeftAnalogButton().whenPressed(); TODO: Make command

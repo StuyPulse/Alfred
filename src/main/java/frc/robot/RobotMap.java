@@ -6,6 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot;
+
 public interface RobotMap {
     // For example to map the left and right motors, you could define the
     // following variables to use with your drivetrain subsystem.
@@ -17,46 +18,44 @@ public interface RobotMap {
     // public static int rangefinderPort = 1;
     // public static int rangefinderModule = 1;
 
-
     /***************************************************************************************
-    *      Tail and Abom Ports                                                                
-    ****************************************************************************************/
-    int ABOM_SOLENOID = -1;
-    int TAIL_MOTOR = -1;
-    int RAISE_TAIL_SOLENOID = -1;
-    int RELEASE_ABOM_SOLENOID = -1;
+     * Tail and Abom Ports
+     ****************************************************************************************/
+    int ABOM_SOLENOID_PORT = -1;
+    int TAIL_MOTOR_PORT = -1;
+    int RAISE_TAIL_SOLENOID_PORT = -1;
+    int RELEASE_ABOM_SOLENOID_PORT = -1;
     /***************************************************************************************
-    *      Abom Charge Constants                                                                
-    ****************************************************************************************/
+     * Abom Charge Constants
+     ****************************************************************************************/
     int ABOM_CHARGE_DELAY_MS = 300; // Time it takes for a piston to fire and retract
     /***************************************************************************************
      * CV Constants
      ****************************************************************************************/
-	double ACCELERATION_DIV = 4; // Using averages, you can allow for smoother movement
-	double CV_SPEED = 0; // Speed that stays the same through movements
+    double ACCELERATION_DIV = 4; // Using averages, you can allow for smoother movement
+    double CV_SPEED = 0; // Speed that stays the same through movements
     /***************************************************************************************
-    *      Aim Assist Constants                                                                    
-    ****************************************************************************************/
-	double TURN_DIV = 24; // Changes the speed that the robot will turn
-	double MOVE_DIV = 2; // Changes the speed that the robot will turn
-	/***************************************************************************************
-    *      Auton Assist Variables                                                                    
-    ****************************************************************************************/
-	double FORWARD_AREA = 0.0145; // Area at which robot will move forward
-    double MIN_SPEED = 0.25; // Slowest speed for auto accelerate
-	double AUTO_SPEED = 1.5 / FORWARD_AREA; // Auto Drive Speed
-    boolean DRIVER_MODE = false; // Prevent overwriting to the network table
-    int JOYSTICK_SCALAR = 3; //Used to make joystick values smaller (Must be an odd number)(for CV)
+     * Aim Assist Constants
+     ****************************************************************************************/
+    double TURN_DIV = 24; // Changes the speed that the robot will turn
+    double MOVE_TURN_DIV = 2; // Changes the speed that the robot will turn while moving
+    /***************************************************************************************
+     * Auton Assist Variables
+     ****************************************************************************************/
+    double FORWARD_AREA = 0.0145; // Area at which robot will move forward
+    double MIN_AUTO_SPEED = 0.25; // Slowest speed for auto accelerate
+    double AUTO_SPEED_MUL = 1.5 / FORWARD_AREA; // Auto Drive Speed
+    int JOYSTICK_SCALAR = 3; // Used to make joystick values smaller (Must be an odd number)(for CV)
 
     /***************************************************************************************
-    *      Gamepad Ports                                                                    
-    ****************************************************************************************/
+     * Gamepad Ports
+     ****************************************************************************************/
     int DRIVER_GAMEPAD_PORT = -1;
     int OPERATOR_GAMEPAD_PORT = -1;
 
     /***************************************************************************************
-    *      Drivetrain Motor Ports                                                                    
-    ****************************************************************************************/
+     * Drivetrain Motor Ports
+     ****************************************************************************************/
     int LEFT_TOP_MOTOR_PORT = -1;
     int LEFT_MIDDLE_MOTOR_PORT = -1;
     int LEFT_BOTTOM_MOTOR_PORT = -1;
@@ -71,8 +70,8 @@ public interface RobotMap {
     int GEAR_SHIFT_CHANNEL = -1;
 
     /***************************************************************************************
-    *      Floop Solenoid Constants                                                                    
-    ****************************************************************************************/
+     * Floop Solenoid Constants
+     ****************************************************************************************/
     int FLOOP_CHANNEL = -1;
 
     /**************************************************************************
@@ -92,25 +91,24 @@ public interface RobotMap {
     /**************************************************************************
      * Lift Constants
      *************************************************************************/
-    double LIFT_WINCH_DIAMETER_INCHES = 1.75; 
+    double LIFT_WINCH_DIAMETER_INCHES = 1.75;
     double LIFT_EMPIRICAL_RAW_MULTIPLIER = 1;
-    double LIFT_ENCODER_RAW_MULTIPLIER = 
-        LIFT_EMPIRICAL_RAW_MULTIPLIER * (LIFT_WINCH_DIAMETER_INCHES * Math.PI); 
+    double LIFT_ENCODER_RAW_MULTIPLIER = LIFT_EMPIRICAL_RAW_MULTIPLIER * (LIFT_WINCH_DIAMETER_INCHES * Math.PI);
     double LIFT_MIN_SPEED = 0.1;
-    //Waiting on eng for the height 
+    // Waiting on eng for the height
     double LIFT_MAX_HEIGHT = -1;
-    double LIFT_MIN_HEIGHT = -1;  
+    double LIFT_MIN_HEIGHT = -1;
     double LIFT_RAMP_HEIGHT_THRESHOLD = 1;
 
     /***************************************************************************************
-    * Fangs Solenoid Constants                                                                    
-    ****************************************************************************************/
+     * Fangs Solenoid Constants
+     ****************************************************************************************/
     int FANGS_OPEN_CHANNEL = -1;
     int FANGS_CLOSE_CHANNEL = -1;
 
     /***************************************************************************************
-    *      Rollers Constants                                                                   
-    ****************************************************************************************/
+     * Rollers Constants
+     ****************************************************************************************/
     int ROLLER_MOTOR_PORT = -1;
     double SLOW_ROLLER_MULTIPLIER = 0.75;
 }
