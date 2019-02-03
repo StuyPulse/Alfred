@@ -35,11 +35,7 @@ public final class Fangs extends Subsystem {
     }
 
     public void toggle() {
-        if( isUp()) {
-            lower();
-        } else {
-            raise();
-        }
+        fangsSolenoid.set(!isUp());
     }
 
     public boolean isUp() {
