@@ -116,16 +116,16 @@ public class Limelight {
         return Math.min(table.getEntry("ta" + Integer.toString(target)).getDouble(0) / 100.0, 1);
     }
 
-    public static double getRawTargetSkew(int Target) {
-        return table.getEntry("ty" + Integer.toString(target)).getDouble(0);
+    public static double getRawTargetSkew(int target) {
+        return table.getEntry("ts" + Integer.toString(target)).getDouble(0);
     }
 
     public static double getRawCrosshairX(int crosshair) {
-        return table.getEntry("ty" + Integer.toString(target)).getDouble(0);
+        return table.getEntry("cy" + Integer.toString(crosshair)).getDouble(0);
     }
 
     public static double getRawCrosshairY(int crosshair) {
-        return table.getEntry("ty" + Integer.toString(target)).getDouble(0);
+        return table.getEntry("cy" + Integer.toString(crosshair)).getDouble(0);
     }
 
     /* Custom Grip Values */
@@ -139,7 +139,7 @@ public class Limelight {
     }
 
     public static String getCustomString(String Element) {
-        return table.getEntry(Element).getString(0);
+        return table.getEntry(Element).getString("");
     }
 
     public static boolean setCustomString(String Element, String Value) {
@@ -196,7 +196,7 @@ public class Limelight {
     public static void setPipeline(int pipeline) {
         // Prevent input of invalid pipelines
         if (pipeline >= 0 && pipeline <= 9) {
-            CamModeEntry.setNumber(pipeline);
+            PipelineEntry.setNumber(pipeline);
         }
     }
 
