@@ -21,10 +21,9 @@ public interface RobotMap {
     /***************************************************************************************
      * Tail and Abom Ports
      ****************************************************************************************/
-    int ABOM_SOLENOID_PORT = -1;
+    int RATCHET_SOLENOID_PORT = -1;
     int TAIL_MOTOR_PORT = -1;
-    int RAISE_TAIL_SOLENOID_PORT = -1;
-    int RELEASE_ABOM_SOLENOID_PORT = -1;
+    int ABOM_SOLENOID_PORT = -1;
     /***************************************************************************************
      * Abom Charge Constants
      ****************************************************************************************/

@@ -28,12 +28,12 @@ public class TailClimbCommand extends Command {
         this.speed = Robot.oi.operatorGamepad.getLeftY();
         // Raises the lift once
         if (speed > .9 && !isRaised) {
-            Robot.tail.raiseTail();
+            Robot.tail.releaseRatchet();
             isRaised = true;
         }
         // Retracts the lift once
         if (speed < .9 && isRaised && !isRetracted) {
-            Robot.tail.resetElevator();
+            Robot.tail.reengageRatchet();
             isRetracted = true;
         }
         // Makes the lift go up and down
