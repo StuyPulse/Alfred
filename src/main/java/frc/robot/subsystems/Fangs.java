@@ -7,44 +7,38 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
-public class Fangs extends Subsystem {
-    private DoubleSolenoid fangsSolenoid;
+// The fangs mechanism is a piston that can be extended in order to pick up
+// hatch panels from the carpet.
+public final class Fangs extends Subsystem {
+    private Solenoid fangsSolenoid;
 
     public Fangs() {
-        fangsSolenoid = new DoubleSolenoid(RobotMap.FANGS_OPEN_CHANNEL, RobotMap.FANGS_CLOSE_CHANNEL);
+        fangsSolenoid = new Solenoid(RobotMap.FANGS_CHANNEL);
     }
 
     @Override
     public void initDefaultCommand() {
     }
-
-    @Override
-    public void periodic(){
-        super.periodic();
-    }
     
     public void raise() {
-        // TODO: Figure out which setting opens/which closes
-        fangsSolenoid.set(DoubleSolenoid.Value.kForward);
+        // Fangs Solenoid begins as not extended.
+        // Extending it will raise fangs. (confirmed w/ Engineering)
+        fangsSolenoid.set(true);
     }
 
     public void lower() {
-        fangsSolenoid.set(DoubleSolenoid.Value.kReverse);
+        fangsSolenoid.set(false);
     }
 
     public void toggle() {
-        if( isUp()) {
-            lower();
-        } else {
-            raise();
-        }
+        fangsSolenoid.set(!isUp());
     }
 
     public boolean isUp() {
-        return fangsSolenoid.get() == DoubleSolenoid.Value.kForward;
+        return fangsSolenoid.get();
     }
 }
