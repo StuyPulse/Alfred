@@ -69,6 +69,9 @@ public interface RobotMap {
 
     int GEAR_SHIFT_CHANNEL = -1;
 
+    /***************************************************************************************
+     * Drivetrain Greyhill Encoder Constants
+     ****************************************************************************************/
     int DRIVETRAIN_LEFT_ENCODER_CHANNEL_A = -1;
     int DRIVETRAIN_LEFT_ENCODER_CHANNEL_B = -1;
 
