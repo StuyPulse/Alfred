@@ -15,59 +15,59 @@ public class Limelight {
 
     /* Commonly Used Contour Information */
     // Whether the limelight has any valid targets (0 or 1)
-    private static NetworkTableEntry ValidTarget = table.getEntry("tv");
 
+    private static NetworkTableEntry ValidTargetEntry = table.getEntry("tv");
     public static boolean hasValidTarget() {
         // == 1 converts double to boolean
-        return ValidTarget.getDouble(0) == 1;
+        return ValidTargetEntry.getDouble(0) == 1;
     }
 
     // Horizontal Offset From Crosshair To Target (-27 degrees to 27 degrees)
     public static final double MIN_X_OFFSET = -27;
     public static final double MAX_X_OFFSET = 27;
 
-    private static NetworkTableEntry XOffset = table.getEntry("tx");
-    public static double getTargetXOffset() {
-        return XOffset.getDouble(0);
+    private static NetworkTableEntry XAngleEntry = table.getEntry("tx");
+    public static double getTargetXAngle() {
+        return XAngleEntry.getDouble(0);
     }
 
     // Vertical Offset From Crosshair To Target (-20.5 degrees to 20.5 degrees)
     public static final double MIN_Y_OFFSET = -20.5;
     public static final double MAX_Y_OFFSET = 20.5;
 
-    private static NetworkTableEntry YOffset = table.getEntry("ty");
-    public static double getTargetYOffset() {
-        return YOffset.getDouble(0);
+    private static NetworkTableEntry YAngleEntry = table.getEntry("ty");
+    public static double getTargetYAngle() {
+        return YAngleEntry.getDouble(0);
     }
 
     // Target Area (0% of image to 100% of image)
     public static final double MIN_TARGET_AREA = 0;
     public static final double MAX_TARGET_AREA = 1;
 
-    private static NetworkTableEntry TargetArea = table.getEntry("ta");
+    private static NetworkTableEntry TargetAreaEntry = table.getEntry("ta");
     public static double getTargetArea() {
         // Lime light returns a double from 0 - 100
         // Divide by 100 to scale number from 0 - 1
-        return Math.min(TargetArea.getDouble(0) / 100.0, 1);
+        return Math.min(TargetAreaEntry.getDouble(0) / 100.0, 1);
     }
 
     // Skew or rotation (-90 degrees to 0 degrees)
     public static final double MIN_SKEW = -90;
     public static final double MAX_SKEW = 0;
 
-    private static NetworkTableEntry TargetSkew = table.getEntry("ts");
+    private static NetworkTableEntry TargetSkewEntry = table.getEntry("ts");
     public static double getTargetSkew() {
-        return TargetSkew.getDouble(0);
+        return TargetSkewEntry.getDouble(0);
     }
 
     // The pipeline’s latency contribution (ms) Add at
     // least 11ms for image capture latency.
     public static final double IMAGE_CAPTURE_LATENCY = 11;
 
-    private static NetworkTableEntry Latency = table.getEntry("ts");
+    private static NetworkTableEntry LatencyEntry = table.getEntry("ts");
     public static double getLatencyMs() {
         // Add Image Capture Latency to get more accurate result
-        return Latency.getDouble(0) + IMAGE_CAPTURE_LATENCY;
+        return LatencyEntry.getDouble(0) + IMAGE_CAPTURE_LATENCY;
     }
 
     // Pixel information returned from these functions
@@ -75,38 +75,38 @@ public class Limelight {
     public static final double MAX_SIDE_LENGTH = 320;
 
     // Sidelength of shortest side of the fitted bounding box (0 - 320 pixels)
-    private static NetworkTableEntry ShortestSideLength = table.getEntry("tshort");
+    private static NetworkTableEntry ShortestSideLengthEntry = table.getEntry("tshort");
     public static double getShortestSidelength() {
-        return ShortestSideLength.getDouble(0);
+        return ShortestSideLengthEntry.getDouble(0);
     }
 
     // Sidelength of longest side of the fitted bounding box (0 - 320 pixels)
-    private static NetworkTableEntry LongestSideLength = table.getEntry("tlong");
+    private static NetworkTableEntry LongestSideLengthEntry = table.getEntry("tlong");
     public static double getLongestSidelength() {
-        return LongestSideLength.getDouble(0);
+        return LongestSideLengthEntry.getDouble(0);
     }
 
     // Horizontal sidelength of the rough bounding box (0 - 320 pixels)
-    private static NetworkTableEntry HorizontalSideLength = table.getEntry("thoriz");
+    private static NetworkTableEntry HorizontalSideLengthEntry = table.getEntry("thoriz");
     public static double getHorizontalSidelength() {
-        return HorizontalSideLength.getDouble(0);
+        return HorizontalSideLengthEntry.getDouble(0);
     }
 
     // Vertical sidelength of the rough bounding box (0 - 320 pixels)
-    private static NetworkTableEntry VerticalSideLength = table.getEntry("tvert");
+    private static NetworkTableEntry VerticalSideLengthEntry = table.getEntry("tvert");
     public static double getVerticalSidelength() {
-        return VerticalSideLength.getDouble(0);
+        return VerticalSideLengthEntry.getDouble(0);
     }
 
     /* Advanced Usage with Raw Contours (Not sent by default) */
     // Raw Contours are formatted as tx0, ty0, tx1, ty1, tx2, ty2
     // So to make this easier, you pass an int and it formats it
 
-    public static double getRawTargetXOffset(int target) {
+    public static double getRawTargetXAngle(int target) {
         return table.getEntry("tx" + Integer.toString(target)).getDouble(0);
     }
 
-    public static double getRawTargetYOffset(int target) {
+    public static double getRawTargetYAngle(int target) {
         return table.getEntry("ty" + Integer.toString(target)).getDouble(0);
     }
 
@@ -244,7 +244,7 @@ public class Limelight {
     /* Math using limelight values */
     // Calculate Distance using TY
     public static double getTargetDistance(double heightFromCamera, double cameraAngle) {
-        return heightFromCamera / Math.tan(Math.toRadians(getTargetYOffset() + cameraAngle));
+        return heightFromCamera / Math.tan(Math.toRadians(getTargetYAngle() + cameraAngle));
     }
 
     // Coordinates of limelight relative to the center of the robot
@@ -254,7 +254,7 @@ public class Limelight {
 
     public static Vector2d getTargetCoordinates(double HeightFromCamera, double CameraAngle) {
         final double DISTANCE = getTargetDistance(HeightFromCamera, CameraAngle);
-        final double XOFFSET = Math.toRadians(getTargetXOffset());
+        final double XOFFSET = Math.toRadians(getTargetXAngle());
         return new Vector2d(DISTANCE * Math.sin(XOFFSET) + LIMELIGHT_X_POS,
                 DISTANCE * Math.cos(XOFFSET) + LIMELIGHT_Y_POS);
     }
