@@ -1,31 +1,22 @@
- 
+
 /* Lime Light Docs: http://docs.limelightvision.io/en/latest/networktables_api.html# */
 
 package frc.util;
 
-import frc.util.NetworkTableClient;
+import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.drive.Vector2d; // Returning Goal Cordinates
 
-public class LimeLight {
+public class Limelight {
     // Network Table used to contact Lime Light
-    private static NetworkTableClient table = new NetworkTableClient("limelight");
-
-    /* Commonly Used Network Table Entries */
-    // Store these entrys as variables to prevent overcalling table.getEntry();
-    private static NetworkTableEntry ValidTarget = table.getEntry("tv");
-    private static NetworkTableEntry XOffset = table.getEntry("tx");
-    private static NetworkTableEntry YOffset = table.getEntry("ty");
-    private static NetworkTableEntry TargetArea = table.getEntry("ta");
-    private static NetworkTableEntry TargetSkew = table.getEntry("ts");
-    private static NetworkTableEntry Latency = table.getEntry("ts");
-    private static NetworkTableEntry ShortestSideLength = table.getEntry("tshort");
-    private static NetworkTableEntry LongestSideLength = table.getEntry("tlong");
-    private static NetworkTableEntry HorizontalSideLength = table.getEntry("thoriz");
-    private static NetworkTableEntry VerticalSideLength = table.getEntry("tvert");
+    private static NetworkTableInstance tableInstance = NetworkTableInstance.getDefault();
+    private static NetworkTable table = tableInstance.getTable("limelight");
 
     /* Commonly Used Contour Information */
     // Whether the limelight has any valid targets (0 or 1)
+    private static NetworkTableEntry ValidTarget = table.getEntry("tv");
+
     public static boolean hasValidTarget() {
         // == 1 converts double to boolean
         return ValidTarget.getDouble(0) == 1;
@@ -35,6 +26,7 @@ public class LimeLight {
     public static final double MIN_X_OFFSET = -27;
     public static final double MAX_X_OFFSET = 27;
 
+    private static NetworkTableEntry XOffset = table.getEntry("tx");
     public static double getTargetXOffset() {
         return XOffset.getDouble(0);
     }
@@ -43,6 +35,7 @@ public class LimeLight {
     public static final double MIN_Y_OFFSET = -20.5;
     public static final double MAX_Y_OFFSET = 20.5;
 
+    private static NetworkTableEntry YOffset = table.getEntry("ty");
     public static double getTargetYOffset() {
         return YOffset.getDouble(0);
     }
@@ -51,6 +44,7 @@ public class LimeLight {
     public static final double MIN_TARGET_AREA = 0;
     public static final double MAX_TARGET_AREA = 1;
 
+    private static NetworkTableEntry TargetArea = table.getEntry("ta");
     public static double getTargetArea() {
         // Lime light returns a double from 0 - 100
         // Divide by 100 to scale number from 0 - 1
@@ -61,6 +55,7 @@ public class LimeLight {
     public static final double MIN_SKEW = -90;
     public static final double MAX_SKEW = 0;
 
+    private static NetworkTableEntry TargetSkew = table.getEntry("ts");
     public static double getTargetSkew() {
         return TargetSkew.getDouble(0);
     }
@@ -69,6 +64,7 @@ public class LimeLight {
     // least 11ms for image capture latency.
     public static final double IMAGE_CAPTURE_LATENCY = 11;
 
+    private static NetworkTableEntry Latency = table.getEntry("ts");
     public static double getLatencyMs() {
         // Add Image Capture Latency to get more accurate result
         return Latency.getDouble(0) + IMAGE_CAPTURE_LATENCY;
@@ -79,21 +75,25 @@ public class LimeLight {
     public static final double MAX_SIDE_LENGTH = 320;
 
     // Sidelength of shortest side of the fitted bounding box (0 - 320 pixels)
+    private static NetworkTableEntry ShortestSideLength = table.getEntry("tshort");
     public static double getShortestSidelength() {
         return ShortestSideLength.getDouble(0);
     }
 
     // Sidelength of longest side of the fitted bounding box (0 - 320 pixels)
+    private static NetworkTableEntry LongestSideLength = table.getEntry("tlong");
     public static double getLongestSidelength() {
         return LongestSideLength.getDouble(0);
     }
 
     // Horizontal sidelength of the rough bounding box (0 - 320 pixels)
+    private static NetworkTableEntry HorizontalSideLength = table.getEntry("thoriz");
     public static double getHorizontalSidelength() {
         return HorizontalSideLength.getDouble(0);
     }
 
     // Vertical sidelength of the rough bounding box (0 - 320 pixels)
+    private static NetworkTableEntry VerticalSideLength = table.getEntry("tvert");
     public static double getVerticalSidelength() {
         return VerticalSideLength.getDouble(0);
     }
@@ -102,48 +102,48 @@ public class LimeLight {
     // Raw Contours are formatted as tx0, ty0, tx1, ty1, tx2, ty2
     // So to make this easier, you pass an int and it formats it
 
-    public static double getRawTargetXOffset(int Target) {
-        return table.getDouble("tx" + Integer.toString(Target));
+    public static double getRawTargetXOffset(int target) {
+        return table.getEntry("tx" + Integer.toString(target)).getDouble(0);
     }
 
-    public static double getRawTargetYOffset(int Target) {
-        return table.getDouble("ty" + Integer.toString(Target));
+    public static double getRawTargetYOffset(int target) {
+        return table.getEntry("ty" + Integer.toString(target)).getDouble(0);
     }
 
-    public static double getRawTargetArea(int Target) {
+    public static double getRawTargetArea(int target) {
         // Lime light returns a double from 0 - 100
         // Divide by 100 to scale number from 0 - 1
-        return Math.min(table.getDouble("ta" + Integer.toString(Target)) / 100.0, 1);
+        return Math.min(table.getEntry("ta" + Integer.toString(target)).getDouble(0) / 100.0, 1);
     }
 
     public static double getRawTargetSkew(int Target) {
-        return table.getDouble("ts" + Integer.toString(Target));
+        return table.getEntry("ty" + Integer.toString(target)).getDouble(0);
     }
 
     public static double getRawCrosshairX(int crosshair) {
-        return table.getDouble("cx" + Integer.toString(crosshair));
+        return table.getEntry("ty" + Integer.toString(target)).getDouble(0);
     }
 
     public static double getRawCrosshairY(int crosshair) {
-        return table.getDouble("cy" + Integer.toString(crosshair));
+        return table.getEntry("ty" + Integer.toString(target)).getDouble(0);
     }
 
     /* Custom Grip Values */
     // Return data given by custom GRIP pipeline
     public static double getCustomDouble(String Element) {
-        return table.getDouble(Element);
+        return table.getEntry(Element).getDouble(0);
     }
 
-    public static boolean setCustomDouble(String Element, Number Value) {
-        return table.setNumber(Element, Value);
+    public static boolean setCustomNumber(String Element, Number Value) {
+        return table.getEntry(Element).setNumber(Value);
     }
 
     public static String getCustomString(String Element) {
-        return table.getString(Element);
+        return table.getEntry(Element).getString(0);
     }
 
     public static boolean setCustomString(String Element, String Value) {
-        return table.setString(Element, Value);
+        return table.getEntry(Element).setString(Value);
     }
 
     /* Camera Controls (Use Enums to prevent invalid inputs) */
@@ -165,14 +165,15 @@ public class LimeLight {
         private int val;
     };
 
+    private static NetworkTableEntry LEDModeEntry = table.getEntry("ledMode");
     public static void setLEDMode(LEDMode mode) {
-        table.setNumber("ledMode", mode.getCodeValue());
+        LEDModeEntry.setNumber(mode.getCodeValue());
     }
 
     // CAM_MODE
     public enum CamMode {
         VISION(0), // Use limelight for CV
-        DRIVER(1); // Use limelight for driving 
+        DRIVER(1); // Use limelight for driving
 
         CamMode(int value) {
             this.val = value;
@@ -185,15 +186,17 @@ public class LimeLight {
         private int val;
     };
 
+    private static NetworkTableEntry CamModeEntry = table.getEntry("camMode");
     public static void setCamMode(CamMode mode) {
-        table.setNumber("camMode", mode.getCodeValue());
+        CamModeEntry.setNumber(mode.getCodeValue());
     }
 
     // PIPELINE
+    private static NetworkTableEntry PipelineEntry = table.getEntry("pipeline");
     public static void setPipeline(int pipeline) {
         // Prevent input of invalid pipelines
         if (pipeline >= 0 && pipeline <= 9) {
-            table.setNumber("pipeline", pipeline);
+            CamModeEntry.setNumber(pipeline);
         }
     }
 
@@ -212,14 +215,15 @@ public class LimeLight {
         private int val;
     };
 
-    public static void setStream(CameraStream stream) {
-        table.setNumber("stream", stream.getCodeValue());
+    private static NetworkTableEntry CameraStreamEntry = table.getEntry("stream");
+    public static void setCameraStream(CameraStream stream) {
+        CameraStreamEntry.setNumber(stream.getCodeValue());
     }
 
     // SNAPSHOT_MODE
     public enum SNAPSHOT_MODE {
         STOP(0), // Don't take snapshots
-        TAKE_TWO_PER_SECOND(1); 
+        TAKE_TWO_PER_SECOND(1);
 
         SNAPSHOT_MODE(int value) {
             this.val = value;
@@ -232,8 +236,9 @@ public class LimeLight {
         private int val;
     };
 
+    private static NetworkTableEntry SnapshotModeEntry = table.getEntry("snapshot");
     public static void setSnapshotMode(SNAPSHOT_MODE snapshot) {
-        table.setNumber("snapshot", snapshot.getCodeValue());
+        SnapshotModeEntry.setNumber(snapshot.getCodeValue());
     }
 
     /* Math using limelight values */

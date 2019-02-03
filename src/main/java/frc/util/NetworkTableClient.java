@@ -11,6 +11,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.PersistentException;
 
+// @deprecated
 public class NetworkTableClient {
     private NetworkTableInstance inst; // Instance contains IP/Related information
     private NetworkTable table; // Current Data Table
