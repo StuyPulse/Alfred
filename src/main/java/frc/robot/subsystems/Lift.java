@@ -1,7 +1,6 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -102,7 +101,7 @@ public final class Lift extends Subsystem {
 
     // rampMultiplier takes a distance from a hard limit, and calculates
     // multiplier for linear ramping
-    public double rampMultiplier(double distance) {
+    private double rampMultiplier(double distance) {
         double threshold = RobotMap.LIFT_RAMP_HEIGHT_THRESHOLD;
         if (threshold <= 0) {
             return 1.0;
@@ -134,7 +133,7 @@ public final class Lift extends Subsystem {
         moveNoRamp(speed);
     }
 
-    public void moveLift(double speed) {
+    public void move(double speed) {
         if (rampDisabled) {
             moveNoRamp(speed);
         } else {
