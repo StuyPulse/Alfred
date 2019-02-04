@@ -10,14 +10,15 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 
-public class DrivetrainGearshiftCommand extends InstantCommand {
-  public DrivetrainGearshiftCommand() {
-    requires(Robot.drivetrain);
-  }
+public class DrivetrainHighGearCommand extends InstantCommand {
 
-  @Override
-  protected void initialize() {
-    Robot.drivetrain.toggleGearShift();
-  }
+    public DrivetrainHighGearCommand() {
+        super();
+        requires(Robot.drivetrain);
+    }
 
+    @Override
+    protected void initialize() {
+        Robot.drivetrain.highGearShift();
+    }
 }

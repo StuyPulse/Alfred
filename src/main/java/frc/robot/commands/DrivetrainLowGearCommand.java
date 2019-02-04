@@ -7,35 +7,20 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 
-public class RollersAcquireFastCommand extends Command {
+public class DrivetrainLowGearCommand extends InstantCommand {
 
-    public RollersAcquireFastCommand() {
-        requires(Robot.rollers);
+    public DrivetrainLowGearCommand() {
+        super();
+        requires(Robot.drivetrain);
     }
 
+    // Called once when the command executes
     @Override
     protected void initialize() {
+        Robot.drivetrain.lowGearShift();
     }
 
-    @Override
-    protected void execute() {
-        Robot.rollers.acquire();
-    }
-
-    @Override
-    protected boolean isFinished() {
-        return false;
-    }
-
-    @Override
-    protected void end() {
-        Robot.rollers.stop();
-    }
-
-    @Override
-    protected void interrupted() {
-    }
 }
