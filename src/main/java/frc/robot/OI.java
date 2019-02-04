@@ -19,12 +19,11 @@ import frc.robot.commands.FloopOpenCommand;
 import frc.robot.commands.LiftMoveToHeightCommand;
 import frc.robot.commands.LiftTiltBackCommand;
 import frc.robot.commands.LiftTiltFowardCommand;
-import frc.robot.commands.RollersAcquireFastCommand;
-import frc.robot.commands.RollersAcquireSlowCommand;
-import frc.robot.commands.RollersDeacquireFastCommand;
-import frc.robot.commands.RollersDeacquireSlowCommand;
-import frc.robot.commands.RollersMoveSpeedCommand;
-import frc.robot.commands.RollersLimitSpeedCommand;
+import frc.robot.commands.OverrideLimitSwitchCommand;
+import frc.robot.commands.RollersConstantAcquireCommand;
+import frc.robot.commands.RollersConstantDeacquireCommand;
+import frc.robot.commands.RollersManualAcquireCommand;
+import frc.robot.commands.RollersManualDeacquireCommand;
 import frc.util.Gamepad;
 import frc.util.Gamepad.GamepadSwitchMode;
 
@@ -48,22 +47,21 @@ public class OI {
         /******************************************
         * Operator Code
         ******************************************/
-        operatorGamepad.getRightTrigger().whileHeld(new RollersAcquireSlowCommand());
-        operatorGamepad.getLeftTrigger().whileHeld(new RollersDeacquireSlowCommand());
+        operatorGamepad.getRightTrigger().whileHeld(new RollersManualAcquireCommand());
+        operatorGamepad.getLeftTrigger().whileHeld(new RollersManualDeacquireCommand());
 
-        operatorGamepad.getRightBumper().whileHeld(new RollersAcquireFastCommand());
-        operatorGamepad.getLeftBumper().whileHeld(new RollersDeacquireFastCommand());
+        operatorGamepad.getRightBumper().whileHeld(new RollersConstantAcquireCommand());
+        operatorGamepad.getLeftBumper().whileHeld(new RollersConstantDeacquireCommand());
 
         operatorGamepad.getTopButton().whenPressed(new FangsRaiseCommand());
         operatorGamepad.getBottomButton().whenPressed(new FangsLowerCommand());
         operatorGamepad.getRightButton().whileHeld(new FloopCloseCommand());
+        operatorGamepad.getLeftButton().whenPressed(new OverrideLimitSwitchCommand());
 
         operatorGamepad.getDPadRight().whenPressed(new LiftTiltFowardCommand());
         operatorGamepad.getDPadLeft().whenPressed(new LiftTiltBackCommand());
-        operatorGamepad.getDPadUp().whenPressed(
-            new LiftMoveToHeightCommand(-1);
-            new LiftTiltBackCommand();
-        )
+        operatorGamepad.getDPadUp().whenPressed(new LiftMoveToHeightCommand(-1));
+        operatorGamepad.getDPadUp().whenPressed(new LiftTiltBackCommand());
         operatorGamepad.getDPadDown().whenPressed(new LiftMoveToHeightCommand(0));
         //TODO figure out defense mode height
 

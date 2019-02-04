@@ -7,17 +7,27 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.InstantCommand;
+import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class DrivetrainGearshiftCommand extends InstantCommand {
-    public DrivetrainGearshiftCommand() {
-        requires(Robot.drivetrain);
+public class RollersConstantDeacquireCommand extends Command {
+
+    public RollersConstantDeacquireCommand() {
+        requires(Robot.rollers);
     }
 
     @Override
-    protected void initialize() {
-        Robot.drivetrain.toggleGearShift();
+    protected void execute() {
+        Robot.rollers.deacquire();
     }
 
+    @Override
+    protected boolean isFinished() {
+        return false;
+    }
+
+    @Override
+    protected void end() {
+        Robot.rollers.stop();
+    }
 }

@@ -19,28 +19,22 @@ public class NetworkTableClient {
     private String tableName = ""; // Name of Data Table
 
     /* Constructors */
-    // Default Instance and No DataTable
-    NetworkTableClient() {
-        inst = NetworkTableInstance.getDefault();
-    }
-
     // Default Instance and Custom DataTable
-    NetworkTableClient(String DataTable) {
-        inst = NetworkTableInstance.getDefault();
-        openTable(DataTable);
+    NetworkTableClient(String dataTable) {
+        this(dataTable, NetworkTableInstance.getDefault());
     }
 
     // Custom Instance and Custom DataTable
-    NetworkTableClient(String DataTable, NetworkTableInstance Instance) {
-        inst = Instance;
-        openTable(DataTable);
+    NetworkTableClient(String dataTable, NetworkTableInstance instance) {
+        inst = instance;
+        openTable(dataTable);
     }
 
     /* Opens Table After Initalizing */
     // Opens Network table after constructing
-    public void openTable(String DataTableName) {
-        tableName = DataTableName;
-        table = inst.getTable(DataTableName);
+    public void openTable(String dataTableName) {
+        tableName = dataTableName;
+        table = inst.getTable(dataTableName);
     }
 
     /* Returns name of the datatable */
@@ -50,13 +44,13 @@ public class NetworkTableClient {
 
     /* Saving and writing tables to files */
     // Load entries from a file into the network table
-    public String[] loadEntries(String FileName) throws PersistentException {
-        return table.loadEntries(FileName);
+    public String[] loadEntries(String fileName) throws PersistentException {
+        return table.loadEntries(fileName);
     }
 
     // Save the network table to a file
-    public void saveEntries(String FileName) throws PersistentException {
-        table.saveEntries(FileName);
+    public void saveEntries(String fileName) throws PersistentException {
+        table.saveEntries(fileName);
     }
 
     /* Table Listeners */
@@ -83,84 +77,84 @@ public class NetworkTableClient {
 
     /* Gets Network Table Entry from Table */
     /* Not really ment for external use */
-    public NetworkTableEntry getEntry(String EntryName) {
-        return table.getEntry(EntryName);
+    public NetworkTableEntry getRawEntry(String entryName) {
+        return table.getEntry(entryName);
     }
 
     /* Boolean Checks */
-    public boolean isEntryValid(String EntryName) {
-        return getEntry(EntryName).isValid();
+    public boolean isEntryValid(String entryName) {
+        return getRawEntry(entryName).isValid();
     }
 
-    public boolean isEntryPersistent(String EntryName) {
-        return getEntry(EntryName).isPersistent();
+    public boolean isEntryPersistent(String entryName) {
+        return getRawEntry(entryName).isPersistent();
     }
 
-    public boolean containsKey(String EntryName) {
-        return table.containsKey(EntryName);
+    public boolean containsKey(String entryName) {
+        return table.containsKey(entryName);
     }
 
     /* Read information from Network Table */
     public static final boolean DEFAULT_BOOLEAN = false;
 
-    public boolean getBoolean(String EntryName) {
-        return getEntry(EntryName).getBoolean(DEFAULT_BOOLEAN);
+    public boolean getBoolean(String entryName) {
+        return getRawEntry(entryName).getBoolean(DEFAULT_BOOLEAN);
     }
 
     public static final double DEFAULT_DOUBLE = 0.0;
 
-    public double getDouble(String EntryName) {
-        return getEntry(EntryName).getDouble(DEFAULT_DOUBLE);
+    public double getDouble(String entryName) {
+        return getRawEntry(entryName).getDouble(DEFAULT_DOUBLE);
     }
 
     public static final Number DEFAULT_NUMBER = 0.0;
 
-    public Number getNumber(String EntryName) {
-        return getEntry(EntryName).getNumber(DEFAULT_NUMBER);
+    public Number getNumber(String entryName) {
+        return getRawEntry(entryName).getNumber(DEFAULT_NUMBER);
     }
 
     public static final String DEFAULT_STRING = "";
 
-    public String getString(String EntryName) {
-        return getEntry(EntryName).getString(DEFAULT_STRING);
+    public String getString(String entryName) {
+        return getRawEntry(entryName).getString(DEFAULT_STRING);
     }
 
-    public int getFlags(String EntryName) {
-        return getEntry(EntryName).getFlags();
+    public int getFlags(String entryName) {
+        return getRawEntry(entryName).getFlags();
     }
 
     /* Write Information to the Network Table */
     /* Returns False if the entry exists with a different type */
-    public boolean setBoolean(String EntryName, boolean Value) {
-        return getEntry(EntryName).setBoolean(Value);
+    public boolean setBoolean(String entryName, boolean value) {
+        return getRawEntry(entryName).setBoolean(value);
     }
 
-    public boolean setDouble(String EntryName, double Value) {
-        return getEntry(EntryName).setDouble(Value);
+    public boolean setDouble(String entryName, double value) {
+        return getRawEntry(entryName).setDouble(value);
     }
 
-    public boolean setNumber(String EntryName, Number Value) {
-        return getEntry(EntryName).setNumber(Value);
+    public boolean setNumber(String entryName, Number value) {
+        return getRawEntry(entryName).setNumber(value);
     }
 
-    public boolean setString(String EntryName, String Value) {
-        return getEntry(EntryName).setString(Value);
+    public boolean setString(String entryName, String value) {
+        return getRawEntry(entryName).setString(value);
     }
 
-    public void setFlags(String EntryName, int Value) {
-        getEntry(EntryName).setFlags(Value);
+    public void setFlags(String entryName, int value) {
+        getRawEntry(entryName).setFlags(value);
     }
 
-    public void clearFlags(String EntryName, int Value) {
-        getEntry(EntryName).clearFlags(Value);
+    public void clearFlags(String entryName, int value) {
+        getRawEntry(entryName).clearFlags(value);
     }
 
     /* Make value persistent through program restarts. */
-    public void setPersistent(String EntryName) {
-        getEntry(EntryName).setPersistent();
+    public void setPersistent(String entryName) {
+        getRawEntry(entryName).setPersistent();
     }
 
-    public void clearPersistent(String EntryName) {
-        getEntry(EntryName).clearPersistent();
+    public void clearPersistent(String entryName) {
+        getRawEntry(entryName).clearPersistent();
     }
 }
