@@ -16,6 +16,7 @@ public class LiftMoveCommand extends Command {
   protected void execute() {
     // TODO: Implement OI
     // double speed = Robot.m_oi.operatorGamepad.getY();
+    Robot.isLiftRunning = true;
     double speed = 0;
     Robot.lift.moveLift(speed);
   }
@@ -27,6 +28,7 @@ public class LiftMoveCommand extends Command {
 
   @Override
   protected void end() {
+    Robot.isLiftRunning = false;
   }
 
   @Override

@@ -167,6 +167,8 @@ public class Lift extends Subsystem {
     }
 
     public void enableCurrentLimit() {
+        masterTalon.configContinuousCurrentLimit(RobotMap.LIFT_CURRENT_LIMIT,0);
+        masterTalon.configPeakCurrentLimit(0, 0);
         masterTalon.enableCurrentLimit(true);
     }
 
@@ -174,17 +176,12 @@ public class Lift extends Subsystem {
         masterTalon.enableCurrentLimit(false);
     }
 
+    /*
     public void setAutonCurrentLimit () {
         masterTalon.configContinuousCurrentLimit(RobotMap.LIFT_AUTON_CURRENT_LIMIT,0);
         masterTalon.configPeakCurrentLimit(0, 0);
         masterTalon.enableCurrentLimit(true);
-    }
-
-    public void setTeleopCurrentLimit () {
-        masterTalon.configContinuousCurrentLimit(RobotMap.LIFT_TELEOP_CURRENT_LIMIT,0);
-        masterTalon.configPeakCurrentLimit(0, 0);
-        masterTalon.enableCurrentLimit(false);
-    }
+    }*/
 
     public double getCurrent() {
         return masterTalon.getOutputCurrent() + followerTalon.getOutputCurrent();

@@ -39,6 +39,9 @@ public class Robot extends TimedRobot {
     public static Rollers rollers;
     public static Fangs fangs;
 
+    public static boolean isDrivetrainRunning;
+    public static boolean isLiftRunning;
+
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<>();
 
@@ -144,6 +147,14 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        if(isDrivetrainRunning && isLiftRunning) {
+            drivetrain.enableCurrentLimit();
+            lift.enableCurrentLimit();
+        }
+        else {
+            drivetrain.disableCurrentLimit();
+            lift.disableCurrentLimit();
+        }
     }
 
     /**

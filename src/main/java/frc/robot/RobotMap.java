@@ -38,10 +38,9 @@ public interface RobotMap {
      /***************************************************************************************
      * Brownout Protection Constants:
      ****************************************************************************************/
-    int DRIVETRAIN_AUTON_CURRENT_LIMIT = 0;
-    int DRIVETRAIN_TELEOP_CURRENT_LIMIT = 0;
-    int LIFT_AUTON_CURRENT_LIMIT = 0;
-    int LIFT_TELEOP_CURRENT_LIMIT = 0;
+    int DRIVETRAIN_CURRENT_LIMIT = 0;
+    int DRIVETRAIN_FREE_LIMIT = 0;
+    int LIFT_CURRENT_LIMIT = 0;
     int PEAK_LIMIT_AMPS = 23;
 
     /***************************************************************************************

@@ -40,10 +40,8 @@ public class Drivetrain extends Subsystem {
     private CANEncoder leftEncoder, rightEncoder;
 
     public static AHRS navX;
-    
-    private Solenoid gearShift;
 
-    private boolean brownoutProtectionEnabled;
+    private Solenoid gearShift;
 
     public Drivetrain() {
         // Left Side Motors
@@ -154,15 +152,20 @@ public class Drivetrain extends Subsystem {
         gearShift.set(!(gearShift.get()));
     }
 
-    public void setTeleopCurrentLimit() {
-        leftMiddleMotor.setSmartCurrentLimit(RobotMap.DRIVETRAIN_TELEOP_CURRENT_LIMIT);
-        rightMiddleMotor.setSmartCurrentLimit(RobotMap.DRIVETRAIN_TELEOP_CURRENT_LIMIT);
+    public void enableCurrentLimit() {
+        leftMiddleMotor.setSmartCurrentLimit(RobotMap.DRIVETRAIN_CURRENT_LIMIT);
+        rightMiddleMotor.setSmartCurrentLimit(RobotMap.DRIVETRAIN_CURRENT_LIMIT);
     }
 
-    public void setAutonCurrentLimit() {
+    public void disableCurrentLimit() {
+       leftMiddleMotor.setSmartCurrentLimit(RobotMap.DRIVETRAIN_FREE_LIMIT);
+       rightMiddleMotor.setSmartCurrentLimit(RobotMap.DRIVETRAIN_FREE_LIMIT);
+    }
+
+    /*public void setAutonCurrentLimit() {
         leftMiddleMotor.setSmartCurrentLimit(RobotMap.DRIVETRAIN_AUTON_CURRENT_LIMIT);
         rightMiddleMotor.setSmartCurrentLimit(RobotMap.DRIVETRAIN_AUTON_CURRENT_LIMIT);
-    }
+    }*/
 
     public double getLeftCurrent() {
         return leftBottomMotor.getOutputCurrent() + leftMiddleMotor.getOutputCurrent() + leftTopMotor.getOutputCurrent();
@@ -174,13 +177,5 @@ public class Drivetrain extends Subsystem {
 
     public double getTotalCurrent() {
         return getLeftCurrent() + getRightCurrent();
-    }
-
-    public void enableBrownoutProtection() {
-        brownoutProtectionEnabled = true;
-    }
-
-    public void disableBrownoutProtection() {
-        brownoutProtectionEnabled = false;
     }
 }

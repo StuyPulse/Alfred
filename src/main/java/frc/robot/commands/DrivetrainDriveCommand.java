@@ -32,6 +32,7 @@ public class DrivetrainDriveCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
+        Robot.isDrivetrainRunning = true;
         setSpeed();
         setTurn();
         updateDrivetrain();
@@ -60,5 +61,10 @@ public class DrivetrainDriveCommand extends Command {
     @Override
     protected boolean isFinished() {
         return false;
+    }
+     
+    @Override
+    protected void end() {
+        Robot.isDrivetrainRunning = false;
     }
 }

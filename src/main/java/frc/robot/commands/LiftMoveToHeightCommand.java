@@ -18,6 +18,7 @@ public class LiftMoveToHeightCommand extends Command {
 
   @Override
   protected void execute() {
+    Robot.isLiftRunning = true;
     if (Robot.lift.getHeight() > targetHeight) {
       Robot.lift.moveRamp(-1);
     } else {
@@ -40,6 +41,7 @@ public class LiftMoveToHeightCommand extends Command {
   @Override
   protected void end() {
     Robot.lift.stopLift();
+    Robot.isLiftRunning = false;
   }
 
   @Override
