@@ -16,6 +16,13 @@ import frc.robot.commands.FangsLowerCommand;
 import frc.robot.commands.FangsRaiseCommand;
 import frc.robot.commands.FloopCloseCommand;
 import frc.robot.commands.FloopOpenCommand;
+import frc.robot.commands.LiftMoveToHeightCommand;
+import frc.robot.commands.LiftTiltBackCommand;
+import frc.robot.commands.LiftTiltFowardCommand;
+import frc.robot.commands.RollersAcquireFastCommand;
+import frc.robot.commands.RollersAcquireSlowCommand;
+import frc.robot.commands.RollersDeacquireFastCommand;
+import frc.robot.commands.RollersDeacquireSlowCommand;
 import frc.robot.commands.RollersMoveSpeedCommand;
 import frc.robot.commands.RollersLimitSpeedCommand;
 import frc.util.Gamepad;
@@ -27,13 +34,12 @@ public class OI {
     public Gamepad operatorGamepad;
 
     public OI() {
-        driverGamepad = new Gamepad(RobotMap.DRIVER_GAMEPAD_PORT, GamepadSwitchMode.SWITCH_X);
+        driverGamepad = new Gamepad(RobotMap.DRIVER_GAMEPAD_PORT, GamepadSwitchMode.PS4);
         operatorGamepad = new Gamepad(RobotMap.OPERATOR_GAMEPAD_PORT, GamepadSwitchMode.SWITCH_X);
 
         /******************************************
         * Driver Code
         ******************************************/
-        // TODO: Make these real!
         driverGamepad.getLeftButton().whileHeld(new AutomaticTurnCommand());
         driverGamepad.getTopButton().whileHeld(new AutomaticDriveCommand());
         driverGamepad.getBottomButton().whenPressed(new DrivetrainLowGearCommand());
@@ -42,19 +48,24 @@ public class OI {
         /******************************************
         * Operator Code
         ******************************************/
-        operatorGamepad.getRightTrigger().whileHeld(new RollersLimitSpeedCommand(operatorGamepad.getRawRightTriggerAxis()));
-        operatorGamepad.getLeftTrigger().whileHeld(new RollersLimitSpeedCommand(operatorGamepad.getRawLeftTriggerAxis()));
+        operatorGamepad.getRightTrigger().whileHeld(new RollersAcquireSlowCommand());
+        operatorGamepad.getLeftTrigger().whileHeld(new RollersDeacquireSlowCommand());
 
-        operatorGamepad.getRightBumper().whileHeld(new RollersMoveSpeedCommand(1));
-        operatorGamepad.getLeftBumper().whileHeld(new RollersMoveSpeedCommand(-1));
+        operatorGamepad.getRightBumper().whileHeld(new RollersAcquireFastCommand());
+        operatorGamepad.getLeftBumper().whileHeld(new RollersDeacquireFastCommand());
 
-        operatorGamepad.getTopButton().whileHeld(new FangsRaiseCommand());
-        operatorGamepad.getBottomButton().whileHeld(new FangsLowerCommand());
+        operatorGamepad.getTopButton().whenPressed(new FangsRaiseCommand());
+        operatorGamepad.getBottomButton().whenPressed(new FangsLowerCommand());
         operatorGamepad.getRightButton().whileHeld(new FloopCloseCommand());
-        operatorGamepad.getLeftButton().whileHeld(new FloopOpenCommand());
 
-        // operatorGamepad.getLeftAnalogButton().whenPressed(); TODO: Make command
-        // operatorGamepad.getRightAnalogButton().whenPressed(new AbomPumpCommand)
+        operatorGamepad.getDPadRight().whenPressed(new LiftTiltFowardCommand());
+        operatorGamepad.getDPadLeft().whenPressed(new LiftTiltBackCommand());
+        operatorGamepad.getDPadUp().whenPressed(
+            new LiftMoveToHeightCommand(-1);
+            new LiftTiltBackCommand();
+        )
+        operatorGamepad.getDPadDown().whenPressed(new LiftMoveToHeightCommand(0));
+        //TODO figure out defense mode height
 
         operatorGamepad.getDPadUp().whenPressed(new AbomChargeCommand(true));
         operatorGamepad.getDPadDown().whenPressed(new AbomChargeCommand(false));
