@@ -6,13 +6,17 @@ import frc.robot.RobotMap;
 
 public class LiftMoveCommand extends Command {
 
-    private int autoComp;
-    private int level;
+    private int autoCompDirection;
+    private level targetLevel;
+    private enum level {
+        LEVEL_ZERO,LEVEL_ONE, LEVEL_TWO, LEVEL_THREE;
+    }
+    
 
     public LiftMoveCommand() {
         requires(Robot.lift);
-        autoComp = 0;
-        level = 0;
+        autoCompDirection = 0;
+        targetLevel = level.LEVEL_ZERO;
     }
 
     @Override
@@ -22,77 +26,81 @@ public class LiftMoveCommand extends Command {
     @Override
     protected void execute() {
 
-        if(level == 0) {
-            Robot.lift.moveLift(Robot.oi.operatorGamepad.getLeftY());
+        if(targetLevel == level.LEVEL_ZERO) {
+            Robot.lift.move(Robot.oi.operatorGamepad.getLeftY());
         }
 
-        setAutoComp();
-        calibrateAutoComp();
-        runAutoComp();
+        setautoCompDirection();
+        calibrateautoCompDirection();
+        runautoCompDirection();
     }
 
-    private void runAutoComp() {
-        if(level == 1) {
-            moveHeight(RobotMap.LEVEL_1_HEIGHT);
-        } else if(level == 2) {
-            moveHeight(RobotMap.LEVEL_2_HEIGHT);
-        } else if(level == 3) {
-            moveHeight(RobotMap.LEVEL_3_HEIGHT);
+    private void runautoCompDirection() {
+        switch(targetLevel){
+            case LEVEL_ONE :
+                moveHeight(RobotMap.LEVEL_1_HEIGHT);
+            break;
+            case LEVEL_TWO :
+                moveHeight(RobotMap.LEVEL_2_HEIGHT);
+            break;
+            case LEVEL_THREE :
+                moveHeight(RobotMap.LEVEL_3_HEIGHT);
+            break;
         }
     }
 
     private void moveHeight(double numInches) {
-        if (autoComp == 1 && Robot.lift.getHeight() < numInches) {
-            Robot.lift.moveLift(1);
-        } else if(autoComp == -1 && Robot.lift.getHeight() > numInches) {
-            Robot.lift.moveLift(-1);
-        } else if(autoComp != 0) {
-            autoComp = 0;
-            level = 0;
+        if (autoCompDirection == 1 && Robot.lift.getHeight() < numInches) {
+            Robot.lift.move(1);
+        } else if(autoCompDirection == -1 && Robot.lift.getHeight() > numInches) {
+            Robot.lift.move(-1);
+        } else if(autoCompDirection != 0) {
+            autoCompDirection = 0;
+            targetLevel = level.LEVEL_ZERO;
         }
     }
 
-    // value is used many times, setAutoComp() and calibrateAutoComp()
+    // value is used many times, setautoCompDirection() and calibrateautoCompDirection()
     private boolean isLeftAnalogPressed() {
         return Robot.oi.operatorGamepad.getRawLeftAnalogButton();
     }
 
-    private void setAutoComp() {
+    private void setautoCompDirection() {
         // if LEFT STICK is HELD and pushed UP
-        if(isLeftAnalogPressed() && Robot.oi.operatorGamepad.getLeftY() > 0.25) {
-            autoComp = 1;
+        if(isLeftAnalogPressed() && Robot.oi.operatorGamepad.getLeftY() > 0.6) {
+            autoCompDirection = 1;
         }
 
         // if LEFT STICK is HELD and pushed DOWN
-        if(isLeftAnalogPressed() && Robot.oi.operatorGamepad.getLeftY() < -0.25) {
-            autoComp = -1;
+        if(isLeftAnalogPressed() && Robot.oi.operatorGamepad.getLeftY() < -0.6) {
+            autoCompDirection = -1;
         }
 
         // while LEFT STICK is not HELD
         if(!isLeftAnalogPressed()) {
-            autoComp = 0;
-            level = 0;
+            autoCompDirection = 0;
+            targetLevel = level.LEVEL_ZERO;
         }
     }
 
-    private void calibrateAutoComp() {
-        if (autoComp == 1 && level == 0 && isLeftAnalogPressed() && Robot.oi.operatorGamepad.getLeftY() <= 0.25) {
+    private void calibrateautoCompDirection() {
+        if (autoCompDirection == 1 && targetLevel == level.LEVEL_ZERO && isLeftAnalogPressed() && Robot.oi.operatorGamepad.getLeftY() <= 0.6) {
             if (Robot.lift.getHeight() < RobotMap.LEVEL_1_HEIGHT) {
-                level = 1;
+                targetLevel = level.LEVEL_ONE;
             } else if (Robot.lift.getHeight() < RobotMap.LEVEL_2_HEIGHT) {
-                level = 2;
+                targetLevel = level.LEVEL_TWO;
             } else {
-                level = 3;
+                targetLevel = level.LEVEL_THREE;
             }
-        }
-
-        if(autoComp == -1 && isLeftAnalogPressed() && Robot.oi.operatorGamepad.getLeftY() >= -0.25) {
-            if(Robot.lift.getHeight() > RobotMap.LEVEL_3_HEIGHT) {
-                level = 3;
-            } else if(Robot.lift.getHeight() > RobotMap.LEVEL_2_HEIGHT) {
-                level = 2;
-            } else {
-                level = 1;
+        }else{
+            if(autoCompDirection == -1 && isLeftAnalogPressed() && Robot.oi.operatorGamepad.getLeftY() >= -0.25) {
+                if(Robot.lift.getHeight() > RobotMap.LEVEL_3_HEIGHT) {
+                    level = 3;
+                } else if(Robot.lift.getHeight() > RobotMap.LEVEL_2_HEIGHT) {
+                    level = 2;
+                } else {
+                    level = 1;
+                }
             }
         }
     }
