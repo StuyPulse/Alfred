@@ -8,6 +8,7 @@
 package frc.robot;
 
 import frc.robot.commands.AbomChargeCommand;
+import frc.robot.commands.AbomStopChargeCommand;
 import frc.robot.commands.AutomaticDriveCommand;
 import frc.robot.commands.AutomaticTurnCommand;
 import frc.robot.commands.DrivetrainHighGearCommand;
@@ -58,7 +59,7 @@ public class OI {
         // operatorGamepad.getLeftAnalogButton().whenPressed(); TODO: Make command
         // operatorGamepad.getRightAnalogButton().whenPressed(new AbomPumpCommand)
 
-        operatorGamepad.getDPadUp().whenPressed(new AbomChargeCommand(true));
-        operatorGamepad.getDPadDown().whenPressed(new AbomChargeCommand(false));
+        operatorGamepad.getDPadUp().whenPressed(new AbomChargeCommand());
+        operatorGamepad.getDPadDown().whenPressed(new AbomStopChargeCommand());
     }
 }
