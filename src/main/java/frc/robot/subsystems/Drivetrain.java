@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -38,6 +39,7 @@ public class Drivetrain extends Subsystem {
     private DifferentialDrive differentialDrive;
 
     private CANEncoder leftEncoder, rightEncoder;
+    private Encoder leftGreyhill, rightGreyhill;
 
     public static AHRS navX;
     
@@ -57,6 +59,13 @@ public class Drivetrain extends Subsystem {
         // Encoders
         leftEncoder = leftMiddleMotor.getEncoder();
         rightEncoder = rightMiddleMotor.getEncoder();
+
+        // Greyhill Encoders
+        leftGreyhill = new Encoder(RobotMap.DRIVETRAIN_LEFT_ENCODER_CHANNEL_A, RobotMap.DRIVETRAIN_LEFT_ENCODER_CHANNEL_B);
+        rightGreyhill = new Encoder(RobotMap.DRIVETRAIN_RIGHT_ENCODER_CHANNEL_A, RobotMap.DRIVETRAIN_RIGHT_ENCODER_CHANNEL_B);
+        
+        leftGreyhill.setDistancePerPulse(RobotMap.DRIVETRAIN_GREYHILL_INCHES_PER_PULSE);
+        rightGreyhill.setDistancePerPulse(RobotMap.DRIVETRAIN_GREYHILL_INCHES_PER_PULSE);
 
         // Speed Groups
         leftSpeedGroup = new SpeedControllerGroup(leftTopMotor, leftMiddleMotor, leftBottomMotor);
@@ -124,6 +133,31 @@ public class Drivetrain extends Subsystem {
 
     public double getDistance() {
         return Math.max(getLeftDistance(), getRightDistance());
+    }
+
+    public double getLeftGreyhillTicks() {
+        return leftGreyhill.get();
+    }
+
+    public double getRightGreyhillTicks() {
+        return rightGreyhill.get();
+    }
+
+    public double getLeftGreyhillDistance() {
+        return leftGreyhill.getDistance();
+    }
+
+    public double getRightGreyhillDistance() {
+        return rightGreyhill.getDistance();
+    }
+
+    public double getGreyhillDistance() {
+        return Math.max(getLeftGreyhillDistance(), getRightGreyhillDistance());
+    }
+
+    public void resetGreyhills() {
+        leftGreyhill.reset();
+        rightGreyhill.reset();
     }
 
     public double getGyroAngle() {
