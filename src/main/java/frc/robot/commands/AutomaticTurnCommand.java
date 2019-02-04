@@ -8,7 +8,7 @@
 package frc.robot.commands;
 
 import frc.robot.RobotMap;
-import frc.util.LimeLight;
+import frc.util.Limelight;
 
 public class AutomaticTurnCommand extends DrivetrainDriveCommand {
 
@@ -16,7 +16,7 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
     protected void initialize() {
         setInterruptible(false);
         // Enable CV on the limelight
-        LimeLight.setCamMode(LimeLight.CAM_MODE.VISION);
+        Limelight.setCamMode(Limelight.CamMode.VISION);
     }
 
     @Override
@@ -25,6 +25,6 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
         super.setTurn();
 
         // Add corrective values to turn based on how fast the robot is moving
-        turn += LimeLight.getTargetXOffset() / (RobotMap.TURN_DIV * Math.max(RobotMap.MOVE_TURN_DIV * speed, 1));
+        turn += Limelight.getTargetXAngle() / (RobotMap.TURN_DIV * Math.max(RobotMap.MOVE_TURN_DIV * speed, 1));
     }
 }

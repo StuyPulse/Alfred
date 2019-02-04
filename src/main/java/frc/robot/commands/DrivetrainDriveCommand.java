@@ -10,7 +10,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
-import frc.util.LimeLight;
+import frc.util.Limelight;
 
 public class DrivetrainDriveCommand extends Command {
     // Variables to feed to curvature drive
@@ -26,7 +26,7 @@ public class DrivetrainDriveCommand extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        LimeLight.setCamMode(LimeLight.CAM_MODE.DRIVER);
+        Limelight.setCamMode(Limelight.CamMode.DRIVER);
     }
 
     // Called repeatedly when this Command is scheduled to run
