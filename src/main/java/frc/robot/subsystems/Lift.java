@@ -34,8 +34,6 @@ public final class Lift extends Subsystem {
         leftTalon.setNeutralMode(NeutralMode.Brake);
         rightTalon.setNeutralMode(NeutralMode.Brake);
 
-        leftTalon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
-
         tiltSolenoid = new DoubleSolenoid(RobotMap.LIFT_TILT_SOLENOID_FORWARD_PORT,
                 RobotMap.LIFT_TILT_SOLENOID_REVERSE_PORT);
         brakeSolenoid = new Solenoid(RobotMap.LIFT_BRAKE_SOLENOID_PORT);
@@ -44,6 +42,9 @@ public final class Lift extends Subsystem {
         bottomLimitSwitch = new DigitalInput(RobotMap.LIFT_BOTTOM_LIMIT_SWITCH_PORT);
 
         enableRamping();
+
+        /// Encoders
+        leftTalon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
     }
 
     @Override
@@ -115,6 +116,7 @@ public final class Lift extends Subsystem {
         return distance / threshold;
     }
 
+    // TODO: Test without ramping first, then implement
     private void forceMoveRamp(double desiredSpeed) {
         double currentHeight = getHeight();
         double speed = desiredSpeed;
@@ -141,6 +143,17 @@ public final class Lift extends Subsystem {
         }
     }
 
+    public void resetEncoders() {
+        leftTalon.setSelectedSensorPosition(0, 0, 0);
+    }
+
+    public double getRawEncoderDistance() {
+        return leftTalon.getSelectedSensorPosition(0);
+    }
+
+    public double getEncoderDistance() {
+        return getRawEncoderDistance() * RobotMap.LIFT_ENCODER_RAW_MULTIPLIER;
+    }
     public void tiltFoward() {
         tiltSolenoid.set(Value.kForward);
     }

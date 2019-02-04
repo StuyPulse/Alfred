@@ -104,8 +104,9 @@ public interface RobotMap {
      * Lift Constants
      *************************************************************************/
     double LIFT_WINCH_DIAMETER_INCHES = 1.75;
+    double LIFT_DIAMETER_OF_ENCODER_SPROCKET = 2.873;
     double LIFT_EMPIRICAL_RAW_MULTIPLIER = 1;
-    double LIFT_ENCODER_RAW_MULTIPLIER = LIFT_EMPIRICAL_RAW_MULTIPLIER * (LIFT_WINCH_DIAMETER_INCHES * Math.PI);
+    double LIFT_ENCODER_RAW_MULTIPLIER = LIFT_EMPIRICAL_RAW_MULTIPLIER * (LIFT_DIAMETER_OF_ENCODER_SPROCKET * Math.PI * 3 / 1024);
     double LIFT_MIN_SPEED = 0.1;
     // Waiting on eng for the height
     double LIFT_MAX_HEIGHT = -1;
