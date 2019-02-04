@@ -19,6 +19,6 @@ public class TailReleaseAbomCommand extends InstantCommand {
     @Override
     protected void initialize() {
         // Release the Abom!
-        Robot.tail.releaseRatchet();
+        Robot.tail.disengageRatchet();
     }
 }

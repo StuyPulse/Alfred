@@ -15,7 +15,12 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.Solenoid;
-// The tail mechanism extends Abom, allowing us to climb.
+// The tail mechanism is the second lift of the robot.
+// It consists of a winch, a constant-force spring, and an arm with Abom on it.
+// The constant-force spring is always trying to pull the arm up on the lift.
+// However, the winch, which has a ratchet on it, keeps the arm from going up.
+// When the ratchet is released, the arm shoots up before falling to the platform!
+// We can then climb using the tail's built-in motor.
 public final class Tail extends Subsystem {
 
     CANSparkMax tailMotor;
@@ -42,11 +47,11 @@ public final class Tail extends Subsystem {
         tailMotor.set(0.0);
     }
 
-    public void releaseRatchet() {
+    public void disengageRatchet() {
         ratchetSolenoid.set(true);
     }
 
-    public void reengageRatchet() {
+    public void engageRatchet() {
         ratchetSolenoid.set(false);
     }
 

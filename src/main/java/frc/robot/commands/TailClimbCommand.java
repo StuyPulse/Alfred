@@ -22,18 +22,17 @@ public class TailClimbCommand extends Command {
         this.isRetracted = false;
     }
 
-    // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
         this.speed = Robot.oi.operatorGamepad.getLeftY();
         // Raises the lift once
         if (speed > .9 && !isRaised) {
-            Robot.tail.releaseRatchet();
+            Robot.tail.disengageRatchet();
             isRaised = true;
         }
         // Retracts the lift once
         if (speed < .9 && isRaised && !isRetracted) {
-            Robot.tail.reengageRatchet();
+            Robot.tail.engageRatchet();
             isRetracted = true;
         }
         // Makes the lift go up and down
