@@ -59,15 +59,15 @@ public final class Lift extends Subsystem {
         leftTalon.setSelectedSensorPosition((int) (height / RobotMap.LIFT_ENCODER_RAW_MULTIPLIER), 0, 0);
     }
 
-    public boolean isAtTop() {
+    public boolean checkTop() {
         boolean atTop = topLimitSwitch.get();
         if (atTop) {
             setHeight(RobotMap.LIFT_MAX_HEIGHT);
         }
         return atTop;
     }
-
-    public boolean isAtBottom() {
+  
+    public boolean checkBottom() {
         boolean atBottom = bottomLimitSwitch.get();
         if (atBottom) {
             setHeight(RobotMap.LIFT_MIN_HEIGHT);
@@ -88,10 +88,10 @@ public final class Lift extends Subsystem {
         enableBrake();
     }
 
-    public void moveNoRamp(double speed) {
+    public void forceMoveNoRamp(double speed) {
         if (Math.abs(speed) < RobotMap.LIFT_MIN_SPEED) {
             stopLift();
-        } else if (isAtTop() || isAtBottom()) {
+        } else if (checkTop() || checkBottom()) {
             stopLift();
         } else {
             releaseBrake();
@@ -115,7 +115,7 @@ public final class Lift extends Subsystem {
         return distance / threshold;
     }
 
-    public void moveRamp(double desiredSpeed) {
+    private void forceMoveRamp(double desiredSpeed) {
         double currentHeight = getHeight();
         double speed = desiredSpeed;
         if (desiredSpeed < 0 && currentHeight < RobotMap.LIFT_RAMP_HEIGHT_THRESHOLD) {
@@ -130,14 +130,14 @@ public final class Lift extends Subsystem {
             speed = Math.max(speed, RobotMap.LIFT_MIN_SPEED);
         }
         // If the current height isn't within the height range for ramping, move without ramping.
-        moveNoRamp(speed);
+        forceMoveNoRamp(speed);
     }
 
     public void move(double speed) {
         if (rampDisabled) {
-            moveNoRamp(speed);
+            forceMoveNoRamp(speed);
         } else {
-            moveRamp(speed);
+            forceMoveRamp(speed);
         }
     }
 
