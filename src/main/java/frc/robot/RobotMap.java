@@ -70,6 +70,18 @@ public interface RobotMap {
     int GEAR_SHIFT_CHANNEL = -1;
 
     /***************************************************************************************
+     * Drivetrain Greyhill Encoder Constants
+     ****************************************************************************************/
+    int DRIVETRAIN_LEFT_ENCODER_CHANNEL_A = -1;
+    int DRIVETRAIN_LEFT_ENCODER_CHANNEL_B = -1;
+
+    int DRIVETRAIN_RIGHT_ENCODER_CHANNEL_A = -1;
+    int DRIVETRAIN_RIGHT_ENCODER_CHANNEL_B = -1;
+
+    double GREYHILL_PULSES_PER_REVOLUTION = 1024; //TODO: check this
+    double DRIVETRAIN_GREYHILL_INCHES_PER_PULSE = WHEEL_INCHES_PER_REVOLUTION / GREYHILL_PULSES_PER_REVOLUTION;
+
+    /***************************************************************************************
      * Floop Solenoid Constants
      ****************************************************************************************/
     int FLOOP_CHANNEL = -1;
@@ -107,8 +119,7 @@ public interface RobotMap {
     /***************************************************************************************
      * Fangs Solenoid Constants
      ****************************************************************************************/
-    int FANGS_OPEN_CHANNEL = -1;
-    int FANGS_CLOSE_CHANNEL = -1;
+    int FANGS_CHANNEL = -1;
 
     /***************************************************************************************
      * Rollers Constants
