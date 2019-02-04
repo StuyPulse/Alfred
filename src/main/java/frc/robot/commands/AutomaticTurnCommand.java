@@ -15,8 +15,6 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
     @Override
     protected void initialize() {
         setInterruptible(false);
-        // Enable CV on the limelight
-        LimeLight.setCamMode(LimeLight.CAM_MODE.VISION);
     }
 
     @Override
@@ -24,6 +22,9 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
         // Set the turn value to the joysticks x value
         super.setTurn();
 
+        // Enable CV on the limelight
+        LimeLight.setCamMode(LimeLight.CAM_MODE.VISION);
+        
         // Add corrective values to turn based on how fast the robot is moving
         turn += LimeLight.getTargetXOffset() / (RobotMap.TURN_DIV * Math.max(RobotMap.MOVE_TURN_DIV * speed, 1));
     }
