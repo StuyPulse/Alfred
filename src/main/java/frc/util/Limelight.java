@@ -87,7 +87,7 @@ public class Limelight {
     }
 
     // Horizontal sidelength of the rough bounding box (0 - 320 pixels)
-    private static NetworkTableEntry HorizontalSideLengthEntry = table.getEntry("thoriz");
+    private static NetworkTableEntry HorizontalSideLengthEntry = table.getEntry("thor");
     public static double getHorizontalSidelength() {
         return HorizontalSideLengthEntry.getDouble(0);
     }
