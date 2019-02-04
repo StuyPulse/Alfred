@@ -10,7 +10,7 @@ public class LiftMoveCommand extends Command {
     private final double ERROR_RANGE = 0.01;
 
     private enum Direction {
-        UP, DOWN, NO_AUTO_COMP;
+        UP, DOWN, NULL;
     }
     private enum Level {
         LEVEL_ZERO, LEVEL_ONE, LEVEL_TWO, LEVEL_THREE;
@@ -22,7 +22,7 @@ public class LiftMoveCommand extends Command {
 
     public LiftMoveCommand() {
         requires(Robot.lift);
-        autoCompDir = Direction.NO_AUTO_COMP;
+        autoCompDir = Direction.NULL;
         targetLevel = Level.LEVEL_ZERO;
     }
 
@@ -60,15 +60,18 @@ public class LiftMoveCommand extends Command {
             }
             // while LEFT STICK is not HELD
         }else {
-            autoCompDir = Direction.NO_AUTO_COMP;
+            autoCompDir = Direction.NULL;
             targetLevel = Level.LEVEL_ZERO;
         }
     }
 
     private void calibrateAutoComp() {
+        // preparing to set a target and the left angalog is still pressed
         if (targetLevel == Level.LEVEL_ZERO && isLeftAnalogPressed()) {
             double leftY = Robot.oi.operatorGamepad.getLeftY();
+            // the direction is going up and joystick is back to center 
             if (autoCompDir == Direction.UP && leftY <= THRESHOLD) {
+                // set target to the next setpoint height above
                 if (Robot.lift.getHeight() < RobotMap.LEVEL_1_HEIGHT) {
                     targetLevel = Level.LEVEL_ONE;
                 } else if (Robot.lift.getHeight() < RobotMap.LEVEL_2_HEIGHT) {
@@ -76,7 +79,9 @@ public class LiftMoveCommand extends Command {
                 } else {
                     targetLevel = Level.LEVEL_THREE;
                 }
+            // the direction is going down and joystick is back to center
             } else if(autoCompDir == Direction.DOWN && leftY >= -THRESHOLD) {
+                // set target to the next setpoint height below
                 if (Robot.lift.getHeight() > RobotMap.LEVEL_3_HEIGHT) {
                     targetLevel = Level.LEVEL_THREE;
                 } else if (Robot.lift.getHeight() > RobotMap.LEVEL_2_HEIGHT) {
@@ -91,18 +96,22 @@ public class LiftMoveCommand extends Command {
     private void moveHeight(double numInches) {
         double height = Robot.lift.getHeight();
         if (autoCompDir == Direction.UP && height < numInches) {
+            // Going up
             Robot.lift.move(1);
         } else if (autoCompDir == Direction.DOWN && height > numInches) {
+            // Goibng down
             Robot.lift.move(-1);
-        } else if (autoCompDir != Direction.NO_AUTO_COMP) {
+        } else if (autoCompDir != Direction.NULL) {
             if (Math.abs(height - numInches) <= ERROR_RANGE) {
-                autoCompDir = Direction.NO_AUTO_COMP;
+                // Reached the destation, so reset for next cycle
+                autoCompDir = Direction.NULL;
                 targetLevel = Level.LEVEL_ZERO;
             }
         }
     }
 
     private void runAutoComp() {
+        // Move to the target height
         switch(targetLevel) {
             case LEVEL_ONE :
                 moveHeight(RobotMap.LEVEL_1_HEIGHT);

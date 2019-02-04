@@ -60,7 +60,7 @@ public final class Lift extends Subsystem {
         leftTalon.setSelectedSensorPosition((int) (height / RobotMap.LIFT_ENCODER_RAW_MULTIPLIER), 0, 0);
     }
 
-    public boolean checkTop() {
+    public boolean isTop() {
         boolean atTop = topLimitSwitch.get();
         if (atTop) {
             setHeight(RobotMap.LIFT_MAX_HEIGHT);
@@ -68,7 +68,7 @@ public final class Lift extends Subsystem {
         return atTop;
     }
   
-    public boolean checkBottom() {
+    public boolean isBottom() {
         boolean atBottom = bottomLimitSwitch.get();
         if (atBottom) {
             setHeight(RobotMap.LIFT_MIN_HEIGHT);
@@ -92,7 +92,7 @@ public final class Lift extends Subsystem {
     public void forceMoveNoRamp(double speed) {
         if (Math.abs(speed) < RobotMap.LIFT_MIN_SPEED) {
             stopLift();
-        } else if (checkTop() || checkBottom()) {
+        } else if (isTop() || isBottom()) {
             stopLift();
         } else {
             releaseBrake();

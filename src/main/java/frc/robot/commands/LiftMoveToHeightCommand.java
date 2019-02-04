@@ -29,17 +29,14 @@ public class LiftMoveToHeightCommand extends Command {
     protected boolean isFinished() {
         // Ends if the lift is close enough to the target or at the bottom and top.
         double error = targetHeight - Robot.lift.getHeight();
-        return Math.abs(error) < ACCEPTED_ERROR_RANGE || (Robot.lift.isAtBottom() && error < 0)
-                || (Robot.lift.isAtTop() && error > 0);
+        return Math.abs(error) < ACCEPTED_ERROR_RANGE 
+            || (Robot.lift.isBottom() && error < 0)
+            || (Robot.lift.isTop() && error > 0);
     }
 
     @Override
     protected void end() {
         Robot.lift.stopLift();
     }
-
-    @Override
-    protected void interrupted() {
-        end();
-    }
+    
 }
