@@ -15,11 +15,9 @@ import frc.robot.commands.DrivetrainLowGearCommand;
 import frc.robot.commands.FangsLowerCommand;
 import frc.robot.commands.FangsRaiseCommand;
 import frc.robot.commands.FloopCloseCommand;
-import frc.robot.commands.FloopOpenCommand;
 import frc.robot.commands.LiftMoveToHeightCommand;
 import frc.robot.commands.LiftTiltBackCommand;
 import frc.robot.commands.LiftTiltFowardCommand;
-import frc.robot.commands.OverrideLimitSwitchCommand;
 import frc.robot.commands.RollersConstantAcquireCommand;
 import frc.robot.commands.RollersConstantDeacquireCommand;
 import frc.robot.commands.RollersManualAcquireCommand;
@@ -56,7 +54,8 @@ public class OI {
         operatorGamepad.getTopButton().whenPressed(new FangsRaiseCommand());
         operatorGamepad.getBottomButton().whenPressed(new FangsLowerCommand());
         operatorGamepad.getRightButton().whileHeld(new FloopCloseCommand());
-        operatorGamepad.getLeftButton().whenPressed(new OverrideLimitSwitchCommand());
+        // operatorGamepad.getLeftButton().whenPressed(new OverrideLimitSwitchCommand());
+        // TODO: Create an OverrideLimitSwitchCommand!
 
         operatorGamepad.getDPadRight().whenPressed(new LiftTiltFowardCommand());
         operatorGamepad.getDPadLeft().whenPressed(new LiftTiltBackCommand());
