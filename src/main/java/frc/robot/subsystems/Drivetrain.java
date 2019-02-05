@@ -24,7 +24,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 /**
  * Add your docs here.
  */
-public class Drivetrain extends Subsystem {
+public final class Drivetrain extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
     private CANSparkMax leftTopMotor,
