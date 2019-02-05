@@ -10,9 +10,9 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 
-public class AbomStopChargeCommand extends InstantCommand {
+public class AbomStopPumpCommand extends InstantCommand {
 
-    public AbomStopChargeCommand() {
+    public AbomStopPumpCommand() {
         requires(Robot.abom);
     }
 

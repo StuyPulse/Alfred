@@ -11,10 +11,10 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
-public class AbomChargeCommand extends Command {
+public class AbomPumpCommand extends Command {
     private long lastToggled;
 
-    public AbomChargeCommand() {
+    public AbomPumpCommand() {
         requires(Robot.abom);
     }
 
