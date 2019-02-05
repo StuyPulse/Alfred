@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 
 public class FangsLowerCommand extends InstantCommand {
+    
     public FangsLowerCommand() {
         requires(Robot.fangs);
     }

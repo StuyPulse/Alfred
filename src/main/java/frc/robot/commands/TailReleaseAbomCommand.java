@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 
 public class TailReleaseAbomCommand extends InstantCommand {
+    
     public TailReleaseAbomCommand() {
         requires(Robot.tail);
     }
