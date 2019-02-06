@@ -89,8 +89,8 @@ public interface RobotMap {
     /**************************************************************************
      * Lift Ports
      *************************************************************************/
-    int LIFT_MASTER_TALON_MOTOR_PORT = -1;
-    int LIFT_FOLLOWER_TALON_MOTOR_PORT = -1;
+    int LIFT_LEFT_TALON_MOTOR_PORT = -1;
+    int LIFT_RIGHT_TALON_MOTOR_PORT = -1;
 
     int LIFT_TILT_SOLENOID_FORWARD_PORT = -1;
     int LIFT_TILT_SOLENOID_REVERSE_PORT = -1;
