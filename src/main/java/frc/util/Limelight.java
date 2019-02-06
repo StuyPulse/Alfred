@@ -96,7 +96,7 @@ public class Limelight {
 
     /**
      * Sidelength of shortest side of the fitted bounding box (0 - 320 pixels)
-     * @return Shortest side length of target
+     * @return Shortest side length of target in pixels
      */
     public static double getShortestSidelength() {
         return shortestSideLengthEntry.getDouble(0);
@@ -106,7 +106,7 @@ public class Limelight {
 
     /**
      * Sidelength of longest side of the fitted bounding box (0 - 320 pixels)
-     * @return Longest side length of the target
+     * @return Longest side length of the target in pixels
      */
     public static double getLongestSidelength() {
         return longestSideLengthEntry.getDouble(0);
@@ -116,7 +116,7 @@ public class Limelight {
 
     /**
      * Horizontal sidelength of the rough bounding box (0 - 320 pixels)
-     * @return Horizontal side length of target
+     * @return Horizontal side length of target in pixels
      */
     public static double getHorizontalSidelength() {
         return horizontalSideLengthEntry.getDouble(0);
@@ -126,7 +126,7 @@ public class Limelight {
 
     /**
      * Vertical sidelength of the rough bounding box (0 - 320 pixels)
-     * @return Vertical side length of target
+     * @return Vertical side length of target in pixels
      */
     public static double getVerticalSidelength() {
         return verticalSideLengthEntry.getDouble(0);
@@ -154,7 +154,7 @@ public class Limelight {
 
     /**
      * @param target Target to read Area from
-     * @return Area of corresponding target
+     * @return Percent of the screen the corresponding target takes up on a scale of 0 to 1
      */
     public static double getRawTargetArea(int target) {
         // Lime light returns a double from 0 - 100
