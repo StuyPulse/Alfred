@@ -1,2 +1,6 @@
-indent_stype = space
-indent-size = 4
+# makes this editorconfig overwrite all other config files
+root = true
+ 
+[*] #specifies what file types it applies to [*.{txt,md}] specifies for txt and md
+indent_style = space
+indent_size = 4
