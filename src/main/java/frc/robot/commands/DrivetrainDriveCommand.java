@@ -31,7 +31,6 @@ public class DrivetrainDriveCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        Limelight.setCamMode(Limelight.CamMode.DRIVER);
         setSpeed();
         setTurn();
         updateDrivetrain();
@@ -49,6 +48,9 @@ public class DrivetrainDriveCommand extends Command {
     }
 
     protected void setTurn() {
+        // Turn on Driver mode
+        Limelight.setCamMode(Limelight.CamMode.DRIVER);
+
         // Set the turn value to the joystick's x value
         turn = Math.pow(Robot.oi.driverGamepad.getLeftX(), RobotMap.JOYSTICK_SCALAR);
     }
