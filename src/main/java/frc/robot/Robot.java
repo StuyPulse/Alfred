@@ -38,6 +38,7 @@ public class Robot extends TimedRobot {
     public static Compressor compressor;
     public static Rollers rollers;
     public static Fangs fangs;
+    public static Robot myInstance;
 
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<>();
@@ -48,6 +49,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotInit() {
+        myInstance = this;
         drivetrain = new Drivetrain();
         oi = new OI();
         floop = new Floop();
@@ -164,5 +166,9 @@ public class Robot extends TimedRobot {
     private void setUpDoubleSolenoids() {
         lift.tiltBack();
         fangs.lower();
+    }
+
+    public static Robot getInstance() {
+        return myInstance;
     }
 }
