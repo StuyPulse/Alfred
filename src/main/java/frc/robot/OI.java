@@ -7,7 +7,8 @@
 
 package frc.robot;
 
-import frc.robot.commands.AbomChargeCommand;
+import frc.robot.commands.AbomPumpCommand;
+import frc.robot.commands.AbomStopPumpCommand;
 import frc.robot.commands.AutomaticDriveCommand;
 import frc.robot.commands.AutomaticTurnCommand;
 import frc.robot.commands.DrivetrainHighGearCommand;
@@ -64,7 +65,7 @@ public class OI {
         operatorGamepad.getDPadDown().whenPressed(new LiftMoveToHeightCommand(0));
         //TODO figure out defense mode height
 
-        operatorGamepad.getDPadUp().whenPressed(new AbomChargeCommand(true));
-        operatorGamepad.getDPadDown().whenPressed(new AbomChargeCommand(false));
+        operatorGamepad.getDPadUp().whenPressed(new AbomPumpCommand());
+        operatorGamepad.getDPadDown().whenPressed(new AbomStopPumpCommand());
     }
 }
