@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
-public class Abom extends Subsystem {
+public final class Abom extends Subsystem {
     Solenoid abomSolenoid;
 
     // Put methods for controlling this subsystem

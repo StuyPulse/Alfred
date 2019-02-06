@@ -15,20 +15,20 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.Solenoid;
-
-/**
- * Add your docs here.
- */
-public class Tail extends Subsystem {
+// The tail mechanism is the second lift of the robot.
+// It consists of a winch, a constant-force spring, and an arm with Abom on it.
+// The constant-force spring is always trying to pull the arm up on the lift.
+// However, the winch, which has a ratchet on it, keeps the arm from going up.
+// When the ratchet is released, the arm shoots up before falling to the platform!
+// We can then climb using the tail's built-in motor.
+public final class Tail extends Subsystem {
 
     CANSparkMax tailMotor;
-    Solenoid releaseAbomSolenoid;
-    Solenoid elevateSolenoid;
+    Solenoid ratchetSolenoid;
 
     public Tail() {
         tailMotor = new CANSparkMax(RobotMap.TAIL_MOTOR_PORT, MotorType.kBrushless);
-        elevateSolenoid = new Solenoid(RobotMap.RAISE_TAIL_SOLENOID_PORT);
-        releaseAbomSolenoid = new Solenoid(RobotMap.RELEASE_ABOM_SOLENOID_PORT);
+        ratchetSolenoid = new Solenoid(RobotMap.RATCHET_SOLENOID_PORT);
 
         tailMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
     }
@@ -38,40 +38,25 @@ public class Tail extends Subsystem {
         setDefaultCommand(new TailClimbCommand());
     }
 
-    // Speed of the Tail Motor
     public void setSpeed(double speed) {
-        // ASK ENGINEERING IF THE MOTOR GOES FORWARDS OR BACKWARDS
+        // TODO: ASK ENGINEERING IF THE MOTOR GOES FORWARDS OR BACKWARDS
         tailMotor.set(speed);
     }
 
-    // Stops the Tail Motor
     public void stop() {
         tailMotor.set(0.0);
     }
 
-    // Gets the speed of the Tail Motor
-    public double getSpeed() {
-        // ASK ENGINEERING IF THE MOTOR GOES FORWARDS OR BACKWARDS
-        return tailMotor.get();
+    public void disengageRatchet() {
+        ratchetSolenoid.set(true);
     }
 
-    // Abom Stuff
-    public void releaseAbom() {
-        releaseAbomSolenoid.set(true);
+    public void engageRatchet() {
+        ratchetSolenoid.set(false);
     }
 
-    // Resets Solenoid that deploys abom
-    public void retractSolenoid() {
-        releaseAbomSolenoid.set(false);
-    }
+    public boolean ratchetMoved() {
+        return ratchetSolenoid.get();
 
-    // Raises the tail for climbing
-    public void raiseTail() {
-        elevateSolenoid.set(true);
-    }
-
-    // Resets the raise Solenoid
-    public void resetElevator() {
-        elevateSolenoid.set(false);
     }
 }
