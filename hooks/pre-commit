@@ -3,22 +3,24 @@ hard_limit=$(git config hooks.filesizehardlimit)
 soft_limit=$(git config hooks.filesizesoftlimit)
 
 #these numbers are in bytes
-: ${hard_limit:=10000000}
-: ${soft_limit:=500000}
+: ${hard_limit:=12000}
+: ${soft_limit:=8000}
 
 list_new_or_modified_files()
 {
     #--staged: shows changes to files in the "staged" area
-    #--name-status:
-    #sed -e:
-    #'/^D/ d; /^D/! s/.\s\+//':
+    #--name-status: show only names and status of changed files
+    #sed -e: sed is a line-oriented editor and -e adds the script to the commands to be executed
+    #'/^D/ d;: delete lines that begin with D  
+    # /^D/! s/.\s\+//': removes first character and whitespace after it so we're
+    #                   just left with the filename
     git diff --staged --name-status|sed -e '/^D/ d; /^D/! s/.\s\+//'
 }
 
 unmunge()
 {
-    ##\":
-    #%\":
+    ##\": stripping " from the beginning of the string
+    #%\": stripping " from the end of the string
     local result="${1#\"}"
     result="${result%\"}"
     env echo -e "$result"
@@ -27,13 +29,14 @@ unmunge()
 check_file_size()
 {
     n=0
-    #munged_filename:
+    #munged_filename: list_new_or_modified_files
     while read -r munged_filename
     do
         f="$(unmunge "$munged_filename")"
-        #git ls-files -s "$f":
-        #cut -d' ' -f 2:
+        #git ls-files -s "$f": show info about files in the staging area
+        #cut -d' ' -f 2: first delimits with ' ' only returns the second item
         h=$(git ls-files -s "$f"|cut -d' ' -f 2)
+        #git cat-file -s "$h": shows object size
         s=$(git cat-file -s "$h")
         if [ "$s" -gt $hard_limit ]
         then
