@@ -11,6 +11,9 @@ import frc.robot.RobotMap;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
+// The Floop reaches into the hole of the hatch in alliance station 
+// and expands outward to hold it.
+
 public final class Floop extends Subsystem {
 
     private Solenoid floopSolenoid;

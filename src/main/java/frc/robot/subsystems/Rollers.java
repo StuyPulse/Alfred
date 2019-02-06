@@ -11,6 +11,9 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
+// The Rollers acquire and deacquire cargos at a set speed.
+// They are located at the front of the bot.
+
 public final class Rollers extends Subsystem {
     private WPI_TalonSRX motor;
 

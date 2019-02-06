@@ -30,7 +30,8 @@ public class LiftMoveCommand extends Command {
         calibrateAutoComp();
         runAutoComp();
     }
-
+    
+    // automatically moves to height based on level chosen
     private void runAutoComp() {
         if(level == 1) {
             moveHeight(RobotMap.LEVEL_1_HEIGHT);
@@ -42,8 +43,10 @@ public class LiftMoveCommand extends Command {
     }
 
     private void moveHeight(double numInches) {
+        // lift moves up till the height of the given level
         if (autoComp == 1 && Robot.lift.getHeight() < numInches) {
             Robot.lift.moveLift(1);
+        // lift moves down till the height of the given level
         } else if(autoComp == -1 && Robot.lift.getHeight() > numInches) {
             Robot.lift.moveLift(-1);
         } else if(autoComp != 0) {
@@ -52,11 +55,12 @@ public class LiftMoveCommand extends Command {
         }
     }
 
+
     // value is used many times, setAutoComp() and calibrateAutoComp()
     private boolean isLeftAnalogPressed() {
         return Robot.oi.operatorGamepad.getRawLeftAnalogButton();
     }
-
+    
     private void setAutoComp() {
         // if LEFT STICK is HELD and pushed UP
         if(isLeftAnalogPressed() && Robot.oi.operatorGamepad.getLeftY() > 0.25) {
@@ -74,8 +78,10 @@ public class LiftMoveCommand extends Command {
             level = 0;
         }
     }
-
+    
+    // calibrates what level the lift would move to
     private void calibrateAutoComp() {
+        // increments level based on current lift height and the set autoComp
         if (autoComp == 1 && level == 0 && isLeftAnalogPressed() && Robot.oi.operatorGamepad.getLeftY() <= 0.25) {
             if (Robot.lift.getHeight() < RobotMap.LEVEL_1_HEIGHT) {
                 level = 1;
@@ -85,7 +91,8 @@ public class LiftMoveCommand extends Command {
                 level = 3;
             }
         }
-
+        
+        // decrements level based on current lift height and the set autoComp
         if(autoComp == -1 && isLeftAnalogPressed() && Robot.oi.operatorGamepad.getLeftY() >= -0.25) {
             if(Robot.lift.getHeight() > RobotMap.LEVEL_3_HEIGHT) {
                 level = 3;
