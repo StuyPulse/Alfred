@@ -21,10 +21,9 @@ public interface RobotMap {
     /***************************************************************************************
      * Tail and Abom Ports
      ****************************************************************************************/
-    int ABOM_SOLENOID_PORT = -1;
+    int RATCHET_SOLENOID_PORT = -1;
     int TAIL_MOTOR_PORT = -1;
-    int RAISE_TAIL_SOLENOID_PORT = -1;
-    int RELEASE_ABOM_SOLENOID_PORT = -1;
+    int ABOM_SOLENOID_PORT = -1;
     /***************************************************************************************
      * Abom Charge Constants
      ****************************************************************************************/
@@ -38,7 +37,7 @@ public interface RobotMap {
      * Aim Assist Constants
      ****************************************************************************************/
     double TURN_DIV = 24; // Changes the speed that the robot will turn
-    double MOVE_TURN_DIV = 2; // Changes the speed that the robot will turn while moving
+    double MOVE_TURN_DIV = 2; // Changes the speed that the robot will turn while moving (The more it moves, the less it turns)
     /***************************************************************************************
      * Auton Assist Variables
      ****************************************************************************************/
@@ -68,6 +67,18 @@ public interface RobotMap {
     double WHEEL_INCHES_PER_REVOLUTION = WHEEL_DIAMETER * Math.PI;
 
     int GEAR_SHIFT_CHANNEL = -1;
+
+    /***************************************************************************************
+     * Drivetrain Greyhill Encoder Constants
+     ****************************************************************************************/
+    int DRIVETRAIN_LEFT_ENCODER_CHANNEL_A = -1;
+    int DRIVETRAIN_LEFT_ENCODER_CHANNEL_B = -1;
+
+    int DRIVETRAIN_RIGHT_ENCODER_CHANNEL_A = -1;
+    int DRIVETRAIN_RIGHT_ENCODER_CHANNEL_B = -1;
+
+    double GREYHILL_PULSES_PER_REVOLUTION = 1024; //TODO: check this
+    double DRIVETRAIN_GREYHILL_INCHES_PER_PULSE = WHEEL_INCHES_PER_REVOLUTION / GREYHILL_PULSES_PER_REVOLUTION;
 
     /***************************************************************************************
      * Floop Solenoid Constants
@@ -107,12 +118,11 @@ public interface RobotMap {
     /***************************************************************************************
      * Fangs Solenoid Constants
      ****************************************************************************************/
-    int FANGS_OPEN_CHANNEL = -1;
-    int FANGS_CLOSE_CHANNEL = -1;
+    int FANGS_CHANNEL = -1;
 
     /***************************************************************************************
      * Rollers Constants
      ****************************************************************************************/
     int ROLLER_MOTOR_PORT = -1;
-    double SLOW_ROLLER_MULTIPLIER = 0.75;
+    double SLOW_ROLLER_MAXIMUM = 0.75;
 }
