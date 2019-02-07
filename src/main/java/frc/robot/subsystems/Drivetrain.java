@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -38,7 +39,9 @@ public final class Drivetrain extends Subsystem {
 
     private DifferentialDrive differentialDrive;
 
-    private NEOEncoder leftEncoder, rightEncoder;
+    private NEOEncoder leftNEOEncoder, rightNEOEncoder;
+    private CANEncoder leftEncoder, rightEncoder;
+    private Encoder leftGreyhill, rightGreyhill;
 
     private AHRS navX;
     
@@ -56,8 +59,15 @@ public final class Drivetrain extends Subsystem {
         rightBottomMotor = new CANSparkMax(RobotMap.RIGHT_BOTTOM_MOTOR_PORT, MotorType.kBrushless);
 
         // Encoders
-        leftEncoder = new NEOEncoder(leftMiddleMotor.getEncoder());
-        rightEncoder = new NEOEncoder(rightMiddleMotor.getEncoder());
+        leftNEOEncoder = new NEOEncoder(leftMiddleMotor.getEncoder());
+        rightNEOEncoder = new NEOEncoder(rightMiddleMotor.getEncoder());
+
+        // Greyhill Encoders
+        leftGreyhill = new Encoder(RobotMap.DRIVETRAIN_LEFT_ENCODER_CHANNEL_A, RobotMap.DRIVETRAIN_LEFT_ENCODER_CHANNEL_B);
+        rightGreyhill = new Encoder(RobotMap.DRIVETRAIN_RIGHT_ENCODER_CHANNEL_A, RobotMap.DRIVETRAIN_RIGHT_ENCODER_CHANNEL_B);
+        
+        leftGreyhill.setDistancePerPulse(RobotMap.DRIVETRAIN_GREYHILL_INCHES_PER_PULSE);
+        rightGreyhill.setDistancePerPulse(RobotMap.DRIVETRAIN_GREYHILL_INCHES_PER_PULSE);
 
         leftTopMotor.setIdleMode(CANSparkMax.IdleMode.kCoast);
         leftMiddleMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
@@ -124,10 +134,34 @@ public final class Drivetrain extends Subsystem {
         return Math.max(getLeftDistance(), getRightDistance());
     }
 
-    public void resetEncoders() {
-        leftEncoder.resetEncoder();
-        rightEncoder.resetEncoder();
+    public void resetNEOEncoders() {
+        leftNEOEncoder.resetEncoder();
+        rightNEOEncoder.resetEncoder();
     } 
+    public double getLeftGreyhillTicks() {
+        return leftGreyhill.get();
+    }
+
+    public double getRightGreyhillTicks() {
+        return rightGreyhill.get();
+    }
+
+    public double getLeftGreyhillDistance() {
+        return leftGreyhill.getDistance();
+    }
+
+    public double getRightGreyhillDistance() {
+        return rightGreyhill.getDistance();
+    }
+
+    public double getGreyhillDistance() {
+        return Math.max(getLeftGreyhillDistance(), getRightGreyhillDistance());
+    }
+
+    public void resetGreyhills() {
+        leftGreyhill.reset();
+        rightGreyhill.reset();
+    }
 
     public double getGyroAngle() {
         return navX.getAngle();
