@@ -58,7 +58,7 @@ public final class Drivetrain extends Subsystem {
         rightMiddleMotor = new CANSparkMax(RobotMap.RIGHT_MIDDLE_MOTOR_PORT, MotorType.kBrushless);
         rightBottomMotor = new CANSparkMax(RobotMap.RIGHT_BOTTOM_MOTOR_PORT, MotorType.kBrushless);
 
-        // Encoders
+        // NEO/SPARK MAX Encoders
         leftNEOEncoder = new NEOEncoder(leftMiddleMotor.getEncoder());
         rightNEOEncoder = new NEOEncoder(rightMiddleMotor.getEncoder());
 
@@ -114,24 +114,24 @@ public final class Drivetrain extends Subsystem {
         differentialDrive.tankDrive(0, 0);
     }
 
-    private double getLeftEncoderTicks() {
+    private double getLeftNEOEncoderTicks() {
         return leftNEOEncoder.getPosition();
     }
 
-    private double getRightEncoderTicks() {
+    private double getRightNEOEncoderTicks() {
         return rightNEOEncoder.getPosition();
     }
 
-    private double getLeftDistance() {
-        return getLeftEncoderTicks() * RobotMap.NEO_ENCODER_RAW_MULTIPLIER;
+    private double getLeftNEODistance() {
+        return getLeftNEOEncoderTicks() * RobotMap.NEO_ENCODER_RAW_MULTIPLIER;
     }
 
-    private double getRightDistance() {
-        return getRightEncoderTicks() * RobotMap.NEO_ENCODER_RAW_MULTIPLIER;
+    private double getRightNEODistance() {
+        return getRightNEOEncoderTicks() * RobotMap.NEO_ENCODER_RAW_MULTIPLIER;
     }
 
-    public double getDistance() {
-        return Math.max(getLeftDistance(), getRightDistance());
+    public double getNEODistance() {
+        return Math.max(Math.abs(getLeftNEODistance()), Math.abs(getRightNEODistance()));
     }
 
     public void resetNEOEncoders() {
@@ -183,5 +183,4 @@ public final class Drivetrain extends Subsystem {
     public void toggleGearShift(){
         gearShift.set(!(gearShift.get()));
     }
-
 }
