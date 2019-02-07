@@ -1,3 +1,9 @@
+/*----------------------------------------------------------------------------*/
+/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
+/* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* the project.                                                               */
+/*----------------------------------------------------------------------------*/
 
 package frc.robot.subsystems;
 
@@ -13,6 +19,8 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 import frc.robot.commands.LiftMoveCommand;
+
+// The lift moves the the cargo or hatch up and down to match the cargo ship and rocket ship levels.
 
 public final class Lift extends Subsystem {
     private WPI_TalonSRX masterTalon;
@@ -89,6 +97,7 @@ public final class Lift extends Subsystem {
         enableBrake();
     }
 
+    // Moves the lift around without ramping the speed.
     public void moveNoRamp(double speed) {
         if (Math.abs(speed) < RobotMap.LIFT_MIN_SPEED) {
             stopLift();
@@ -116,6 +125,7 @@ public final class Lift extends Subsystem {
         return distance / threshold;
     }
 
+    // Uses rampMultiplier to ramp the speed when moving the lift up and down.
     public void moveRamp(double desiredSpeed) {
         double currentHeight = getHeight();
         double speed = desiredSpeed;
@@ -130,7 +140,9 @@ public final class Lift extends Subsystem {
         }
         moveNoRamp(speed);
     }
-
+    
+    // Uses either moveNoRamp or moveRamp based on whether ramp is enabled or not.
+    // General lift move command.
     public void moveLift(double speed) {
         if (rampDisabled) {
             moveNoRamp(speed);
@@ -138,6 +150,7 @@ public final class Lift extends Subsystem {
             moveRamp(speed);
         }
     }
+
 
     public void tiltFoward() {
         tiltSolenoid.set(Value.kForward);

@@ -5,6 +5,8 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
+// The drivetrain allows the robot to move.
+
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Encoder;
@@ -21,12 +23,9 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-/**
- * Add your docs here.
- */
+
 public final class Drivetrain extends Subsystem {
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
+    
     private CANSparkMax leftTopMotor,
                         leftMiddleMotor,
                         leftBottomMotor,
@@ -178,6 +177,6 @@ public final class Drivetrain extends Subsystem {
     }
 
     public void toggleGearShift(){
-        gearShift.set(!(gearShift.get()));
+        gearShift.set(!gearShift.get());
     }
 }

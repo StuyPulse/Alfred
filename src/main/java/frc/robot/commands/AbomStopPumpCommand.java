@@ -16,7 +16,6 @@ public class AbomStopPumpCommand extends InstantCommand {
         requires(Robot.abom);
     }
 
-    // Called just before this Command runs the first time
     @Override
     protected void initialize() {
         Robot.abom.stop();

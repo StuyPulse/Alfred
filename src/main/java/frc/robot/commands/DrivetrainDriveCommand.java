@@ -19,17 +19,13 @@ public class DrivetrainDriveCommand extends Command {
     boolean quickTurn = true;
 
     public DrivetrainDriveCommand() {
-        // Use requires() here to declare subsystem dependencies
         requires(Robot.drivetrain);
     }
 
-    // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-
     }
 
-    // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
         LimeLight.setCamMode(LimeLight.CAM_MODE.DRIVER);
@@ -38,30 +34,28 @@ public class DrivetrainDriveCommand extends Command {
         updateDrivetrain();
     }
 
-    protected void setSpeed() {
-        // Reset the speed to prevent this from becoming acceleration
-        speed = 0;
-        // Set speed to the axes of the triggers
-        speed += Math.pow(Robot.oi.driverGamepad.getRawRightTriggerAxis(), 2);
-        speed -= Math.pow(Robot.oi.driverGamepad.getRawLeftTriggerAxis(), 2);
-
-        // Enable Quick Turn if robot is not moving
-        quickTurn = Math.abs(speed) < 0.125;
-    }
-
-    protected void setTurn() {
-        // Set the turn value to the joystick's x value
-        turn = Math.pow(Robot.oi.driverGamepad.getLeftX(), RobotMap.JOYSTICK_SCALAR);
-    }
-
-    // Sub commands for each curvature drive variable
     protected void updateDrivetrain() {
         Robot.drivetrain.curvatureDrive(speed, turn, quickTurn);
     }
 
-    // Make this return true when this Command no longer needs to run execute()
-    @Override
+    protected void setTurn() {
+        // Set the turn value to the joysticks x value
+        turn = Math.pow(Robot.oi.driverGamepad.getLeftX(), RobotMap.JOYSTICK_SCALAR);
+    }
+
+-   protected void setSpeed() {
+-        // Reset the speed to prevent this from becoming acceleration
+-        speed = 0;
+-        // Set speed to the axes of the triggers
+-        speed += Math.pow(Robot.oi.driverGamepad.getRawRightTriggerAxis(), 2);
+-        speed -= Math.pow(Robot.oi.driverGamepad.getRawLeftTriggerAxis(), 2);
+-
+-        // Enable Quick Turn if robot is not moving
+-        quickTurn = Math.abs(speed) < 0.125;
+    }
+
     protected boolean isFinished() {
         return false;
     }
 }
+

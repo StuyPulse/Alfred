@@ -13,6 +13,7 @@ import frc.robot.RobotMap;
 
 // The fangs mechanism is a piston that can be extended in order to pick up
 // hatch panels from the carpet.
+
 public final class Fangs extends Subsystem {
     private Solenoid fangsSolenoid;
 

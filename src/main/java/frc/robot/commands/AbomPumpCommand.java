@@ -18,13 +18,11 @@ public class AbomPumpCommand extends Command {
         requires(Robot.abom);
     }
 
-    // Called just before this Command runs the first time
     @Override
     protected void initialize() {
         lastToggled = System.currentTimeMillis();
     }
 
-    // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
         // Fire the piston repeatedly so that it fully extends before retracting 
@@ -34,13 +32,11 @@ public class AbomPumpCommand extends Command {
         }
     }
 
-    // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
         return false;
     }
 
-    // Called once after isFinished returns true
     @Override
     protected void end() {
         Robot.abom.stop();
