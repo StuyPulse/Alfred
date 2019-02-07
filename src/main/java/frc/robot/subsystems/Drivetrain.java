@@ -115,19 +115,19 @@ public final class Drivetrain extends Subsystem {
     }
 
     private double getLeftEncoderTicks() {
-        return leftEncoder.getPosition();
+        return leftNEOEncoder.getPosition();
     }
 
     private double getRightEncoderTicks() {
-        return rightEncoder.getPosition();
+        return rightNEOEncoder.getPosition();
     }
 
     private double getLeftDistance() {
-        return getLeftEncoderTicks() * RobotMap.DRIVETRAIN_ENCODER_RAW_MULTIPLIER;
+        return getLeftEncoderTicks() * RobotMap.NEO_ENCODER_RAW_MULTIPLIER;
     }
 
     private double getRightDistance() {
-        return getRightEncoderTicks() * RobotMap.DRIVETRAIN_ENCODER_RAW_MULTIPLIER;
+        return getRightEncoderTicks() * RobotMap.NEO_ENCODER_RAW_MULTIPLIER;
     }
 
     public double getDistance() {
