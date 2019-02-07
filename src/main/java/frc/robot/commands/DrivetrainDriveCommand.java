@@ -42,15 +42,15 @@ public class DrivetrainDriveCommand extends Command {
         turn = Math.pow(Robot.oi.driverGamepad.getLeftX(), RobotMap.JOYSTICK_SCALAR);
     }
 
--   protected void setSpeed() {
--        // Reset the speed to prevent this from becoming acceleration
--        speed = 0;
--        // Set speed to the axes of the triggers
--        speed += Math.pow(Robot.oi.driverGamepad.getRawRightTriggerAxis(), 2);
--        speed -= Math.pow(Robot.oi.driverGamepad.getRawLeftTriggerAxis(), 2);
--
--        // Enable Quick Turn if robot is not moving
--        quickTurn = Math.abs(speed) < 0.125;
+    protected void setSpeed() {
+        // Reset the speed to prevent this from becoming acceleration
+        speed = 0;
+        // Set speed to the axes of the triggers
+        speed += Math.pow(Robot.oi.driverGamepad.getRawRightTriggerAxis(), 2);
+        speed -= Math.pow(Robot.oi.driverGamepad.getRawLeftTriggerAxis(), 2);
+
+        // Enable Quick Turn if robot is not moving
+        quickTurn = Math.abs(speed) < 0.125;
     }
 
     @Override
