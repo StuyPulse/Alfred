@@ -14,8 +14,7 @@ import frc.util.LimeLight;
 
 public class DrivetrainDriveCommand extends Command {
     // Variables to feed to curvature drive
-    double speed = 0;
-    double turn = 0;
+    double speed = 0, turn = 0;
     boolean quickTurn = true;
 
     public DrivetrainDriveCommand() {
@@ -54,6 +53,7 @@ public class DrivetrainDriveCommand extends Command {
 -        quickTurn = Math.abs(speed) < 0.125;
     }
 
+    @Override
     protected boolean isFinished() {
         return false;
     }
