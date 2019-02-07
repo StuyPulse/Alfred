@@ -40,7 +40,6 @@ public final class Drivetrain extends Subsystem {
     private DifferentialDrive differentialDrive;
 
     private NEOEncoder leftNEOEncoder, rightNEOEncoder;
-    private CANEncoder leftEncoder, rightEncoder;
     private Encoder leftGreyhill, rightGreyhill;
 
     private AHRS navX;
