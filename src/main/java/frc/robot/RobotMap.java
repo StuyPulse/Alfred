@@ -8,15 +8,6 @@
 package frc.robot;
 
 public interface RobotMap {
-    // For example to map the left and right motors, you could define the
-    // following variables to use with your drivetrain subsystem.
-    // public static int leftMotor = 1;
-    // public static int rightMotor = 2;
-
-    // If you are using multiple modules, make sure to define both the port
-    // number and the module. For example you with a rangefinder:
-    // public static int rangefinderPort = 1;
-    // public static int rangefinderModule = 1;
 
     /***************************************************************************************
      * Tail and Abom Ports
@@ -65,6 +56,9 @@ public interface RobotMap {
 
     double WHEEL_DIAMETER = 6;
     double WHEEL_INCHES_PER_REVOLUTION = WHEEL_DIAMETER * Math.PI;
+
+    double NEO_ENCODER_EMPIRICAL_MULTIPLIER = 1;
+    double NEO_ENCODER_RAW_MULTIPLIER = WHEEL_INCHES_PER_REVOLUTION * NEO_ENCODER_EMPIRICAL_MULTIPLIER;
 
     int GEAR_SHIFT_CHANNEL = -1;
 
