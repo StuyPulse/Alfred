@@ -24,7 +24,6 @@ public class DrivetrainDriveCommand extends Command {
 
     @Override
     protected void initialize() {
-
     }
 
     @Override
@@ -62,3 +61,4 @@ public class DrivetrainDriveCommand extends Command {
         return false;
     }
 }
+
