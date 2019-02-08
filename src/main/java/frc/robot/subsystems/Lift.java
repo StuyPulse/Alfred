@@ -60,6 +60,14 @@ public final class Lift extends Subsystem {
         masterTalon.setSelectedSensorPosition((int) (height / RobotMap.LIFT_ENCODER_RAW_MULTIPLIER), 0, 0);
     }
 
+    public int getEncoderTicks() {
+        return masterTalon.getSelectedSensorPosition();
+    }
+
+    public double getHeight() {
+        return getEncoderTicks() * RobotMap.LIFT_ENCODER_RAW_MULTIPLIER;
+    }
+
     public boolean isAtTop() {
         boolean atTop = topLimitSwitch.get();
         if (atTop) {
@@ -74,14 +82,6 @@ public final class Lift extends Subsystem {
             setHeight(RobotMap.LIFT_MIN_HEIGHT);
         }
         return atBottom;
-    }
-
-    public int getEncoderTicks() {
-        return masterTalon.getSelectedSensorPosition();
-    }
-
-    public double getHeight() {
-        return getEncoderTicks() * RobotMap.LIFT_ENCODER_RAW_MULTIPLIER;
     }
 
     public void stopLift() {
@@ -143,17 +143,6 @@ public final class Lift extends Subsystem {
         }
     }
 
-    public void resetEncoders() {
-        masterTalon.setSelectedSensorPosition(0, 0, 0);
-    }
-
-    public double getRawEncoderDistance() {
-        return masterTalon.getSelectedSensorPosition(0);
-    }
-
-    public double getEncoderDistance() {
-        return getRawEncoderDistance() * RobotMap.LIFT_ENCODER_RAW_MULTIPLIER;
-    }
     public void tiltFoward() {
         tiltSolenoid.set(Value.kForward);
     }
