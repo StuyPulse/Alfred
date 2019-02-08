@@ -26,20 +26,27 @@ public class DrivetrainDriveCommand extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        LimeLight.setCamMode(LimeLight.CAM_MODE.DRIVER);
+
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
+        LimeLight.setCamMode(LimeLight.CAM_MODE.DRIVER);
         setSpeed();
         setTurn();
         updateDrivetrain();
     }
 
-    // Sub commands for each curvature drive variable
-    protected void updateDrivetrain() {
-        Robot.drivetrain.curvatureDrive(speed, turn, quickTurn);
+    protected void setSpeed() {
+        // Reset the speed to prevent this from becoming acceleration
+        speed = 0;
+        // Set speed to the axes of the triggers
+        speed += Math.pow(Robot.oi.driverGamepad.getRawRightTriggerAxis(), 2);
+        speed -= Math.pow(Robot.oi.driverGamepad.getRawLeftTriggerAxis(), 2);
+
+        // Enable Quick Turn if robot is not moving
+        quickTurn = Math.abs(speed) < 0.125;
     }
 
     protected void setTurn() {
@@ -47,13 +54,9 @@ public class DrivetrainDriveCommand extends Command {
         turn = Math.pow(Robot.oi.driverGamepad.getLeftX(), RobotMap.JOYSTICK_SCALAR);
     }
 
-    protected void setSpeed() {
-        // Set speed to the axes of the triggers
-        speed += Math.pow(Robot.oi.driverGamepad.getRawRightTriggerAxis(), 2);
-        speed -= Math.pow(Robot.oi.driverGamepad.getRawLeftTriggerAxis(), 2);
-
-        // Enable Quick Turn if robot is not moving
-        quickTurn = speed < 0.125;
+    // Sub commands for each curvature drive variable
+    protected void updateDrivetrain() {
+        Robot.drivetrain.curvatureDrive(speed, turn, quickTurn);
     }
 
     // Make this return true when this Command no longer needs to run execute()

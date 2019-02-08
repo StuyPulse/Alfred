@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 
 public class LiftTiltFowardCommand extends InstantCommand {
+    
     public LiftTiltFowardCommand() {
         requires(Robot.lift);
     }
