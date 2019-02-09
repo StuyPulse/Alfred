@@ -86,7 +86,7 @@ public final class Lift extends Subsystem {
 
     public void stopLift() {
         masterTalon.set(ControlMode.PercentOutput, 0);
-        enableBrake();
+        // enableBrake();
     }
 
     public void moveNoRamp(double speed) {
@@ -95,7 +95,7 @@ public final class Lift extends Subsystem {
         // } else if (isAtTop() || isAtBottom()) {
         //     stopLift();
         } else {
-            releaseBrake();
+            // releaseBrake();
             masterTalon.set(ControlMode.PercentOutput, speed);
         }
     }
@@ -139,21 +139,21 @@ public final class Lift extends Subsystem {
         }
     }
 
-    public void tiltFoward() {
-        tiltSolenoid.set(Value.kForward);
-    }
+    // public void tiltFoward() {
+    //     tiltSolenoid.set(Value.kForward);
+    // }
 
-    public void tiltBack() {
-        tiltSolenoid.set(Value.kReverse);
-    }
+    // public void tiltBack() {
+    //     tiltSolenoid.set(Value.kReverse);
+    // }
 
-    public void enableBrake() {
-        brakeSolenoid.set(false);
-    }
+    // public void enableBrake() {
+    //     brakeSolenoid.set(false);
+    // }
 
-    public void releaseBrake() {
-        brakeSolenoid.set(true);
-    }
+    // public void releaseBrake() {
+    //     brakeSolenoid.set(true);
+    // }
 
     public void enableRamping() {
         rampDisabled = false;

@@ -40,8 +40,8 @@ public class OI {
         ******************************************/
         driverGamepad.getLeftButton().whileHeld(new AutomaticTurnCommand());
         driverGamepad.getTopButton().whileHeld(new AutomaticDriveCommand());
-        driverGamepad.getBottomButton().whenPressed(new DrivetrainLowGearCommand());
-        driverGamepad.getBottomButton().whenReleased(new DrivetrainHighGearCommand());
+        // driverGamepad.getBottomButton().whenPressed(new DrivetrainLowGearCommand());
+        // driverGamepad.getBottomButton().whenReleased(new DrivetrainHighGearCommand());
 
         /******************************************
         * Operator Code
@@ -52,20 +52,20 @@ public class OI {
         operatorGamepad.getRightBumper().whileHeld(new RollersConstantAcquireCommand());
         operatorGamepad.getLeftBumper().whileHeld(new RollersConstantDeacquireCommand());
 
-        operatorGamepad.getTopButton().whenPressed(new FangsRaiseCommand());
-        operatorGamepad.getBottomButton().whenPressed(new FangsLowerCommand());
-        operatorGamepad.getRightButton().whileHeld(new FloopCloseCommand());
+        // operatorGamepad.getTopButton().whenPressed(new FangsRaiseCommand());
+        // operatorGamepad.getBottomButton().whenPressed(new FangsLowerCommand());
+        // operatorGamepad.getRightButton().whileHeld(new FloopCloseCommand());
         // operatorGamepad.getLeftButton().whenPressed(new OverrideLimitSwitchCommand());
         // TODO: Create an OverrideLimitSwitchCommand!
 
-        operatorGamepad.getDPadRight().whenPressed(new LiftTiltFowardCommand());
-        operatorGamepad.getDPadLeft().whenPressed(new LiftTiltBackCommand());
+        // operatorGamepad.getDPadRight().whenPressed(new LiftTiltFowardCommand());
+        // operatorGamepad.getDPadLeft().whenPressed(new LiftTiltBackCommand());
         operatorGamepad.getDPadUp().whenPressed(new LiftMoveToHeightCommand(-1));
-        operatorGamepad.getDPadUp().whenPressed(new LiftTiltBackCommand());
+        // operatorGamepad.getDPadUp().whenPressed(new LiftTiltBackCommand());
         operatorGamepad.getDPadDown().whenPressed(new LiftMoveToHeightCommand(0));
         //TODO figure out defense mode height
 
-        operatorGamepad.getDPadUp().whenPressed(new AbomPumpCommand());
-        operatorGamepad.getDPadDown().whenPressed(new AbomStopPumpCommand());
+        // operatorGamepad.getDPadUp().whenPressed(new AbomPumpCommand());
+        // operatorGamepad.getDPadDown().whenPressed(new AbomStopPumpCommand());
     }
 }

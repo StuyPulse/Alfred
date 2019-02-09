@@ -77,7 +77,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotPeriodic() {
-        controlCompressor();
+        // controlCompressor();
         //SmartDashboard.putBoolean("IR Sensor", isGamePieceDetected());
     }
 
@@ -109,7 +109,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousInit() {
-        setUpDoubleSolenoids();
+//         setUpDoubleSolenoids();
         autonomousCommand = chooser.getSelected();
 
         /*
@@ -159,18 +159,18 @@ public class Robot extends TimedRobot {
     public void testPeriodic() {
     }
 
-    public void controlCompressor() {
-        if (!drivetrain.isMoving()) {
-            compressor.start();
-        } else {
-            compressor.stop();
-        }
-    }
+    // public void controlCompressor() {
+    //     if (!drivetrain.isMoving()) {
+    //         compressor.start();
+    //     } else {
+    //         compressor.stop();
+    //     }
+    // }
 
-    private void setUpDoubleSolenoids() {
-        lift.tiltBack();
-        fangs.lower();
-    }
+    // private void setUpDoubleSolenoids() {
+    //     lift.tiltBack();
+    //     fangs.lower();
+    // }
 
 /*
     private boolean isGamePieceDetected() {
