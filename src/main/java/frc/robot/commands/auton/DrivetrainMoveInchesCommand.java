@@ -8,37 +8,35 @@
 package frc.robot.commands.auton;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Robot;
 
 public class DrivetrainMoveInchesCommand extends Command {
-  public DrivetrainMoveInchesCommand() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-  }
 
-  // Called just before this Command runs the first time
-  @Override
-  protected void initialize() {
-  }
+    protected double distance;
+    protected double speed;
 
-  // Called repeatedly when this Command is scheduled to run
-  @Override
-  protected void execute() {
-  }
+    public DrivetrainMoveInchesCommand(double distance, double speed) {
+        requires(Robot.drivetrain);
+        this.distance = distance;
+    }
 
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() {
-    return false;
-  }
+    @Override
+    protected void initialize() {
+        Robot.drivetrain.resetGreyhills();
+    }
 
-  // Called once after isFinished returns true
-  @Override
-  protected void end() {
-  }
+    @Override
+    protected void execute() {
+        Robot.drivetrain.tankDrive(speed, speed);
+    }
 
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {
-  }
+    @Override
+    protected boolean isFinished() {
+        return Math.abs(Robot.drivetrain.getGreyhillDistance()) > Math.abs(distance);
+    }
+
+    @Override
+    protected void end() {
+        Robot.drivetrain.stop();
+    }
 }
