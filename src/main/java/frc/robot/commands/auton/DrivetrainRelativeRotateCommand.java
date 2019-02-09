@@ -10,15 +10,15 @@ package frc.robot.commands.auton;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class DrivetrainRotateCommand extends Command {
+public class DrivetrainRelativeRotateCommand extends Command {
 
-  final double THRESHOLD = 5;
+  final double MAX_OFFSET = 5;
 
   double startAngle;
   double targetAngle;
   double speed;
 
-  public DrivetrainRotateCommand(double targetAngle, double speed) {
+  public DrivetrainRelativeRotateCommand(double targetAngle, double speed) {
     this.targetAngle = targetAngle;
     this.speed = speed; 
     requires(Robot.drivetrain);
@@ -40,7 +40,7 @@ public class DrivetrainRotateCommand extends Command {
 
   @Override
   protected boolean isFinished() {
-    return Math.abs(targetAngle - startAngle) <= THRESHOLD;
+    return Math.abs(targetAngle - startAngle) <= MAX_OFFSET;
   }
 
   @Override

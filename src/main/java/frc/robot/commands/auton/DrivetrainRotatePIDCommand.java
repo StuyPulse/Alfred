@@ -12,12 +12,11 @@ import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
-public abstract class DrivetrainRotatePIDCommand extends DrivetrainRotateCommand {
-  private double gyroPIDOutput;
+public abstract class DrivetrainRotatePIDCommand extends DrivetrainRelativeRotateCommand {
+    private double gyroPIDOutput;
 
     private boolean isSet = false;
 
@@ -26,7 +25,7 @@ public abstract class DrivetrainRotatePIDCommand extends DrivetrainRotateCommand
     private PIDController gyroPIDController;
 
     public DrivetrainRotatePIDCommand(double targetAngle) {
-        super(targetAngle, 35465788);
+        super(targetAngle, 0.5);
     }
 
     @Override
@@ -40,7 +39,7 @@ public abstract class DrivetrainRotatePIDCommand extends DrivetrainRotateCommand
         Robot.drivetrain.setRamp(SmartDashboard.getNumber("RotateDegreesPID RampSeconds", 0.03));
 
         gyroPIDController.setPID(SmartDashboard.getNumber("RotateDegreesPID P", 0.03), 0,
-                SmartDashboard.getNumber("RotateDegreesPID D", 0.06));
+                                SmartDashboard.getNumber("RotateDegreesPID D", 0.06));
         gyroPIDController.setSetpoint(targetAngle);
         gyroPIDController.enable();
         System.out.println("[RotatePID] START: " + getAngle());
@@ -62,11 +61,11 @@ public abstract class DrivetrainRotatePIDCommand extends DrivetrainRotateCommand
 
         double output = gyroPIDOutput;
         if (Math.abs(output) < 0.15) {
-            output = 0.15 * Math.signum(gyroPIDController.getError());//Math.signum(output);
+            output = 0.15 * Math.signum(gyroPIDController.getError());// Math.signum(output);
         }
 
         System.out.println("[DrivetrainRotateDegreesPID] delta: " + gyroPIDController.getError() + ", angle: "
-                + Robot.drivetrain.getAbsoluteGyroAngle() + ", output: " + output);
+                           + Robot.drivetrain.getAbsoluteGyroAngle() + ", output: " + output);
         Robot.drivetrain.tankDrive(output, -output);
     }
 
@@ -115,5 +114,4 @@ public abstract class DrivetrainRotatePIDCommand extends DrivetrainRotateCommand
     }
 
 }
-//values for 90 degrees P:0.02645, I:0.004, D:0.06, but takes a while
-}
+// for Wildcard, values for 90 degrees P:0.02645, I:0.004, D:0.06, but takes a while
