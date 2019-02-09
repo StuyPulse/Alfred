@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
 
+<<<<<<< HEAD
 commit_msg =$(cat "${1:?Missing commit message file}")
 echo "Your commit message: $commit_msg"
+=======
+echo "$(cat $1)"
+>>>>>>> parent of b8d4f44... Add a fallback
