@@ -19,5 +19,5 @@ ln2=`head -n 2 $1 | tail -n 1`
 regex='^\r?\n$'
 if ! [[ $ln2 =~ $regex ]]; then
     echo "Second line should be a new line"
-    exit 1
+#    exit 1
 fi
