@@ -12,39 +12,39 @@ import frc.robot.Robot;
 
 public class DrivetrainRelativeRotateCommand extends Command {
 
-  final double MAX_OFFSET = 5;
+    final double MAX_OFFSET = 5;
 
-  double startAngle;
-  double targetAngle;
-  double speed;
+    protected double startAngle;
+    protected double targetAngle;
+    protected double speed;
 
-  public DrivetrainRelativeRotateCommand(double targetAngle, double speed) {
-    this.targetAngle = targetAngle;
-    this.speed = speed; 
-    requires(Robot.drivetrain);
-  }
-
-  @Override
-  protected void initialize() {
-    startAngle = Robot.drivetrain.getGyroAngle();
-  }
-
-  @Override
-  protected void execute() {
-    if (targetAngle > 0 && targetAngle < 180) {
-      Robot.drivetrain.tankDrive(speed, -speed);
-    } else {
-      Robot.drivetrain.tankDrive(-speed, speed);
+    public DrivetrainRelativeRotateCommand(double targetAngle, double speed) {
+        this.targetAngle = targetAngle;
+        this.speed = speed;
+        requires(Robot.drivetrain);
     }
-  }
 
-  @Override
-  protected boolean isFinished() {
-    return Math.abs(targetAngle - startAngle) <= MAX_OFFSET;
-  }
+    @Override
+    protected void initialize() {
+        startAngle = Robot.drivetrain.getGyroAngle();
+    }
 
-  @Override
-  protected void end() {
-    Robot.drivetrain.tankDrive(0, 0);
-  }
+    @Override
+    protected void execute() {
+        if (targetAngle > 0 && targetAngle < 180) {
+            Robot.drivetrain.tankDrive(speed, -speed);
+        } else {
+            Robot.drivetrain.tankDrive(-speed, speed);
+        }
+    }
+
+    @Override
+    protected boolean isFinished() {
+        return Math.abs(targetAngle - startAngle) <= MAX_OFFSET;
+    }
+
+    @Override
+    protected void end() {
+        Robot.drivetrain.stop();
+    }
 }

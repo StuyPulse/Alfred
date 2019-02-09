@@ -21,6 +21,9 @@ public class DrivetrainStraightRampingCommand extends DrivetrainDriveStraightCom
     private double speedPIDOutput;
     private boolean inRange;
     private double timeInRange;
+    private double speedP;
+    private double speedI; 
+    private double speedD;
 
     public DrivetrainStraightRampingCommand(double distance) {
         super(distance, 1);
@@ -29,29 +32,30 @@ public class DrivetrainStraightRampingCommand extends DrivetrainDriveStraightCom
     @Override
     protected void initialize() {
         super.initialize();
+        speedP = SmartDashboard.getNumber("DriveStraightGyroPID P", 0);
+        speedI = SmartDashboard.getNumber("DriveStraightGyroPID I", 0);
+        speedD = SmartDashboard.getNumber("DriveStraightGyroPID D", 0);
         Robot.drivetrain.setRamp(SmartDashboard.getNumber("DriveStraight RampSeconds", 2.5));
         speedPIDController = new PIDController(0, 0, 0, new GyroPIDSource(), new GyroPIDOutput());
         speedPIDController.setSetpoint(distance);
         speedPIDController.setAbsoluteTolerance(3);
-        speedPIDController.setPID(SmartDashboard.getNumber("DriveStraightRampingPID P", 0),
-                SmartDashboard.getNumber("DriveStraightRampingPID I", 0),
-                SmartDashboard.getNumber("DriveStraightRampingPID D", 0));
+        speedPIDController.setPID(speedP, speedI, speedD);
         speedPIDController.enable();
     }
 
     @Override
     protected void execute() {
-        if (Math.abs(speedPIDOutput) < 0.15) {
+        double output = speedPIDOutput;
+        if (Math.abs(output) < 0.15) {
             if (speedPIDController.onTarget()) {
-                speedPIDOutput = 0;
+                output = 0;
             } else {
-                speedPIDOutput = 0.15 * Math.signum(speedPIDOutput);
+                output = 0.15 * Math.signum(output);
             }
         }
-        speedPIDOutput = Math.min(Math.max(-1, speedPIDOutput), 1);
-
-        double left = speedPIDOutput + getGyroPIDOutput();
-        double right = speedPIDOutput - getGyroPIDOutput();
+        output = Math.min(Math.max(-1, output), 1);
+        double left = output + getGyroPIDOutput();
+        double right = output - getGyroPIDOutput();
         Robot.drivetrain.tankDrive(left, right);
     }
 
@@ -70,7 +74,6 @@ public class DrivetrainStraightRampingCommand extends DrivetrainDriveStraightCom
     protected void end() {
         super.end();
         Robot.drivetrain.setRamp(0);
-        speedPIDController.setPID(0, 0, 0);
         speedPIDController.disable();
     }
 

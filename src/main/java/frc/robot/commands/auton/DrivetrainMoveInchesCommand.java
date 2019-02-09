@@ -18,6 +18,7 @@ public class DrivetrainMoveInchesCommand extends Command {
     public DrivetrainMoveInchesCommand(double distance, double speed) {
         requires(Robot.drivetrain);
         this.distance = distance;
+        this.speed = speed;
     }
 
     @Override

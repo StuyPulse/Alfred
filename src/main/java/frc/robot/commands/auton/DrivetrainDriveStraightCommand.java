@@ -18,21 +18,26 @@ public class DrivetrainDriveStraightCommand extends DrivetrainMoveInchesCommand 
 
     private PIDController rotationPIDController;
     private double gyroPIDOutput;
+    private double rotateP;
+    private double rotateI;
+    private double rotateD;
 
     public DrivetrainDriveStraightCommand(double distance, double speed) {
         super(distance, speed);
-        requires(Robot.drivetrain);
     }
 
     @Override
     protected void initialize() {
         super.initialize();
+        //TODO: Store final values in the constants
+        rotateP = SmartDashboard.getNumber("DriveStraightGyroPID P", 0);
+        rotateI = SmartDashboard.getNumber("DriveStraightGyroPID I", 0);
+        rotateD = SmartDashboard.getNumber("DriveStraightGyroPID D", 0);
+
         Robot.drivetrain.resetGyro();
         rotationPIDController = new PIDController(0, 0, 0, new GyroPIDSource(), new GyroPIDOutput());
         rotationPIDController.setSetpoint(Robot.drivetrain.getGyroAngle());
-        rotationPIDController.setPID(SmartDashboard.getNumber("DriveStraightGyroPID P", 0),
-                SmartDashboard.getNumber("DriveStraightGyroPID I", 0),
-                SmartDashboard.getNumber("DriveStraightGyroPID D", 0));
+        rotationPIDController.setPID(rotateP, rotateI, rotateD);
         rotationPIDController.enable();
     }
 
@@ -52,13 +57,13 @@ public class DrivetrainDriveStraightCommand extends DrivetrainMoveInchesCommand 
     @Override
     protected void end() {
         super.end();
-        rotationPIDController.setPID(0, 0, 0);
         rotationPIDController.disable();
     }
 
     protected double getGyroPIDOutput() {
         return gyroPIDOutput;
     }
+    
     private class GyroPIDSource implements PIDSource {
         @Override
         public void setPIDSourceType(PIDSourceType pidSource) {

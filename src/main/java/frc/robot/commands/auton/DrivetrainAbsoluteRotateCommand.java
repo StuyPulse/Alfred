@@ -12,40 +12,40 @@ import frc.robot.Robot;
 
 public class DrivetrainAbsoluteRotateCommand extends Command {
 
-  double targetAngle;
-  double speed;
+    double targetAngle;
+    double speed;
 
-  final int MAX_OFFSET = 5;
+    private final int MAX_OFFSET = 5;
 
-  public DrivetrainAbsoluteRotateCommand(double targetAngle, double speed) {
-    this.targetAngle = targetAngle;
-    this.speed = speed;
+    public DrivetrainAbsoluteRotateCommand(double targetAngle, double speed) {
+        this.targetAngle = targetAngle;
+        this.speed = speed;
 
-    requires(Robot.drivetrain);
-  }
-
-  @Override
-  protected void initialize() {
-  }
-
-  @Override
-  protected void execute() {
-    if (Robot.drivetrain.getAbsoluteGyroAngle() == targetAngle) {
-      Robot.drivetrain.stop();
-    } else if (Robot.drivetrain.getAbsoluteGyroAngle() > targetAngle) {
-      Robot.drivetrain.tankDrive(-speed, speed);
-    } else {
-      Robot.drivetrain.tankDrive(speed, -speed);
+        requires(Robot.drivetrain);
     }
-  }
 
-  @Override
-  protected boolean isFinished() {
-    return Math.abs(Robot.drivetrain.getAbsoluteGyroAngle() - targetAngle) <= MAX_OFFSET;
-  }
+    @Override
+    protected void initialize() {
+    }
 
-  @Override
-  protected void end() {
-    Robot.drivetrain.stop();
-  }
+    @Override
+    protected void execute() {
+        if (Robot.drivetrain.getAbsoluteGyroAngle() == targetAngle) {
+            Robot.drivetrain.stop();
+        } else if (Robot.drivetrain.getAbsoluteGyroAngle() > targetAngle) {
+            Robot.drivetrain.tankDrive(-speed, speed);
+        } else {
+            Robot.drivetrain.tankDrive(speed, -speed);
+        }
+    }
+
+    @Override
+    protected boolean isFinished() {
+        return Math.abs(Robot.drivetrain.getAbsoluteGyroAngle() - targetAngle) <= MAX_OFFSET;
+    }
+
+    @Override
+    protected void end() {
+        Robot.drivetrain.stop();
+    }
 }
