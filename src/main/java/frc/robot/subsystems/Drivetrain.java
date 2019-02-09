@@ -7,20 +7,19 @@
 
 package frc.robot.subsystems;
 
+import com.kauailabs.navx.frc.AHRS;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.RobotMap;
 import frc.robot.commands.DrivetrainDriveCommand;
 import frc.util.NEOEncoder;
-
-import com.kauailabs.navx.frc.AHRS;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
-import edu.wpi.first.wpilibj.command.Subsystem;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANEncoder;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 /**
  * Add your docs here.
@@ -28,9 +27,9 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 public final class Drivetrain extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-    private CANSparkMax leftTopMotor,
-                        leftMiddleMotor,
-                        leftBottomMotor,
+    private CANSparkMax leftTopMotor, 
+                        leftMiddleMotor, 
+                        leftBottomMotor, 
                         rightTopMotor,
                         rightMiddleMotor,
                         rightBottomMotor;
