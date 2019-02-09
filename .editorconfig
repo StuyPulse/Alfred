@@ -1,6 +1,10 @@
 # makes this editorconfig overwrite all other config files
 root = true
  
-[*] #specifies what file types it applies to [*.{txt,md}] specifies for txt and md
+[*.java] #specifies what file types it applies to [*.{txt,md}] specifies for txt and md
 indent_style = space
 indent_size = 4
+
+[*.yaml]
+indent_style = space
+indent_size = 2
