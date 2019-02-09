@@ -6,5 +6,7 @@ num_char_ln1=`head -n 1 $1 | wc -c`
 if [ "$num_char_ln1" -gt "5" ]
 then
     echo "Too big!"
+    exit 1
 fi
+
 
