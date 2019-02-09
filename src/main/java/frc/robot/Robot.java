@@ -78,7 +78,7 @@ public class Robot extends TimedRobot {
     @Override
     public void robotPeriodic() {
         controlCompressor();
-        SmartDashboard.putBoolean("IR Sensor", IRsensor.get());
+        SmartDashboard.putBoolean("IR Sensor", isIRSensorDetected());
     }
 
     /**
