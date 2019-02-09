@@ -48,7 +48,6 @@ check_file_size()
         then
             env echo -E 1>&2 "WARNING: soft size limit ($soft_limit) exceeded: $munged_filename ($s)"
         fi
-        git commit --amend
     done
     [ $n -eq 0 ]
 }
