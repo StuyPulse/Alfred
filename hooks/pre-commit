@@ -52,6 +52,5 @@ check_file_size()
     [ $n -eq 0 ]
 }
 
-git status
 list_new_or_modified_files | check_file_size
 
