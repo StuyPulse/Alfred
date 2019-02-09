@@ -17,5 +17,4 @@ public class DriveStraightRampUpOnlyCommand extends DriveStraightWithRampingComm
     protected boolean isFinished() {
         return getDistanceFromTarget() < 0;
     }
-
 }

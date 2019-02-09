@@ -3,7 +3,6 @@ package frc.robot.commands.auton;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
-import frc.robot.commands.auton.ConditionalDistanceEncodersCommand;
 
 /**
  * A command that lets us trick DriveStraightPID to turn and change speed mid
