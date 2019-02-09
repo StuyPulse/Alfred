@@ -36,7 +36,6 @@ public abstract class DrivetrainRotateDegreesPIDCommand extends DrivetrainRotate
                 SmartDashboard.getNumber("RotateDegreesPID D", 0.06));
         gyroPIDController.setSetpoint(targetAngle);
         gyroPIDController.enable();
-        System.out.println("[RotatePID] START: " + getAngle());
     }
 
     @Override
@@ -57,9 +56,6 @@ public abstract class DrivetrainRotateDegreesPIDCommand extends DrivetrainRotate
         if (Math.abs(output) < 0.15) {
             output = 0.15 * Math.signum(gyroPIDController.getError());// Math.signum(output);
         }
-
-        System.out.println("[DrivetrainRotateDegreesPID] delta: " + gyroPIDController.getError() + ", angle: "
-                + Robot.drivetrain.getGyroAngle() + ", output: " + output);
         Robot.drivetrain.tankDrive(output, -output);
     }
 
@@ -72,9 +68,6 @@ public abstract class DrivetrainRotateDegreesPIDCommand extends DrivetrainRotate
         super.end();
         Robot.drivetrain.stop();
         Robot.drivetrain.setRamp(0);
-
-        System.out.println("[RotatePID] END");
-        System.out.println(getAngle());
     }
 
     private boolean onTarget() {

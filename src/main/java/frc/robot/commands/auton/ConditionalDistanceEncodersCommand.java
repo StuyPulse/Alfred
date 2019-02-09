@@ -28,12 +28,12 @@ public class ConditionalDistanceEncodersCommand extends CommandGroup {
 
         @Override
         protected void initialize() {
-            startDistance = Robot.drivetrain.getDistance();
+            startDistance = Robot.drivetrain.getGreyhillDistance();
         }
 
         @Override
         protected boolean isFinished() {
-            return Math.abs(Robot.drivetrain.getDistance() - startDistance) > Math.abs(distance);
+            return Math.abs(Robot.drivetrain.getGreyhillDistance() - startDistance) > Math.abs(distance);
         }
     }
 }

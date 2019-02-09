@@ -41,13 +41,10 @@ public class DriveStraightWithRampingCommand extends DriveStraightPIDCommand {
         speedPIDController.setAbsoluteTolerance(DRIVE_DISTANCE_THRESHOLD);
 
         speedPIDController.enable();
-
-        System.out.println("[DriveStraight] Init");
     }
 
     @Override
     protected void execute() {
-        System.out.println("[DriveStraightWithRamping] ===============================");
         double output = speedPIDOutput;
         if (Math.abs(output) < 0.15) {
             if (isOnTarget())
@@ -66,7 +63,6 @@ public class DriveStraightWithRampingCommand extends DriveStraightPIDCommand {
     protected boolean isFinished() {
         boolean inRange = isOnTarget();
         if (inRange && !isSet) {
-            System.out.println("[DriveStraight] SET! " + Robot.drivetrain.getDistance());
             timeFirstInRange = Timer.getFPGATimestamp();
             isSet = true;
         } else if (!inRange) {
@@ -84,15 +80,13 @@ public class DriveStraightWithRampingCommand extends DriveStraightPIDCommand {
         speedPIDController.setPID(0, 0, 0);
         speedPIDController.disable();
 
-        SmartDashboard.putNumber("DriveStraight FINAL Right Distance", Robot.drivetrain.getRightDistance());
-        SmartDashboard.putNumber("DriveStraight FINAL Left Distance", Robot.drivetrain.getLeftDistance());
-        System.out.println("[DriveStraight] END: " + Robot.drivetrain.getDistance());
+        SmartDashboard.putNumber("DriveStraight FINAL Right Distance", Robot.drivetrain.getRightGreyhillDistance());
+        SmartDashboard.putNumber("DriveStraight FINAL Left Distance", Robot.drivetrain.getLeftGreyhillDistance());
     }
 
     @Override
     protected void interrupted() {
         end();
-        System.out.println("[DriveStraight] INTERRUPTED");
     }
 
     private boolean isOnTarget() {
@@ -118,7 +112,6 @@ public class DriveStraightWithRampingCommand extends DriveStraightPIDCommand {
     private class SpeedPIDOutput implements PIDOutput {
         @Override
         public void pidWrite(double output) {
-            System.out.println("[DriveStraightWithRamping] speed output: " + output);
             speedPIDOutput = output;
         }
     }

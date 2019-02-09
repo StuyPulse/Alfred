@@ -40,11 +40,6 @@ public class DrivetrainDriveCurveCommand extends CommandGroup {
         this(targetDistance, RampMode.RAMP_FULL);
     }
 
-    @Override
-    protected void interrupted() {
-        System.out.println("[DrivetrainDriveCurve] INTERRUPT");
-    }
-
     // Changes the target angle at a certain distance
     public void addTurn(double distance, double targetAngle) {
         addParallel(new DrivetrainRampingSetTargetAngleAtDistanceCommand(driveCommand, distance, targetAngle));
@@ -75,8 +70,6 @@ public class DrivetrainDriveCurveCommand extends CommandGroup {
             @Override
             protected void initialize() {
                 rampCommand.setSpeedScale(speedScaleFactor);
-                System.out.println("[DrivetrainRampSetSpeed] set to " + speedScaleFactor + " at "
-                        + +Robot.drivetrain.getDistance() + "!");
             }
         }
     }
@@ -91,7 +84,6 @@ public class DrivetrainDriveCurveCommand extends CommandGroup {
         @Override
         protected void initialize() {
             super.initialize();
-            System.out.println("[SetTargetAngle] Set at " + Robot.drivetrain.getDistance());
         }
 
         private static class DrivetrainRampingSetTargetAngleCommand extends InstantCommand {

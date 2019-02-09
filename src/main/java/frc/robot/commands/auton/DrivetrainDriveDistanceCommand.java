@@ -16,11 +16,10 @@ public abstract class DrivetrainDriveDistanceCommand extends Command {
 
     protected void initialize() {
         startDistance = getRawDistance();
-        System.out.println("[DrivetrainDriveDistance] SET: " + startDistance);
     }
 
     private double getRawDistance() {
-        return Robot.drivetrain.getDistance();
+        return Robot.drivetrain.getGreyhillDistance();
     }
 
     protected double getDistance() {

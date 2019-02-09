@@ -35,7 +35,6 @@ public class DriveStraightPIDCommand extends DrivetrainMoveInchesEncoderCommand 
         double deltaSign = Math.signum(this.getDistanceFromTarget());
         Robot.drivetrain.tankDrive(deltaSign * moveSpeed * speedScaleFactor + getGyroPIDOutput(),
                 deltaSign * moveSpeed * speedScaleFactor - getGyroPIDOutput());
-        System.out.println("[DriveStraightPID] target: " + targetDistance + ", dist: " + getDistance());
     }
 
     @Override
@@ -81,7 +80,6 @@ public class DriveStraightPIDCommand extends DrivetrainMoveInchesEncoderCommand 
     private class GyroPIDOutput implements PIDOutput {
         @Override
         public void pidWrite(double output) {
-            System.out.println("[GyroPIDOutput] : " + output);
             gyroPIDOutput = output;
         }
     }
