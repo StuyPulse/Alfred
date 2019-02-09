@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 commit_msg=$(cat "${1:?Missing commit message file}")
-echo "Your commit message: $commit_msg"
+#echo "Your commit message: $commit_msg"
 
 num_char_ln1=`head -n 1 $1 | wc -c`
 
@@ -13,8 +13,6 @@ then
 fi
 
 ln2=`head -n 2 $1 | tail -n 1`
-#echo "line2: `echo $ln2 | wc -c`" 
-#echo $ln2 | hexdump -c
 #checks if the first character of line 2 is a new line
 regex='^$'
 if ! [[ $ln2 =~ $regex ]]; then
