@@ -109,6 +109,10 @@ public final class Drivetrain extends Subsystem {
         differentialDrive.curvatureDrive(speed, angle, turn);
     }
 
+    public void tankDrive(double left, double right) {
+        differentialDrive.tankDrive(left, right);
+    }
+
     public void stop() {
         differentialDrive.tankDrive(0, 0);
     }
