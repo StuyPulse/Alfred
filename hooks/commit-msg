@@ -16,8 +16,8 @@ ln2=`head -n 2 $1 | tail -n 1`
 #echo "line2: `echo $ln2 | wc -c`" 
 #echo $ln2 | hexdump -c
 #checks if the first character of line 2 is a new line
-regex='^\r?\n$'
+regex='^$'
 if ! [[ $ln2 =~ $regex ]]; then
     echo "Second line should be a new line"
-#    exit 1
+    exit 1
 fi
