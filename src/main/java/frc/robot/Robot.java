@@ -61,7 +61,7 @@ public class Robot extends TimedRobot {
         rollers = new Rollers();
         fangs = new Fangs();
 
-        IRsensor = new DigitalInput(RobotMap.IR_SENSOR_PORT);
+        /*IRsensor = new DigitalInput(RobotMap.IR_SENSOR_PORT); */
         // chooser.addOption("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
     }
@@ -78,7 +78,7 @@ public class Robot extends TimedRobot {
     @Override
     public void robotPeriodic() {
         controlCompressor();
-        SmartDashboard.putBoolean("IR Sensor", isGamePieceDetected());
+        //SmartDashboard.putBoolean("IR Sensor", isGamePieceDetected());
     }
 
     /**
@@ -172,7 +172,9 @@ public class Robot extends TimedRobot {
         fangs.lower();
     }
 
+/*
     private boolean isGamePieceDetected() {
         return IRsensor.get();
     }
+    */
 }
