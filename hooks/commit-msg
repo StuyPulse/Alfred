@@ -3,7 +3,7 @@
 commit_msg=$(cat "${1:?Missing commit message file}")
 echo "Your commit message: $commit_msg"
 num_char_ln1=`head -n 1 $1 | wc -c`
-if [num_char_ln1 > 5 ]
+if [$num_char_ln1 > 5]
 then
     echo "Too big!"
 fi
