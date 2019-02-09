@@ -41,7 +41,7 @@ check_file_size()
         if [ "$s" -gt $hard_limit ]
         then
             env echo -E 1>&2 "ERROR: hard size limit ($hard_limit) exceeded: $munged_filename ($s)"
-            env echo -E 1>&2 "you can override me by running: git commit -n"
+            #env echo -E 1>&2 "you can override me by running: git commit -n"
 
             n=$((n+1))
         elif [ "$s" -gt $soft_limit ]
@@ -49,8 +49,9 @@ check_file_size()
             env echo -E 1>&2 "WARNING: soft size limit ($soft_limit) exceeded: $munged_filename ($s)"
         fi
     done
-
     [ $n -eq 0 ]
 }
 
+git status
 list_new_or_modified_files | check_file_size
+
