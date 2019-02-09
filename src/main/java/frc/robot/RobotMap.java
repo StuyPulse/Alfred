@@ -119,6 +119,7 @@ public interface RobotMap {
      ****************************************************************************************/
     int ROLLER_MOTOR_PORT = -1;
     double SLOW_ROLLER_MULTIPLIER = 0.75;
+    double SLOW_ROLLER_MAXIMUM = 0.75;
 
     /***************************************************************************************
      * IR Sensor Constant
