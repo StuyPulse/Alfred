@@ -41,8 +41,8 @@ public final class Lift extends Subsystem {
                 RobotMap.LIFT_TILT_SOLENOID_REVERSE_PORT);
         brakeSolenoid = new Solenoid(RobotMap.LIFT_BRAKE_SOLENOID_PORT);
 
-        topLimitSwitch = new DigitalInput(RobotMap.LIFT_TOP_LIMIT_SWITCH_PORT);
-        bottomLimitSwitch = new DigitalInput(RobotMap.LIFT_BOTTOM_LIMIT_SWITCH_PORT);
+        //topLimitSwitch = new DigitalInput(RobotMap.LIFT_TOP_LIMIT_SWITCH_PORT);
+        //bottomLimitSwitch = new DigitalInput(RobotMap.LIFT_BOTTOM_LIMIT_SWITCH_PORT);
 
         enableRamping();
     }
@@ -60,21 +60,21 @@ public final class Lift extends Subsystem {
         masterTalon.setSelectedSensorPosition((int) (height / RobotMap.LIFT_ENCODER_RAW_MULTIPLIER), 0, 0);
     }
 
-    public boolean isAtTop() {
-        boolean atTop = topLimitSwitch.get();
-        if (atTop) {
-            setEncoder(RobotMap.LIFT_MAX_HEIGHT);
-        }
-        return atTop;
-    }
+    // public boolean isAtTop() {
+    //     boolean atTop = topLimitSwitch.get();
+    //     if (atTop) {
+    //         setEncoder(RobotMap.LIFT_MAX_HEIGHT);
+    //     }
+    //     return atTop;
+    // }
 
-    public boolean isAtBottom() {
-        boolean atBottom = bottomLimitSwitch.get();
-        if (atBottom) {
-            setEncoder(RobotMap.LIFT_MIN_HEIGHT);
-        }
-        return atBottom;
-    }
+    // public boolean isAtBottom() {
+    //     boolean atBottom = bottomLimitSwitch.get();
+    //     if (atBottom) {
+    //         setEncoder(RobotMap.LIFT_MIN_HEIGHT);
+    //     }
+    //     return atBottom;
+    // } 
 
     public int getRawHeight() {
         return masterTalon.getSelectedSensorPosition();
@@ -92,8 +92,8 @@ public final class Lift extends Subsystem {
     public void moveNoRamp(double speed) {
         if (Math.abs(speed) < RobotMap.LIFT_MIN_SPEED) {
             stopLift();
-        } else if (isAtTop() || isAtBottom()) {
-            stopLift();
+        // } else if (isAtTop() || isAtBottom()) {
+        //     stopLift();
         } else {
             releaseBrake();
             masterTalon.set(ControlMode.PercentOutput, speed);
