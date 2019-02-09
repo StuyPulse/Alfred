@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.auton;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -20,7 +20,6 @@ public class ConditionalDistanceEncodersCommand extends CommandGroup {
     private static class InitialDistanceEncodersCommand extends Command {
 
         private double distance;
-
         private double startDistance;
 
         public InitialDistanceEncodersCommand(double distance) {
@@ -35,7 +34,6 @@ public class ConditionalDistanceEncodersCommand extends CommandGroup {
         @Override
         protected boolean isFinished() {
             return Math.abs(Robot.drivetrain.getDistance() - startDistance) > Math.abs(distance);
-
         }
     }
 }

@@ -164,6 +164,10 @@ public final class Drivetrain extends Subsystem {
         return navX.getAngle();
     }
 
+    public void resetGyro() {
+        navX.reset();
+    }
+
     public boolean isMoving() {
         return (rightSpeedGroup.get() > 0 || leftSpeedGroup.get() > 0);
     }
@@ -179,5 +183,14 @@ public final class Drivetrain extends Subsystem {
 
     public void toggleGearShift(){
         gearShift.set(!(gearShift.get()));
+    }
+
+    public void setRamp(double rampSeconds) {
+        leftTopMotor.setRampRate(rampSeconds);
+        rightTopMotor.setRampRate(rampSeconds);
+        leftMiddleMotor.setRampRate(rampSeconds);
+        rightMiddleMotor.setRampRate(rampSeconds);
+        leftBottomMotor.setRampRate(rampSeconds);
+        rightBottomMotor.setRampRate(rampSeconds);
     }
 }
