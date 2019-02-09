@@ -10,9 +10,9 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class RollersDeacquireFastCommand extends Command {
+public class RollersConstantDeacquireCommand extends Command {
 
-    public RollersDeacquireFastCommand() {
+    public RollersConstantDeacquireCommand() {
         requires(Robot.rollers);
     }
 
@@ -30,5 +30,4 @@ public class RollersDeacquireFastCommand extends Command {
     protected void end() {
         Robot.rollers.stop();
     }
-
 }

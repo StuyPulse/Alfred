@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 import frc.robot.commands.LiftMoveCommand;
 
-public class Lift extends Subsystem {
+public final class Lift extends Subsystem {
     private WPI_TalonSRX masterTalon;
     private WPI_TalonSRX followerTalon;
 

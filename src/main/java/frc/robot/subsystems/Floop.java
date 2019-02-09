@@ -11,7 +11,7 @@ import frc.robot.RobotMap;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class Floop extends Subsystem {
+public final class Floop extends Subsystem {
 
     private Solenoid floopSolenoid;
 

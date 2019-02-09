@@ -10,14 +10,15 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 
-public class DrivetrainGearshiftCommand extends InstantCommand {
-    public DrivetrainGearshiftCommand() {
-        requires(Robot.drivetrain);
+public class AbomStopPumpCommand extends InstantCommand {
+
+    public AbomStopPumpCommand() {
+        requires(Robot.abom);
     }
 
+    // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        Robot.drivetrain.toggleGearShift();
+        Robot.abom.stop();
     }
-
 }
