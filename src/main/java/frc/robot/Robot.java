@@ -78,7 +78,7 @@ public class Robot extends TimedRobot {
     @Override
     public void robotPeriodic() {
         controlCompressor();
-        SmartDashboard.putBoolean("IR Sensor", isIRSensorDetected());
+        SmartDashboard.putBoolean("IR Sensor", isGamePieceDetected());
     }
 
     /**
@@ -172,7 +172,7 @@ public class Robot extends TimedRobot {
         fangs.lower();
     }
 
-    private boolean isIRSensorDetected() {
+    private boolean isGamePieceDetected() {
         return IRsensor.get();
     }
 }
