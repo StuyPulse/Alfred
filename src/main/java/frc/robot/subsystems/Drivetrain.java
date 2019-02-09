@@ -46,6 +46,8 @@ public final class Drivetrain extends Subsystem {
     
     private Solenoid gearShift;
 
+    public double absoluteGyroError;
+
     public Drivetrain() {
         // Left Side Motors
         leftTopMotor = new CANSparkMax(RobotMap.LEFT_TOP_MOTOR_PORT, MotorType.kBrushless);
@@ -197,6 +199,15 @@ public final class Drivetrain extends Subsystem {
     }
 
     public void resetGyro() {
+        absoluteGyroError += getGyroAngle();
         navX.reset();
+    }
+
+    public void resetGyroError() {
+        absoluteGyroError = 0;
+    }
+
+    public double getAbsoluteGyroAngle() {
+        return absoluteGyroError + getGyroAngle();
     }
 }
