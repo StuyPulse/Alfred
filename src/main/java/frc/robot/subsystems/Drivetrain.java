@@ -186,4 +186,17 @@ public final class Drivetrain extends Subsystem {
     public void toggleGearShift(){
         gearShift.set(!(gearShift.get()));
     }
+
+    public void setRamp(double rampSeconds) {
+        leftTopMotor.configOpenloopRamp(rampSeconds, 0);
+        rightTopMotor.configOpenloopRamp(rampSeconds, 0);
+        leftMiddleMotor.configOpenloopRamp(rampSeconds, 0);
+        rightMiddleMotor.configOpenloopRamp(rampSeconds, 0);
+        leftBottomMotor.configOpenloopRamp(rampSeconds, 0);
+        rightBottomMotor.configOpenloopRamp(rampSeconds, 0);
+    }
+
+    public void resetGyro() {
+        navX.reset();
+    }
 }
