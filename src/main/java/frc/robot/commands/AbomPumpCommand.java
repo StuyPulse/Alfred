@@ -11,13 +11,11 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
-public class AbomChargeCommand extends Command {
-    private boolean climb;
+public class AbomPumpCommand extends Command {
     private long lastToggled;
 
-    public AbomChargeCommand(boolean climb) {
+    public AbomPumpCommand() {
         requires(Robot.abom);
-        this.climb = climb;
     }
 
     // Called just before this Command runs the first time
@@ -30,7 +28,7 @@ public class AbomChargeCommand extends Command {
     @Override
     protected void execute() {
         // Fire the piston repeatedly so that it fully extends before retracting 
-        if (climb && System.currentTimeMillis() - lastToggled <= RobotMap.ABOM_CHARGE_DELAY_MS) {
+        if (System.currentTimeMillis() - lastToggled <= RobotMap.ABOM_CHARGE_DELAY_MS) {
             Robot.abom.toggle();
             lastToggled = System.currentTimeMillis();
         }
@@ -39,7 +37,7 @@ public class AbomChargeCommand extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return !climb;
+        return false;
     }
 
     // Called once after isFinished returns true
