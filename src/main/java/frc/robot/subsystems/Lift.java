@@ -21,8 +21,8 @@ public final class Lift extends Subsystem {
     private DigitalInput topLimitSwitch;
     private DigitalInput bottomLimitSwitch;
 
-    private DoubleSolenoid tiltSolenoid;
-    private Solenoid brakeSolenoid;
+    // private DoubleSolenoid tiltSolenoid;
+    //private Solenoid brakeSolenoid;
 
     public boolean rampDisabled;
 
@@ -37,9 +37,9 @@ public final class Lift extends Subsystem {
 
         masterTalon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 
-        tiltSolenoid = new DoubleSolenoid(RobotMap.LIFT_TILT_SOLENOID_FORWARD_PORT,
-                RobotMap.LIFT_TILT_SOLENOID_REVERSE_PORT);
-        brakeSolenoid = new Solenoid(RobotMap.LIFT_BRAKE_SOLENOID_PORT);
+        // tiltSolenoid = new DoubleSolenoid(RobotMap.LIFT_TILT_SOLENOID_FORWARD_PORT,
+                // RobotMap.LIFT_TILT_SOLENOID_REVERSE_PORT);
+        // brakeSolenoid = new Solenoid(RobotMap.LIFT_BRAKE_SOLENOID_PORT);
 
         //topLimitSwitch = new DigitalInput(RobotMap.LIFT_TOP_LIMIT_SWITCH_PORT);
         //bottomLimitSwitch = new DigitalInput(RobotMap.LIFT_BOTTOM_LIMIT_SWITCH_PORT);

@@ -36,7 +36,7 @@ public class Robot extends TimedRobot {
     public static Abom abom;
     public static Tail tail;
     public static Lift lift; 
-    public static Compressor compressor;
+    // public static Compressor compressor;
     public static Rollers rollers;
     public static Fangs fangs;
 
@@ -52,15 +52,14 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() {
         drivetrain = new Drivetrain();
-        oi = new OI();
         floop = new Floop();
         abom = new Abom();
         tail = new Tail();
         lift = new Lift(); 
-        compressor = new Compressor();
+        // compressor = new Compressor();
         rollers = new Rollers();
         fangs = new Fangs();
-
+        oi = new OI();
         /*IRsensor = new DigitalInput(RobotMap.IR_SENSOR_PORT); */
         // chooser.addOption("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);

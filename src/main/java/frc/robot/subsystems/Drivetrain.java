@@ -40,11 +40,11 @@ public final class Drivetrain extends Subsystem {
     private DifferentialDrive differentialDrive;
 
     private NEOEncoder leftNEOEncoder, rightNEOEncoder;
-    private Encoder leftGreyhill, rightGreyhill;
+    //private Encoder leftGreyhill, rightGreyhill;
 
     private AHRS navX;
     
-    private Solenoid gearShift;
+    // private Solenoid gearShift;
 
     public Drivetrain() {
         // Left Side Motors
@@ -62,11 +62,11 @@ public final class Drivetrain extends Subsystem {
         rightNEOEncoder = new NEOEncoder(rightMiddleMotor.getEncoder());
 
         // Greyhill Encoders
-        leftGreyhill = new Encoder(RobotMap.DRIVETRAIN_LEFT_ENCODER_CHANNEL_A, RobotMap.DRIVETRAIN_LEFT_ENCODER_CHANNEL_B);
-        rightGreyhill = new Encoder(RobotMap.DRIVETRAIN_RIGHT_ENCODER_CHANNEL_A, RobotMap.DRIVETRAIN_RIGHT_ENCODER_CHANNEL_B);
+        //leftGreyhill = new Encoder(RobotMap.DRIVETRAIN_LEFT_ENCODER_CHANNEL_A, RobotMap.DRIVETRAIN_LEFT_ENCODER_CHANNEL_B);
+        //rightGreyhill = new Encoder(RobotMap.DRIVETRAIN_RIGHT_ENCODER_CHANNEL_A, RobotMap.DRIVETRAIN_RIGHT_ENCODER_CHANNEL_B);
         
-        leftGreyhill.setDistancePerPulse(RobotMap.DRIVETRAIN_GREYHILL_INCHES_PER_PULSE);
-        rightGreyhill.setDistancePerPulse(RobotMap.DRIVETRAIN_GREYHILL_INCHES_PER_PULSE);
+        //leftGreyhill.setDistancePerPulse(RobotMap.DRIVETRAIN_GREYHILL_INCHES_PER_PULSE);
+        //rightGreyhill.setDistancePerPulse(RobotMap.DRIVETRAIN_GREYHILL_INCHES_PER_PULSE);
 
         leftTopMotor.setIdleMode(CANSparkMax.IdleMode.kCoast);
         leftMiddleMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
@@ -88,7 +88,7 @@ public final class Drivetrain extends Subsystem {
         rightSpeedGroup = new SpeedControllerGroup(rightTopMotor, rightMiddleMotor, rightBottomMotor);
 
         //Gear Shift
-        gearShift = new Solenoid(RobotMap.GEAR_SHIFT_CHANNEL);
+        // gearShift = new Solenoid(RobotMap.GEAR_SHIFT_CHANNEL);
         // navx
         navX = new AHRS(SPI.Port.kMXP);
         // Drive
@@ -138,19 +138,23 @@ public final class Drivetrain extends Subsystem {
         rightNEOEncoder.resetEncoder();
     } 
     public double getLeftGreyhillTicks() {
-        return leftGreyhill.get();
+        // return leftGreyhill.get();
+        return 0.0;
     }
 
     public double getRightGreyhillTicks() {
-        return rightGreyhill.get();
+        //return rightGreyhill.get();
+        return 0.0;
     }
 
     public double getLeftGreyhillDistance() {
-        return leftGreyhill.getDistance();
+        // return leftGreyhill.getDistance();
+        return 0.0;
     }
 
     public double getRightGreyhillDistance() {
-        return rightGreyhill.getDistance();
+        // return rightGreyhill.getDistance();
+        return 0.0;
     }
 
     public double getGreyhillDistance() {
@@ -158,8 +162,8 @@ public final class Drivetrain extends Subsystem {
     }
 
     public void resetGreyhills() {
-        leftGreyhill.reset();
-        rightGreyhill.reset();
+        // leftGreyhill.reset();
+        // rightGreyhill.reset();
     }
 
     public double getGyroAngle() {
@@ -172,14 +176,14 @@ public final class Drivetrain extends Subsystem {
 
     public void highGearShift() {
         //TODO: test + find the correct boolean value
-        gearShift.set(false);
+        // gearShift.set(false);
     }
 
     public void lowGearShift() {
-        gearShift.set(true);
+        // gearShift.set(true);
     }
 
     public void toggleGearShift(){
-        gearShift.set(!(gearShift.get()));
+        // gearShift.set(!(gearShift.get()));
     }
 }

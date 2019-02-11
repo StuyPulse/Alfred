@@ -14,10 +14,10 @@ import frc.robot.RobotMap;
 // The fangs mechanism is a piston that can be extended in order to pick up
 // hatch panels from the carpet.
 public final class Fangs extends Subsystem {
-    private Solenoid fangsSolenoid;
+    //private Solenoid fangsSolenoid;
 
     public Fangs() {
-        fangsSolenoid = new Solenoid(RobotMap.FANGS_CHANNEL);
+        //fangsSolenoid = new Solenoid(RobotMap.FANGS_CHANNEL);
     }
 
     @Override
@@ -27,18 +27,19 @@ public final class Fangs extends Subsystem {
     public void raise() {
         // Fangs Solenoid begins as not extended.
         // Extending it will raise fangs. (confirmed w/ Engineering)
-        fangsSolenoid.set(true);
+        //fangsSolenoid.set(true);
     }
 
     public void lower() {
-        fangsSolenoid.set(false);
+        //fangsSolenoid.set(false);
     }
 
     public void toggle() {
-        fangsSolenoid.set(!isUp());
+        //fangsSolenoid.set(!isUp());
     }
 
     public boolean isUp() {
-        return fangsSolenoid.get();
+        //return fangsSolenoid.get();
+        return true;
     }
 }

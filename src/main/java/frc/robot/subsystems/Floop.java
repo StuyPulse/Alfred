@@ -13,18 +13,18 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public final class Floop extends Subsystem {
 
-    private Solenoid floopSolenoid;
+    //private Solenoid floopSolenoid;
 
     public Floop() {
-        floopSolenoid = new Solenoid(RobotMap.FLOOP_CHANNEL);
+        //floopSolenoid = new Solenoid(RobotMap.FLOOP_CHANNEL);
     }
 
     public void open() {
-        floopSolenoid.set(true);
+        //floopSolenoid.set(true);
     }
 
     public void close() {
-        floopSolenoid.set(false);
+        //floopSolenoid.set(false);
     }
 
     public void toggle() {
@@ -36,7 +36,8 @@ public final class Floop extends Subsystem {
     }
 
     public boolean isOpen() {
-        return floopSolenoid.get();
+        //return floopSolenoid.get();
+        return true;
     }
 
     @Override
