@@ -26,6 +26,7 @@ public class DrivetrainAbsoluteRotateCommand extends Command {
 
     @Override
     protected void initialize() {
+        Robot.drivetrain.resetGyro();
     }
 
     @Override
@@ -46,6 +47,7 @@ public class DrivetrainAbsoluteRotateCommand extends Command {
 
     @Override
     protected void end() {
+        Robot.drivetrain.resetGyro();
         Robot.drivetrain.stop();
     }
 }
