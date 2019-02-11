@@ -25,20 +25,28 @@ public class TailClimbCommand extends Command {
     @Override
     protected void execute() {
         this.speed = Robot.oi.operatorGamepad.getLeftY();
+            if(Math.abs(speed) > .2) {
+                Robot.tail.setSpeed(speed);
+                System.out.println("Speedy" + speed);
+            } else {
+                Robot.tail.setSpeed(0);
+                System.out.println("Stopped" + speed);
+            }
+                System.out.println(speed);
         // Raises the lift once
-        if (speed > .9 && !isRaised) {
-            Robot.tail.disengageRatchet();
-            isRaised = true;
-        }
-        // Retracts the lift once
-        if (speed < .9 && isRaised && !isRetracted) {
-            Robot.tail.engageRatchet();
-            isRetracted = true;
-        }
-        // Makes the lift go up and down
-        if (speed < 0) {
-            Robot.tail.setSpeed(speed);
-        }
+        // if (speed > .9 && !isRaised) {
+        //     Robot.tail.disengageRatchet();
+        //     isRaised = true;
+        // }
+        // // Retracts the lift once
+        // if (speed < .9 && isRaised && !isRetracted) {
+        //     Robot.tail.engageRatchet();
+        //     isRetracted = true;
+        // }
+        // // Makes the lift go up and down
+        // if (speed < 0) {
+        //     Robot.tail.setSpeed(speed);
+        // }
     }
 
     // Make this return true when this Command no longer needs to run execute()

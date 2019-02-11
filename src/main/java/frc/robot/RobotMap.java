@@ -13,7 +13,7 @@ public interface RobotMap {
      * Tail and Abom Ports
      ****************************************************************************************/
     int RATCHET_SOLENOID_PORT = -1;
-    int TAIL_MOTOR_PORT = 0;
+    int TAIL_MOTOR_PORT = 4;
     int ABOM_SOLENOID_PORT = -1;
     /***************************************************************************************
      * Abom Charge Constants
@@ -46,13 +46,13 @@ public interface RobotMap {
     /***************************************************************************************
      * Drivetrain Motor Ports
      ****************************************************************************************/
-    int LEFT_TOP_MOTOR_PORT = 13;
-    int LEFT_MIDDLE_MOTOR_PORT = 12;
-    int LEFT_BOTTOM_MOTOR_PORT = 14;
+    int LEFT_TOP_MOTOR_PORT = 2;
+    int LEFT_MIDDLE_MOTOR_PORT = 3; 
+    int LEFT_BOTTOM_MOTOR_PORT = 1; 
 
-    int RIGHT_TOP_MOTOR_PORT = 2;
-    int RIGHT_MIDDLE_MOTOR_PORT = 3;
-    int RIGHT_BOTTOM_MOTOR_PORT = 1;
+    int RIGHT_TOP_MOTOR_PORT = 6;
+    int RIGHT_MIDDLE_MOTOR_PORT = 7;
+    int RIGHT_BOTTOM_MOTOR_PORT = 5;
 
     double WHEEL_DIAMETER = 6;
     double WHEEL_INCHES_PER_REVOLUTION = WHEEL_DIAMETER * Math.PI;
@@ -82,8 +82,8 @@ public interface RobotMap {
     /**************************************************************************
      * Lift Ports
      *************************************************************************/
-    int LIFT_MASTER_TALON_MOTOR_PORT = 9;
-    int LIFT_FOLLOWER_TALON_MOTOR_PORT = 10;
+    int LIFT_MASTER_TALON_MOTOR_PORT = 8;
+    int LIFT_FOLLOWER_VICTOR_MOTOR_PORT = 9;
 
     int LIFT_TILT_SOLENOID_FORWARD_PORT = -1;
     int LIFT_TILT_SOLENOID_REVERSE_PORT = -1;
@@ -117,7 +117,7 @@ public interface RobotMap {
     /***************************************************************************************
      * Rollers Constants
      ****************************************************************************************/
-    int ROLLER_MOTOR_PORT = 11;
+    int ROLLER_MOTOR_PORT = 10;
     double SLOW_ROLLER_MULTIPLIER = 0.75;
     double SLOW_ROLLER_MAXIMUM = 0.75;
 

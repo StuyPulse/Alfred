@@ -30,7 +30,7 @@ public final class Tail extends Subsystem {
         tailMotor = new CANSparkMax(RobotMap.TAIL_MOTOR_PORT, MotorType.kBrushless);
         //ratchetSolenoid = new Solenoid(RobotMap.RATCHET_SOLENOID_PORT);
 
-        tailMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
+        tailMotor.setIdleMode(CANSparkMax.IdleMode.kCoast);
     }
 
     @Override
