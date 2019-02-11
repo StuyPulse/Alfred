@@ -31,9 +31,7 @@ public class DrivetrainAbsoluteRotateCommand extends Command {
 
     @Override
     protected void execute() {
-        if (Robot.drivetrain.getAbsoluteGyroAngle() == targetAngle) {
-            Robot.drivetrain.stop();
-        } else if (Robot.drivetrain.getAbsoluteGyroAngle() > targetAngle) {
+        if (Robot.drivetrain.getAbsoluteGyroAngle() > targetAngle) {
             Robot.drivetrain.tankDrive(-speed, speed);
         } else {
             Robot.drivetrain.tankDrive(speed, -speed);
