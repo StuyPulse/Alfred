@@ -10,7 +10,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
-import frc.util.LimeLight;
+import frc.util.Limelight;
 
 public class DrivetrainDriveCommand extends Command {
     // Variables to feed to curvature drive
@@ -28,7 +28,6 @@ public class DrivetrainDriveCommand extends Command {
 
     @Override
     protected void execute() {
-        LimeLight.setCamMode(LimeLight.CAM_MODE.DRIVER);
         setSpeed();
         setTurn();
         updateDrivetrain();
@@ -46,6 +45,9 @@ public class DrivetrainDriveCommand extends Command {
     }
 
     protected void setTurn() {
+        // Turn on Driver mode
+        Limelight.setCamMode(Limelight.CamMode.DRIVER);
+
         // Set the turn value to the joystick's x value
         turn = Math.pow(Robot.oi.driverGamepad.getLeftX(), RobotMap.JOYSTICK_SCALAR);
     }
