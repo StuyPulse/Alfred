@@ -13,8 +13,6 @@ then
 fi
 
 ln2=`head -n 2 $1 | tail -n 1`
-#checks if the first character of line 2 is a new line
-regex='^\s*$'
 
 num_char_ln2=`echo "$ln2" | wc -c`
 
