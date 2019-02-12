@@ -1,6 +1,6 @@
 package frc.util;
 
-public class ThreeLaws {
+public interface ThreeLaws {
 
     public void FirstLaw() {
 	    /*
