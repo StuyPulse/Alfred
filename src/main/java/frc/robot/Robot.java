@@ -36,7 +36,7 @@ public class Robot extends TimedRobot {
     public static Abom abom;
     public static Tail tail;
     public static Lift lift; 
-    // public static Compressor compressor;
+    public static Compressor compressor;
     public static Rollers rollers;
     public static Fangs fangs;
 
@@ -56,11 +56,11 @@ public class Robot extends TimedRobot {
         abom = new Abom();
         tail = new Tail();
         lift = new Lift(); 
-        // compressor = new Compressor();
+        compressor = new Compressor();
         rollers = new Rollers();
         fangs = new Fangs();
         oi = new OI();
-        /*IRsensor = new DigitalInput(RobotMap.IR_SENSOR_PORT); */
+        IRsensor = new DigitalInput(RobotMap.IR_SENSOR_PORT); 
         // chooser.addOption("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
     }
@@ -76,8 +76,8 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotPeriodic() {
-        // controlCompressor();
-        //SmartDashboard.putBoolean("IR Sensor", isGamePieceDetected());
+        controlCompressor();
+        SmartDashboard.putBoolean("IR Sensor", isGamePieceDetected());
     }
 
     /**
@@ -158,13 +158,13 @@ public class Robot extends TimedRobot {
     public void testPeriodic() {
     }
 
-    // public void controlCompressor() {
-    //     if (!drivetrain.isMoving()) {
-    //         compressor.start();
-    //     } else {
-    //         compressor.stop();
-    //     }
-    // }
+    public void controlCompressor() {
+        if (!drivetrain.isMoving()) {
+            compressor.start();
+        } else {
+            compressor.stop();
+        }
+    }
 
     private void setUpDoubleSolenoids() {
         lift.tiltBack();

@@ -21,12 +21,7 @@ import frc.robot.RobotMap;
 import frc.robot.commands.DrivetrainDriveCommand;
 import frc.util.NEOEncoder;
 
-/**
- * Add your docs here.
- */
 public final class Drivetrain extends Subsystem {
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
     private CANSparkMax leftTopMotor, 
                         leftMiddleMotor, 
                         leftBottomMotor, 
@@ -39,7 +34,7 @@ public final class Drivetrain extends Subsystem {
     private DifferentialDrive differentialDrive;
 
     private NEOEncoder leftNEOEncoder, rightNEOEncoder;
-    //private Encoder leftGreyhill, rightGreyhill;
+    private Encoder leftGreyhill, rightGreyhill;
 
     private AHRS navX;
     
@@ -61,11 +56,11 @@ public final class Drivetrain extends Subsystem {
         rightNEOEncoder = new NEOEncoder(rightMiddleMotor.getEncoder());
 
         // Greyhill Encoders
-        //leftGreyhill = new Encoder(RobotMap.DRIVETRAIN_LEFT_ENCODER_CHANNEL_A, RobotMap.DRIVETRAIN_LEFT_ENCODER_CHANNEL_B);
-        //rightGreyhill = new Encoder(RobotMap.DRIVETRAIN_RIGHT_ENCODER_CHANNEL_A, RobotMap.DRIVETRAIN_RIGHT_ENCODER_CHANNEL_B);
+        leftGreyhill = new Encoder(RobotMap.DRIVETRAIN_LEFT_ENCODER_CHANNEL_A, RobotMap.DRIVETRAIN_LEFT_ENCODER_CHANNEL_B);
+        rightGreyhill = new Encoder(RobotMap.DRIVETRAIN_RIGHT_ENCODER_CHANNEL_A, RobotMap.DRIVETRAIN_RIGHT_ENCODER_CHANNEL_B);
         
-        //leftGreyhill.setDistancePerPulse(RobotMap.DRIVETRAIN_GREYHILL_INCHES_PER_PULSE);
-        //rightGreyhill.setDistancePerPulse(RobotMap.DRIVETRAIN_GREYHILL_INCHES_PER_PULSE);
+        leftGreyhill.setDistancePerPulse(RobotMap.DRIVETRAIN_GREYHILL_INCHES_PER_PULSE);
+        rightGreyhill.setDistancePerPulse(RobotMap.DRIVETRAIN_GREYHILL_INCHES_PER_PULSE);
 
         leftTopMotor.setIdleMode(CANSparkMax.IdleMode.kCoast);
         leftMiddleMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
@@ -137,23 +132,19 @@ public final class Drivetrain extends Subsystem {
         rightNEOEncoder.resetEncoder();
     } 
     public double getLeftGreyhillTicks() {
-        // return leftGreyhill.get();
-        return 0.0;
+        return leftGreyhill.get();
     }
 
     public double getRightGreyhillTicks() {
-        //return rightGreyhill.get();
-        return 0.0;
+        return rightGreyhill.get();
     }
 
     public double getLeftGreyhillDistance() {
-        // return leftGreyhill.getDistance();
-        return 0.0;
+        return leftGreyhill.getDistance();
     }
 
     public double getRightGreyhillDistance() {
-        // return rightGreyhill.getDistance();
-        return 0.0;
+        return rightGreyhill.getDistance();
     }
 
     public double getGreyhillDistance() {
@@ -161,8 +152,8 @@ public final class Drivetrain extends Subsystem {
     }
 
     public void resetGreyhills() {
-        // leftGreyhill.reset();
-        // rightGreyhill.reset();
+        leftGreyhill.reset();
+        rightGreyhill.reset();
     }
 
     public double getGyroAngle() {
