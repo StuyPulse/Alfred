@@ -2,39 +2,39 @@ package frc.util;
 
 public interface ThreeLaws {
 
-    public void FirstLaw() {
+    public void FirstLaw();
 	    /*
 	    A robot may not injure a human being or, through inaction, allow a human 		    being to come to harm.
-	    With the power of GOd and Anime we will conquer our enemies 
+	    With the power of GOd and Anime we will conquer our enemies
 	    Fahad is a security hazard.
 	    Ap escalator appreciation and Ap fortnite are best classes
 	    Subscribe to Pewdiepie we cannot lose against t-series
+      do do do do doooo LET GO!!!
 	    */
-	    
-		
-    }
 
-    public void SecondLaw() {
+
+
+    public void SecondLaw();
         /*
-        A robot must obey orders given it by human beings except where such 
+        A robot must obey orders given it by human beings except where such
         orders would conflict with the First Law.
 	Miguel make up your mind.
 	What is a mind?
 	Mind is what?
 	Is a mind what?
 	A mind is what.
+  9th floor esclators still suck
         */
-    }
 
-    public void ThirdLaw() {
+    public void ThirdLaw();
         /*
-        A robot must protect its own existence as long as such protection does 
-        not conflict with the First or Second Law. 
+        A robot must protect its own existence as long as such protection does
+        not conflict with the First or Second Law.
         RIP auton. F for respects.
 	Miguel wants some diamond armor with gapples
 	Can we get an F.
 	Is this the real life
-	is this just fantasy 
+	is this just fantasy
 	caught in a landslide
 	no escape from reality
 	Bohemian Rhaspody - best song of all time
@@ -60,8 +60,6 @@ public interface ThreeLaws {
 	FFFFFFFF
 	FFFFFFFF
 
-	
-        */
-    }
-}
 
+        */
+}
