@@ -11,6 +11,7 @@ import frc.robot.commands.AbomPumpCommand;
 import frc.robot.commands.AbomStopPumpCommand;
 import frc.robot.commands.AutomaticDriveCommand;
 import frc.robot.commands.AutomaticTurnCommand;
+import frc.robot.commands.BITHPOIN;
 import frc.robot.commands.DrivetrainHighGearCommand;
 import frc.robot.commands.DrivetrainLowGearCommand;
 import frc.robot.commands.FangsLowerCommand;
@@ -36,16 +37,16 @@ public class OI {
         operatorGamepad = new Gamepad(RobotMap.OPERATOR_GAMEPAD_PORT, GamepadSwitchMode.SWITCH_X);
 
         /******************************************
-        * Driver Code
-        ******************************************/
+         * Driver Code
+         ******************************************/
         driverGamepad.getLeftButton().whileHeld(new AutomaticTurnCommand());
         driverGamepad.getTopButton().whileHeld(new AutomaticDriveCommand());
         driverGamepad.getBottomButton().whenPressed(new DrivetrainLowGearCommand());
         driverGamepad.getBottomButton().whenReleased(new DrivetrainHighGearCommand());
 
         /******************************************
-        * Operator Code
-        ******************************************/
+         * Operator Code
+         ******************************************/
         operatorGamepad.getRightTrigger().whileHeld(new RollersManualAcquireCommand());
         operatorGamepad.getLeftTrigger().whileHeld(new RollersManualDeacquireCommand());
 
@@ -55,6 +56,7 @@ public class OI {
         operatorGamepad.getTopButton().whenPressed(new FangsRaiseCommand());
         operatorGamepad.getBottomButton().whenPressed(new FangsLowerCommand());
         operatorGamepad.getRightButton().whileHeld(new FloopCloseCommand());
+        operatorGamepad.getLeftButton().whenPressed(new BITHPOIN());
         // operatorGamepad.getLeftButton().whenPressed(new OverrideLimitSwitchCommand());
         // TODO: Create an OverrideLimitSwitchCommand!
 
