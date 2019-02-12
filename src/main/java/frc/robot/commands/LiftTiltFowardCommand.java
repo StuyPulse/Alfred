@@ -11,7 +11,7 @@ public class LiftTiltFowardCommand extends InstantCommand {
 
     @Override
     protected void initialize() {
-        // Robot.lift.tiltFoward();
+        Robot.lift.tiltFoward();
     }
 
 }

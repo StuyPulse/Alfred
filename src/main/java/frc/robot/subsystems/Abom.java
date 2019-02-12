@@ -12,12 +12,12 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
 public final class Abom extends Subsystem {
-    //Solenoid abomSolenoid;
+    Solenoid abomSolenoid;
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
     public Abom() {
-        //abomSolenoid = new Solenoid(RobotMap.ABOM_SOLENOID_PORT);
+        abomSolenoid = new Solenoid(RobotMap.ABOM_SOLENOID_PORT);
     }
 
     @Override
@@ -26,11 +26,11 @@ public final class Abom extends Subsystem {
 
     // Toggles between out and in for the solenoid
     public void toggle() {
-        //abomSolenoid.set(!abomSolenoid.get());
+        abomSolenoid.set(!abomSolenoid.get());
     }
 
     // Retracts the Solenoid
     public void stop() {
-        //abomSolenoid.set(false);
+        abomSolenoid.set(false);
     }
 }

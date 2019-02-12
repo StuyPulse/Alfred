@@ -43,7 +43,7 @@ public final class Drivetrain extends Subsystem {
 
     private AHRS navX;
     
-    // private Solenoid gearShift;
+    private Solenoid gearShift;
 
     public Drivetrain() {
         // Left Side Motors
@@ -87,7 +87,7 @@ public final class Drivetrain extends Subsystem {
         rightSpeedGroup = new SpeedControllerGroup(rightTopMotor, rightMiddleMotor, rightBottomMotor);
 
         //Gear Shift
-        // gearShift = new Solenoid(RobotMap.GEAR_SHIFT_CHANNEL);
+        gearShift = new Solenoid(RobotMap.GEAR_SHIFT_CHANNEL);
         // navx
         navX = new AHRS(SPI.Port.kMXP);
         // Drive
@@ -175,14 +175,14 @@ public final class Drivetrain extends Subsystem {
 
     public void highGearShift() {
         //TODO: test + find the correct boolean value
-        // gearShift.set(false);
+        gearShift.set(false);
     }
 
     public void lowGearShift() {
-        // gearShift.set(true);
+        gearShift.set(true);
     }
 
     public void toggleGearShift(){
-        // gearShift.set(!(gearShift.get()));
+        gearShift.set(!(gearShift.get()));
     }
 }

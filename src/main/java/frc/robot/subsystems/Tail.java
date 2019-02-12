@@ -24,11 +24,11 @@ import edu.wpi.first.wpilibj.Solenoid;
 public final class Tail extends Subsystem {
 
     CANSparkMax tailMotor;
-    //Solenoid ratchetSolenoid;
+    Solenoid ratchetSolenoid;
 
     public Tail() {
         tailMotor = new CANSparkMax(RobotMap.TAIL_MOTOR_PORT, MotorType.kBrushless);
-        //ratchetSolenoid = new Solenoid(RobotMap.RATCHET_SOLENOID_PORT);
+        ratchetSolenoid = new Solenoid(RobotMap.RATCHET_SOLENOID_PORT);
 
         tailMotor.setIdleMode(CANSparkMax.IdleMode.kCoast);
     }
@@ -48,16 +48,14 @@ public final class Tail extends Subsystem {
     }
 
     public void disengageRatchet() {
-        //ratchetSolenoid.set(true);
+        ratchetSolenoid.set(true);
     }
 
     public void engageRatchet() {
-        //ratchetSolenoid.set(false);
+        ratchetSolenoid.set(false);
     }
 
     public boolean ratchetMoved() {
-        //return ratchetSolenoid.get();
-        return true;
-
+        return ratchetSolenoid.get();
     }
 }

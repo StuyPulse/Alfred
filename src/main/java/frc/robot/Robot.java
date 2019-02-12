@@ -108,7 +108,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousInit() {
-//         setUpDoubleSolenoids();
+        setUpDoubleSolenoids();
         autonomousCommand = chooser.getSelected();
 
         /*
@@ -166,14 +166,12 @@ public class Robot extends TimedRobot {
     //     }
     // }
 
-    // private void setUpDoubleSolenoids() {
-    //     lift.tiltBack();
-    //     fangs.lower();
-    // }
+    private void setUpDoubleSolenoids() {
+        lift.tiltBack();
+        fangs.lower();
+    }
 
-/*
     private boolean isGamePieceDetected() {
         return IRsensor.get();
     }
-    */
 }

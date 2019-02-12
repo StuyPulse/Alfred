@@ -7,6 +7,9 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 import frc.robot.commands.LiftMoveCommand;
@@ -18,8 +21,8 @@ public final class Lift extends Subsystem {
     private DigitalInput topLimitSwitch;
     private DigitalInput bottomLimitSwitch;
 
-    // private DoubleSolenoid tiltSolenoid;
-    //private Solenoid brakeSolenoid;
+    private DoubleSolenoid tiltSolenoid;
+    private Solenoid brakeSolenoid;
 
     public boolean rampDisabled;
 
@@ -34,9 +37,9 @@ public final class Lift extends Subsystem {
 
         masterTalon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 
-        // tiltSolenoid = new DoubleSolenoid(RobotMap.LIFT_TILT_SOLENOID_FORWARD_PORT,
-                // RobotMap.LIFT_TILT_SOLENOID_REVERSE_PORT);
-        // brakeSolenoid = new Solenoid(RobotMap.LIFT_BRAKE_SOLENOID_PORT);
+        tiltSolenoid = new DoubleSolenoid(RobotMap.LIFT_TILT_SOLENOID_FORWARD_PORT,
+                RobotMap.LIFT_TILT_SOLENOID_REVERSE_PORT);
+        brakeSolenoid = new Solenoid(RobotMap.LIFT_BRAKE_SOLENOID_PORT);
 
         //topLimitSwitch = new DigitalInput(RobotMap.LIFT_TOP_LIMIT_SWITCH_PORT);
         //bottomLimitSwitch = new DigitalInput(RobotMap.LIFT_BOTTOM_LIMIT_SWITCH_PORT);
@@ -60,21 +63,23 @@ public final class Lift extends Subsystem {
         masterTalon.setSelectedSensorPosition((int) (height / RobotMap.LIFT_ENCODER_RAW_MULTIPLIER), 0, 0);
     }
 
-    // public boolean isAtTop() {
+    public boolean isAtTop() {
     //     boolean atTop = topLimitSwitch.get();
     //     if (atTop) {
     //         setEncoder(RobotMap.LIFT_MAX_HEIGHT);
     //     }
     //     return atTop;
-    // }
+        return false;
+    }
 
-    // public boolean isAtBottom() {
+    public boolean isAtBottom() {
     //     boolean atBottom = bottomLimitSwitch.get();
     //     if (atBottom) {
     //         setEncoder(RobotMap.LIFT_MIN_HEIGHT);
     //     }
     //     return atBottom;
-    // } 
+        return false;
+    } 
 
     public void stopLift() {
         masterTalon.set(0);
@@ -139,21 +144,21 @@ public final class Lift extends Subsystem {
         // }
     }
 
-    // public void tiltFoward() {
-    //     tiltSolenoid.set(Value.kForward);
-    // }
+    public void tiltFoward() {
+        tiltSolenoid.set(Value.kForward);
+    }
 
-    // public void tiltBack() {
-    //     tiltSolenoid.set(Value.kReverse);
-    // }
+    public void tiltBack() {
+        tiltSolenoid.set(Value.kReverse);
+    }
 
-    // public void enableBrake() {
-    //     brakeSolenoid.set(false);
-    // }
+    public void enableBrake() {
+        brakeSolenoid.set(false);
+    }
 
-    // public void releaseBrake() {
-    //     brakeSolenoid.set(true);
-    // }
+    public void releaseBrake() {
+        brakeSolenoid.set(true);
+    }
 
     public void enableRamping() {
         rampDisabled = false;
