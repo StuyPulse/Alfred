@@ -14,8 +14,21 @@ fi
 
 ln2=`head -n 2 $1 | tail -n 1`
 #checks if the first character of line 2 is a new line
-regex='^$'
-if ! [[ $ln2 =~ $regex ]]; then
-    echo "Second line should be a new line"
-    exit 1
+regex='^\s*$'
+
+num_char_ln2=`echo "$ln2" | wc -c`
+
+#checks if there is anything besides whitespace on the line
+regex='^.*[^\r\n\t\f\c\ ].*$'
+
+#makes sure that there aren't too many characters on the line
+if [ "$num_char_ln2" -gt "3" ]
+then
+        echo "Too long!"
+        exit 1
+elif [[ $ln2 =~ $regex ]]
+then
+        echo "Needs new line!"
+        exit 1
 fi
+
