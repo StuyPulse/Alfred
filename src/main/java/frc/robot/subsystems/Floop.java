@@ -20,11 +20,11 @@ public final class Floop extends Subsystem {
     }
 
     public void open() {
-        floopSolenoid.set(false);
+        floopSolenoid.set(true);
     }
 
     public void close() {
-        floopSolenoid.set(true);
+        floopSolenoid.set(false);
     }
 
     public void toggle() {

@@ -14,7 +14,7 @@ public class BITHPOIN extends CommandGroup {
     /**
      * Runs the acquirer for cargo
      */
-    public final int WAIT_TIMEOUT = -1;
+    public final int WAIT_TIMEOUT = 3;
 
     public BITHPOIN() {
         addParallel(new FloopCloseCommand());

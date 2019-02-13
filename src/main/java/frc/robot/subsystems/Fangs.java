@@ -27,11 +27,11 @@ public final class Fangs extends Subsystem {
     public void raise() {
         // Fangs Solenoid begins as not extended.
         // Extending it will raise fangs. (confirmed w/ Engineering)
-        fangsSolenoid.set(false);
+        fangsSolenoid.set(true);
     }
 
     public void lower() {
-        fangsSolenoid.set(true);
+        fangsSolenoid.set(false);
     }
 
     public void toggle() {

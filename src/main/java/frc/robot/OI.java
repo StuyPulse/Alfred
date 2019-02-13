@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import frc.robot.commands.AbomPumpCommand;
+import frc.robot.commands.AbomStopPumpCommand;
 import frc.robot.commands.AutomaticDriveCommand;
 import frc.robot.commands.AutomaticTurnCommand;
 import frc.robot.commands.BITHPOIN;
@@ -40,8 +42,8 @@ public class OI {
          ******************************************/
         driverGamepad.getLeftButton().whileHeld(new AutomaticTurnCommand());
         driverGamepad.getTopButton().whileHeld(new AutomaticDriveCommand());
-        // driverGamepad.getBottomButton().whenPressed(new DrivetrainLowGearCommand());
-        // driverGamepad.getBottomButton().whenReleased(new DrivetrainHighGearCommand());
+        driverGamepad.getBottomButton().whenPressed(new DrivetrainLowGearCommand());
+        driverGamepad.getBottomButton().whenReleased(new DrivetrainHighGearCommand());
 
         /******************************************
          * Operator Code
@@ -67,7 +69,7 @@ public class OI {
         operatorGamepad.getDPadDown().whenPressed(new LiftMoveToHeightCommand(0));
         //TODO figure out defense mode height
 
-        // operatorGamepad.getDPadUp().whenPressed(new AbomPumpCommand());
-        // operatorGamepad.getDPadDown().whenPressed(new AbomStopPumpCommand());
+        operatorGamepad.getDPadUp().whenPressed(new AbomPumpCommand());
+        operatorGamepad.getDPadDown().whenPressed(new AbomStopPumpCommand());
     }
 }

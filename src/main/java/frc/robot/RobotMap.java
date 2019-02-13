@@ -12,9 +12,9 @@ public interface RobotMap {
     /***************************************************************************************
      * Tail and Abom Ports
      ****************************************************************************************/
-    int RATCHET_SOLENOID_PORT = -1;
+    int RATCHET_SOLENOID_PORT = 4;
     int TAIL_MOTOR_PORT = 4;
-    int ABOM_SOLENOID_PORT = -1;
+    int ABOM_SOLENOID_PORT = 1;
     /***************************************************************************************
      * Abom Charge Constants
      ****************************************************************************************/
@@ -60,16 +60,16 @@ public interface RobotMap {
     double NEO_ENCODER_EMPIRICAL_MULTIPLIER = 1;
     double NEO_ENCODER_RAW_MULTIPLIER = WHEEL_INCHES_PER_REVOLUTION * NEO_ENCODER_EMPIRICAL_MULTIPLIER;
 
-    int GEAR_SHIFT_CHANNEL = -1;
+    int GEAR_SHIFT_CHANNEL = 0;
 
     /***************************************************************************************
      * Drivetrain Greyhill Encoder Constants
      ****************************************************************************************/
-    int DRIVETRAIN_LEFT_ENCODER_CHANNEL_A = -1;
-    int DRIVETRAIN_LEFT_ENCODER_CHANNEL_B = -1;
+    int DRIVETRAIN_LEFT_ENCODER_CHANNEL_A = 2;
+    int DRIVETRAIN_LEFT_ENCODER_CHANNEL_B = 3;
 
-    int DRIVETRAIN_RIGHT_ENCODER_CHANNEL_A = -1;
-    int DRIVETRAIN_RIGHT_ENCODER_CHANNEL_B = -1;
+    int DRIVETRAIN_RIGHT_ENCODER_CHANNEL_A = 0;
+    int DRIVETRAIN_RIGHT_ENCODER_CHANNEL_B = 1;
 
     double GREYHILL_PULSES_PER_REVOLUTION = 1024; //TODO: check this
     double DRIVETRAIN_GREYHILL_INCHES_PER_PULSE = WHEEL_INCHES_PER_REVOLUTION / GREYHILL_PULSES_PER_REVOLUTION;
@@ -77,7 +77,7 @@ public interface RobotMap {
     /***************************************************************************************
      * Floop Solenoid Constants
      ****************************************************************************************/
-    int FLOOP_CHANNEL = -1;
+    int FLOOP_CHANNEL = 2;
 
     /**************************************************************************
      * Lift Ports
@@ -85,10 +85,10 @@ public interface RobotMap {
     int LIFT_MASTER_TALON_MOTOR_PORT = 8;
     int LIFT_FOLLOWER_VICTOR_MOTOR_PORT = 9;
 
-    int LIFT_TILT_SOLENOID_FORWARD_PORT = -1;
-    int LIFT_TILT_SOLENOID_REVERSE_PORT = -1;
+    int LIFT_TILT_SOLENOID_FORWARD_PORT = 5;
+    int LIFT_TILT_SOLENOID_REVERSE_PORT = 6;
 
-    int LIFT_BRAKE_SOLENOID_PORT = -1;
+    int LIFT_BRAKE_SOLENOID_PORT = 7;
 
     int LIFT_TOP_LIMIT_SWITCH_PORT = -1;
     int LIFT_BOTTOM_LIMIT_SWITCH_PORT = -1;
@@ -116,7 +116,7 @@ public interface RobotMap {
     /***************************************************************************************
      * Fangs Solenoid Constants
      ****************************************************************************************/
-    int FANGS_CHANNEL = -1;
+    int FANGS_CHANNEL = 3;
 
     /***************************************************************************************
      * Rollers Constants
@@ -128,5 +128,5 @@ public interface RobotMap {
     /***************************************************************************************
      * IR Sensor Constant
      ****************************************************************************************/
-    int IR_SENSOR_PORT = 0; 
+    int IR_SENSOR_PORT = 9; 
 }
