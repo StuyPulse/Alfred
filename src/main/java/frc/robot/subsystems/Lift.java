@@ -41,8 +41,8 @@ public final class Lift extends Subsystem {
                 RobotMap.LIFT_TILT_SOLENOID_REVERSE_PORT);
         brakeSolenoid = new Solenoid(RobotMap.LIFT_BRAKE_SOLENOID_PORT);
 
-        //topLimitSwitch = new DigitalInput(RobotMap.LIFT_TOP_LIMIT_SWITCH_PORT);
-        //bottomLimitSwitch = new DigitalInput(RobotMap.LIFT_BOTTOM_LIMIT_SWITCH_PORT);
+        // topLimitSwitch = new DigitalInput(RobotMap.LIFT_TOP_LIMIT_SWITCH_PORT);
+        // bottomLimitSwitch = new DigitalInput(RobotMap.LIFT_BOTTOM_LIMIT_SWITCH_PORT);
 
         enableRamping();
 
@@ -63,23 +63,31 @@ public final class Lift extends Subsystem {
         masterTalon.setSelectedSensorPosition((int) (height / RobotMap.LIFT_ENCODER_RAW_MULTIPLIER), 0, 0);
     }
 
+    public double getRawEncoderUnits() {
+        return masterTalon.getSelectedSensorPosition();
+    }
+
+    public double getHeight() {
+        return getRawEncoderUnits() * RobotMap.LIFT_ENCODER_RAW_MULTIPLIER;
+    }
+
     public boolean isAtTop() {
-    //     boolean atTop = topLimitSwitch.get();
-    //     if (atTop) {
-    //         setEncoder(RobotMap.LIFT_MAX_HEIGHT);
-    //     }
-    //     return atTop;
+        // boolean atTop = topLimitSwitch.get();
+        // if (atTop) {
+        // setEncoder(RobotMap.LIFT_MAX_HEIGHT);
+        // }
+        // return atTop;
         return false;
     }
 
     public boolean isAtBottom() {
-    //     boolean atBottom = bottomLimitSwitch.get();
-    //     if (atBottom) {
-    //         setEncoder(RobotMap.LIFT_MIN_HEIGHT);
-    //     }
-    //     return atBottom;
+        // boolean atBottom = bottomLimitSwitch.get();
+        // if (atBottom) {
+        // setEncoder(RobotMap.LIFT_MIN_HEIGHT);
+        // }
+        // return atBottom;
         return false;
-    } 
+    }
 
     public void stop() {
         masterTalon.set(0);
@@ -90,8 +98,8 @@ public final class Lift extends Subsystem {
         System.out.println("moveNoRamp()");
         if (Math.abs(speed) < RobotMap.LIFT_MIN_SPEED) {
             stop();
-        // } else if (isAtTop() || isAtBottom()) {
-        //     stopLift();
+            // } else if (isAtTop() || isAtBottom()) {
+            // stopLift();
         } else {
             // releaseBrake();
             masterTalon.set(speed);
@@ -115,32 +123,35 @@ public final class Lift extends Subsystem {
         return distance / threshold;
     }
 
-    // public void moveRamp(double desiredSpeed) {
-    //     System.out.println("moveRamp");
-    //     double currentHeight = getHeight();
-    //     double speed = desiredSpeed;
-    //     if (desiredSpeed < 0 && currentHeight < RobotMap.LIFT_RAMP_HEIGHT_THRESHOLD) {
-    //         // If you want to move the lift down, get the distance from the bottom and adjust speed proportionally.
-    //         double distanceFromBottom = currentHeight;
-    //         speed = rampMultiplier(distanceFromBottom) * desiredSpeed;
-    //         speed = Math.min(speed, -RobotMap.LIFT_MIN_SPEED);
-    //     } else if (currentHeight > RobotMap.LIFT_MAX_HEIGHT - RobotMap.LIFT_RAMP_HEIGHT_THRESHOLD) {
-    //         // If you want to move the lift up, get the distance from the top and adjust speed proportionally.
-    //         double distanceFromTop = RobotMap.LIFT_MAX_HEIGHT - currentHeight;
-    //         speed = rampMultiplier(distanceFromTop) * desiredSpeed;
-    //         speed = Math.max(speed, RobotMap.LIFT_MIN_SPEED);
-    //     }
-    //     // If the current height isn't within the height range for ramping, move without ramping.
-    //     forceMoveNoRamp(speed);
-    // }
+    public void moveRamp(double desiredSpeed) {
+        System.out.println("moveRamp");
+        double currentHeight = getHeight();
+        double speed = desiredSpeed;
+        if (desiredSpeed < 0 && currentHeight < RobotMap.LIFT_RAMP_HEIGHT_THRESHOLD) {
+            // If you want to move the lift down, get the distance from the bottom and
+            // adjust speed proportionally.
+            double distanceFromBottom = currentHeight;
+            speed = rampMultiplier(distanceFromBottom) * desiredSpeed;
+            speed = Math.min(speed, -RobotMap.LIFT_MIN_SPEED);
+        } else if (currentHeight > RobotMap.LIFT_MAX_HEIGHT - RobotMap.LIFT_RAMP_HEIGHT_THRESHOLD) {
+            // If you want to move the lift up, get the distance from the top and adjust
+            // speed proportionally.
+            double distanceFromTop = RobotMap.LIFT_MAX_HEIGHT - currentHeight;
+            speed = rampMultiplier(distanceFromTop) * desiredSpeed;
+            speed = Math.max(speed, RobotMap.LIFT_MIN_SPEED);
+        }
+        // If the current height isn't within the height range for ramping, move without
+        // ramping.
+        moveNoRamp(speed);
+    }
 
     public void move(double speed) {
         System.out.println("moveLift()");
         moveNoRamp(speed);
         // if (rampDisabled) {
-        //     moveNoRamp(speed);
+        // moveNoRamp(speed);
         // } else {
-        //     moveRamp(speed);
+        // moveRamp(speed);
         // }
     }
 

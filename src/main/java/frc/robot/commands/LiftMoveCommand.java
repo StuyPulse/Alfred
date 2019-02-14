@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
 
 public class LiftMoveCommand extends Command {
 
@@ -31,7 +32,14 @@ public class LiftMoveCommand extends Command {
 
     @Override
     protected void execute() {
-    int level = 0;
+        testLift();
+        // setAutoComp();
+        // calibrateAutoComp();
+        // runAutoComp();
+    }
+
+    private void testLift() {
+        int level = 0;
         if(level == 0) {
             double speed = Robot.oi.operatorGamepad.getLeftY();
             if(Math.abs(speed) > .2) {
@@ -41,10 +49,6 @@ public class LiftMoveCommand extends Command {
             }
                 System.out.println(speed);
         }
-
-        // setAutoComp();
-        // calibrateAutoComp();
-        // runAutoComp();
     }
 
     private boolean isAutoCompActive() {
@@ -68,65 +72,65 @@ public class LiftMoveCommand extends Command {
         }
     }
 
-    // private void setTargetLevel() {
-    //     // preparing to set a target and the left analog is still pressed
-    //     if (targetLevel == Level.LEVEL_ZERO && isAutoCompActive()) {
-    //         double leftY = Robot.oi.operatorGamepad.getLeftY();
-    //         // the direction is going up and joystick is back to center
-    //         if (autoCompDir == Direction.UP && leftY <= THRESHOLD) {
-    //             // set target to the next setpoint height above
-    //             if (Robot.lift.getHeight() < RobotMap.LEVEL_1_HEIGHT) {
-    //                 targetLevel = Level.LEVEL_ONE;
-    //             } else if (Robot.lift.getHeight() < RobotMap.LEVEL_2_HEIGHT) {
-    //                 targetLevel = Level.LEVEL_TWO;
-    //             } else {
-    //                 targetLevel = Level.LEVEL_THREE;
-    //             }
-    //             // the direction is going down and joystick is back to center
-    //         } else if (autoCompDir == Direction.DOWN && leftY >= -THRESHOLD) {
-    //             // set target to the next setpoint height below
-    //             if (Robot.lift.getHeight() > RobotMap.LEVEL_3_HEIGHT) {
-    //                 targetLevel = Level.LEVEL_THREE;
-    //             } else if (Robot.lift.getHeight() > RobotMap.LEVEL_2_HEIGHT) {
-    //                 targetLevel = Level.LEVEL_TWO;
-    //             } else {
-    //                 targetLevel = Level.LEVEL_ONE;
-    //             }
-    //         }
-    //     }
-    // }
+    private void setTargetLevel() {
+        // preparing to set a target and the left analog is still pressed
+        if (targetLevel == Level.LEVEL_ZERO && isAutoCompActive()) {
+            double leftY = Robot.oi.operatorGamepad.getLeftY();
+            // the direction is going up and joystick is back to center
+            if (autoCompDir == Direction.UP && leftY <= THRESHOLD) {
+                // set target to the next setpoint height above
+                if (Robot.lift.getHeight() < RobotMap.LEVEL_1_HEIGHT) {
+                    targetLevel = Level.LEVEL_ONE;
+                } else if (Robot.lift.getHeight() < RobotMap.LEVEL_2_HEIGHT) {
+                    targetLevel = Level.LEVEL_TWO;
+                } else {
+                    targetLevel = Level.LEVEL_THREE;
+                }
+                // the direction is going down and joystick is back to center
+            } else if (autoCompDir == Direction.DOWN && leftY >= -THRESHOLD) {
+                // set target to the next setpoint height below
+                if (Robot.lift.getHeight() > RobotMap.LEVEL_3_HEIGHT) {
+                    targetLevel = Level.LEVEL_THREE;
+                } else if (Robot.lift.getHeight() > RobotMap.LEVEL_2_HEIGHT) {
+                    targetLevel = Level.LEVEL_TWO;
+                } else {
+                    targetLevel = Level.LEVEL_ONE;
+                }
+            }
+        }
+    }
 
-    // private void moveHeight(double numInches) {
-    //     double height = Robot.lift.getHeight();
-    //     if (autoCompDir == Direction.UP && height < numInches) {
-    //         // Going up
-    //         Robot.lift.move(1);
-    //     } else if (autoCompDir == Direction.DOWN && height > numInches) {
-    //         // Going down
-    //         Robot.lift.move(-1);
-    //     } else if (autoCompDir != Direction.NULL) {
-    //         if (Math.abs(height - numInches) <= ERROR_RANGE) {
-    //             // Reached the destation, so reset for next cycle
-    //             autoCompDir = Direction.NULL;
-    //             targetLevel = Level.LEVEL_ZERO;
-    //         }
-    //     }
-    // }
+    private void moveHeight(double numInches) {
+        double height = Robot.lift.getHeight();
+        if (autoCompDir == Direction.UP && height < numInches) {
+            // Going up
+            Robot.lift.move(1);
+        } else if (autoCompDir == Direction.DOWN && height > numInches) {
+            // Going down
+            Robot.lift.move(-1);
+        } else if (autoCompDir != Direction.NULL) {
+            if (Math.abs(height - numInches) <= ERROR_RANGE) {
+                // Reached the destation, so reset for next cycle
+                autoCompDir = Direction.NULL;
+                targetLevel = Level.LEVEL_ZERO;
+            }
+        }
+    }
 
-    // private void runAutoComp() {
-    //     // Move to the target height
-    //     switch (targetLevel) {
-    //     case LEVEL_ONE:
-    //         moveHeight(RobotMap.LEVEL_1_HEIGHT);
-    //         break;
-    //     case LEVEL_TWO:
-    //         moveHeight(RobotMap.LEVEL_2_HEIGHT);
-    //         break;
-    //     case LEVEL_THREE:
-    //         moveHeight(RobotMap.LEVEL_3_HEIGHT);
-    //         break;
-    //     }
-    // }
+    private void runAutoComp() {
+        // Move to the target height
+        switch (targetLevel) {
+        case LEVEL_ONE:
+            moveHeight(RobotMap.LEVEL_1_HEIGHT);
+            break;
+        case LEVEL_TWO:
+            moveHeight(RobotMap.LEVEL_2_HEIGHT);
+            break;
+        case LEVEL_THREE:
+            moveHeight(RobotMap.LEVEL_3_HEIGHT);
+            break;
+        }
+    }
 
     @Override
     protected boolean isFinished() {
