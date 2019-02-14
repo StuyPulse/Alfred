@@ -35,9 +35,9 @@ public class LiftMoveCommand extends Command {
         if(level == 0) {
             double speed = Robot.oi.operatorGamepad.getLeftY();
             if(Math.abs(speed) > .2) {
-                Robot.lift.moveLift(speed);
+                Robot.lift.move(speed);
             } else {
-                Robot.lift.moveLift(0);
+                Robot.lift.stop();
             }
                 System.out.println(speed);
         }

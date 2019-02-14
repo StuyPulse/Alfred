@@ -37,6 +37,6 @@ public class LiftMoveToHeightCommand extends Command {
 
     @Override
     protected void end() {
-        Robot.lift.stopLift();
+        Robot.lift.stop();
     }
 }

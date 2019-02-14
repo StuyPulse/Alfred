@@ -81,7 +81,7 @@ public final class Lift extends Subsystem {
         return false;
     } 
 
-    public void stopLift() {
+    public void stop() {
         masterTalon.set(0);
         // enableBrake();
     }
@@ -89,7 +89,7 @@ public final class Lift extends Subsystem {
     public void moveNoRamp(double speed) {
         System.out.println("moveNoRamp()");
         if (Math.abs(speed) < RobotMap.LIFT_MIN_SPEED) {
-            stopLift();
+            stop();
         // } else if (isAtTop() || isAtBottom()) {
         //     stopLift();
         } else {
@@ -134,7 +134,7 @@ public final class Lift extends Subsystem {
     //     forceMoveNoRamp(speed);
     // }
 
-    public void moveLift(double speed) {
+    public void move(double speed) {
         System.out.println("moveLift()");
         moveNoRamp(speed);
         // if (rampDisabled) {
