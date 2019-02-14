@@ -24,7 +24,7 @@ public class TailClimbCommand extends Command {
 
     @Override
     protected void execute() {
-        this.speed = Robot.oi.operatorGamepad.getLeftY();
+        this.speed = Robot.oi.operatorGamepad.getRightY();
             if(Math.abs(speed) > .2) {
                 Robot.tail.setSpeed(speed);
                 System.out.println("Speedy" + speed);
