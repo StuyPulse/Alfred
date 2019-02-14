@@ -17,6 +17,7 @@ public final class Rollers extends Subsystem {
 
     public Rollers() {
         motor = new WPI_VictorSPX(RobotMap.ROLLER_MOTOR_PORT);
+        motor.setInverted(true);
     }
 
     @Override
@@ -38,7 +39,6 @@ public final class Rollers extends Subsystem {
     }
 
     public void setSpeed(double speed) {
-        System.out.println("Setting speed of rollers to " + speed);
         motor.set(speed);
     }
 

@@ -25,6 +25,7 @@ import frc.robot.commands.RollersConstantAcquireCommand;
 import frc.robot.commands.RollersConstantDeacquireCommand;
 import frc.robot.commands.RollersManualAcquireCommand;
 import frc.robot.commands.RollersManualDeacquireCommand;
+import frc.robot.commands.RollersRampDownAcquireCommand;
 import frc.util.Gamepad;
 import frc.util.Gamepad.GamepadSwitchMode;
 
@@ -52,6 +53,7 @@ public class OI {
         operatorGamepad.getLeftTrigger().whileHeld(new RollersManualDeacquireCommand());
 
         operatorGamepad.getRightBumper().whileHeld(new RollersConstantAcquireCommand());
+        operatorGamepad.getRightBumper().whenReleased(new RollersRampDownAcquireCommand(1));
         operatorGamepad.getLeftBumper().whileHeld(new RollersConstantDeacquireCommand());
 
         operatorGamepad.getTopButton().whenPressed(new FangsRaiseCommand());
