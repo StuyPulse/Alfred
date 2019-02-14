@@ -35,12 +35,12 @@ public class Robot extends TimedRobot {
     public static Floop floop;
     public static Abom abom;
     public static Tail tail;
-    public static Lift lift; 
+    public static Lift lift;
     public static Compressor compressor;
     public static Rollers rollers;
     public static Fangs fangs;
 
-    public static DigitalInput IRsensor; 
+    public static DigitalInput IRsensor;
 
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<>();
@@ -55,12 +55,12 @@ public class Robot extends TimedRobot {
         floop = new Floop();
         abom = new Abom();
         tail = new Tail();
-        lift = new Lift(); 
+        lift = new Lift();
         compressor = new Compressor();
         rollers = new Rollers();
         fangs = new Fangs();
         oi = new OI();
-        IRsensor = new DigitalInput(RobotMap.IR_SENSOR_PORT); 
+        IRsensor = new DigitalInput(RobotMap.IR_SENSOR_PORT);
         // chooser.addOption("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
     }
@@ -150,7 +150,8 @@ public class Robot extends TimedRobot {
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
         SmartDashboard.putNumber("Drivetrain Left Greyhill Encoder Val: ", Robot.drivetrain.getLeftGreyhillDistance());
-        SmartDashboard.putNumber("Drivetrain Right Greyhill Encoder Val: ", Robot.drivetrain.getRightGreyhillDistance());
+        SmartDashboard.putNumber("Drivetrain Right Greyhill Encoder Val: ",
+                Robot.drivetrain.getRightGreyhillDistance());
     }
 
     /**
