@@ -153,6 +153,8 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("Drivetrain Right Greyhill Encoder Val: ",
                 Robot.drivetrain.getRightGreyhillDistance());
         SmartDashboard.putNumber("Lift Encoder Val: ", Robot.lift.getHeight());
+        SmartDashboard.putBoolean("Lift Top Optical Sensor: ", Robot.lift.isAtTop());
+        SmartDashboard.putBoolean("Lift Bottom Optical Sensor: ", Robot.lift.isAtBottom());
     }
 
     /**

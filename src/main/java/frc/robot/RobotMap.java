@@ -50,8 +50,8 @@ public interface RobotMap {
 
     int LIFT_BRAKE_SOLENOID_PORT = 7;
 
-    int LIFT_TOP_LIMIT_SWITCH_PORT = -1;
-    int LIFT_BOTTOM_LIMIT_SWITCH_PORT = -1;
+    int LIFT_TOP_OPTICAL_SENSOR_PORT = -1;
+    int LIFT_BOTTOM_OPTICAL_SENSOR_PORT = -1;
 
     /***************************************************************************************
      * Floop Solenoid Port

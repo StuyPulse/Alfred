@@ -18,8 +18,8 @@ public final class Lift extends Subsystem {
     private WPI_TalonSRX masterTalon;
     private WPI_VictorSPX followerTalon;
 
-    private DigitalInput topLimitSwitch;
-    private DigitalInput bottomLimitSwitch;
+    private DigitalInput topOpticalSensor;
+    private DigitalInput bottomOpticalSensor;
 
     private DoubleSolenoid tiltSolenoid;
     private Solenoid brakeSolenoid;
@@ -42,8 +42,8 @@ public final class Lift extends Subsystem {
         brakeSolenoid = new Solenoid(RobotMap.LIFT_BRAKE_SOLENOID_PORT);
 
         // TODO: Uncomment this when the limit switches are wired
-        // topLimitSwitch = new DigitalInput(RobotMap.LIFT_TOP_LIMIT_SWITCH_PORT);
-        // bottomLimitSwitch = new DigitalInput(RobotMap.LIFT_BOTTOM_LIMIT_SWITCH_PORT);
+        topOpticalSensor = new DigitalInput(RobotMap.LIFT_TOP_OPTICAL_SENSOR_PORT);
+        bottomOpticalSensor = new DigitalInput(RobotMap.LIFT_BOTTOM_OPTICAL_SENSOR_PORT);
 
         // TODO: Uncomment this when the encoders work
         // enableRamping();
@@ -77,23 +77,19 @@ public final class Lift extends Subsystem {
     }
 
     public boolean isAtTop() {
-        // TODO: Uncomment these when the limit switches get wired
-        // boolean atTop = topLimitSwitch.get();
-        // if (atTop) {
-        // setEncoder(RobotMap.LIFT_MAX_HEIGHT);
-        // }
-        // return atTop;
-        return false;
+        boolean atTop = topOpticalSensor.get();
+        if (atTop) {
+            setHeight(RobotMap.LIFT_MAX_HEIGHT);
+        }
+        return atTop;
     }
 
     public boolean isAtBottom() {
-        // TODO: Uncomment these when the limit switches get wired
-        // boolean atBottom = bottomLimitSwitch.get();
-        // if (atBottom) {
-        // setEncoder(RobotMap.LIFT_MIN_HEIGHT);
-        // }
-        // return atBottom;
-        return false;
+        boolean atBottom = bottomOpticalSensor.get();
+        if (atBottom) {
+            setHeight(RobotMap.LIFT_MIN_HEIGHT);
+        }
+        return atBottom;
     }
 
     public void stop() {
