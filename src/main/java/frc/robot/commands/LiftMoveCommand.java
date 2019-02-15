@@ -32,14 +32,23 @@ public class LiftMoveCommand extends Command {
 
     @Override
     protected void execute() {
+        testLift();
+        // setAutoComp();
+        // calibrateAutoComp();
+        // runAutoComp();
+    }
 
-        if (targetLevel == Level.LEVEL_ZERO) {
-            Robot.lift.move(Robot.oi.operatorGamepad.getLeftY());
+    private void testLift() {
+        int level = 0;
+        if(level == 0) {
+            double speed = Robot.oi.operatorGamepad.getLeftY();
+            if(Math.abs(speed) > .2) {
+                Robot.lift.move(speed);
+            } else {
+                Robot.lift.stop();
+            }
+                System.out.println(speed);
         }
-
-        setAutoCompDirection();
-        setTargetLevel();
-        runAutoComp();
     }
 
     private boolean isAutoCompActive() {
