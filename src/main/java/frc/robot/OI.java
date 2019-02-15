@@ -35,9 +35,12 @@ public class OI {
     public Gamepad driverGamepad;
     public Gamepad operatorGamepad;
 
+    private boolean abomPumping;
+
     public OI() {
         driverGamepad = new Gamepad(RobotMap.DRIVER_GAMEPAD_PORT, GamepadSwitchMode.PS4);
         operatorGamepad = new Gamepad(RobotMap.OPERATOR_GAMEPAD_PORT, GamepadSwitchMode.SWITCH_X);
+        abomPumping = false;
 
         /******************************************
          * Driver Code
@@ -50,28 +53,39 @@ public class OI {
         /******************************************
          * Operator Code
          ******************************************/
-        operatorGamepad.getRightTrigger().whileHeld(new RollersManualAcquireCommand());
-        operatorGamepad.getLeftTrigger().whileHeld(new RollersManualDeacquireCommand());
+        operatorGamepad.getRightTrigger().whileHeld(new RollersManualAcquireCommand()); //Verified
+        operatorGamepad.getLeftTrigger().whileHeld(new RollersManualDeacquireCommand()); //Verified
 
         operatorGamepad.getRightBumper().whileHeld(new RollersConstantAcquireCommand());
-        operatorGamepad.getRightBumper().whenReleased(new RollersRampDownAcquireCommand(1));
-        operatorGamepad.getLeftBumper().whileHeld(new RollersConstantDeacquireCommand());
+        operatorGamepad.getRightBumper().whenReleased(new RollersRampDownAcquireCommand(1)); //Verified
+        operatorGamepad.getLeftBumper().whileHeld(new RollersConstantDeacquireCommand()); //Verified
 
-        operatorGamepad.getTopButton().whenPressed(new FangsRaiseCommand());
-        operatorGamepad.getBottomButton().whenPressed(new FangsLowerCommand());
-        operatorGamepad.getRightButton().whenPressed(new FloopCloseCommand());
+        operatorGamepad.getTopButton().whenPressed(new FangsRaiseCommand()); //Verified
+        operatorGamepad.getBottomButton().whenPressed(new FangsLowerCommand()); //Verified
+        operatorGamepad.getRightButton().whenPressed(new FloopCloseCommand()); //Verified
         operatorGamepad.getRightButton().whenReleased(new FloopOpenCommand());
-        operatorGamepad.getLeftButton().whenPressed(new BITHPOIN());
+        operatorGamepad.getLeftButton().whenPressed(new BITHPOIN()); //Verified
         // operatorGamepad.getLeftButton().whenPressed(new OverrideLimitSwitchCommand());
         // TODO: Create an OverrideLimitSwitchCommand!
 
-        operatorGamepad.getDPadRight().whenPressed(new LiftTiltFowardCommand());
-        operatorGamepad.getDPadLeft().whenPressed(new LiftTiltBackCommand());
-        operatorGamepad.getDPadUp().whenPressed(new PrepareForDefenseCommand());
-        operatorGamepad.getDPadDown().whenPressed(new LiftMoveToHeightCommand(0));
-        //TODO figure out defense mode height
+        operatorGamepad.getDPadRight().whenPressed(new LiftTiltFowardCommand()); //Verified
+        operatorGamepad.getDPadLeft().whenPressed(new LiftTiltBackCommand()); //Verified
+        operatorGamepad.getDPadUp().whenPressed(new PrepareForDefenseCommand()); //Verified
+        operatorGamepad.getDPadDown().whenPressed(new LiftMoveToHeightCommand(0)); //Verified
+        //TODO: Figure out defense mode height
 
-        operatorGamepad.getDPadUp().whenPressed(new AbomPumpCommand());
-        operatorGamepad.getDPadDown().whenPressed(new AbomStopPumpCommand());
+        if (operatorGamepad.getRawRightAnalogButton()) {
+            if (abomPumping == true){
+                new AbomStopPumpCommand();
+                abomPumping = false;
+            } else {
+                new AbomPumpCommand();
+                abomPumping = true;
+            }
+        }
+
+
+        //FOR LEFT JOYSTICK: LiftMoveCommand (default of lift subsystem)
+        //FOR RIGHT JOYSTICK: TailClimbCommand (default of tail subsystem)
     }
 }

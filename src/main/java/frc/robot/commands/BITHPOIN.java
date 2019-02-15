@@ -14,16 +14,15 @@ public class BITHPOIN extends CommandGroup {
     /**
      * Runs the acquirer for cargo
      */
-    public final double WAIT_TIMEOUT = 3;
+    public final double WAIT_TIMEOUT = 0.7;
 
     public BITHPOIN() {
         addParallel(new FloopCloseCommand());
-        addSequential(new WaitCommand(WAIT_TIMEOUT));
-        addParallel(new FangsRaiseCommand());
+        addSequential(new FangsRaiseCommand());
+        addSequential(new LiftMoveTimedCommand(0.3, 0.5));
         addSequential(new WaitCommand(WAIT_TIMEOUT));
         addParallel(new FloopOpenCommand());
-        addSequential(new WaitCommand(WAIT_TIMEOUT));
         addParallel(new FangsLowerCommand());
-        addSequential(new RollersConstantAcquireCommand());
+        addSequential(new RollersConstantAcquireCommand(), 1.5);
     }
 }

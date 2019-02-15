@@ -138,6 +138,7 @@ public class Robot extends TimedRobot {
         // teleop starts running. If you want the autonomous to
         // continue until interrupted by another command, remove
         // this line or comment it out.
+        Robot.floop.open();
         if (autonomousCommand != null) {
             autonomousCommand.cancel();
         }
@@ -152,6 +153,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("Drivetrain Left Greyhill Encoder Val: ", Robot.drivetrain.getLeftGreyhillDistance());
         SmartDashboard.putNumber("Drivetrain Right Greyhill Encoder Val: ",
                 Robot.drivetrain.getRightGreyhillDistance());
+        SmartDashboard.putNumber("Lift Encoder Val: ", Robot.lift.getHeight());
     }
 
     /**
