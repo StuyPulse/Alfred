@@ -21,6 +21,7 @@ import frc.robot.commands.FloopOpenCommand;
 import frc.robot.commands.LiftMoveToHeightCommand;
 import frc.robot.commands.LiftTiltBackCommand;
 import frc.robot.commands.LiftTiltFowardCommand;
+import frc.robot.commands.PrepareForDefenseCommand;
 import frc.robot.commands.RollersConstantAcquireCommand;
 import frc.robot.commands.RollersConstantDeacquireCommand;
 import frc.robot.commands.RollersManualAcquireCommand;
@@ -66,8 +67,7 @@ public class OI {
 
         operatorGamepad.getDPadRight().whenPressed(new LiftTiltFowardCommand());
         operatorGamepad.getDPadLeft().whenPressed(new LiftTiltBackCommand());
-        operatorGamepad.getDPadUp().whenPressed(new LiftMoveToHeightCommand(-1));
-        operatorGamepad.getDPadUp().whenPressed(new LiftTiltBackCommand());
+        operatorGamepad.getDPadUp().whenPressed(new PrepareForDefenseCommand());
         operatorGamepad.getDPadDown().whenPressed(new LiftMoveToHeightCommand(0));
         //TODO figure out defense mode height
 
