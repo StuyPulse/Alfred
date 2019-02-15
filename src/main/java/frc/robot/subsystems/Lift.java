@@ -167,14 +167,16 @@ public final class Lift extends Subsystem {
     }
 
     public void enableBrake() {
-        brakeSolenoid.set(false);
-    }
-
-    public void releaseBrake() {
+        System.out.println("[LIFT] Enabling Brake!");
         brakeSolenoid.set(true);
     }
 
-    public void enableRamping() {
+    public void releaseBrake() {
+        System.out.println("[LIFT] Releasing Brake!");
+        brakeSolenoid.set(false);
+    }
+
+    public void enableRamping() { 
         rampDisabled = false;
     }
 
