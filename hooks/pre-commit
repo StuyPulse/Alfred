@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/usr/bin/env bash
+
 hard_limit=$(git config hooks.filesizehardlimit)
 soft_limit=$(git config hooks.filesizesoftlimit)
 
@@ -53,4 +54,7 @@ check_file_size()
 }
 
 list_new_or_modified_files | check_file_size
+
+java -jar checkstyle-8.17-all.jar -c ./google_checks.xml \ -r ..
+
 

@@ -6,9 +6,9 @@ commit_msg=$(cat "${1:?Missing commit message file}")
 num_char_ln1=`head -n 1 $1 | wc -c`
 
 #checks if the first line's character count is greater than the threshold
-if [ "$num_char_ln1" -gt "50" ]
+if [ "$num_char_ln1" -gt "60" ]
 then
-    echo "Too big!"
+    echo "The first line of your commit message should have fewer than 60 characters!"
     exit 1
 fi
 
@@ -22,11 +22,11 @@ regex='^.*[^\r\n\t\f\c\ ].*$'
 #makes sure that there aren't too many characters on the line
 if [ "$num_char_ln2" -gt "3" ]
 then
-        echo "Too long!"
+        echo "The second line of your commit message contains over three characters!"
         exit 1
 elif [[ $ln2 =~ $regex ]]
 then
-        echo "Needs new line!"
+        echo "The second line of your commit message must be a new line!"
         exit 1
 fi
 
