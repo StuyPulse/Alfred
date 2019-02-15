@@ -30,13 +30,13 @@ public class RollersRampDownAcquireCommand extends TimedCommand {
     protected void execute() {
         currTime = Timer.getFPGATimestamp();
         if (currTime - startTime < interval) { //if you're in the 1st interval
-            Robot.rollers.setSpeed(0.75);
+            Robot.rollers.setSpeed(0.8);
         } else if (currTime - startTime < interval * 2) { //if you're in the 2nd interval
-            Robot.rollers.setSpeed(0.50);
+            Robot.rollers.setSpeed(0.6);
         } else if (currTime - startTime < interval * 3) { //if you're in the 3rd interval
-            Robot.rollers.setSpeed(0.25);
+            Robot.rollers.setSpeed(0.4);
         } else { // if you're in the 4th interval
-            Robot.rollers.setSpeed(0.10);
+            Robot.rollers.setSpeed(0.2);
         }
     }
 
