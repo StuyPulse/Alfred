@@ -14,8 +14,6 @@ import frc.robot.RobotMap;
 public final class Abom extends Subsystem {
     Solenoid abomSolenoid;
 
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
     public Abom() {
         abomSolenoid = new Solenoid(RobotMap.ABOM_SOLENOID_PORT);
     }
