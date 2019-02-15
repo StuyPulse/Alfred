@@ -74,8 +74,10 @@ public class OI {
         if (operatorGamepad.getRawRightAnalogButton()) {
             if (abomPumping == true){
                 new AbomStopPumpCommand();
+                abomPumping = false;
             } else {
                 new AbomPumpCommand();
+                abomPumping = true;
             }
         }
 
