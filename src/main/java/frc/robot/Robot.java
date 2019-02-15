@@ -64,6 +64,7 @@ public class Robot extends TimedRobot {
         IRsensor = new DigitalInput(RobotMap.IR_SENSOR_PORT);
         // chooser.addOption("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
+        SmartDashboard.putBoolean("Enable compressor", true);
     }
 
     /**
@@ -160,7 +161,7 @@ public class Robot extends TimedRobot {
     }
 
     public void controlCompressor() {
-        if (!drivetrain.isMoving()) {
+        if (!drivetrain.isMoving() || SmartDashboard.getBoolean("Enable compressor", false)) {
             compressor.start();
         } else {
             compressor.stop();
