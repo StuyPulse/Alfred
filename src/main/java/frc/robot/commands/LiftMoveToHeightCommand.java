@@ -19,30 +19,23 @@ public class LiftMoveToHeightCommand extends Command {
     @Override
     protected void execute() {
         if (Robot.lift.getHeight() > targetHeight) {
-            Robot.lift.moveRamp(-1);
+            Robot.lift.move(-1);
         } else {
-            Robot.lift.moveRamp(1);
+            Robot.lift.move(1);
         }
     }
 
     @Override
     protected boolean isFinished() {
-        /*
-         * Finish if: -are within the height -at the top and still trying to go up -at
-         * the bottom and still trying to go down
-         */
+        // Ends if the lift is close enough to the target or at the bottom and top.
         double error = targetHeight - Robot.lift.getHeight();
-        return Math.abs(error) < ACCEPTED_ERROR_RANGE || (Robot.lift.isAtBottom() && error < 0)
-                || (Robot.lift.isAtTop() && error > 0);
+        return Math.abs(error) < ACCEPTED_ERROR_RANGE 
+            || (Robot.lift.isAtBottom() && error < 0)
+            || (Robot.lift.isAtTop() && error > 0);
     }
 
     @Override
     protected void end() {
         Robot.lift.stopLift();
-    }
-
-    @Override
-    protected void interrupted() {
-        end();
     }
 }

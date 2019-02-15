@@ -13,7 +13,6 @@ import frc.robot.Robot;
 public class DrivetrainLowGearCommand extends InstantCommand {
 
     public DrivetrainLowGearCommand() {
-        super();
         requires(Robot.drivetrain);
     }
 

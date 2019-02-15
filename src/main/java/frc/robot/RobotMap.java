@@ -8,23 +8,13 @@
 package frc.robot;
 
 public interface RobotMap {
-    // For example to map the left and right motors, you could define the
-    // following variables to use with your drivetrain subsystem.
-    // public static int leftMotor = 1;
-    // public static int rightMotor = 2;
-
-    // If you are using multiple modules, make sure to define both the port
-    // number and the module. For example you with a rangefinder:
-    // public static int rangefinderPort = 1;
-    // public static int rangefinderModule = 1;
 
     /***************************************************************************************
      * Tail and Abom Ports
      ****************************************************************************************/
-    int ABOM_SOLENOID_PORT = -1;
+    int RATCHET_SOLENOID_PORT = -1;
     int TAIL_MOTOR_PORT = -1;
-    int RAISE_TAIL_SOLENOID_PORT = -1;
-    int RELEASE_ABOM_SOLENOID_PORT = -1;
+    int ABOM_SOLENOID_PORT = -1;
     /***************************************************************************************
      * Abom Charge Constants
      ****************************************************************************************/
@@ -38,7 +28,7 @@ public interface RobotMap {
      * Aim Assist Constants
      ****************************************************************************************/
     double TURN_DIV = 24; // Changes the speed that the robot will turn
-    double MOVE_TURN_DIV = 2; // Changes the speed that the robot will turn while moving
+    double MOVE_TURN_DIV = 2; // Changes the speed that the robot will turn while moving (The more it moves, the less it turns)
     /***************************************************************************************
      * Auton Assist Variables
      ****************************************************************************************/
@@ -67,7 +57,22 @@ public interface RobotMap {
     double WHEEL_DIAMETER = 6;
     double WHEEL_INCHES_PER_REVOLUTION = WHEEL_DIAMETER * Math.PI;
 
+    double NEO_ENCODER_EMPIRICAL_MULTIPLIER = 1;
+    double NEO_ENCODER_RAW_MULTIPLIER = WHEEL_INCHES_PER_REVOLUTION * NEO_ENCODER_EMPIRICAL_MULTIPLIER;
+
     int GEAR_SHIFT_CHANNEL = -1;
+
+    /***************************************************************************************
+     * Drivetrain Greyhill Encoder Constants
+     ****************************************************************************************/
+    int DRIVETRAIN_LEFT_ENCODER_CHANNEL_A = -1;
+    int DRIVETRAIN_LEFT_ENCODER_CHANNEL_B = -1;
+
+    int DRIVETRAIN_RIGHT_ENCODER_CHANNEL_A = -1;
+    int DRIVETRAIN_RIGHT_ENCODER_CHANNEL_B = -1;
+
+    double GREYHILL_PULSES_PER_REVOLUTION = 1024; //TODO: check this
+    double DRIVETRAIN_GREYHILL_INCHES_PER_PULSE = WHEEL_INCHES_PER_REVOLUTION / GREYHILL_PULSES_PER_REVOLUTION;
 
     /***************************************************************************************
      * Floop Solenoid Constants
@@ -77,8 +82,8 @@ public interface RobotMap {
     /**************************************************************************
      * Lift Ports
      *************************************************************************/
-    int LIFT_MASTER_TALON_MOTOR_PORT = -1;
-    int LIFT_FOLLOWER_TALON_MOTOR_PORT = -1;
+    int LIFT_LEFT_TALON_MOTOR_PORT = -1;
+    int LIFT_RIGHT_TALON_MOTOR_PORT = -1;
 
     int LIFT_TILT_SOLENOID_FORWARD_PORT = -1;
     int LIFT_TILT_SOLENOID_REVERSE_PORT = -1;
@@ -91,11 +96,15 @@ public interface RobotMap {
     /**************************************************************************
      * Lift Constants
      *************************************************************************/
+    double LIFT_ENCODER_TICKS_PER_REV = 1024;
     double LIFT_WINCH_DIAMETER_INCHES = 1.75;
+    double LIFT_WINCH_TO_ENCODER_RATIO = 8 / 13; // 8 revs of the winch = 13 revs of the encoder
     double LIFT_EMPIRICAL_RAW_MULTIPLIER = 1;
-    double LIFT_ENCODER_RAW_MULTIPLIER = LIFT_EMPIRICAL_RAW_MULTIPLIER * (LIFT_WINCH_DIAMETER_INCHES * Math.PI);
+    double LIFT_ENCODER_RAW_MULTIPLIER = LIFT_EMPIRICAL_RAW_MULTIPLIER * LIFT_WINCH_TO_ENCODER_RATIO * 
+        (LIFT_WINCH_DIAMETER_INCHES * Math.PI / LIFT_ENCODER_TICKS_PER_REV);
     double LIFT_MIN_SPEED = 0.1;
     // Waiting on eng for the height
+    // Eric said the total carriage movement is about 74 in
     double LIFT_MAX_HEIGHT = -1;
     double LIFT_MIN_HEIGHT = -1;
     double LIFT_RAMP_HEIGHT_THRESHOLD = 1;
@@ -114,4 +123,10 @@ public interface RobotMap {
      ****************************************************************************************/
     int ROLLER_MOTOR_PORT = -1;
     double SLOW_ROLLER_MULTIPLIER = 0.75;
+    double SLOW_ROLLER_MAXIMUM = 0.75;
+
+    /***************************************************************************************
+     * IR Sensor Constant
+     ****************************************************************************************/
+    int IR_SENSOR_PORT = -1; 
 }
