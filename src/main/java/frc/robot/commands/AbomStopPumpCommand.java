@@ -10,15 +10,15 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 
-public class FangsRaiseCommand extends InstantCommand {
-    
-    public FangsRaiseCommand() {
-        requires(Robot.fangs);
+public class AbomStopPumpCommand extends InstantCommand {
+
+    public AbomStopPumpCommand() {
+        requires(Robot.abom);
     }
 
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        Robot.fangs.raise();
+        Robot.abom.stop();
     }
 }

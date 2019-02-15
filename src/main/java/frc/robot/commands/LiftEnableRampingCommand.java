@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 
 public class LiftEnableRampingCommand extends InstantCommand {
+    
     public LiftEnableRampingCommand() {
         requires(Robot.lift);
     }

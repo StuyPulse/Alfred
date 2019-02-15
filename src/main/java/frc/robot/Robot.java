@@ -8,6 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -39,6 +40,8 @@ public class Robot extends TimedRobot {
     public static Rollers rollers;
     public static Fangs fangs;
 
+    public static DigitalInput IRsensor; 
+
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<>();
 
@@ -57,6 +60,8 @@ public class Robot extends TimedRobot {
         compressor = new Compressor();
         rollers = new Rollers();
         fangs = new Fangs();
+
+        IRsensor = new DigitalInput(RobotMap.IR_SENSOR_PORT);
         // chooser.addOption("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
     }
@@ -73,6 +78,7 @@ public class Robot extends TimedRobot {
     @Override
     public void robotPeriodic() {
         controlCompressor();
+        SmartDashboard.putBoolean("IR Sensor", isGamePieceDetected());
     }
 
     /**
@@ -164,5 +170,9 @@ public class Robot extends TimedRobot {
     private void setUpDoubleSolenoids() {
         lift.tiltBack();
         fangs.lower();
+    }
+
+    private boolean isGamePieceDetected() {
+        return IRsensor.get();
     }
 }
