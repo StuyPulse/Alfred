@@ -41,10 +41,15 @@ public final class Lift extends Subsystem {
                 RobotMap.LIFT_TILT_SOLENOID_REVERSE_PORT);
         brakeSolenoid = new Solenoid(RobotMap.LIFT_BRAKE_SOLENOID_PORT);
 
+        // TODO: Uncomment this when the limit switches are wired
         // topLimitSwitch = new DigitalInput(RobotMap.LIFT_TOP_LIMIT_SWITCH_PORT);
         // bottomLimitSwitch = new DigitalInput(RobotMap.LIFT_BOTTOM_LIMIT_SWITCH_PORT);
 
-        enableRamping();
+        // TODO: Uncomment this when the encoders work
+        // enableRamping();
+
+        // TODO: Comment when encoders work
+        disableRamping();
 
         /// Encoders
         masterTalon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
@@ -72,6 +77,7 @@ public final class Lift extends Subsystem {
     }
 
     public boolean isAtTop() {
+        // TODO: Uncomment these when the limit switches get wired
         // boolean atTop = topLimitSwitch.get();
         // if (atTop) {
         // setEncoder(RobotMap.LIFT_MAX_HEIGHT);
@@ -81,6 +87,7 @@ public final class Lift extends Subsystem {
     }
 
     public boolean isAtBottom() {
+        // TODO: Uncomment these when the limit switches get wired
         // boolean atBottom = bottomLimitSwitch.get();
         // if (atBottom) {
         // setEncoder(RobotMap.LIFT_MIN_HEIGHT);
@@ -91,17 +98,16 @@ public final class Lift extends Subsystem {
 
     public void stop() {
         masterTalon.set(0);
-        // enableBrake();
+        enableBrake();
     }
 
     public void moveNoRamp(double speed) {
-        System.out.println("moveNoRamp()");
         if (Math.abs(speed) < RobotMap.LIFT_MIN_SPEED) {
             stop();
-            // } else if (isAtTop() || isAtBottom()) {
-            // stopLift();
+        } else if (isAtTop() || isAtBottom()) {
+            stop();
         } else {
-            // releaseBrake();
+            releaseBrake();
             masterTalon.set(speed);
         }
     }
@@ -109,7 +115,6 @@ public final class Lift extends Subsystem {
     // rampMultiplier takes a distance from a hard limit, and calculates
     // multiplier for linear ramping
     public double rampMultiplier(double distance) {
-        System.out.println("rampMultiplier()");
         double threshold = RobotMap.LIFT_RAMP_HEIGHT_THRESHOLD;
         if (threshold <= 0) {
             return 1.0;
@@ -146,13 +151,11 @@ public final class Lift extends Subsystem {
     }
 
     public void move(double speed) {
-        System.out.println("moveLift()");
-        moveNoRamp(speed);
-        // if (rampDisabled) {
-        // moveNoRamp(speed);
-        // } else {
-        // moveRamp(speed);
-        // }
+        if (rampDisabled) {
+            moveNoRamp(speed);
+        } else {
+            moveRamp(speed);
+        }
     }
 
     public void tiltFoward() {

@@ -42,4 +42,7 @@ public final class Rollers extends Subsystem {
         motor.set(speed);
     }
 
+    public void rampAcquire() {
+        motor.configOpenloopRamp(0.5, 0);
+    }
 }
