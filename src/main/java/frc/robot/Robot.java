@@ -167,7 +167,7 @@ public class Robot extends TimedRobot {
     }
 
     public void controlCompressor() {
-        if (!drivetrain.isMoving() || SmartDashboard.getBoolean("Enable compressor", false)) {
+        if (!drivetrain.isMoving() && SmartDashboard.getBoolean("Enable compressor", false)) {
             compressor.start();
         } else {
             compressor.stop();
