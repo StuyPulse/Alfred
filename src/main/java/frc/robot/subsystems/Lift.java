@@ -18,8 +18,8 @@ public final class Lift extends Subsystem {
     private WPI_TalonSRX masterTalon;
     private WPI_VictorSPX followerTalon;
 
-    private DigitalInput topOpticalSensor;
-    private DigitalInput bottomOpticalSensor;
+    // private DigitalInput topOpticalSensor;
+    // private DigitalInput bottomOpticalSensor;
 
     private DoubleSolenoid tiltSolenoid;
     private Solenoid brakeSolenoid;
@@ -37,13 +37,13 @@ public final class Lift extends Subsystem {
 
         masterTalon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 
-        tiltSolenoid = new DoubleSolenoid(RobotMap.LIFT_TILT_SOLENOID_FORWARD_PORT,
+        tiltSolenoid = new DoubleSolenoid(1, RobotMap.LIFT_TILT_SOLENOID_FORWARD_PORT,
                 RobotMap.LIFT_TILT_SOLENOID_REVERSE_PORT);
-        brakeSolenoid = new Solenoid(RobotMap.LIFT_BRAKE_SOLENOID_PORT);
+        brakeSolenoid = new Solenoid(1, RobotMap.LIFT_BRAKE_SOLENOID_PORT);
 
         // TODO: Uncomment this when the limit switches are wired
-        topOpticalSensor = new DigitalInput(RobotMap.LIFT_TOP_OPTICAL_SENSOR_PORT);
-        bottomOpticalSensor = new DigitalInput(RobotMap.LIFT_BOTTOM_OPTICAL_SENSOR_PORT);
+        // topOpticalSensor = new DigitalInput(RobotMap.LIFT_TOP_OPTICAL_SENSOR_PORT);
+        // bottomOpticalSensor = new DigitalInput(RobotMap.LIFT_BOTTOM_OPTICAL_SENSOR_PORT);
 
         // TODO: Uncomment this when the encoders work
         // enableRamping();
@@ -77,19 +77,21 @@ public final class Lift extends Subsystem {
     }
 
     public boolean isAtTop() {
-        boolean atTop = topOpticalSensor.get();
-        if (atTop) {
-            setHeight(RobotMap.LIFT_MAX_HEIGHT);
-        }
-        return atTop;
+        // boolean atTop = topOpticalSensor.get();
+        // if (atTop) {
+        //     setHeight(RobotMap.LIFT_MAX_HEIGHT);
+        // }
+        // return atTop;
+        return false;
     }
 
     public boolean isAtBottom() {
-        boolean atBottom = bottomOpticalSensor.get();
-        if (atBottom) {
-            setHeight(RobotMap.LIFT_MIN_HEIGHT);
-        }
-        return atBottom;
+        // boolean atBottom = bottomOpticalSensor.get();
+        // if (atBottom) {
+        //     setHeight(RobotMap.LIFT_MIN_HEIGHT);
+        // }
+        // return atBottom;
+        return false;
     }
 
     public void stop() {
@@ -164,12 +166,12 @@ public final class Lift extends Subsystem {
 
     public void enableBrake() {
         System.out.println("[LIFT] Enabling Brake!");
-        brakeSolenoid.set(true);
+        brakeSolenoid.set(false);
     }
 
     public void releaseBrake() {
         System.out.println("[LIFT] Releasing Brake!");
-        brakeSolenoid.set(false);
+        brakeSolenoid.set(true);
     }
 
     public void enableRamping() { 

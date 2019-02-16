@@ -165,11 +165,11 @@ public class Robot extends TimedRobot {
     }
 
     public void controlCompressor() {
-        if (!drivetrain.isMoving()) {
-            compressor.start();
-        } else {
-            compressor.stop();
-        }
+        // if (!drivetrain.isMoving()) {
+        //     compressor.start();
+        // } else {
+        //     compressor.stop();
+        // }
     }
 
     private void setUpDoubleSolenoids() {

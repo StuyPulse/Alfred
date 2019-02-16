@@ -35,7 +35,7 @@ public interface RobotMap {
     /***************************************************************************************
      * Tail and Abom Ports
      ****************************************************************************************/
-    int RATCHET_SOLENOID_PORT = 4;
+    int RATCHET_SOLENOID_PORT = 2; //PCM 2 (10)
     int TAIL_MOTOR_PORT = 4;
     int ABOM_SOLENOID_PORT = 1;
 
@@ -45,10 +45,10 @@ public interface RobotMap {
     int LIFT_MASTER_TALON_MOTOR_PORT = 8;
     int LIFT_FOLLOWER_VICTOR_MOTOR_PORT = 9;
 
-    int LIFT_TILT_SOLENOID_FORWARD_PORT = 5;
-    int LIFT_TILT_SOLENOID_REVERSE_PORT = 6;
+    int LIFT_TILT_SOLENOID_FORWARD_PORT = 5; //PCM 2 (13)
+    int LIFT_TILT_SOLENOID_REVERSE_PORT = 7; //PCM 2 (15)
 
-    int LIFT_BRAKE_SOLENOID_PORT = 7;
+    int LIFT_BRAKE_SOLENOID_PORT = 0; //PCM 2 (8)
 
     int LIFT_TOP_OPTICAL_SENSOR_PORT = -1;
     int LIFT_BOTTOM_OPTICAL_SENSOR_PORT = -1;
