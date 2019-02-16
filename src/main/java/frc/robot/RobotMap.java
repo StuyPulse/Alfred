@@ -116,9 +116,9 @@ public interface RobotMap {
      * Drivetrain Greyhill Encoder Constants
      ****************************************************************************************/
     double GREYHILL_PULSES_PER_REVOLUTION = 256 * 4.0; //TODO: check this
-    double DRIVETRAIN_GREYHILL_INCHES_PER_PULSE = (WHEEL_INCHES_PER_REVOLUTION) / GREYHILL_PULSES_PER_REVOLUTION;
-    // double DRIVETRAIN_OUTER_GEAR_RATIO = 3.0 / 1.0;
-    double DRIVETRAIN_ENCODER_EMPIRICAL_MULTIPLIER = 1;
+    double DRIVETRAIN_OUTER_GEAR_RATIO = 24.0 / 60.0;
+    double DRIVETRAIN_ENCODER_EMPIRICAL_MULTIPLIER = 1.3;
+    double DRIVETRAIN_GREYHILL_INCHES_PER_PULSE = ((WHEEL_INCHES_PER_REVOLUTION * DRIVETRAIN_OUTER_GEAR_RATIO) / GREYHILL_PULSES_PER_REVOLUTION) * DRIVETRAIN_ENCODER_EMPIRICAL_MULTIPLIER;
 
     /**************************************************************************
      * Lift Constants
