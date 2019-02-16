@@ -45,7 +45,7 @@ public class LiftMoveCommand extends Command {
         int level = 0;
         // TODO: Implement tilting lift forward when moving lift in autocomp
         if(level == 0) {
-            double speed = Robot.oi.operatorGamepad.getLeftY();
+            double speed = Math.signum(Robot.oi.operatorGamepad.getLeftY()) * Math.pow(Robot.oi.operatorGamepad.getLeftY(), 4);
             if(Math.abs(speed) > .2) {
                 Robot.lift.move(speed);
             } else {
