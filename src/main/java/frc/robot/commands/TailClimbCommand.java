@@ -35,6 +35,7 @@ public class TailClimbCommand extends Command {
             Robot.tail.disengageRatchet();
         }
         Robot.tail.setSpeed(speed);
+        // if(speed > 0.2 && Robot.abom.)
         // if (speed > .9 && !isRaised) {
         //     Robot.tail.disengageRatchet();
         //     isRaised = true;

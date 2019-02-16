@@ -106,7 +106,7 @@ public final class Lift extends Subsystem {
             stop();
         } else {
             releaseBrake();
-            masterTalon.set(speed);
+            masterTalon.set(speed * .5);
         }
     }
 
