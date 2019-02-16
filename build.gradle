@@ -53,6 +53,7 @@ dependencies {
     nativeZip wpi.deps.vendor.jni(wpi.platforms.roborio)
     nativeDesktopZip wpi.deps.vendor.jni(wpi.platforms.desktop)
     testCompile 'junit:junit:4.12'
+    testCompile 'com.puppycrawl.tools:checkstyle:8.17'
 }
 
 // Setting up my Jar File. In this case, adding all libraries into the main jar ('fat jar')

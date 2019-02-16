@@ -3,30 +3,27 @@
 commit_msg=$(cat "${1:?Missing commit message file}")
 #echo "Your commit message: $commit_msg"
 
-num_char_ln1=`head -n 1 $1 | wc -c`
+num_char_ln1=`head -n 1 $1| wc -c`
+num_lines=`cat $1 | wc -l`
+line1=`head -n 1 $1`
+line2=`head -n 2 $1`
+default_merge_regex="$^(Merge branch '.+' ((into)|(for))).+$"
 
-#checks if the first line's character count is greater than the threshold
-if [ "$num_char_ln1" -gt "60" ]
+# if line 1 does not match the pattern of a default commit message
+if [[ ! $line1 =~ $default_merge_regex ]];
 then
-    echo "The first line of your commit message should have fewer than 60 characters!"
-    exit 1
+        if [ "$num_char_ln1" -gt "50" ]; then
+                echo 'Line 1 should be less than 50 characters'
+                exit 1
+        fi
+
+        if [ "$num_lines" -eq "2" ]; then
+                echo 'Should either be a one-line commit message, or a multiline message with a line 2 empty'
+                exit 1
+        elif [ "$num_lines" -gt "2" ]; then
+                if [[ $line2 =~ ^.+$ ]]; then
+                        echo 'Line 2 should be empty'
+                        exit 1
+                fi
+        fi
 fi
-
-ln2=`head -n 2 $1 | tail -n 1`
-
-num_char_ln2=`echo "$ln2" | wc -c`
-
-#checks if there is anything besides whitespace on the line
-regex='^.*[^\r\n\t\f\c\ ].*$'
-
-#makes sure that there aren't too many characters on the line
-if [ "$num_char_ln2" -gt "3" ]
-then
-        echo "The second line of your commit message contains over three characters!"
-        exit 1
-elif [[ $ln2 =~ $regex ]]
-then
-        echo "The second line of your commit message must be a new line!"
-        exit 1
-fi
-
