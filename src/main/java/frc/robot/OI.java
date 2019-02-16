@@ -21,6 +21,7 @@ import frc.robot.commands.FloopOpenCommand;
 import frc.robot.commands.LiftMoveToHeightCommand;
 import frc.robot.commands.LiftTiltBackCommand;
 import frc.robot.commands.LiftTiltFowardCommand;
+import frc.robot.commands.PrepareForDefenseCommand;
 import frc.robot.commands.RollersConstantAcquireCommand;
 import frc.robot.commands.RollersConstantDeacquireCommand;
 import frc.robot.commands.RollersManualAcquireCommand;
@@ -55,31 +56,26 @@ public class OI {
         operatorGamepad.getRightTrigger().whileHeld(new RollersManualAcquireCommand()); //Verified
         operatorGamepad.getLeftTrigger().whileHeld(new RollersManualDeacquireCommand()); //Verified
 
-        operatorGamepad.getRightBumper().whileHeld(new RollersConstantAcquireCommand()); //Verified
+        operatorGamepad.getRightBumper().whileHeld(new RollersConstantAcquireCommand());
+        operatorGamepad.getRightBumper().whenReleased(new RollersRampDownAcquireCommand(1)); //Verified
         operatorGamepad.getLeftBumper().whileHeld(new RollersConstantDeacquireCommand()); //Verified
 
         operatorGamepad.getTopButton().whenPressed(new FangsRaiseCommand()); //Verified
         operatorGamepad.getBottomButton().whenPressed(new FangsLowerCommand()); //Verified
-        operatorGamepad.getRightButton().whileHeld(new FloopCloseCommand()); //Verified
+        operatorGamepad.getRightButton().whenPressed(new FloopCloseCommand()); //Verified
+        operatorGamepad.getRightButton().whenReleased(new FloopOpenCommand());
         operatorGamepad.getLeftButton().whenPressed(new BITHPOIN()); //Verified
         // operatorGamepad.getLeftButton().whenPressed(new OverrideLimitSwitchCommand());
         // TODO: Create an OverrideLimitSwitchCommand!
 
         operatorGamepad.getDPadRight().whenPressed(new LiftTiltFowardCommand()); //Verified
         operatorGamepad.getDPadLeft().whenPressed(new LiftTiltBackCommand()); //Verified
-        //operatorGamepad.getDPadUp().whenPressed(new HuiMinsDefenseCommand()); //Verified
+        operatorGamepad.getDPadUp().whenPressed(new PrepareForDefenseCommand()); //Verified
         operatorGamepad.getDPadDown().whenPressed(new LiftMoveToHeightCommand(0)); //Verified
         //TODO: Figure out defense mode height
 
-        if (operatorGamepad.getRawRightAnalogButton()) {
-            if (abomPumping == true){
-                new AbomStopPumpCommand();
-                abomPumping = false;
-            } else {
-                new AbomPumpCommand();
-                abomPumping = true;
-            }
-        }
+        operatorGamepad.getRightAnalogButton().whileHeld(new AbomPumpCommand());
+        operatorGamepad.getRightAnalogButton().whenReleased(new AbomStopPumpCommand());
 
 
         //FOR LEFT JOYSTICK: LiftMoveCommand (default of lift subsystem)

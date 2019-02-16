@@ -37,7 +37,7 @@ public interface RobotMap {
      ****************************************************************************************/
     int RATCHET_SOLENOID_PORT = 2; //PCM 2 (10)
     int TAIL_MOTOR_PORT = 4;
-    int ABOM_SOLENOID_PORT = 1;
+    int ABOM_SOLENOID_PORT = 6;
 
     /**************************************************************************
      * Lift Ports
@@ -56,7 +56,7 @@ public interface RobotMap {
     /***************************************************************************************
      * Floop Solenoid Port
      ****************************************************************************************/
-    int FLOOP_CHANNEL = 2;
+    int FLOOP_CHANNEL = 4;
 
     /***************************************************************************************
      * Fangs Solenoid Port
@@ -82,7 +82,7 @@ public interface RobotMap {
     /***************************************************************************************
      * Abom Charge Constants
      ****************************************************************************************/
-    int ABOM_CHARGE_DELAY_MS = 300; // Time it takes for a piston to fire and retract
+    int ABOM_CHARGE_DELAY_MS = 600; // Time it takes for a piston to fire and retract
 
     /***************************************************************************************
      * CV Constants

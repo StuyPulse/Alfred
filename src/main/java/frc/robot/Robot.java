@@ -63,6 +63,7 @@ public class Robot extends TimedRobot {
         IRsensor = new DigitalInput(RobotMap.IR_SENSOR_PORT);
         // chooser.addOption("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
+        SmartDashboard.putBoolean("Enable compressor", true);
     }
 
     /**
@@ -138,6 +139,7 @@ public class Robot extends TimedRobot {
         // teleop starts running. If you want the autonomous to
         // continue until interrupted by another command, remove
         // this line or comment it out.
+        Robot.floop.open();
         if (autonomousCommand != null) {
             autonomousCommand.cancel();
         }
@@ -165,11 +167,11 @@ public class Robot extends TimedRobot {
     }
 
     public void controlCompressor() {
-        // if (!drivetrain.isMoving()) {
-        //     compressor.start();
-        // } else {
-        //     compressor.stop();
-        // }
+        if (!drivetrain.isMoving() || SmartDashboard.getBoolean("Enable compressor", false)) {
+            compressor.start();
+        } else {
+            compressor.stop();
+        }
     }
 
     private void setUpDoubleSolenoids() {
