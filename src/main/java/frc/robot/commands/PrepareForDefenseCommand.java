@@ -17,7 +17,8 @@ public class PrepareForDefenseCommand extends CommandGroup {
     //TODO: find the actual value to bring the carriage to the top of the first stage
     private final double TOP_OF_FIRST_STAGE = 10;
     public PrepareForDefenseCommand() {
-        addSequential(new LiftMoveToHeightCommand(TOP_OF_FIRST_STAGE));
+        // addSequential(new LiftMoveToHeightCommand(TOP_OF_FIRST_STAGE));
+        addSequential(new LiftMoveTimedCommand(0.5, .5));
         addSequential(new LiftTiltBackCommand());
     }
 }
