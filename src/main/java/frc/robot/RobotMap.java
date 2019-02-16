@@ -35,7 +35,7 @@ public interface RobotMap {
     /***************************************************************************************
      * Tail and Abom Ports
      ****************************************************************************************/
-    int RATCHET_SOLENOID_PORT = 2; //PCM 2 (10)
+    int RATCHET_SOLENOID_PORT = 1; //PCM 2 (10)
     int TAIL_MOTOR_PORT = 4;
     int ABOM_SOLENOID_PORT = 6;
 
@@ -48,10 +48,9 @@ public interface RobotMap {
     int LIFT_TILT_SOLENOID_FORWARD_PORT = 5; //PCM 2 (13)
     int LIFT_TILT_SOLENOID_REVERSE_PORT = 7; //PCM 2 (15)
 
-    int LIFT_BRAKE_SOLENOID_PORT = 0; //PCM 2 (8)
-
+    int LIFT_BRAKE_SOLENOID_PORT = 6; //PCM 2 (8)
     int LIFT_TOP_OPTICAL_SENSOR_PORT = -1;
-    int LIFT_BOTTOM_OPTICAL_SENSOR_PORT = -1;
+    int LIFT_BOTTOM_OPTICAL_SENSOR_PORT = 5;
 
     /***************************************************************************************
      * Floop Solenoid Port
@@ -125,14 +124,14 @@ public interface RobotMap {
     double LIFT_ENCODER_TICKS_PER_REV = 1024.0;
     double LIFT_WINCH_DIAMETER_INCHES = 1.75;
     double LIFT_WINCH_TO_ENCODER_RATIO = 8.0 / 13.0; // 8 revs of the winch = 13 revs of the encoder
-    double LIFT_EMPIRICAL_RAW_MULTIPLIER = 1.0;
+    double LIFT_EMPIRICAL_RAW_MULTIPLIER = ((36.0 / 90.08) + (68.375 / 220.44) + (31.875 / 74.88)) / 3.0;
     double LIFT_ENCODER_RAW_MULTIPLIER = LIFT_EMPIRICAL_RAW_MULTIPLIER * LIFT_WINCH_TO_ENCODER_RATIO *
         (LIFT_WINCH_DIAMETER_INCHES * Math.PI / LIFT_ENCODER_TICKS_PER_REV);
     double LIFT_MIN_SPEED = 0.1;
     // Waiting on eng for the height
     // Eric said the total carriage movement is about 74 in
     double LIFT_MAX_HEIGHT = -1;
-    double LIFT_MIN_HEIGHT = -1;
+    double LIFT_MIN_HEIGHT = 0;
     double LIFT_RAMP_HEIGHT_THRESHOLD = 1;
 
     //TODO: Test these values

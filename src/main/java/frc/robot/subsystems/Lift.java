@@ -73,7 +73,7 @@ public final class Lift extends Subsystem {
     }
 
     public double getHeight() {
-        return getRawEncoderUnits() * RobotMap.LIFT_ENCODER_RAW_MULTIPLIER;
+        return -1.0 * getRawEncoderUnits() * RobotMap.LIFT_ENCODER_RAW_MULTIPLIER;
     }
 
     public boolean isAtTop() {
