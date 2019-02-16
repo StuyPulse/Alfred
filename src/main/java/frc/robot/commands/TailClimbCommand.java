@@ -25,16 +25,28 @@ public class TailClimbCommand extends Command {
     @Override
     protected void execute() {
         this.speed = Robot.oi.operatorGamepad.getRightY();
+        if(speed > 0)  {
+            if(!Robot.tail.ratchetMoved()) {
+                Robot.tail.disengageRatchet();
+            }
+            Robot.tail.setSpeed(0.2);
+        }
+        if(speed < 0) {
+            if(Robot.tail.ratchetMoved()) {
+                Robot.tail.engageRatchet();
+            }
+            Robot.tail.setSpeed(speed);
+        }
         // test();
         // TODO: once ratchet is working, uncomment this
         //Raises the lift once
-        if(Robot.oi.operatorGamepad.getRawSelectButton()) {
-            Robot.tail.engageRatchet();
-        }
-        if(Robot.oi.operatorGamepad.getRawStartButton()) {
-            Robot.tail.disengageRatchet();
-        }
-        Robot.tail.setSpeed(speed);
+        // if(Robot.oi.operatorGamepad.getRawSelectButton()) {
+        //     Robot.tail.engageRatchet();
+        // }
+        // if(Robot.oi.operatorGamepad.getRawStartButton()) {
+        //     Robot.tail.disengageRatchet();
+        // }
+        // Robot.tail.setSpeed(speed);
         // if(speed > 0.2 && Robot.abom.)
         // if (speed > .9 && !isRaised) {
         //     Robot.tail.disengageRatchet();
