@@ -19,7 +19,7 @@ public final class Lift extends Subsystem {
     private WPI_VictorSPX followerTalon;
 
     // private DigitalInput topOpticalSensor;
-    // private DigitalInput bottomOpticalSensor;
+    private DigitalInput bottomOpticalSensor;
 
     private DoubleSolenoid tiltSolenoid;
     private Solenoid brakeSolenoid;
@@ -43,7 +43,7 @@ public final class Lift extends Subsystem {
 
         // TODO: Uncomment this when the limit switches are wired
         // topOpticalSensor = new DigitalInput(RobotMap.LIFT_TOP_OPTICAL_SENSOR_PORT);
-        // bottomOpticalSensor = new DigitalInput(RobotMap.LIFT_BOTTOM_OPTICAL_SENSOR_PORT);
+        bottomOpticalSensor = new DigitalInput(RobotMap.LIFT_BOTTOM_OPTICAL_SENSOR_PORT);
 
         // TODO: Uncomment this when the encoders work
         // enableRamping();
@@ -86,12 +86,11 @@ public final class Lift extends Subsystem {
     }
 
     public boolean isAtBottom() {
-        // boolean atBottom = bottomOpticalSensor.get();
-        // if (atBottom) {
-        //     setHeight(RobotMap.LIFT_MIN_HEIGHT);
-        // }
-        // return atBottom;
-        return false;
+        boolean atBottom = !bottomOpticalSensor.get();
+        if (atBottom) {
+            setHeight(RobotMap.LIFT_MIN_HEIGHT);
+        }
+        return atBottom; //The sensoris inverted
     }
 
     public void stop() {
@@ -102,7 +101,7 @@ public final class Lift extends Subsystem {
     public void moveNoRamp(double speed) {
         if (Math.abs(speed) < RobotMap.LIFT_MIN_SPEED) {
             stop();
-        } else if (isAtTop() || isAtBottom()) {
+        } else if (isAtBottom() && speed < 0) {
             stop();
         } else {
             releaseBrake();
@@ -157,11 +156,11 @@ public final class Lift extends Subsystem {
     }
 
     public void tiltFoward() {
-        tiltSolenoid.set(Value.kForward);
+        tiltSolenoid.set(Value.kReverse);
     }
 
     public void tiltBack() {
-        tiltSolenoid.set(Value.kReverse);
+        tiltSolenoid.set(Value.kForward);
     }
 
     public Value getTilt() {

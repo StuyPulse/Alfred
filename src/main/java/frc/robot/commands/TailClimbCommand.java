@@ -25,13 +25,13 @@ public class TailClimbCommand extends Command {
     @Override
     protected void execute() {
         this.speed = Robot.oi.operatorGamepad.getRightY();
-        if(speed > 0)  {
+        if(speed > .5)  {
             if(!Robot.tail.ratchetMoved()) {
                 Robot.tail.disengageRatchet();
             }
             Robot.tail.setSpeed(0.2);
         }
-        if(speed < 0) {
+        if(speed < .5) {
             if(Robot.tail.ratchetMoved()) {
                 Robot.tail.engageRatchet();
             }

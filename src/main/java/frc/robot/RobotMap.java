@@ -115,8 +115,10 @@ public interface RobotMap {
     /***************************************************************************************
      * Drivetrain Greyhill Encoder Constants
      ****************************************************************************************/
-    double GREYHILL_PULSES_PER_REVOLUTION = 1024; //TODO: check this
-    double DRIVETRAIN_GREYHILL_INCHES_PER_PULSE = WHEEL_INCHES_PER_REVOLUTION / GREYHILL_PULSES_PER_REVOLUTION;
+    double GREYHILL_PULSES_PER_REVOLUTION = 256 * 4.0; //TODO: check this
+    double DRIVETRAIN_GREYHILL_INCHES_PER_PULSE = (WHEEL_INCHES_PER_REVOLUTION) / GREYHILL_PULSES_PER_REVOLUTION;
+    // double DRIVETRAIN_OUTER_GEAR_RATIO = 3.0 / 1.0;
+    double DRIVETRAIN_ENCODER_EMPIRICAL_MULTIPLIER = 1;
 
     /**************************************************************************
      * Lift Constants
@@ -124,7 +126,7 @@ public interface RobotMap {
     double LIFT_ENCODER_TICKS_PER_REV = 1024.0;
     double LIFT_WINCH_DIAMETER_INCHES = 1.75;
     double LIFT_WINCH_TO_ENCODER_RATIO = 8.0 / 13.0; // 8 revs of the winch = 13 revs of the encoder
-    double LIFT_EMPIRICAL_RAW_MULTIPLIER = ((36.0 / 90.08) + (68.375 / 220.44) + (31.875 / 74.88)) / 3.0;
+    double LIFT_EMPIRICAL_RAW_MULTIPLIER = (((36.0 / 90.08) + (68.375 / 220.44) + (31.875 / 74.88)) / 3.0);
     double LIFT_ENCODER_RAW_MULTIPLIER = LIFT_EMPIRICAL_RAW_MULTIPLIER * LIFT_WINCH_TO_ENCODER_RATIO *
         (LIFT_WINCH_DIAMETER_INCHES * Math.PI / LIFT_ENCODER_TICKS_PER_REV);
     double LIFT_MIN_SPEED = 0.1;

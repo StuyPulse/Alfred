@@ -34,13 +34,13 @@ public class LiftMoveCommand extends Command {
     @Override
     protected void execute() {
         if (Math.abs(Robot.oi.operatorGamepad.getLeftY()) > 0.2) {
-            if (Robot.lift.getTilt() == Value.kReverse) {
+            if (Robot.lift.getTilt() != Value.kForward) {
                 Robot.lift.tiltFoward();
             }
         }
         testLift();
-        // setAutoComp();
-        // calibrateAutoComp();
+        // setTargetLevel();
+        // setAutoCompDirection();
         // runAutoComp();
     }
 

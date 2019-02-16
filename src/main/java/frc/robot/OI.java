@@ -72,7 +72,8 @@ public class OI {
         operatorGamepad.getDPadLeft().whenPressed(new LiftTiltBackCommand()); //Verified
         operatorGamepad.getDPadUp().whenPressed(new PrepareForDefenseCommand()); //Verified
         operatorGamepad.getDPadDown().whenPressed(new LiftMoveToHeightCommand(0)); //Verified
-        //TODO: Figure out defense mode height
+        //TODO: Figure out defense mode height[]\
+
 
         operatorGamepad.getRightAnalogButton().whileHeld(new AbomPumpCommand());
         operatorGamepad.getRightAnalogButton().whenReleased(new AbomStopPumpCommand());
