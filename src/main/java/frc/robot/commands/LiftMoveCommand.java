@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
@@ -32,6 +33,11 @@ public class LiftMoveCommand extends Command {
 
     @Override
     protected void execute() {
+        if (Math.abs(Robot.oi.operatorGamepad.getLeftY()) > 0.2) {
+            if (Robot.lift.getTilt() == Value.kReverse) {
+                Robot.lift.tiltFoward();
+            }
+        }
         testLift();
         // setAutoComp();
         // calibrateAutoComp();
@@ -40,6 +46,7 @@ public class LiftMoveCommand extends Command {
 
     private void testLift() {
         int level = 0;
+        // TODO: Implement tilting lift forward when moving lift in autocomp
         if(level == 0) {
             double speed = Robot.oi.operatorGamepad.getLeftY();
             if(Math.abs(speed) > .2) {

@@ -164,6 +164,10 @@ public final class Lift extends Subsystem {
         tiltSolenoid.set(Value.kReverse);
     }
 
+    public Value getTilt() {
+        return tiltSolenoid.get();
+    }
+
     public void enableBrake() {
         System.out.println("[LIFT] Enabling Brake!");
         brakeSolenoid.set(false);
