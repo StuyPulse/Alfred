@@ -36,10 +36,6 @@ public class DrivetrainDriveCommand extends Command {
         updateDrivetrain();
     }
 
-    private void driveStraight() {
-        
-    }
-
     protected void setSpeed() {
         // Reset the speed to prevent this from becoming acceleration
         speed = 0;
