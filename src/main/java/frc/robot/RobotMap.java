@@ -82,6 +82,7 @@ public interface RobotMap {
      * Abom Charge Constants
      ****************************************************************************************/
     double ABOM_CHARGE_DELAY_SEC = 2.0/3.0; // Time it takes for a piston to fire and retract
+    double ABOM_DELAY_BTW_IN_AND_OUT = 2;
 
     /***************************************************************************************
      * CV Constants
@@ -130,10 +131,10 @@ public interface RobotMap {
     // Eric said the total carriage movement is about 74 in
     double LIFT_MAX_HEIGHT = -1;
     double LIFT_MIN_HEIGHT = 0;
-    double LIFT_RAMP_HEIGHT_THRESHOLD = 1;
+    double LIFT_RAMP_HEIGHT_THRESHOLD = 1.0;
 
     //TODO: Test these values
-    double LEVEL_1_HEIGHT = 9.5;
+    double LEVEL_1_HEIGHT = 8.68;
     double LEVEL_2_HEIGHT = 37.5;
     double LEVEL_3_HEIGHT = 64.6;
 

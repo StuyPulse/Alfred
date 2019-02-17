@@ -86,12 +86,18 @@ public class LiftMoveCommand extends Command {
     }
 
     private void runAutoComp() {
-        if(targetLevel == Level.ONE) {
-            moveHeight(RobotMap.LEVEL_1_HEIGHT);
-        } else if(targetLevel == Level.TWO) {
-            moveHeight(RobotMap.LEVEL_2_HEIGHT);
-        } else if(targetLevel == Level.THREE) {
-            moveHeight(RobotMap.LEVEL_3_HEIGHT);
+        if(targetLevel == Level.ONE && autoCompDir == Direction.UP) {
+            moveHeight(RobotMap.LEVEL_1_HEIGHT + 2.0);
+        } else if(targetLevel == Level.TWO && autoCompDir == Direction.UP) {
+            moveHeight(RobotMap.LEVEL_2_HEIGHT + 2.0);
+        } else if(targetLevel == Level.THREE && autoCompDir == Direction.UP) {
+            moveHeight(RobotMap.LEVEL_3_HEIGHT + 2.0);
+        } else if(targetLevel == Level.ONE && autoCompDir == Direction.DOWN) {
+            moveHeight(RobotMap.LEVEL_1_HEIGHT - 2.0);
+        } else if(targetLevel == Level.TWO && autoCompDir == Direction.DOWN) {
+            moveHeight(RobotMap.LEVEL_2_HEIGHT - 2.0);
+        } else if(targetLevel == Level.THREE && autoCompDir == Direction.DOWN) {
+            moveHeight(RobotMap.LEVEL_3_HEIGHT - 2.0);
         }
     }
 

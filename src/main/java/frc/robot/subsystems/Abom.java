@@ -30,6 +30,13 @@ public final class Abom extends Subsystem {
         abomSolenoid.set(!abomSolenoid.get());
     }
 
+    public void pumpIn() {
+        abomSolenoid.set(true);
+    }
+
+    public void pumpOut() {
+        abomSolenoid.set(false);
+    }
     // Retracts the Solenoid
     public void stop() {
         abomSolenoid.set(false);

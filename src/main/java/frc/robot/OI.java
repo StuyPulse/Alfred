@@ -71,17 +71,10 @@ public class OI {
         operatorGamepad.getDPadRight().whenPressed(new LiftTiltBackCommand()); //Verified
         operatorGamepad.getDPadLeft().whenPressed(new LiftTiltFowardCommand()); //Verified
         operatorGamepad.getDPadUp().whenPressed(new PrepareForDefenseCommand()); //Verified
-        operatorGamepad.getDPadDown().whenPressed(new LiftMoveToHeightCommand(0)); //Verified
-        // operatorGamepad.getDPadUp().whenPressed(new LiftMoveToHeightCommand(65.7));
-        // operatorGamepad.getDPadRight().whenPressed(new LiftMoveToHeightCommand(36.0));
-        // operatorGamepad.getDPadDown().whenPressed(new LiftMoveToHeightCommand(9.1));
+        // operatorGamepad.getDPadDown().whenPressed(new LiftMoveToHeightCommand(0)); //Verified
+        operatorGamepad.getDPadDown().whenPressed(new LiftMoveToHeightCommand(RobotMap.LEVEL_1_HEIGHT));
 
-        //TODO: Figure out defense mode height[]\
-
-
-        operatorGamepad.getRightAnalogButton().whileHeld(new AbomPumpCommand());
-        operatorGamepad.getRightAnalogButton().whenReleased(new AbomStopPumpCommand());
-
+        operatorGamepad.getRightAnalogButton().whenPressed(new AbomToggleCommand());
 
         //FOR LEFT JOYSTICK: LiftMoveCommand (default of lift subsystem)
         //FOR RIGHT JOYSTICK: TailClimbCommand (default of tail subsystem)
