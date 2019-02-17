@@ -10,9 +10,11 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
+import frc.robot.commands.AbomPumpControlCommand;
 
 public final class Abom extends Subsystem {
     Solenoid abomSolenoid;
+    public boolean wantPumping;
 
     public Abom() {
         abomSolenoid = new Solenoid(RobotMap.ABOM_SOLENOID_PORT);
@@ -20,15 +22,20 @@ public final class Abom extends Subsystem {
 
     @Override
     public void initDefaultCommand() {
+        setDefaultCommand(new AbomPumpControlCommand());
     }
 
     // Toggles between out and in for the solenoid
-    public void toggle() {
+    public void pump() {
         abomSolenoid.set(!abomSolenoid.get());
     }
 
     // Retracts the Solenoid
     public void stop() {
         abomSolenoid.set(false);
+    }
+
+    public boolean get() {
+        return abomSolenoid.get();
     }
 }
