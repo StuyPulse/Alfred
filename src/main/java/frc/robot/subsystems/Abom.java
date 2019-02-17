@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 import frc.robot.commands.AbomPumpControlCommand;
@@ -44,5 +45,12 @@ public final class Abom extends Subsystem {
 
     public boolean get() {
         return abomSolenoid.get();
+    }
+
+    public boolean shouldTakeAction(double lastPumped, double timeToActuate) {
+        boolean output = lastPumped < 0 
+                || (Timer.getFPGATimestamp() - lastPumped) > timeToActuate;
+        if(output) System.out.println("true");
+        return output;
     }
 }

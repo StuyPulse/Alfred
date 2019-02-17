@@ -82,7 +82,8 @@ public interface RobotMap {
      * Abom Charge Constants
      ****************************************************************************************/
     double ABOM_CHARGE_DELAY_SEC = 2.0/3.0; // Time it takes for a piston to fire and retract
-    double ABOM_DELAY_BTW_IN_AND_OUT = 2;
+    double ABOM_TIME_TO_EXTEND = 0.1;
+    double ABOM_TIME_TO_RETRACT = 0.2;
 
     /***************************************************************************************
      * CV Constants

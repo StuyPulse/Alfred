@@ -13,7 +13,8 @@ import frc.robot.Robot;
 import frc.robot.RobotMap;
 
 public class AbomPumpControlCommand extends Command {
-  private double timeSinceStateChange;
+  private double lastPumped;
+  private double currentTime;
 
   public AbomPumpControlCommand() {
     // Use requires() here to declare subsystem dependencies
@@ -23,7 +24,7 @@ public class AbomPumpControlCommand extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    timeSinceStateChange = -1;
+    lastPumped = -1;
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -31,9 +32,12 @@ public class AbomPumpControlCommand extends Command {
   protected void execute() {
     if (!Robot.abom.wantPumping) {
       Robot.abom.stop();
-    } else if (timeSinceStateChange == -1 || timeSinceStateChange > RobotMap.ABOM_DELAY_BTW_IN_AND_OUT) {
-      Robot.abom.pump();
-      timeSinceStateChange = Timer.getFPGATimestamp();
+    } else if (!Robot.abom.get() && Robot.abom.shouldTakeAction(lastPumped, RobotMap.ABOM_TIME_TO_EXTEND)) {
+      Robot.abom.pumpIn();
+      lastPumped = Timer.getFPGATimestamp();
+    } else if (Robot.abom.get() && Robot.abom.shouldTakeAction(lastPumped, RobotMap.ABOM_TIME_TO_RETRACT)) {
+      Robot.abom.pumpOut();
+      lastPumped = Timer.getFPGATimestamp();
     }
     // if you want to pump but it hasn't been long enough, it will not do anything until the above conditional is reached
   }
