@@ -6,6 +6,8 @@ import frc.robot.RobotMap;
 
 public class LiftMoveCommand extends Command {
 
+    private final double THRESHOLD = 0.4;
+
     private enum Direction{
         UP, DOWN, NULL;
     }
@@ -38,6 +40,51 @@ public class LiftMoveCommand extends Command {
         runAutoComp();
     }
 
+    // value is used many times, setAutoComp() and calibrateAutoComp()
+    private boolean isLeftAnalogPressed() {
+        return Robot.oi.operatorGamepad.getRawLeftAnalogButton();
+    }
+
+    private void setAutoComp() {
+        // if LEFT STICK is HELD and pushed UP
+        if(isLeftAnalogPressed() && Robot.oi.operatorGamepad.getLeftY() > THRESHOLD) {
+            autoCompDir = Direction.UP;
+        }
+
+        // if LEFT STICK is HELD and pushed DOWN
+        if(isLeftAnalogPressed() && Robot.oi.operatorGamepad.getLeftY() < -THRESHOLD) {
+            autoCompDir = Direction.DOWN;
+        }
+
+        // while LEFT STICK is not HELD
+        if(!isLeftAnalogPressed()) {
+            autoCompDir = Direction.NULL;
+            targetLevel = Level.ZERO;
+        }
+    }
+
+    private void calibrateAutoComp() {
+        if (autoCompDir == Direction.UP && targetLevel == Level.ZERO && isLeftAnalogPressed() && Robot.oi.operatorGamepad.getLeftY() <= THRESHOLD) {
+            if (Robot.lift.getHeight() < RobotMap.LEVEL_1_HEIGHT) {
+                targetLevel = Level.ONE;
+            } else if (Robot.lift.getHeight() < RobotMap.LEVEL_2_HEIGHT) {
+                targetLevel = Level.TWO;
+            } else {
+                targetLevel = Level.THREE;
+            }
+        }
+
+        if(autoCompDir == Direction.DOWN && targetLevel == Level.ZERO && isLeftAnalogPressed() && Robot.oi.operatorGamepad.getLeftY() >= -THRESHOLD) {
+            if(Robot.lift.getHeight() > RobotMap.LEVEL_3_HEIGHT) {
+                targetLevel = Level.THREE;
+            } else if(Robot.lift.getHeight() > RobotMap.LEVEL_2_HEIGHT) {
+                targetLevel = Level.TWO;
+            } else {
+                targetLevel = Level.ONE;
+            }
+        }
+    }
+
     private void runAutoComp() {
         if(targetLevel == Level.ONE) {
             moveHeight(RobotMap.LEVEL_1_HEIGHT);
@@ -56,51 +103,6 @@ public class LiftMoveCommand extends Command {
         } else if(autoCompDir != Direction.NULL) {
             autoCompDir = Direction.NULL;
             targetLevel = Level.ZERO;
-        }
-    }
-
-    // value is used many times, setAutoComp() and calibrateAutoComp()
-    private boolean isLeftAnalogPressed() {
-        return Robot.oi.operatorGamepad.getRawLeftAnalogButton();
-    }
-
-    private void setAutoComp() {
-        // if LEFT STICK is HELD and pushed UP
-        if(isLeftAnalogPressed() && Robot.oi.operatorGamepad.getLeftY() > 0.25) {
-            autoCompDir = Direction.UP;
-        }
-
-        // if LEFT STICK is HELD and pushed DOWN
-        if(isLeftAnalogPressed() && Robot.oi.operatorGamepad.getLeftY() < -0.25) {
-            autoCompDir = Direction.DOWN;
-        }
-
-        // while LEFT STICK is not HELD
-        if(!isLeftAnalogPressed()) {
-            autoCompDir = Direction.NULL;
-            targetLevel = Level.ZERO;
-        }
-    }
-
-    private void calibrateAutoComp() {
-        if (autoCompDir == Direction.UP && targetLevel == Level.ZERO && isLeftAnalogPressed() && Robot.oi.operatorGamepad.getLeftY() <= 0.25) {
-            if (Robot.lift.getHeight() < RobotMap.LEVEL_1_HEIGHT) {
-                targetLevel = Level.ONE;
-            } else if (Robot.lift.getHeight() < RobotMap.LEVEL_2_HEIGHT) {
-                targetLevel = Level.TWO;
-            } else {
-                targetLevel = Level.THREE;
-            }
-        }
-
-        if(autoCompDir == Direction.DOWN && targetLevel == Level.ZERO && isLeftAnalogPressed() && Robot.oi.operatorGamepad.getLeftY() >= -0.25) {
-            if(Robot.lift.getHeight() > RobotMap.LEVEL_3_HEIGHT) {
-                targetLevel = Level.THREE;
-            } else if(Robot.lift.getHeight() > RobotMap.LEVEL_2_HEIGHT) {
-                targetLevel = Level.TWO;
-            } else {
-                targetLevel = Level.ONE;
-            }
         }
     }
 
