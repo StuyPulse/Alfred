@@ -18,9 +18,7 @@ import frc.robot.commands.FangsRaiseCommand;
 import frc.robot.commands.FloopCloseCommand;
 import frc.robot.commands.FloopOpenCommand;
 import frc.robot.commands.LiftMoveToHeightCommand;
-import frc.robot.commands.LiftTiltBackCommand;
-import frc.robot.commands.LiftTiltFowardCommand;
-import frc.robot.commands.PrepareForDefenseCommand;
+import frc.robot.commands.LiftToggleCommand;
 import frc.robot.commands.RollersConstantAcquireCommand;
 import frc.robot.commands.RollersConstantDeacquireCommand;
 import frc.robot.commands.RollersManualAcquireCommand;
@@ -67,11 +65,15 @@ public class OI {
         // operatorGamepad.getLeftButton().whenPressed(new OverrideLimitSwitchCommand());
         // TODO: Create an OverrideLimitSwitchCommand!
 
-        operatorGamepad.getDPadRight().whenPressed(new LiftTiltBackCommand()); //Verified
-        operatorGamepad.getDPadLeft().whenPressed(new LiftTiltFowardCommand()); //Verified
-        operatorGamepad.getDPadUp().whenPressed(new PrepareForDefenseCommand()); //Verified
+        // operatorGamepad.getDPadRight().whenPressed(new LiftTiltBackCommand()); //Verified
+        operatorGamepad.getDPadLeft().whenPressed(new LiftToggleCommand()); //Verified
+        // operatorGamepad.getDPadUp().whenPressed(new PrepareForDefenseCommand()); //Verified
         // operatorGamepad.getDPadDown().whenPressed(new LiftMoveToHeightCommand(0)); //Verified
         operatorGamepad.getDPadDown().whenPressed(new LiftMoveToHeightCommand(RobotMap.LEVEL_1_HEIGHT));
+        operatorGamepad.getDPadRight().whenPressed(new LiftMoveToHeightCommand(RobotMap.LEVEL_2_HEIGHT));
+        operatorGamepad.getDPadUp().whenPressed(new LiftMoveToHeightCommand(RobotMap.LEVEL_3_HEIGHT));
+
+
 
         operatorGamepad.getRightAnalogButton().whenPressed(new AbomToggleCommand());
 

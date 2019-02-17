@@ -189,13 +189,19 @@ public final class Lift extends Subsystem {
         return tiltSolenoid.get();
     }
 
+    public void toggle() {
+        if (getTilt() == Value.kForward) {
+            tiltFoward();
+        } else {
+            tiltBack();
+        }
+    }
+
     public void enableBrake() {
-        System.out.println("[LIFT] Enabling Brake!");
         brakeSolenoid.set(false);
     }
 
     public void releaseBrake() {
-        System.out.println("[LIFT] Releasing Brake!");
         brakeSolenoid.set(true);
     }
 

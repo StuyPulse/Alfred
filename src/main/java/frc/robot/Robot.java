@@ -160,6 +160,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("Lift Encoder Val: ", Robot.lift.getHeight());
         SmartDashboard.putBoolean("Lift Top Optical Sensor: ", Robot.lift.isAtTop());
         SmartDashboard.putBoolean("Lift Bottom Optical Sensor: ", Robot.lift.isAtBottom());
+        SmartDashboard.putNumber("Tom's Metric for Tail: ", Robot.tail.getTomsMetric());
     }
 
     /**

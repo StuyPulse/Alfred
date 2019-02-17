@@ -87,17 +87,17 @@ public class LiftMoveCommand extends Command {
 
     private void runAutoComp() {
         if(targetLevel == Level.ONE && autoCompDir == Direction.UP) {
-            moveHeight(RobotMap.LEVEL_1_HEIGHT + 2.0);
+            moveHeight(RobotMap.LEVEL_1_HEIGHT - RobotMap.LIFT_LEVEL_OFFSHOOT);
         } else if(targetLevel == Level.TWO && autoCompDir == Direction.UP) {
-            moveHeight(RobotMap.LEVEL_2_HEIGHT + 2.0);
+            moveHeight(RobotMap.LEVEL_2_HEIGHT - RobotMap.LIFT_LEVEL_OFFSHOOT);
         } else if(targetLevel == Level.THREE && autoCompDir == Direction.UP) {
-            moveHeight(RobotMap.LEVEL_3_HEIGHT + 2.0);
+            moveHeight(RobotMap.LEVEL_3_HEIGHT - RobotMap.LIFT_LEVEL_OFFSHOOT);
         } else if(targetLevel == Level.ONE && autoCompDir == Direction.DOWN) {
-            moveHeight(RobotMap.LEVEL_1_HEIGHT - 2.0);
+            moveHeight(RobotMap.LEVEL_1_HEIGHT + RobotMap.LIFT_LEVEL_OFFSHOOT);
         } else if(targetLevel == Level.TWO && autoCompDir == Direction.DOWN) {
-            moveHeight(RobotMap.LEVEL_2_HEIGHT - 2.0);
+            moveHeight(RobotMap.LEVEL_2_HEIGHT + RobotMap.LIFT_LEVEL_OFFSHOOT);
         } else if(targetLevel == Level.THREE && autoCompDir == Direction.DOWN) {
-            moveHeight(RobotMap.LEVEL_3_HEIGHT - 2.0);
+            moveHeight(RobotMap.LEVEL_3_HEIGHT + RobotMap.LIFT_LEVEL_OFFSHOOT);
         }
     }
 
@@ -109,6 +109,7 @@ public class LiftMoveCommand extends Command {
         } else if(autoCompDir != Direction.NULL) {
             autoCompDir = Direction.NULL;
             targetLevel = Level.ZERO;
+            Robot.oi.operatorGamepad.gamepadRumble(0.25);
         }
     }
 

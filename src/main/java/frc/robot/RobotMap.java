@@ -139,6 +139,8 @@ public interface RobotMap {
     double LEVEL_2_HEIGHT = 37.5;
     double LEVEL_3_HEIGHT = 64.6;
 
+    double LIFT_LEVEL_OFFSHOOT = 2.0;
+
     /***************************************************************************************
      * Rollers Constants
      ****************************************************************************************/

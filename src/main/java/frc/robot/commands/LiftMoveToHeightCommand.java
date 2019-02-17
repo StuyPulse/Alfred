@@ -19,9 +19,9 @@ public class LiftMoveToHeightCommand extends Command {
     @Override
     protected void execute() {
         if (Robot.lift.getHeight() > targetHeight) {
-            Robot.lift.moveToHeightWithRamp(-1, targetHeight);
-        } else {
-            Robot.lift.moveToHeightWithRamp(1, targetHeight);
+            Robot.lift.move(-1);
+        } else{
+            Robot.lift.move(1);
         }
     }
 
