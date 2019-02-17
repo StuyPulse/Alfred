@@ -94,8 +94,8 @@ public interface RobotMap {
     /***************************************************************************************
      * Aim Assist Constants
      ****************************************************************************************/
-    double TURN_DIV = 24; // Changes the speed that the robot will turn
-    double MOVE_TURN_DIV = 2; // Changes the speed that the robot will turn while moving (The more it moves, the less it turns)
+    double TURN_DIV = 82; // Changes the speed that the robot will turn
+    double MOVE_TURN_DIV = 20; // Changes the speed that the robot will turn while moving (The more it moves, the less it turns)
 
     /***************************************************************************************
      * Auton Assist Constants

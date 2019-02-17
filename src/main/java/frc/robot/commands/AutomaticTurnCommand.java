@@ -20,12 +20,7 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
     @Override
     protected void setTurn() {
         // Set the turn value to the joysticks x value
-        super.setTurn();
-        // System.out.println("auto-turning");
-
-        
-        System.out.println(Limelight.getTargetXAngle());
-        //getVerticalSidelength() maybe?
+        super.setTurn(); 
         // Add corrective values to turn based on how fast the robot is moving
         turn += Limelight.getTargetXAngle() / (RobotMap.TURN_DIV * Math.max(RobotMap.MOVE_TURN_DIV * speed, 1));
     }
