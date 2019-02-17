@@ -68,13 +68,13 @@ public class OI {
         // operatorGamepad.getLeftButton().whenPressed(new OverrideLimitSwitchCommand());
         // TODO: Create an OverrideLimitSwitchCommand!
 
-        // operatorGamepad.getDPadRight().whenPressed(new LiftTiltBackCommand()); //Verified
-        // operatorGamepad.getDPadLeft().whenPressed(new LiftTiltFowardCommand()); //Verified
-        // operatorGamepad.getDPadUp().whenPressed(new PrepareForDefenseCommand()); //Verified
-        // operatorGamepad.getDPadDown().whenPressed(new LiftMoveToHeightCommand(0)); //Verified
-        operatorGamepad.getDPadUp().whenPressed(new LiftMoveToHeightCommand(65.7));
-        operatorGamepad.getDPadRight().whenPressed(new LiftMoveToHeightCommand(36.0));
-        operatorGamepad.getDPadDown().whenPressed(new LiftMoveToHeightCommand(9.1));
+        operatorGamepad.getDPadRight().whenPressed(new LiftTiltBackCommand()); //Verified
+        operatorGamepad.getDPadLeft().whenPressed(new LiftTiltFowardCommand()); //Verified
+        operatorGamepad.getDPadUp().whenPressed(new PrepareForDefenseCommand()); //Verified
+        operatorGamepad.getDPadDown().whenPressed(new LiftMoveToHeightCommand(0)); //Verified
+        // operatorGamepad.getDPadUp().whenPressed(new LiftMoveToHeightCommand(65.7));
+        // operatorGamepad.getDPadRight().whenPressed(new LiftMoveToHeightCommand(36.0));
+        // operatorGamepad.getDPadDown().whenPressed(new LiftMoveToHeightCommand(9.1));
 
         //TODO: Figure out defense mode height[]\
 
