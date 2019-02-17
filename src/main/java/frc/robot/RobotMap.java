@@ -124,11 +124,7 @@ public interface RobotMap {
      * Lift Constants
      *************************************************************************/
     double LIFT_ENCODER_TICKS_PER_REV = 1024.0;
-    double LIFT_WINCH_DIAMETER_INCHES = 1.75;
-    double LIFT_WINCH_TO_ENCODER_RATIO = 8.0 / 13.0; // 8 revs of the winch = 13 revs of the encoder
-    double LIFT_EMPIRICAL_RAW_MULTIPLIER = (((36.0 / 90.08) + (68.375 / 220.44) + (31.875 / 74.88)) / 3.0);
-    double LIFT_ENCODER_RAW_MULTIPLIER = LIFT_EMPIRICAL_RAW_MULTIPLIER * LIFT_WINCH_TO_ENCODER_RATIO *
-        (LIFT_WINCH_DIAMETER_INCHES * Math.PI / LIFT_ENCODER_TICKS_PER_REV);
+    double LIFT_ENCODER_RAW_MULTIPLIER = 1 / 1207.0;
     double LIFT_MIN_SPEED = 0.1;
     // Waiting on eng for the height
     // Eric said the total carriage movement is about 74 in

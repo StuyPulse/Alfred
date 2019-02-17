@@ -33,13 +33,13 @@ public class LiftMoveCommand extends Command {
     @Override
     protected void execute() {
 
-        if (targetLevel == Level.LEVEL_ZERO) {
+        // if (targetLevel == Level.LEVEL_ZERO) {
             Robot.lift.move(Robot.oi.operatorGamepad.getLeftY());
-        }
+        // }
 
-        setAutoCompDirection();
-        setTargetLevel();
-        runAutoComp();
+        // setAutoCompDirection();
+        // setTargetLevel();
+        // runAutoComp();
     }
 
     private boolean isAutoCompActive() {
