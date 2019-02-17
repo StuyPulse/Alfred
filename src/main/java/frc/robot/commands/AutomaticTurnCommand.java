@@ -21,10 +21,11 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
     protected void setTurn() {
         // Set the turn value to the joysticks x value
         super.setTurn();
+        // System.out.println("auto-turning");
 
-        // Enable CV on the limelight
-        Limelight.setCamMode(Limelight.CamMode.VISION);
         
+        System.out.println(Limelight.getTargetXAngle());
+        //getVerticalSidelength() maybe?
         // Add corrective values to turn based on how fast the robot is moving
         turn += Limelight.getTargetXAngle() / (RobotMap.TURN_DIV * Math.max(RobotMap.MOVE_TURN_DIV * speed, 1));
     }
