@@ -18,7 +18,6 @@ public final class Lift extends Subsystem {
     private WPI_TalonSRX masterTalon;
     private WPI_VictorSPX followerTalon;
 
-    // private DigitalInput topOpticalSensor;
     private DigitalInput bottomOpticalSensor;
 
     private DoubleSolenoid tiltSolenoid;
@@ -76,21 +75,12 @@ public final class Lift extends Subsystem {
         return -1.0 * getRawEncoderUnits() * RobotMap.LIFT_ENCODER_RAW_MULTIPLIER;
     }
 
-    public boolean isAtTop() {
-        // boolean atTop = topOpticalSensor.get();
-        // if (atTop) {
-        //     setHeight(RobotMap.LIFT_MAX_HEIGHT);
-        // }
-        // return atTop;
-        return false;
-    }
-
     public boolean isAtBottom() {
         boolean atBottom = !bottomOpticalSensor.get();
         if (atBottom) {
             setHeight(RobotMap.LIFT_MIN_HEIGHT);
         }
-        return atBottom; //The sensoris inverted
+        return atBottom; //The sensor is inverted
     }
 
     public void stop() {
