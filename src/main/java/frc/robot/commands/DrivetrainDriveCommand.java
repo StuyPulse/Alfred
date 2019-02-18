@@ -59,6 +59,7 @@ public class DrivetrainDriveCommand extends Command {
 
         // Set the turn value to the joystick's x value
         turn = Math.pow(Robot.oi.driverGamepad.getLeftX(), RobotMap.JOYSTICK_SCALAR);
+        turn *= Math.signum((Robot.oi.driverGamepad.getLeftX()));
     }
 
     // Sub commands for each curvature drive variable
