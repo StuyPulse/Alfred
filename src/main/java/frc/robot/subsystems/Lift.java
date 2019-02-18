@@ -109,28 +109,6 @@ public final class Lift extends Subsystem {
         return distance / threshold;
     }
 
-    public void moveToHeightWithRamp(double desiredSpeed, double desiredHeight) {
-        System.out.println("moveRamp");
-        double currentHeight = getHeight();
-        double speed = desiredSpeed;
-        if (desiredSpeed < 0 && currentHeight < desiredHeight + RobotMap.LIFT_RAMP_HEIGHT_THRESHOLD) {
-            // If you want to move the lift down, get the distance from the bottom and
-            // adjust speed proportionally.
-            double distanceFromTarget = currentHeight;
-            speed = rampMultiplier(distanceFromTarget) * desiredSpeed;
-            speed = Math.min(speed, -RobotMap.LIFT_MIN_SPEED);
-        } else if (currentHeight > desiredHeight - RobotMap.LIFT_RAMP_HEIGHT_THRESHOLD) {
-            // If you want to move the lift up, get the distance from the top and adjust
-            // speed proportionally.
-            double distanceFromTop = RobotMap.LIFT_MAX_HEIGHT - currentHeight;
-            speed = rampMultiplier(distanceFromTop) * desiredSpeed;
-            speed = Math.max(speed, RobotMap.LIFT_MIN_SPEED);
-        }
-        // If the current height isn't within the height range for ramping, move without
-        // ramping.
-        moveNoRamp(speed);
-    }
-
     public void moveRamp(double desiredSpeed) {
         System.out.println("moveRamp");
         double currentHeight = getHeight();
