@@ -12,13 +12,12 @@ import frc.robot.Robot;
 
 public class LiftToggleCommand extends InstantCommand {
   public LiftToggleCommand() {
-    // Use requires() here to declare subsystem dependencies
     requires(Robot.lift);
   }
 
-  // Called just before this Command runs the first time
   @Override
   protected void initialize() {
     Robot.lift.toggle();
   }
+
 }

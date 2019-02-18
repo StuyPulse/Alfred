@@ -40,14 +40,8 @@ public final class Lift extends Subsystem {
                 RobotMap.LIFT_TILT_SOLENOID_REVERSE_PORT);
         brakeSolenoid = new Solenoid(1, RobotMap.LIFT_BRAKE_SOLENOID_PORT);
 
-        // TODO: Uncomment this when the limit switches are wired
-        // topOpticalSensor = new DigitalInput(RobotMap.LIFT_TOP_OPTICAL_SENSOR_PORT);
         bottomOpticalSensor = new DigitalInput(RobotMap.LIFT_BOTTOM_OPTICAL_SENSOR_PORT);
 
-        // TODO: Uncomment this when the encoders work
-        // enableRamping();
-
-        // TODO: Comment when encoders work
         disableRamping();
 
         /// Encoders
