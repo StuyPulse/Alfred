@@ -50,25 +50,20 @@ public class OI {
         /******************************************
          * Operator Code
          ******************************************/
-        operatorGamepad.getRightTrigger().whileHeld(new RollersManualAcquireCommand()); //Verified
-        operatorGamepad.getLeftTrigger().whileHeld(new RollersManualDeacquireCommand()); //Verified
+        operatorGamepad.getRightTrigger().whileHeld(new RollersManualAcquireCommand());
+        operatorGamepad.getLeftTrigger().whileHeld(new RollersManualDeacquireCommand());
 
         operatorGamepad.getRightBumper().whileHeld(new RollersConstantAcquireCommand());
-        operatorGamepad.getRightBumper().whenReleased(new RollersRampDownAcquireCommand(1)); //Verified
-        operatorGamepad.getLeftBumper().whileHeld(new RollersConstantDeacquireCommand()); //Verified
+        operatorGamepad.getRightBumper().whenReleased(new RollersRampDownAcquireCommand(1));
+        operatorGamepad.getLeftBumper().whileHeld(new RollersConstantDeacquireCommand());
 
-        operatorGamepad.getTopButton().whenPressed(new FangsRaiseCommand()); //Verified
-        operatorGamepad.getBottomButton().whenPressed(new FangsLowerCommand()); //Verified
-        operatorGamepad.getRightButton().whenPressed(new FloopCloseCommand()); //Verified
+        operatorGamepad.getTopButton().whenPressed(new FangsRaiseCommand());
+        operatorGamepad.getBottomButton().whenPressed(new FangsLowerCommand());
+        operatorGamepad.getRightButton().whenPressed(new FloopCloseCommand());
         operatorGamepad.getRightButton().whenReleased(new FloopOpenCommand());
-        operatorGamepad.getLeftButton().whenPressed(new BITHPOIN()); //Verified
-        // operatorGamepad.getLeftButton().whenPressed(new OverrideLimitSwitchCommand());
-        // TODO: Create an OverrideLimitSwitchCommand!
+        operatorGamepad.getLeftButton().whenPressed(new BITHPOIN());
 
-        // operatorGamepad.getDPadRight().whenPressed(new LiftTiltBackCommand()); //Verified
-        operatorGamepad.getDPadLeft().whenPressed(new LiftToggleCommand()); //Verified
-        // operatorGamepad.getDPadUp().whenPressed(new PrepareForDefenseCommand()); //Verified
-        // operatorGamepad.getDPadDown().whenPressed(new LiftMoveToHeightCommand(0)); //Verified
+        operatorGamepad.getDPadLeft().whenPressed(new LiftToggleCommand());
         operatorGamepad.getDPadDown().whenPressed(new LiftMoveToHeightCommand(RobotMap.LEVEL_1_HEIGHT));
         operatorGamepad.getDPadRight().whenPressed(new LiftMoveToHeightCommand(RobotMap.LEVEL_2_HEIGHT));
         operatorGamepad.getDPadUp().whenPressed(new LiftMoveToHeightCommand(RobotMap.LEVEL_3_HEIGHT));

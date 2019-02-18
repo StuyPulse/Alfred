@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
@@ -105,7 +106,7 @@ public class LiftMoveCommand extends Command {
         if (autoCompDir == Direction.UP && Robot.lift.getHeight() < numInches) {
             Robot.lift.move(1);
         } else if(autoCompDir == Direction.DOWN && Robot.lift.getHeight() > numInches) {
-            Robot.lift.move(-1);
+            Robot.lift.move(SmartDashboard.getNumber("AutoComplete Speed Down: ", -0.5));
         } else if(autoCompDir != Direction.NULL) {
             autoCompDir = Direction.NULL;
             targetLevel = Level.ZERO;
