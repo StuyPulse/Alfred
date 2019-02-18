@@ -90,8 +90,8 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotPeriodic() {
-        //controlCompressor();
-        //SmartDashboard.putBoolean("IR Sensor", isGamePieceDetected());
+        controlCompressor();
+        SmartDashboard.putBoolean("IR Sensor", isGamePieceDetected());
     }
 
     /**
@@ -151,7 +151,7 @@ public class Robot extends TimedRobot {
         // teleop starts running. If you want the autonomous to
         // continue until interrupted by another command, remove
         // this line or comment it out.
-        //Robot.floop.open();
+        Robot.floop.open();
         if (autonomousCommand != null) {
             autonomousCommand.cancel();
         }
@@ -190,8 +190,8 @@ public class Robot extends TimedRobot {
     }
 
     private void setUpDoubleSolenoids() {
-        // lift.tiltBack();
-        // fangs.lower();
+        lift.tiltBack();
+        fangs.lower();
     }
 
     private boolean isGamePieceDetected() {
