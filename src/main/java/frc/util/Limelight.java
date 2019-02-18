@@ -27,7 +27,7 @@ public class Limelight {
         double targetHeightThreshold = 6;
         double minAspectRatio = 1.4;
         double maxAspectRatio = 2.9;
-        double angleThreshold = 20;
+        double angleThreshold = 25;
         return 
             hasAnyTarget(targetEntry)
             & hasValidHeight(targetHeightThreshold)
@@ -61,8 +61,6 @@ public class Limelight {
 
     public static boolean hasValidBlueOrientation(double angleThreshold){
         // Checks if rotation of blue box (rotated box) is good
-
-
         double diffFromNeg90 = Math.abs(-90 - getTargetSkew());
         double diffFrom0 =  Math.abs(getTargetSkew());
         double smallerDifference = Math.min(diffFromNeg90,diffFrom0);
