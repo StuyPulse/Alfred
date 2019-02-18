@@ -33,6 +33,7 @@ public class DrivetrainDriveCommand extends Command {
     @Override
     protected void execute() {
         Limelight.setCamMode(Limelight.CamMode.VISION);
+        printDebugStatements();
         setSpeed();
         setTurn();
         updateDrivetrain();
@@ -47,6 +48,18 @@ public class DrivetrainDriveCommand extends Command {
 
         // Enable Quick Turn if robot is not moving
         quickTurn = Math.abs(speed) < 0.125;
+    }
+
+    private void printDebugStatements(){
+        // Debug statement prints out if there is a valid target
+        System.out.println("validTarget? :" + Limelight.hasValidTarget());
+        System.out.println("XOffset :" + Limelight.getTargetXAngle());
+        System.out.println("Skew :" + Limelight.getTargetSkew());
+
+        // Sets to driver mode for debugging
+        if(Robot.oi.driverGamepad.getRawDPadDown()){
+            Limelight.setCamMode(Limelight.CamMode.DRIVER);
+        }
     }
 
     protected void setTurn() {

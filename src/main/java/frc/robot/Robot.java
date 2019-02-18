@@ -64,6 +64,21 @@ public class Robot extends TimedRobot {
         // chooser.addOption("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
         SmartDashboard.putBoolean("Enable compressor", true);
+        SmartDashboard.putNumber("TURN_DIV", 120);
+        SmartDashboard.putNumber("MOVE_TURN_DIV", 80);
+
+        SmartDashboard.putNumber("TURN_MIN_SPEED", 0.2);
+        SmartDashboard.putNumber("TURN_MIN_ANGLE", 1);
+
+        SmartDashboard.putNumber("TARGET_HEIGHT_THRESHOLD", 6);
+        SmartDashboard.putNumber("MIN_ASPECT_RATIO", 1.7);
+        SmartDashboard.putNumber("MAX_ASPECT_RATIO", 2.3);
+        SmartDashboard.putNumber("LIMELIGHT_ANGLE_THRESHOLD", 10);
+
+        SmartDashboard.putBoolean("VALID_TARGET", false);
+        SmartDashboard.putBoolean("VALID_HEIGHT", false);
+        SmartDashboard.putBoolean("VALID_RATIO", false);
+        SmartDashboard.putBoolean("VALID_SKEW", false);
     }
 
     /**

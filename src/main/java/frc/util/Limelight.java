@@ -7,6 +7,7 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.drive.Vector2d; // Returning Goal Cordinates
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Limelight {
     // Network Table used to contact Lime Light
@@ -21,10 +22,47 @@ public class Limelight {
      * @return Whether or not the limelight has a target in view
      */
     public static boolean hasValidTarget() {
-        // > 0.5 converts double to boolean
-        return validTargetEntry.getDouble(0) > 0.5;
+        double targetEntry = validTargetEntry.getDouble(0);
+        double targetHeightThreshold = SmartDashboard.getNumber("TARGET_HEIGHT_THRESHOLD", 6);
+        double minAspectRatio = SmartDashboard.getNumber("MIN_ASPECT_RATIO", 1.7);
+        double maxAspectRatio = SmartDashboard.getNumber("MAX_ASPECT_RATIO", 2.3);
+        double angleThreshold = SmartDashboard.getNumber("LIMELIGHT_ANGLE_THRESHOLD", 10);
+        return 
+            hasAnyTarget(targetEntry)
+            && hasValidHeight(targetHeightThreshold)
+            && hasValidBlueAspectRatio(minAspectRatio, maxAspectRatio)
+            && hasValidBlueOrientation(angleThreshold)
+            ;
+    }
+    public static boolean hasAnyTarget(double targetEntry){
+        // > 0.5 converts double to boolean, targetEntry is either 0 or 1
+        boolean output = targetEntry > 0.5;
+        SmartDashboard.putBoolean("VALID_TARGET", output);
+        return output;
     }
 
+    public static boolean hasValidHeight(double targetHeightThreshold){
+        // Check if target is in a possible position
+        boolean output = getTargetYAngle() < targetHeightThreshold;
+        SmartDashboard.putBoolean("VALID_HEIGHT", output);
+        return output;
+    }
+
+    public static boolean hasValidBlueAspectRatio(double minRatio, double maxRatio){
+        // Checks if target's box has a valid aspect ratio is good
+        double aspectRatio = getHorizontalSidelength() / getVerticalSidelength();
+        boolean output = aspectRatio > minRatio && aspectRatio < maxRatio ;
+        SmartDashboard.putBoolean("VALID_RATIO", output);
+        return output;
+    }
+
+    public static boolean hasValidBlueOrientation(double angleThreshold){
+        // Checks if rotation of blue box (rotated box) is good
+        boolean output = Math.abs(getTargetSkew()) < angleThreshold;
+        SmartDashboard.putBoolean("VALID_SKEW", output);
+        return output;
+    }
+    
     // Horizontal Offset From Crosshair To Target (-27 degrees to 27 degrees)
     public static final double MIN_X_ANGLE = -27;
     public static final double MAX_X_ANGLE = 27;
