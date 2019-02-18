@@ -52,17 +52,17 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotInit() {
-        // drivetrain = new Drivetrain();
-        // floop = new Floop();
-        // abom = new Abom();
-        // tail = new Tail();
-        // lift = new Lift();
-        // compressor = new Compressor();
-        // rollers = new Rollers();
-        // fangs = new Fangs();
-        // oi = new OI();
-        // IRsensor = new DigitalInput(RobotMap.IR_SENSOR_PORT);
-        // chooser.addOption("My Auto", new MyAutoCommand());
+        drivetrain = new Drivetrain();
+        floop = new Floop();
+        abom = new Abom();
+        tail = new Tail();
+        lift = new Lift();
+        compressor = new Compressor();
+        rollers = new Rollers();
+        fangs = new Fangs();
+        oi = new OI();
+        IRsensor = new DigitalInput(RobotMap.IR_SENSOR_PORT);
+        //chooser.addOption("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
         SmartDashboard.putBoolean("Enable compressor", true);
         SmartDashboard.putNumber("TURN_DIV", 120);
