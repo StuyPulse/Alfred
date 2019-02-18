@@ -17,9 +17,9 @@ public final class Rollers extends Subsystem {
     private WPI_VictorSPX motor;
 
     public Rollers() {
-        // motor = new WPI_VictorSPX(RobotMap.ROLLER_MOTOR_PORT);
-        // motor.setInverted(true);
-        // motor.setNeutralMode(NeutralMode.Brake);
+        motor = new WPI_VictorSPX(RobotMap.ROLLER_MOTOR_PORT);
+        motor.setInverted(true);
+        motor.setNeutralMode(NeutralMode.Brake);
     }
 
     @Override

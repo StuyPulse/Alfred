@@ -41,58 +41,55 @@ public final class Drivetrain extends Subsystem {
     private Solenoid gearShift;
 
     public Drivetrain() {
-        // // Left Side Motors
-        // // leftTopMotor = new CANSparkMax(RobotMap.LEFT_TOP_MOTOR_PORT, MotorType.kBrushless);
-        // // leftMiddleMotor = new CANSparkMax(RobotMap.LEFT_MIDDLE_MOTOR_PORT, MotorType.kBrushless);
-        // // leftBottomMotor = new CANSparkMax(RobotMap.LEFT_BOTTOM_MOTOR_PORT, MotorType.kBrushless);
+        // Left Side Motors
+        leftTopMotor = new CANSparkMax(RobotMap.LEFT_TOP_MOTOR_PORT, MotorType.kBrushless);
+        leftMiddleMotor = new CANSparkMax(RobotMap.LEFT_MIDDLE_MOTOR_PORT, MotorType.kBrushless);
+        leftBottomMotor = new CANSparkMax(RobotMap.LEFT_BOTTOM_MOTOR_PORT, MotorType.kBrushless);
 
-        // // // Right Side Motors
-        // // rightTopMotor = new CANSparkMax(RobotMap.RIGHT_TOP_MOTOR_PORT, MotorType.kBrushless);
-        // // rightMiddleMotor = new CANSparkMax(RobotMap.RIGHT_MIDDLE_MOTOR_PORT, MotorType.kBrushless);
-        // // rightBottomMotor = new CANSparkMax(RobotMap.RIGHT_BOTTOM_MOTOR_PORT, MotorType.kBrushless);
+        // Right Side Motors
+        rightTopMotor = new CANSparkMax(RobotMap.RIGHT_TOP_MOTOR_PORT, MotorType.kBrushless);
+        rightMiddleMotor = new CANSparkMax(RobotMap.RIGHT_MIDDLE_MOTOR_PORT, MotorType.kBrushless);
+        rightBottomMotor = new CANSparkMax(RobotMap.RIGHT_BOTTOM_MOTOR_PORT, MotorType.kBrushless);
 
-        // // NEO/SPARK MAX Encoders
-        // leftNEOEncoder = new NEOEncoder(leftMiddleMotor.getEncoder());
-        // rightNEOEncoder = new NEOEncoder(rightMiddleMotor.getEncoder());
+        // NEO/SPARK MAX Encoders
+        leftNEOEncoder = new NEOEncoder(leftMiddleMotor.getEncoder());
+        rightNEOEncoder = new NEOEncoder(rightMiddleMotor.getEncoder());
 
-        // // Greyhill Encoders
-        // leftGreyhill = new Encoder(RobotMap.DRIVETRAIN_LEFT_ENCODER_CHANNEL_A, RobotMap.DRIVETRAIN_LEFT_ENCODER_CHANNEL_B);
-        // rightGreyhill = new Encoder(RobotMap.DRIVETRAIN_RIGHT_ENCODER_CHANNEL_A, RobotMap.DRIVETRAIN_RIGHT_ENCODER_CHANNEL_B);
-        
-        // leftGreyhill.setDistancePerPulse(RobotMap.DRIVETRAIN_GREYHILL_INCHES_PER_PULSE);
-        // rightGreyhill.setDistancePerPulse(-1.0 * RobotMap.DRIVETRAIN_GREYHILL_INCHES_PER_PULSE);
+        // Greyhill Encoders
+        leftGreyhill = new Encoder(RobotMap.DRIVETRAIN_LEFT_ENCODER_CHANNEL_A, RobotMap.DRIVETRAIN_LEFT_ENCODER_CHANNEL_B);
+        rightGreyhill = new Encoder(RobotMap.DRIVETRAIN_RIGHT_ENCODER_CHANNEL_A, RobotMap.DRIVETRAIN_RIGHT_ENCODER_CHANNEL_B);
+    
+        leftGreyhill.setDistancePerPulse(RobotMap.DRIVETRAIN_GREYHILL_INCHES_PER_PULSE);
+        rightGreyhill.setDistancePerPulse(-1.0 * RobotMap.DRIVETRAIN_GREYHILL_INCHES_PER_PULSE);
 
-        // leftTopMotor.setIdleMode(CANSparkMax.IdleMode.kCoast);
-        // leftMiddleMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
-        // leftBottomMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
-        // rightTopMotor.setIdleMode(CANSparkMax.IdleMode.kCoast);
-        // rightMiddleMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
-        // rightBottomMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
+        leftTopMotor.setIdleMode(CANSparkMax.IdleMode.kCoast);
+        leftMiddleMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
+        leftBottomMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
+        rightTopMotor.setIdleMode(CANSparkMax.IdleMode.kCoast);
+        rightMiddleMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
+        rightBottomMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
 
-        // //TODO: Ask engineering about motor polarity
-        // rightTopMotor.setInverted(true);
-        // rightMiddleMotor.setInverted(true);
-        // rightBottomMotor.setInverted(true);
-        // leftTopMotor.setInverted(true);
-        // leftMiddleMotor.setInverted(true);
-        // leftBottomMotor.setInverted(true);
+        //TODO: Ask engineering about motor polarity
+        rightTopMotor.setInverted(true);
+        rightMiddleMotor.setInverted(true);
+        rightBottomMotor.setInverted(true);
+        leftTopMotor.setInverted(true);
+        leftMiddleMotor.setInverted(true);
+        leftBottomMotor.setInverted(true);
+        // Speed Groups
+        leftSpeedGroup = new SpeedControllerGroup(leftTopMotor, leftMiddleMotor, leftBottomMotor);
+        rightSpeedGroup = new SpeedControllerGroup(rightTopMotor, rightMiddleMotor, rightBottomMotor);
 
-        // // Speed Groups
-        // leftSpeedGroup = new SpeedControllerGroup(leftTopMotor, leftMiddleMotor, leftBottomMotor);
-        // rightSpeedGroup = new SpeedControllerGroup(rightTopMotor, rightMiddleMotor, rightBottomMotor);
-
-        // //Gear Shift
-        // gearShift = new Solenoid(RobotMap.GEAR_SHIFT_CHANNEL);
-        // // navx
-        // navX = new AHRS(SPI.Port.kMXP);
-        // // Drive
-        // differentialDrive = new DifferentialDrive(leftSpeedGroup, rightSpeedGroup);
-
-    }
+        //Gear Shift
+        gearShift = new Solenoid(RobotMap.GEAR_SHIFT_CHANNEL);
+        // navx
+        navX = new AHRS(SPI.Port.kMXP);
+        // Drive
+        differentialDrive = new DifferentialDrive(leftSpeedGroup, rightSpeedGroup);  }
 
     @Override
     public void initDefaultCommand() {
-        // setDefaultCommand(new DrivetrainDriveCommand());
+         setDefaultCommand(new DrivetrainDriveCommand());
     }
 
     public void curvatureDrive(double speed, double angle) {

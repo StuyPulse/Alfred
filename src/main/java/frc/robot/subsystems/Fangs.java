@@ -17,7 +17,7 @@ public final class Fangs extends Subsystem {
     private Solenoid fangsSolenoid;
 
     public Fangs() {
-        // fangsSolenoid = new Solenoid(RobotMap.FANGS_CHANNEL);
+        fangsSolenoid = new Solenoid(RobotMap.FANGS_CHANNEL);
     }
 
     @Override

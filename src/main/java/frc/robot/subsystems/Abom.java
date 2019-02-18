@@ -18,12 +18,12 @@ public final class Abom extends Subsystem {
     public boolean wantPumping;
 
     public Abom() {
-        // abomSolenoid = new Solenoid(RobotMap.ABOM_SOLENOID_PORT);
+        abomSolenoid = new Solenoid(RobotMap.ABOM_SOLENOID_PORT);
     }
 
     @Override
     public void initDefaultCommand() {
-        // setDefaultCommand(new AbomPumpControlCommand());
+        setDefaultCommand(new AbomPumpControlCommand());
     }
 
     // Toggles between out and in for the solenoid
