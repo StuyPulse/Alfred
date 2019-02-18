@@ -21,6 +21,7 @@ import frc.robot.subsystems.Floop;
 import frc.robot.subsystems.Lift;
 import frc.robot.subsystems.Rollers;
 import frc.robot.subsystems.Tail;
+import frc.util.Limelight;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -51,16 +52,16 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotInit() {
-        drivetrain = new Drivetrain();
-        floop = new Floop();
-        abom = new Abom();
-        tail = new Tail();
-        lift = new Lift();
-        compressor = new Compressor();
-        rollers = new Rollers();
-        fangs = new Fangs();
-        oi = new OI();
-        IRsensor = new DigitalInput(RobotMap.IR_SENSOR_PORT);
+        // drivetrain = new Drivetrain();
+        // floop = new Floop();
+        // abom = new Abom();
+        // tail = new Tail();
+        // lift = new Lift();
+        // compressor = new Compressor();
+        // rollers = new Rollers();
+        // fangs = new Fangs();
+        // oi = new OI();
+        // IRsensor = new DigitalInput(RobotMap.IR_SENSOR_PORT);
         // chooser.addOption("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
         SmartDashboard.putBoolean("Enable compressor", true);
@@ -70,15 +71,12 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("TURN_MIN_SPEED", 0.2);
         SmartDashboard.putNumber("TURN_MIN_ANGLE", 1);
 
-        SmartDashboard.putNumber("TARGET_HEIGHT_THRESHOLD", 6);
-        SmartDashboard.putNumber("MIN_ASPECT_RATIO", 1.7);
-        SmartDashboard.putNumber("MAX_ASPECT_RATIO", 2.3);
-        SmartDashboard.putNumber("LIMELIGHT_ANGLE_THRESHOLD", 10);
-
         SmartDashboard.putBoolean("VALID_TARGET", false);
         SmartDashboard.putBoolean("VALID_HEIGHT", false);
         SmartDashboard.putBoolean("VALID_RATIO", false);
         SmartDashboard.putBoolean("VALID_SKEW", false);
+
+        SmartDashboard.putNumber("CAM_MODE", 1);
     }
 
     /**
@@ -92,8 +90,8 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotPeriodic() {
-        controlCompressor();
-        SmartDashboard.putBoolean("IR Sensor", isGamePieceDetected());
+        //controlCompressor();
+        //SmartDashboard.putBoolean("IR Sensor", isGamePieceDetected());
     }
 
     /**
@@ -124,7 +122,6 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousInit() {
-        setUpDoubleSolenoids();
         autonomousCommand = chooser.getSelected();
 
         /*
@@ -154,7 +151,7 @@ public class Robot extends TimedRobot {
         // teleop starts running. If you want the autonomous to
         // continue until interrupted by another command, remove
         // this line or comment it out.
-        Robot.floop.open();
+        //Robot.floop.open();
         if (autonomousCommand != null) {
             autonomousCommand.cancel();
         }
@@ -166,16 +163,23 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        SmartDashboard.putNumber("Drivetrain Left Greyhill Encoder Val: ", Robot.drivetrain.getLeftGreyhillDistance());
-        SmartDashboard.putNumber("Drivetrain Right Greyhill Encoder Val: ",
-                Robot.drivetrain.getRightGreyhillDistance());
-        SmartDashboard.putNumber("Drivetrain Left Greyhill Raw Val: ", Robot.drivetrain.getLeftGreyhillTicks());
-        SmartDashboard.putNumber("Drivetrain Right Greyhill Raw Val: ",
-                Robot.drivetrain.getRightGreyhillTicks());
-        SmartDashboard.putNumber("Lift Encoder Val: ", Robot.lift.getHeight());
-        SmartDashboard.putBoolean("Lift Top Optical Sensor: ", Robot.lift.isAtTop());
-        SmartDashboard.putBoolean("Lift Bottom Optical Sensor: ", Robot.lift.isAtBottom());
-        SmartDashboard.putNumber("Tom's Metric for Tail: ", Robot.tail.getTomsMetric());
+        
+        if(SmartDashboard.getNumber("CAM_MODE",0) == 1){
+            Limelight.setCamMode(Limelight.CamMode.DRIVER);
+        }else{
+            Limelight.setCamMode(Limelight.CamMode.VISION);
+        }
+        Limelight.hasValidTarget();
+        // SmartDashboard.putNumber("Drivetrain Left Greyhill Encoder Val: ", Robot.drivetrain.getLeftGreyhillDistance());
+        // SmartDashboard.putNumber("Drivetrain Right Greyhill Encoder Val: ",
+        //         Robot.drivetrain.getRightGreyhillDistance());
+        // SmartDashboard.putNumber("Drivetrain Left Greyhill Raw Val: ", Robot.drivetrain.getLeftGreyhillTicks());
+        // SmartDashboard.putNumber("Drivetrain Right Greyhill Raw Val: ",
+        //         Robot.drivetrain.getRightGreyhillTicks());
+        // SmartDashboard.putNumber("Lift Encoder Val: ", Robot.lift.getHeight());
+        // SmartDashboard.putBoolean("Lift Top Optical Sensor: ", Robot.lift.isAtTop());
+        // SmartDashboard.putBoolean("Lift Bottom Optical Sensor: ", Robot.lift.isAtBottom());
+        // SmartDashboard.putNumber("Tom's Metric for Tail: ", Robot.tail.getTomsMetric());
     }
 
     /**
@@ -194,8 +198,8 @@ public class Robot extends TimedRobot {
     }
 
     private void setUpDoubleSolenoids() {
-        lift.tiltBack();
-        fangs.lower();
+        // lift.tiltBack();
+        // fangs.lower();
     }
 
     private boolean isGamePieceDetected() {

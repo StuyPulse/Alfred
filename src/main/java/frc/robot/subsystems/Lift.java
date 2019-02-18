@@ -27,23 +27,23 @@ public final class Lift extends Subsystem {
     public boolean rampDisabled;
 
     public Lift() {
-        masterTalon = new WPI_TalonSRX(RobotMap.LIFT_MASTER_TALON_MOTOR_PORT);
-        followerTalon = new WPI_VictorSPX(RobotMap.LIFT_FOLLOWER_VICTOR_MOTOR_PORT);
+        // masterTalon = new WPI_TalonSRX(RobotMap.LIFT_MASTER_TALON_MOTOR_PORT);
+        // followerTalon = new WPI_VictorSPX(RobotMap.LIFT_FOLLOWER_VICTOR_MOTOR_PORT);
 
-        followerTalon.follow(masterTalon);
+        // followerTalon.follow(masterTalon);
 
-        masterTalon.setNeutralMode(NeutralMode.Brake);
-        followerTalon.setNeutralMode(NeutralMode.Brake);
+        // masterTalon.setNeutralMode(NeutralMode.Brake);
+        // followerTalon.setNeutralMode(NeutralMode.Brake);
 
-        masterTalon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+        // masterTalon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 
-        tiltSolenoid = new DoubleSolenoid(1, RobotMap.LIFT_TILT_SOLENOID_FORWARD_PORT,
-                RobotMap.LIFT_TILT_SOLENOID_REVERSE_PORT);
-        brakeSolenoid = new Solenoid(1, RobotMap.LIFT_BRAKE_SOLENOID_PORT);
+        // tiltSolenoid = new DoubleSolenoid(1, RobotMap.LIFT_TILT_SOLENOID_FORWARD_PORT,
+        //         RobotMap.LIFT_TILT_SOLENOID_REVERSE_PORT);
+        // brakeSolenoid = new Solenoid(1, RobotMap.LIFT_BRAKE_SOLENOID_PORT);
 
-        // TODO: Uncomment this when the limit switches are wired
-        // topOpticalSensor = new DigitalInput(RobotMap.LIFT_TOP_OPTICAL_SENSOR_PORT);
-        bottomOpticalSensor = new DigitalInput(RobotMap.LIFT_BOTTOM_OPTICAL_SENSOR_PORT);
+        // // TODO: Uncomment this when the limit switches are wired
+        // // topOpticalSensor = new DigitalInput(RobotMap.LIFT_TOP_OPTICAL_SENSOR_PORT);
+        // bottomOpticalSensor = new DigitalInput(RobotMap.LIFT_BOTTOM_OPTICAL_SENSOR_PORT);
 
         // TODO: Uncomment this when the encoders work
         // enableRamping();
@@ -52,12 +52,12 @@ public final class Lift extends Subsystem {
         disableRamping();
 
         /// Encoders
-        masterTalon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+        // masterTalon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
     }
 
     @Override
     public void initDefaultCommand() {
-        setDefaultCommand(new LiftMoveCommand());
+        // setDefaultCommand(new LiftMoveCommand());
     }
 
     public void resetEncoder() {

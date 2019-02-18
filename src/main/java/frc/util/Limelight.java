@@ -22,21 +22,23 @@ public class Limelight {
      * @return Whether or not the limelight has a target in view
      */
     public static boolean hasValidTarget() {
+        System.out.println("running limelight");
         double targetEntry = validTargetEntry.getDouble(0);
-        double targetHeightThreshold = SmartDashboard.getNumber("TARGET_HEIGHT_THRESHOLD", 6);
-        double minAspectRatio = SmartDashboard.getNumber("MIN_ASPECT_RATIO", 1.7);
-        double maxAspectRatio = SmartDashboard.getNumber("MAX_ASPECT_RATIO", 2.3);
-        double angleThreshold = SmartDashboard.getNumber("LIMELIGHT_ANGLE_THRESHOLD", 10);
+        double targetHeightThreshold = 6;
+        double minAspectRatio = 1.4;
+        double maxAspectRatio = 2.9;
+        double angleThreshold = 20;
         return 
             hasAnyTarget(targetEntry)
-            && hasValidHeight(targetHeightThreshold)
-            && hasValidBlueAspectRatio(minAspectRatio, maxAspectRatio)
-            && hasValidBlueOrientation(angleThreshold)
+            & hasValidHeight(targetHeightThreshold)
+            & hasValidBlueAspectRatio(minAspectRatio, maxAspectRatio)
+            & hasValidBlueOrientation(angleThreshold)
             ;
     }
     public static boolean hasAnyTarget(double targetEntry){
         // > 0.5 converts double to boolean, targetEntry is either 0 or 1
         boolean output = targetEntry > 0.5;
+        System.out.println(output);
         SmartDashboard.putBoolean("VALID_TARGET", output);
         return output;
     }
@@ -53,12 +55,18 @@ public class Limelight {
         double aspectRatio = getHorizontalSidelength() / getVerticalSidelength();
         boolean output = aspectRatio > minRatio && aspectRatio < maxRatio ;
         SmartDashboard.putBoolean("VALID_RATIO", output);
+        System.out.println(aspectRatio);
         return output;
     }
 
     public static boolean hasValidBlueOrientation(double angleThreshold){
         // Checks if rotation of blue box (rotated box) is good
-        boolean output = Math.abs(getTargetSkew()) < angleThreshold;
+
+
+        double diffFromNeg90 = Math.abs(-90 - getTargetSkew());
+        double diffFrom0 =  Math.abs(getTargetSkew());
+        double smallerDifference = Math.min(diffFromNeg90,diffFrom0);
+        boolean output = smallerDifference <= angleThreshold;
         SmartDashboard.putBoolean("VALID_SKEW", output);
         return output;
     }
