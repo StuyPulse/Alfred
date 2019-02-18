@@ -28,11 +28,7 @@ public final class Floop extends Subsystem {
     }
 
     public void toggle() {
-        if(isOpen()) {
-            close();
-        } else {
-            open();
-        }
+        floopSolenoid.set(!isOpen());
     }
 
     public boolean isOpen() {

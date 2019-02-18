@@ -7,8 +7,7 @@
 
 package frc.robot;
 
-import frc.robot.commands.AbomPumpCommand;
-import frc.robot.commands.AbomStopPumpCommand;
+import frc.robot.commands.AbomToggleCommand;
 import frc.robot.commands.AutomaticDriveCommand;
 import frc.robot.commands.AutomaticTurnCommand;
 import frc.robot.commands.BITHPOIN;
@@ -19,9 +18,7 @@ import frc.robot.commands.FangsRaiseCommand;
 import frc.robot.commands.FloopCloseCommand;
 import frc.robot.commands.FloopOpenCommand;
 import frc.robot.commands.LiftMoveToHeightCommand;
-import frc.robot.commands.LiftTiltBackCommand;
-import frc.robot.commands.LiftTiltFowardCommand;
-import frc.robot.commands.PrepareForDefenseCommand;
+import frc.robot.commands.LiftToggleCommand;
 import frc.robot.commands.RollersConstantAcquireCommand;
 import frc.robot.commands.RollersConstantDeacquireCommand;
 import frc.robot.commands.RollersManualAcquireCommand;
@@ -68,22 +65,17 @@ public class OI {
         // operatorGamepad.getLeftButton().whenPressed(new OverrideLimitSwitchCommand());
         // TODO: Create an OverrideLimitSwitchCommand!
 
-        operatorGamepad.getDPadRight().whenPressed(new LiftTiltFowardCommand()); //Verified
-        operatorGamepad.getDPadLeft().whenPressed(new LiftTiltBackCommand()); //Verified
-        operatorGamepad.getDPadUp().whenPressed(new PrepareForDefenseCommand()); //Verified
-        operatorGamepad.getDPadDown().whenPressed(new LiftMoveToHeightCommand(0)); //Verified
-        //TODO: Figure out defense mode height
+        // operatorGamepad.getDPadRight().whenPressed(new LiftTiltBackCommand()); //Verified
+        operatorGamepad.getDPadLeft().whenPressed(new LiftToggleCommand()); //Verified
+        // operatorGamepad.getDPadUp().whenPressed(new PrepareForDefenseCommand()); //Verified
+        // operatorGamepad.getDPadDown().whenPressed(new LiftMoveToHeightCommand(0)); //Verified
+        operatorGamepad.getDPadDown().whenPressed(new LiftMoveToHeightCommand(RobotMap.LEVEL_1_HEIGHT));
+        operatorGamepad.getDPadRight().whenPressed(new LiftMoveToHeightCommand(RobotMap.LEVEL_2_HEIGHT));
+        operatorGamepad.getDPadUp().whenPressed(new LiftMoveToHeightCommand(RobotMap.LEVEL_3_HEIGHT));
 
-        if (operatorGamepad.getRawRightAnalogButton()) {
-            if (abomPumping == true){
-                new AbomStopPumpCommand();
-                abomPumping = false;
-            } else {
-                new AbomPumpCommand();
-                abomPumping = true;
-            }
-        }
 
+
+        operatorGamepad.getRightAnalogButton().whenPressed(new AbomToggleCommand());
 
         //FOR LEFT JOYSTICK: LiftMoveCommand (default of lift subsystem)
         //FOR RIGHT JOYSTICK: TailClimbCommand (default of tail subsystem)

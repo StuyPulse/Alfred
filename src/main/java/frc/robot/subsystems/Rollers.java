@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -18,12 +19,11 @@ public final class Rollers extends Subsystem {
     public Rollers() {
         motor = new WPI_VictorSPX(RobotMap.ROLLER_MOTOR_PORT);
         motor.setInverted(true);
+        motor.setNeutralMode(NeutralMode.Brake);
     }
 
     @Override
     public void initDefaultCommand() {
-        // TODO: Fix RollersRampingCommand to not take in a parameter after OI works
-        // setDefaultCommand(new RollersRampingCommand());
     }
 
     public void acquire() {

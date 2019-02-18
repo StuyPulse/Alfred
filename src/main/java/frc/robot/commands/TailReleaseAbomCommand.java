@@ -16,7 +16,6 @@ public class TailReleaseAbomCommand extends InstantCommand {
         requires(Robot.tail);
     }
 
-    // Called just before this Command runs the first time
     @Override
     protected void initialize() {
         // Release the Abom!

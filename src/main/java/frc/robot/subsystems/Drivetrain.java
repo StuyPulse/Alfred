@@ -60,7 +60,7 @@ public final class Drivetrain extends Subsystem {
         rightGreyhill = new Encoder(RobotMap.DRIVETRAIN_RIGHT_ENCODER_CHANNEL_A, RobotMap.DRIVETRAIN_RIGHT_ENCODER_CHANNEL_B);
         
         leftGreyhill.setDistancePerPulse(RobotMap.DRIVETRAIN_GREYHILL_INCHES_PER_PULSE);
-        rightGreyhill.setDistancePerPulse(RobotMap.DRIVETRAIN_GREYHILL_INCHES_PER_PULSE);
+        rightGreyhill.setDistancePerPulse(-1.0 * RobotMap.DRIVETRAIN_GREYHILL_INCHES_PER_PULSE);
 
         leftTopMotor.setIdleMode(CANSparkMax.IdleMode.kCoast);
         leftMiddleMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
@@ -161,11 +161,11 @@ public final class Drivetrain extends Subsystem {
     }
 
     public boolean isMoving() {
-        return Math.abs(rightSpeedGroup.get()) > 0 || Math.abs(leftSpeedGroup.get()) > 0;
+        //not 0,but 0.07 because joysticks are typically not at 0 when start
+        return Math.abs(rightSpeedGroup.get()) > 0.07 || Math.abs(leftSpeedGroup.get()) > 0.07;
     }
 
     public void highGearShift() {
-        //TODO: test + find the correct boolean value
         gearShift.set(false);
     }
 

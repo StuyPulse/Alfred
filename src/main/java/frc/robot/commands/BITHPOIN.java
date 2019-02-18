@@ -11,9 +11,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 
 public class BITHPOIN extends CommandGroup {
-    /**
-     * Runs the acquirer for cargo
-     */
+
+    //Bring In The Hatch Panel Orient It Nicely
+
     public final double WAIT_TIMEOUT = 0.7;
 
     public BITHPOIN() {

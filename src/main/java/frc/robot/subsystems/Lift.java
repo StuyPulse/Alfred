@@ -8,8 +8,8 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 import frc.robot.commands.LiftMoveCommand;
@@ -18,8 +18,7 @@ public final class Lift extends Subsystem {
     private WPI_TalonSRX masterTalon;
     private WPI_VictorSPX followerTalon;
 
-    private DigitalInput topLimitSwitch;
-    private DigitalInput bottomLimitSwitch;
+    private DigitalInput bottomOpticalSensor;
 
     private DoubleSolenoid tiltSolenoid;
     private Solenoid brakeSolenoid;
@@ -37,18 +36,12 @@ public final class Lift extends Subsystem {
 
         masterTalon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 
-        // tiltSolenoid = new DoubleSolenoid(RobotMap.LIFT_TILT_SOLENOID_FORWARD_PORT,
-        //         RobotMap.LIFT_TILT_SOLENOID_REVERSE_PORT);
-        // brakeSolenoid = new Solenoid(RobotMap.LIFT_BRAKE_SOLENOID_PORT);
+        tiltSolenoid = new DoubleSolenoid(1, RobotMap.LIFT_TILT_SOLENOID_FORWARD_PORT,
+                RobotMap.LIFT_TILT_SOLENOID_REVERSE_PORT);
+        brakeSolenoid = new Solenoid(1, RobotMap.LIFT_BRAKE_SOLENOID_PORT);
 
-        // TODO: Uncomment this when the limit switches are wired
-        // topLimitSwitch = new DigitalInput(RobotMap.LIFT_TOP_LIMIT_SWITCH_PORT);
-        // bottomLimitSwitch = new DigitalInput(RobotMap.LIFT_BOTTOM_LIMIT_SWITCH_PORT);
+        bottomOpticalSensor = new DigitalInput(RobotMap.LIFT_BOTTOM_OPTICAL_SENSOR_PORT);
 
-        // TODO: Uncomment this when the encoders work
-        // enableRamping();
-
-        // TODO: Comment when encoders work
         disableRamping();
 
         /// Encoders
@@ -73,27 +66,15 @@ public final class Lift extends Subsystem {
     }
 
     public double getHeight() {
-        return getRawEncoderUnits() * RobotMap.LIFT_ENCODER_RAW_MULTIPLIER;
-    }
-
-    public boolean isAtTop() {
-        // TODO: Uncomment these when the limit switches get wired
-        // boolean atTop = topLimitSwitch.get();
-        // if (atTop) {
-        // setEncoder(RobotMap.LIFT_MAX_HEIGHT);
-        // }
-        // return atTop;
-        return false;
+        return -1.0 * getRawEncoderUnits() * RobotMap.LIFT_ENCODER_RAW_MULTIPLIER;
     }
 
     public boolean isAtBottom() {
-        // TODO: Uncomment these when the limit switches get wired
-        // boolean atBottom = bottomLimitSwitch.get();
-        // if (atBottom) {
-        // setEncoder(RobotMap.LIFT_MIN_HEIGHT);
-        // }
-        // return atBottom;
-        return false;
+        boolean atBottom = !bottomOpticalSensor.get();
+        if (atBottom) {
+            setHeight(RobotMap.LIFT_MIN_HEIGHT);
+        }
+        return atBottom; //The sensor is inverted
     }
 
     public void stop() {
@@ -104,11 +85,11 @@ public final class Lift extends Subsystem {
     public void moveNoRamp(double speed) {
         if (Math.abs(speed) < RobotMap.LIFT_MIN_SPEED) {
             stop();
-        } else if (isAtTop() || isAtBottom()) {
+        } else if (isAtBottom() && speed < 0) {
             stop();
         } else {
             releaseBrake();
-            masterTalon.set(speed);
+            masterTalon.set(speed * RobotMap.LIFT_SPEED_MULTIPLIER);
         }
     }
 
@@ -158,23 +139,35 @@ public final class Lift extends Subsystem {
         }
     }
 
-    public void tiltFoward() {
-        // tiltSolenoid.set(Value.kForward);
+    public void tiltForward() {
+        tiltSolenoid.set(Value.kReverse);
     }
 
     public void tiltBack() {
-        // tiltSolenoid.set(Value.kReverse);
+        tiltSolenoid.set(Value.kForward);
+    }
+
+    public boolean isTiltedForward() {
+        return tiltSolenoid.get() == Value.kReverse;
+    }
+
+    public void toggle() {
+        if (isTiltedForward()) {
+            tiltBack();
+        } else {
+            tiltForward();
+        }
     }
 
     public void enableBrake() {
-        // brakeSolenoid.set(false);
+        brakeSolenoid.set(false);
     }
 
     public void releaseBrake() {
-        // brakeSolenoid.set(true);
+        brakeSolenoid.set(true);
     }
 
-    public void enableRamping() {
+    public void enableRamping() { 
         rampDisabled = false;
     }
 

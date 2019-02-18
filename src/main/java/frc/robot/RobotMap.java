@@ -35,7 +35,7 @@ public interface RobotMap {
     /***************************************************************************************
      * Tail and Abom Ports
      ****************************************************************************************/
-    int RATCHET_SOLENOID_PORT = 4;
+    int RATCHET_SOLENOID_PORT = 1; //PCM 2 (10)
     int TAIL_MOTOR_PORT = 4;
     int ABOM_SOLENOID_PORT = 6;
 
@@ -45,13 +45,12 @@ public interface RobotMap {
     int LIFT_MASTER_TALON_MOTOR_PORT = 8;
     int LIFT_FOLLOWER_VICTOR_MOTOR_PORT = 9;
 
-    int LIFT_TILT_SOLENOID_FORWARD_PORT = 5;
-    int LIFT_TILT_SOLENOID_REVERSE_PORT = 6;
+    int LIFT_TILT_SOLENOID_FORWARD_PORT = 5; //PCM 2 (13)
+    int LIFT_TILT_SOLENOID_REVERSE_PORT = 7; //PCM 2 (15)
 
-    int LIFT_BRAKE_SOLENOID_PORT = 7;
-
-    int LIFT_TOP_LIMIT_SWITCH_PORT = -1;
-    int LIFT_BOTTOM_LIMIT_SWITCH_PORT = -1;
+    int LIFT_BRAKE_SOLENOID_PORT = 6; //PCM 2 (8)
+    int LIFT_TOP_OPTICAL_SENSOR_PORT = -1;
+    int LIFT_BOTTOM_OPTICAL_SENSOR_PORT = 5;
 
     /***************************************************************************************
      * Floop Solenoid Port
@@ -82,19 +81,15 @@ public interface RobotMap {
     /***************************************************************************************
      * Abom Charge Constants
      ****************************************************************************************/
-    int ABOM_CHARGE_DELAY_MS = 300; // Time it takes for a piston to fire and retract
-
-    /***************************************************************************************
-     * CV Constants
-     ****************************************************************************************/
-    double ACCELERATION_DIV = 4; // Using averages, you can allow for smoother movement
-    double CV_SPEED = 0; // Speed that stays the same through movements
+    double ABOM_CHARGE_DELAY_SEC = 2.0/3.0; // Time it takes for a piston to fire and retract
+    double ABOM_TIME_TO_EXTEND = 0.1;
+    double ABOM_TIME_TO_RETRACT = 0.2;
 
     /***************************************************************************************
      * Aim Assist Constants
      ****************************************************************************************/
-    double TURN_DIV = 24; // Changes the speed that the robot will turn
-    double MOVE_TURN_DIV = 2; // Changes the speed that the robot will turn while moving (The more it moves, the less it turns)
+    double TURN_DIV = 82; // Changes the speed that the robot will turn
+    double MOVE_TURN_DIV = 3; // Changes the speed that the robot will turn while moving (The more it moves, the less it turns)
 
     /***************************************************************************************
      * Auton Assist Constants
@@ -102,7 +97,7 @@ public interface RobotMap {
     double FORWARD_AREA = 0.0145; // Area at which robot will move forward
     double MIN_AUTO_SPEED = 0.25; // Slowest speed for auto accelerate
     double AUTO_SPEED_MUL = 1.5 / FORWARD_AREA; // Auto Drive Speed
-    int JOYSTICK_SCALAR = 3; // Used to make joystick values smaller (Must be an odd number)(for CV)
+    int JOYSTICK_SCALAR = 5; // Used to make joystick values smaller (Must be an odd number)(for CV)
 
     /***************************************************************************************
      * Drivetrain Motor Constants
@@ -116,29 +111,31 @@ public interface RobotMap {
     /***************************************************************************************
      * Drivetrain Greyhill Encoder Constants
      ****************************************************************************************/
-    double GREYHILL_PULSES_PER_REVOLUTION = 1024; //TODO: check this
-    double DRIVETRAIN_GREYHILL_INCHES_PER_PULSE = WHEEL_INCHES_PER_REVOLUTION / GREYHILL_PULSES_PER_REVOLUTION;
+    double GREYHILL_PULSES_PER_REVOLUTION = 256 * 4.0; //TODO: check this
+    double DRIVETRAIN_OUTER_GEAR_RATIO = 24.0 / 60.0;
+    double DRIVETRAIN_ENCODER_EMPIRICAL_MULTIPLIER = 1.3;
+    double DRIVETRAIN_GREYHILL_INCHES_PER_PULSE = ((WHEEL_INCHES_PER_REVOLUTION * DRIVETRAIN_OUTER_GEAR_RATIO) / GREYHILL_PULSES_PER_REVOLUTION) * DRIVETRAIN_ENCODER_EMPIRICAL_MULTIPLIER;
 
     /**************************************************************************
      * Lift Constants
      *************************************************************************/
-    double LIFT_ENCODER_TICKS_PER_REV = 1024;
-    double LIFT_WINCH_DIAMETER_INCHES = 1.75;
-    double LIFT_WINCH_TO_ENCODER_RATIO = 8 / 13; // 8 revs of the winch = 13 revs of the encoder
-    double LIFT_EMPIRICAL_RAW_MULTIPLIER = 1;
-    double LIFT_ENCODER_RAW_MULTIPLIER = LIFT_EMPIRICAL_RAW_MULTIPLIER * LIFT_WINCH_TO_ENCODER_RATIO *
-        (LIFT_WINCH_DIAMETER_INCHES * Math.PI / LIFT_ENCODER_TICKS_PER_REV);
+    double LIFT_ENCODER_TICKS_PER_REV = 1024.0;
+    double LIFT_ENCODER_RAW_MULTIPLIER = 1 / 1207.0;
     double LIFT_MIN_SPEED = 0.1;
+    double LIFT_SPEED_MULTIPLIER = 0.5;
+
     // Waiting on eng for the height
     // Eric said the total carriage movement is about 74 in
     double LIFT_MAX_HEIGHT = -1;
-    double LIFT_MIN_HEIGHT = -1;
-    double LIFT_RAMP_HEIGHT_THRESHOLD = 1;
+    double LIFT_MIN_HEIGHT = 0;
+    double LIFT_RAMP_HEIGHT_THRESHOLD = 1.0;
 
-    //TODO: Figure out actual heights and input
-    double LEVEL_1_HEIGHT = 5;
-    double LEVEL_2_HEIGHT = 10;
-    double LEVEL_3_HEIGHT = 15;
+    //TODO: Test these values
+    double LEVEL_1_HEIGHT = 8.68;
+    double LEVEL_2_HEIGHT = 37.5;
+    double LEVEL_3_HEIGHT = 64.6;
+
+    double LIFT_LEVEL_OFFSHOOT = 2.0;
 
     /***************************************************************************************
      * Rollers Constants

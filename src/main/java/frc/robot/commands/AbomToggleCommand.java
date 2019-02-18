@@ -10,15 +10,14 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 
-public class AbomStopPumpCommand extends InstantCommand {
+public class AbomToggleCommand extends InstantCommand {
 
-    public AbomStopPumpCommand() {
-        requires(Robot.abom);
-    }
+  public AbomToggleCommand() {
+    requires(Robot.abom);
+  }
 
-    // Called just before this Command runs the first time
-    @Override
-    protected void initialize() {
-        Robot.abom.stop();
-    }
+  @Override
+  protected void initialize() {
+    Robot.abom.setWantPumpingStatus(!Robot.abom.getWantPumpingStatus());
+  }
 }
