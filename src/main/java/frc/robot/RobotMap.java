@@ -97,7 +97,7 @@ public interface RobotMap {
     double FORWARD_AREA = 0.0145; // Area at which robot will move forward
     double MIN_AUTO_SPEED = 0.25; // Slowest speed for auto accelerate
     double AUTO_SPEED_MUL = 1.5 / FORWARD_AREA; // Auto Drive Speed
-    int JOYSTICK_SCALAR = 5; // Used to make joystick values smaller (Must be an odd number)(for CV)
+    int JOYSTICK_SCALAR = 9; // Used to make joystick values smaller (Must be an odd number)(for CV)
 
     /***************************************************************************************
      * Drivetrain Motor Constants

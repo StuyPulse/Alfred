@@ -7,7 +7,7 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.cameraserver.*;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -40,6 +40,8 @@ public class Robot extends TimedRobot {
     public static Compressor compressor;
     public static Rollers rollers;
     public static Fangs fangs;
+
+    public static double liftSpeedGoingDown;
 
     public static DigitalInput IRsensor;
 
@@ -163,6 +165,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("Lift Encoder Val: ", Robot.lift.getHeight());
         SmartDashboard.putBoolean("Lift Bottom Optical Sensor: ", Robot.lift.isAtBottom());
         SmartDashboard.putNumber("Tom's Metric for Tail: ", Robot.tail.getTomsMetric());
+        liftSpeedGoingDown = SmartDashboard.getNumber("Lift Auto Complete Speed Going Down", 0.5);
     }
 
     /**

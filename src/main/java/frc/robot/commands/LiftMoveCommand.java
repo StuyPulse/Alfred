@@ -106,7 +106,7 @@ public class LiftMoveCommand extends Command {
         if (autoCompDir == Direction.UP && Robot.lift.getHeight() < numInches) {
             Robot.lift.move(1);
         } else if(autoCompDir == Direction.DOWN && Robot.lift.getHeight() > numInches) {
-            Robot.lift.move(SmartDashboard.getNumber("AutoComplete Speed Down: ", -0.5));
+            Robot.lift.move(Robot.liftSpeedGoingDown);
         } else if(autoCompDir != Direction.NULL) {
             autoCompDir = Direction.NULL;
             targetLevel = Level.ZERO;

@@ -25,7 +25,7 @@ public class TailClimbCommand extends Command {
             if(!Robot.tail.ratchetMoved()) {
                 Robot.tail.disengageRatchet();
             }
-            Robot.tail.setSpeed(0.2);
+            Robot.tail.setSpeed(1.0);
         }
         if(speed < .5) {
             if(Robot.tail.ratchetMoved()) {
