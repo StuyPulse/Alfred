@@ -26,20 +26,11 @@ public final class Abom extends Subsystem {
         setDefaultCommand(new AbomPumpControlCommand());
     }
 
-    // Toggles between out and in for the solenoid
-    public void pump() {
-        abomSolenoid.set(!abomSolenoid.get());
-    }
-
     public void pumpIn() {
         abomSolenoid.set(true);
     }
 
     public void pumpOut() {
-        abomSolenoid.set(false);
-    }
-    // Retracts the Solenoid
-    public void stop() {
         abomSolenoid.set(false);
     }
 
