@@ -84,6 +84,7 @@ public class Robot extends TimedRobot {
     public void robotPeriodic() {
         controlCompressor();
         SmartDashboard.putBoolean("IR Sensor", isGamePieceDetected());
+        liftSpeedGoingDown = SmartDashboard.getNumber("Lift Auto Complete Speed Going Down", 0.5);
     }
 
     /**
@@ -165,7 +166,6 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("Lift Encoder Val: ", Robot.lift.getHeight());
         SmartDashboard.putBoolean("Lift Bottom Optical Sensor: ", Robot.lift.isAtBottom());
         SmartDashboard.putNumber("Tom's Metric for Tail: ", Robot.tail.getTomsMetric());
-        liftSpeedGoingDown = SmartDashboard.getNumber("Lift Auto Complete Speed Going Down", 0.5);
     }
 
     /**
