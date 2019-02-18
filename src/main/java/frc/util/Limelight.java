@@ -224,6 +224,22 @@ public class Limelight {
         return table.getEntry("cy" + crosshair).getDouble(0);
     }
 
+    /* Contour Corner Values */
+    
+    /**
+     * Enable “send contours” in the “Output” tab to stream corner coordinates:
+     * @return Corners of contours, sorted in clockwise direction. (Represented as Vectors)
+     */
+    public static Vector2d[] getPoints() {
+        double[] x = table.getEntry("tcornx").getDoubleArray(new double[] {0});
+        double[] y = table.getEntry("tcorny").getDoubleArray(new double[] {0});
+        Vector2d[] points = new Vector2d[x.length];
+        for(int i = 0;i< x.length; i++){
+            points[i] = new Vector2d(x[i],y[i]);
+        }
+        return points;
+    }
+
     /* Custom Grip Values */
     // Return data given by custom GRIP pipeline
     /**

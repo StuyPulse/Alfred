@@ -26,7 +26,7 @@ public class DrivetrainDriveCommand extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-
+        
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -68,6 +68,7 @@ public class DrivetrainDriveCommand extends Command {
 
         // Set the turn value to the joystick's x value
         turn = Math.pow(Robot.oi.driverGamepad.getLeftX(), RobotMap.JOYSTICK_SCALAR);
+        turn *= Math.signum((Robot.oi.driverGamepad.getLeftX()));
     }
 
     // Sub commands for each curvature drive variable
@@ -75,6 +76,9 @@ public class DrivetrainDriveCommand extends Command {
         Robot.drivetrain.curvatureDrive(speed, turn, quickTurn);
     }
 
+    protected boolean hasValidTarget(){
+        return Limelight.hasValidTarget() && Limelight.getTargetSkew() > -45;
+    }
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {

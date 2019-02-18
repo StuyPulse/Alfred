@@ -86,16 +86,15 @@ public interface RobotMap {
     double ABOM_TIME_TO_RETRACT = 0.2;
 
     /***************************************************************************************
-     * CV Constants
-     ****************************************************************************************/
-    double ACCELERATION_DIV = 4; // Using averages, you can allow for smoother movement
-    double CV_SPEED = 0; // Speed that stays the same through movements
-
-    /***************************************************************************************
      * Aim Assist Constants
      ****************************************************************************************/
+<<<<<<< HEAD
     double TURN_DIV = 100; // Changes the speed that the robot will turn
     double MOVE_TURN_DIV = 20; // Changes the speed that the robot will turn while moving (The more it moves, the less it turns)
+=======
+    double TURN_DIV = 82; // Changes the speed that the robot will turn
+    double MOVE_TURN_DIV = 3; // Changes the speed that the robot will turn while moving (The more it moves, the less it turns)
+>>>>>>> f37ff1261bcb4e5fff4edc5c321e6df0341aaa12
 
     double TURN_MIN_SPEED = 0.3;
     double TURN_MIN_ANGLE = 0.1;
@@ -105,7 +104,7 @@ public interface RobotMap {
     double FORWARD_AREA = 0.0145; // Area at which robot will move forward
     double MIN_AUTO_SPEED = 0.25; // Slowest speed for auto accelerate
     double AUTO_SPEED_MUL = 1.5 / FORWARD_AREA; // Auto Drive Speed
-    int JOYSTICK_SCALAR = 3; // Used to make joystick values smaller (Must be an odd number)(for CV)
+    int JOYSTICK_SCALAR = 5; // Used to make joystick values smaller (Must be an odd number)(for CV)
 
     /***************************************************************************************
      * Drivetrain Motor Constants
