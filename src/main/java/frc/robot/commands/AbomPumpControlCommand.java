@@ -14,24 +14,20 @@ import frc.robot.RobotMap;
 
 public class AbomPumpControlCommand extends Command {
   private double lastPumped;
-  private double currentTime;
 
   public AbomPumpControlCommand() {
-    // Use requires() here to declare subsystem dependencies
     requires(Robot.abom);
   }
 
-  // Called just before this Command runs the first time
   @Override
   protected void initialize() {
     lastPumped = -1;
   }
 
-  // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if (!Robot.abom.wantPumping) {
-      Robot.abom.stop();
+    if (!Robot.abom.getWantPumpingStatus()) {
+      Robot.abom.pumpOut();
     } else if (!Robot.abom.get() && Robot.abom.shouldTakeAction(lastPumped, RobotMap.ABOM_TIME_TO_EXTEND)) {
       Robot.abom.pumpIn();
       lastPumped = Timer.getFPGATimestamp();

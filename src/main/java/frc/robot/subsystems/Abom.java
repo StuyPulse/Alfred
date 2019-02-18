@@ -15,7 +15,7 @@ import frc.robot.commands.AbomPumpControlCommand;
 
 public final class Abom extends Subsystem {
     Solenoid abomSolenoid;
-    public boolean wantPumping;
+    private boolean wantPumping;
 
     public Abom() {
         abomSolenoid = new Solenoid(RobotMap.ABOM_SOLENOID_PORT);
@@ -41,7 +41,14 @@ public final class Abom extends Subsystem {
     public boolean shouldTakeAction(double lastPumped, double timeToActuate) {
         boolean output = lastPumped < 0 
                 || (Timer.getFPGATimestamp() - lastPumped) > timeToActuate;
-        if(output) System.out.println("true");
         return output;
+    }
+
+    public boolean getWantPumpingStatus() {
+        return wantPumping;
+    }
+
+    public void setWantPumpingStatus(boolean status) {
+        wantPumping = status;
     }
 }

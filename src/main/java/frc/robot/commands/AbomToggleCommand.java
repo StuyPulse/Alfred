@@ -13,13 +13,11 @@ import frc.robot.Robot;
 public class AbomToggleCommand extends InstantCommand {
 
   public AbomToggleCommand() {
-    // Use requires() here to declare subsystem dependencies
     requires(Robot.abom);
   }
 
-  // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.abom.wantPumping = !Robot.abom.wantPumping;
+    Robot.abom.setWantPumpingStatus(!Robot.abom.getWantPumpingStatus());
   }
 }
