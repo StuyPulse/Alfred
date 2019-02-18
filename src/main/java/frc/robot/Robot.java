@@ -163,23 +163,15 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        
-        if(SmartDashboard.getNumber("CAM_MODE",0) == 1){
-            Limelight.setCamMode(Limelight.CamMode.DRIVER);
-        }else{
-            Limelight.setCamMode(Limelight.CamMode.VISION);
-        }
-        Limelight.hasValidTarget();
-        // SmartDashboard.putNumber("Drivetrain Left Greyhill Encoder Val: ", Robot.drivetrain.getLeftGreyhillDistance());
-        // SmartDashboard.putNumber("Drivetrain Right Greyhill Encoder Val: ",
-        //         Robot.drivetrain.getRightGreyhillDistance());
-        // SmartDashboard.putNumber("Drivetrain Left Greyhill Raw Val: ", Robot.drivetrain.getLeftGreyhillTicks());
-        // SmartDashboard.putNumber("Drivetrain Right Greyhill Raw Val: ",
-        //         Robot.drivetrain.getRightGreyhillTicks());
-        // SmartDashboard.putNumber("Lift Encoder Val: ", Robot.lift.getHeight());
-        // SmartDashboard.putBoolean("Lift Top Optical Sensor: ", Robot.lift.isAtTop());
-        // SmartDashboard.putBoolean("Lift Bottom Optical Sensor: ", Robot.lift.isAtBottom());
-        // SmartDashboard.putNumber("Tom's Metric for Tail: ", Robot.tail.getTomsMetric());
+        SmartDashboard.putNumber("Drivetrain Left Greyhill Encoder Val: ", Robot.drivetrain.getLeftGreyhillDistance());
+        SmartDashboard.putNumber("Drivetrain Right Greyhill Encoder Val: ",
+                Robot.drivetrain.getRightGreyhillDistance());
+        SmartDashboard.putNumber("Drivetrain Left Greyhill Raw Val: ", Robot.drivetrain.getLeftGreyhillTicks());
+        SmartDashboard.putNumber("Drivetrain Right Greyhill Raw Val: ",
+                Robot.drivetrain.getRightGreyhillTicks());
+        SmartDashboard.putNumber("Lift Encoder Val: ", Robot.lift.getHeight());
+        SmartDashboard.putBoolean("Lift Bottom Optical Sensor: ", Robot.lift.isAtBottom());
+        SmartDashboard.putNumber("Tom's Metric for Tail: ", Robot.tail.getTomsMetric());
     }
 
     /**

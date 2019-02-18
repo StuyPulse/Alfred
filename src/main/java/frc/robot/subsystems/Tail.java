@@ -39,7 +39,6 @@ public final class Tail extends Subsystem {
     }
 
     public void setSpeed(double speed) {
-        // TODO: ASK ENGINEERING IF THE MOTOR GOES FORWARDS OR BACKWARDS
         tailMotor.set(speed);
     }
 

@@ -24,8 +24,6 @@ public final class Rollers extends Subsystem {
 
     @Override
     public void initDefaultCommand() {
-        // TODO: Fix RollersRampingCommand to not take in a parameter after OI works
-        // setDefaultCommand(new RollersRampingCommand());
     }
 
     public void acquire() {

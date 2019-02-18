@@ -16,7 +16,6 @@ public class DrivetrainLowGearCommand extends InstantCommand {
         requires(Robot.drivetrain);
     }
 
-    // Called once when the command executes
     @Override
     protected void initialize() {
         Robot.drivetrain.lowGearShift();

@@ -158,7 +158,8 @@ public final class Drivetrain extends Subsystem {
     }
 
     public boolean isMoving() {
-        return Math.abs(rightSpeedGroup.get()) > 0 || Math.abs(leftSpeedGroup.get()) > 0;
+        //not 0,but 0.07 because joysticks are typically not at 0 when start
+        return Math.abs(rightSpeedGroup.get()) > 0.07 || Math.abs(leftSpeedGroup.get()) > 0.07;
     }
 
     public void highGearShift() {

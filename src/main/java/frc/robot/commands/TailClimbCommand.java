@@ -13,13 +13,9 @@ import frc.robot.Robot;
 public class TailClimbCommand extends Command {
 
     private double speed;
-    private boolean isRaised;
-    private boolean isRetracted;
 
     public TailClimbCommand() {;
         requires(Robot.tail);
-        this.isRaised = false;
-        this.isRetracted = false;
     }
 
     @Override
@@ -39,15 +35,13 @@ public class TailClimbCommand extends Command {
         }
     }
 
-    // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
         return false;
     }
 
-    // Called once after isFinished returns true
     @Override
     protected void end() {
-        Robot.tail.setSpeed(0);
+        Robot.tail.stop();
     }
 }
