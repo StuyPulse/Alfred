@@ -86,16 +86,10 @@ public interface RobotMap {
     double ABOM_TIME_TO_RETRACT = 0.2;
 
     /***************************************************************************************
-     * CV Constants
-     ****************************************************************************************/
-    double ACCELERATION_DIV = 4; // Using averages, you can allow for smoother movement
-    double CV_SPEED = 0; // Speed that stays the same through movements
-
-    /***************************************************************************************
      * Aim Assist Constants
      ****************************************************************************************/
     double TURN_DIV = 82; // Changes the speed that the robot will turn
-    double MOVE_TURN_DIV = 20; // Changes the speed that the robot will turn while moving (The more it moves, the less it turns)
+    double MOVE_TURN_DIV = 3; // Changes the speed that the robot will turn while moving (The more it moves, the less it turns)
 
     /***************************************************************************************
      * Auton Assist Constants
