@@ -89,7 +89,7 @@ public final class Lift extends Subsystem {
             stop();
         } else {
             releaseBrake();
-            masterTalon.set(speed * .5);
+            masterTalon.set(speed * RobotMap.LIFT_SPEED_MULTIPLIER);
         }
     }
 
@@ -161,7 +161,7 @@ public final class Lift extends Subsystem {
         }
     }
 
-    public void tiltFoward() {
+    public void tiltForward() {
         tiltSolenoid.set(Value.kReverse);
     }
 
@@ -169,15 +169,15 @@ public final class Lift extends Subsystem {
         tiltSolenoid.set(Value.kForward);
     }
 
-    public Value getTilt() {
-        return tiltSolenoid.get();
+    public boolean isTiltedForward() {
+        return tiltSolenoid.get() == Value.kReverse;
     }
 
     public void toggle() {
-        if (getTilt() == Value.kForward) {
-            tiltFoward();
-        } else {
+        if (isTiltedForward()) {
             tiltBack();
+        } else {
+            tiltForward();
         }
     }
 

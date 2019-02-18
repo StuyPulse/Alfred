@@ -13,13 +13,9 @@ import frc.robot.Robot;
 public class TailClimbCommand extends Command {
 
     private double speed;
-    private boolean isRaised;
-    private boolean isRetracted;
 
     public TailClimbCommand() {;
         requires(Robot.tail);
-        this.isRaised = false;
-        this.isRetracted = false;
     }
 
     @Override
