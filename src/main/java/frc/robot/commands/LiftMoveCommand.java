@@ -12,7 +12,8 @@ public class LiftMoveCommand extends Command {
     private final double MAX_OFFSET = 1;
 
     private double rumbleStartTime;
-    private boolean reachedHeight;
+    private boolean lastCheckedReachedHeight;
+    //saves last checked state of whether or not target height was reached
 
     private enum Direction{
         UP, DOWN, NULL;
@@ -130,8 +131,8 @@ public class LiftMoveCommand extends Command {
 
     private void checkForRumble(double targetHeight) {
         if (Math.abs(Robot.lift.getHeight() - targetHeight) <= MAX_OFFSET) {
-            if (!reachedHeight) {
-                reachedHeight = true;
+            if (!lastCheckedReachedHeight) {
+                lastCheckedReachedHeight = true;
                 rumbleStartTime = Timer.getFPGATimestamp();
                 Robot.oi.operatorGamepad.gamepadRumble(1);
             }
@@ -139,7 +140,7 @@ public class LiftMoveCommand extends Command {
                 Robot.oi.operatorGamepad.gamepadRumble(0);
             }
         } else {
-            reachedHeight = false;
+            lastCheckedReachedHeight = false;
         }
     }
 
