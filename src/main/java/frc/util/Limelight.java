@@ -8,6 +8,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.drive.Vector2d; // Returning Goal Cordinates
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.RobotMap;
 
 public class Limelight {
     // Network Table used to contact Lime Light
@@ -24,10 +25,10 @@ public class Limelight {
     public static boolean hasValidTarget() {
         System.out.println("running limelight");
         double targetEntry = validTargetEntry.getDouble(0);
-        double targetHeightThreshold = 6;
-        double minAspectRatio = 1.4;
-        double maxAspectRatio = 2.9;
-        double angleThreshold = 25;
+        double targetHeightThreshold = RobotMap.TARGET_HEIGHT_THRESHOLD;
+        double minAspectRatio = RobotMap.MIN_ASPECT_RATIO;
+        double maxAspectRatio = RobotMap.MAX_ASPECT_RATIO;
+        double angleThreshold = RobotMap.ANGLE_THRESHOLD;
         return 
             hasAnyTarget(targetEntry)
             & hasValidHeight(targetHeightThreshold)

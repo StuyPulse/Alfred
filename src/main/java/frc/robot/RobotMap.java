@@ -88,8 +88,10 @@ public interface RobotMap {
     /***************************************************************************************
      * CV Constants
      ****************************************************************************************/
-    double ACCELERATION_DIV = 4; // Using averages, you can allow for smoother movement
-    double CV_SPEED = 0; // Speed that stays the same through movements
+    double TARGET_HEIGHT_THRESHOLD = 6;
+    double MIN_ASPECT_RATIO = 1.2;
+    double MAX_ASPECT_RATIO = 2.9;
+    double ANGLE_THRESHOLD = 25;
 
     /***************************************************************************************
      * Aim Assist Constants
