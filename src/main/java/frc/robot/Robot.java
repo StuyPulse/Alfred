@@ -22,6 +22,7 @@ import frc.robot.subsystems.Floop;
 import frc.robot.subsystems.Lift;
 import frc.robot.subsystems.Rollers;
 import frc.robot.subsystems.Tail;
+import frc.util.LEDRelayController;
 import frc.util.Limelight;
 
 /**
@@ -46,6 +47,8 @@ public class Robot extends TimedRobot {
 
     public static DigitalInput IRsensor;
 
+    public static LEDRelayController relayController;
+
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<>();
 
@@ -65,6 +68,7 @@ public class Robot extends TimedRobot {
         fangs = new Fangs();
         oi = new OI();
         IRsensor = new DigitalInput(RobotMap.IR_SENSOR_PORT);
+        relayController = new LEDRelayController(RobotMap.LED_CHANNEL);
         //chooser.addOption("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
         SmartDashboard.putBoolean("Enable compressor", true);
