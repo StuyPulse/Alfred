@@ -9,12 +9,12 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class FangsLowerRollersOutCommand extends CommandGroup {
+public class FangsRaiseRollersOutCommand extends CommandGroup {
     /**
      * Raises the Fangs while deacquiring with the Rollers.
      */
-    public FangsLowerRollersOutCommand() {
-        addParallel(new FangsLowerCommand());
+    public FangsRaiseRollersOutCommand() {
+        addParallel(new FangsRaiseCommand());
         addSequential(new RollersConstantDeacquireCommand(), 0.5);
     }
 }
