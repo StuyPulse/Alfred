@@ -219,16 +219,13 @@ public class Robot extends TimedRobot {
 
     private void blinkLED() {
         double startTime = Timer.getFPGATimestamp();
-        if(Timer.getFPGATimestamp() - startTime < 1) {
+        if(Timer.getFPGATimestamp() - startTime > 4) {
             relayController.setLEDForward();
         }
-        else if(Timer.getFPGATimestamp() - startTime < 2) {
-            relayController.setLEDNeutral();
-        }
-        else if(Timer.getFPGATimestamp() - startTime < 3) {
+        else if(Timer.getFPGATimestamp() - startTime % 2 == 0) {
             relayController.setLEDForward();
         }
-        else if(Timer.getFPGATimestamp() - startTime < 4) {
+        else {
             relayController.setLEDNeutral();
         }
     }
