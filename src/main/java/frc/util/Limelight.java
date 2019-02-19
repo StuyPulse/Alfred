@@ -24,26 +24,34 @@ public class Limelight {
      */
     public static boolean hasValidTarget() {
         System.out.println("running limelight");
-        double targetEntry = validTargetEntry.getDouble(0);
         double targetHeightThreshold = RobotMap.TARGET_HEIGHT_THRESHOLD;
         double minAspectRatio = RobotMap.MIN_ASPECT_RATIO;
         double maxAspectRatio = RobotMap.MAX_ASPECT_RATIO;
         double angleThreshold = RobotMap.ANGLE_THRESHOLD;
         return 
-            hasAnyTarget(targetEntry)
+            hasAnyTarget()
             & hasValidHeight(targetHeightThreshold)
             & hasValidBlueAspectRatio(minAspectRatio, maxAspectRatio)
             & hasValidBlueOrientation(angleThreshold)
             ;
     }
-    public static boolean hasAnyTarget(double targetEntry){
+    
+    /**
+     * Decides if a target shows up on limelight screen
+     * @return If it has any target
+     */
+    public static boolean hasAnyTarget(){
         // > 0.5 converts double to boolean, targetEntry is either 0 or 1
-        boolean output = targetEntry > 0.5;
-        System.out.println(output);
+        double validTarget = validTargetEntry.getDouble(0);
+        boolean output = validTarget > 0.5;
         SmartDashboard.putBoolean("VALID_TARGET", output);
         return output;
     }
 
+    /**
+     * @param targetHeightThreshold Height threshold for target
+     * @return If the target fits the height threshold
+     */
     public static boolean hasValidHeight(double targetHeightThreshold){
         // Check if target is in a possible position
         boolean output = getTargetYAngle() < targetHeightThreshold;
@@ -51,15 +59,26 @@ public class Limelight {
         return output;
     }
 
+    /**
+     * The blue aspect ratio is the ratio of the width to height of the rotated
+     * rectangle.
+     * @param minRatio Min ratio for the blue aspect ratio
+     * @param maxRatio Max ratio for the blue aspect ratio
+     * @return If the blue aspect ratio fits the thresholds
+     */
     public static boolean hasValidBlueAspectRatio(double minRatio, double maxRatio){
         // Checks if target's box has a valid aspect ratio is good
         double aspectRatio = getHorizontalSidelength() / getVerticalSidelength();
         boolean output = aspectRatio > minRatio && aspectRatio < maxRatio ;
         SmartDashboard.putBoolean("VALID_RATIO", output);
-        System.out.println(aspectRatio);
+        SmartDashboard.putNumber("ASPECT_RATIO", aspectRatio);
         return output;
     }
-
+    /**
+     * 
+     * @param angleThreshold maximum skew the target can have
+     * @return if the skew is less than the maximum skew
+     */
     public static boolean hasValidBlueOrientation(double angleThreshold){
         // Checks if rotation of blue box (rotated box) is good
         double diffFromNeg90 = Math.abs(-90 - getTargetSkew());
@@ -67,6 +86,7 @@ public class Limelight {
         double smallerDifference = Math.min(diffFromNeg90,diffFrom0);
         boolean output = smallerDifference <= angleThreshold;
         SmartDashboard.putBoolean("VALID_SKEW", output);
+        SmartDashboard.putNumber("SKEW_VALUE", smallerDifference);
         return output;
     }
     
