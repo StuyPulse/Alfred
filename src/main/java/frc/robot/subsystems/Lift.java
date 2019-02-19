@@ -44,7 +44,7 @@ public final class Lift extends Subsystem {
 
         disableRamping();
 
-        /// Encoders
+        // Encoders
         masterTalon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
     }
 
