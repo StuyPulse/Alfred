@@ -75,8 +75,8 @@ public class Robot extends TimedRobot {
         SmartDashboard.putBoolean("Enable compressor", true);
 
         CameraServer.getInstance().startAutomaticCapture(0);
-        SmartDashboard.putNumber("TURN_DIV", 120);
-        SmartDashboard.putNumber("MOVE_TURN_DIV", 80);
+        SmartDashboard.putNumber("TURN_DIV", 35);
+        SmartDashboard.putNumber("MOVE_TURN_MUL", 6 );
 
         SmartDashboard.putNumber("TURN_MIN_SPEED", 0.2);
         SmartDashboard.putNumber("TURN_MIN_ANGLE", 1);
@@ -173,11 +173,11 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopPeriodic() {
-        if(!isGamePieceDetected()) {
-            relayController.setLEDForward();
-        } else {
-            relayController.setLEDNeutral();
-        }
+        // if(!isGamePieceDetected()) {
+        //     relayController.setLEDForward();
+        // } else {
+        //     relayController.setLEDNeutral();
+        // }
         Scheduler.getInstance().run();
         SmartDashboard.putNumber("Drivetrain Left Greyhill Encoder Val: ", Robot.drivetrain.getLeftGreyhillDistance());
         SmartDashboard.putNumber("Drivetrain Right Greyhill Encoder Val: ",
@@ -189,14 +189,14 @@ public class Robot extends TimedRobot {
         SmartDashboard.putBoolean("Lift Bottom Optical Sensor: ", Robot.lift.isAtBottom());
         SmartDashboard.putBoolean("Is Lift Optical Sensor Overrided: ", Robot.lift.isOpticalSensorOverrided);
         SmartDashboard.putNumber("Tom's Metric for Tail: ", Robot.tail.getTomsMetric());
-        if(isGamePieceDetected()) {
-            //Once a game piece is detected, it blinks two times and stops.
-            blinkLED();
-        }
-        else {
-            //Stops the LEDs as long as it doesn't detect a game piece.
-            relayController.setLEDNeutral();
-        }
+        // if(isGamePieceDetected()) {
+        //     //Once a game piece is detected, it blinks two times and stops.
+        //     blinkLED();
+        // }
+        // else {
+        //     //Stops the LEDs as long as it doesn't detect a game piece.
+        //     relayController.setLEDNeutral();
+        // }
     }
 
     /**
@@ -223,16 +223,16 @@ public class Robot extends TimedRobot {
         return IRsensor.get();
     }
 
-    private void blinkLED() {
-        double startTime = Timer.getFPGATimestamp();
-        if(Timer.getFPGATimestamp() - startTime > 4) {
-            relayController.setLEDForward();
-        }
-        else if((int)(Timer.getFPGATimestamp() - startTime) % 2 == 0) {
-            relayController.setLEDForward();
-        }
-        else {
-            relayController.setLEDNeutral();
-        }
-    }
+    // private void blinkLED() {
+    //     double startTime = Timer.getFPGATimestamp();
+    //     if(Timer.getFPGATimestamp() - startTime > 4) {
+    //         relayController.setLEDForward();
+    //     }
+    //     else if((int)(Timer.getFPGATimestamp() - startTime) % 2 == 0) {
+    //         relayController.setLEDForward();
+    //     }
+    //     else {
+    //         relayController.setLEDNeutral();
+    //     }
+    // }
 }

@@ -52,10 +52,10 @@ public class DrivetrainDriveCommand extends Command {
 
     private void printDebugStatements(){
         // Debug statement prints out if there is a valid target
-        System.out.println("validTarget? :" + Limelight.hasValidTarget());
-        System.out.println("XOffset :" + Limelight.getTargetXAngle());
-        System.out.println("Skew :" + Limelight.getTargetSkew());
-
+        // System.out.println("validTarget? :" + Limelight.hasValidTarget());
+        // System.out.println("XOffset :" + Limelight.getTargetXAngle());
+        // System.out.println("Skew :" + Limelight.getTargetSkew());
+        // System.out.println("W/H :" + Limelight.hasValidBlueAspectRatio(minRatio, maxRatio));
         // Sets to driver mode for debugging
         if(Robot.oi.driverGamepad.getRawDPadDown()){
             Limelight.setCamMode(Limelight.CamMode.DRIVER);

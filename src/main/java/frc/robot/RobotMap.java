@@ -95,7 +95,7 @@ public interface RobotMap {
      ****************************************************************************************/
     double TARGET_HEIGHT_THRESHOLD = 6;
     double MIN_ASPECT_RATIO = 1.2;
-    double MAX_ASPECT_RATIO = 2.9;
+    double MAX_ASPECT_RATIO = 3.3;
     double ANGLE_THRESHOLD = 25;
 
     /***************************************************************************************
