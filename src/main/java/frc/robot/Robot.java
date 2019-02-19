@@ -173,7 +173,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopPeriodic() {
-        if(isGamePieceDetected()) {
+        if(!isGamePieceDetected()) {
             relayController.setLEDForward();
         } else {
             relayController.setLEDNeutral();
