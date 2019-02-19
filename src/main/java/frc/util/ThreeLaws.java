@@ -12,8 +12,6 @@ public interface ThreeLaws {
       do do do do doooo LET GO!!!
 	    */
 
-
-
     public void SecondLaw();
         /*
         A robot must obey orders given it by human beings except where such

@@ -20,5 +20,4 @@ public class FloopOpenCommand extends InstantCommand {
     protected void initialize() {
         Robot.floop.open();
     }
-
 }

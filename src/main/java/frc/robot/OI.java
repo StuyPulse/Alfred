@@ -35,6 +35,7 @@ public class OI {
     private boolean abomPumping;
 
     public OI() {
+        
         driverGamepad = new Gamepad(RobotMap.DRIVER_GAMEPAD_PORT, GamepadSwitchMode.PS4);
         operatorGamepad = new Gamepad(RobotMap.OPERATOR_GAMEPAD_PORT, GamepadSwitchMode.SWITCH_X);
         abomPumping = false;
@@ -67,8 +68,6 @@ public class OI {
         operatorGamepad.getDPadDown().whenPressed(new LiftMoveToHeightCommand(RobotMap.LEVEL_1_HEIGHT));
         operatorGamepad.getDPadRight().whenPressed(new LiftMoveToHeightCommand(RobotMap.LEVEL_2_HEIGHT));
         operatorGamepad.getDPadUp().whenPressed(new LiftMoveToHeightCommand(RobotMap.LEVEL_3_HEIGHT));
-
-
 
         operatorGamepad.getRightAnalogButton().whenPressed(new AbomToggleCommand());
 

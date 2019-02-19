@@ -19,17 +19,9 @@ public class DrivetrainDriveCommand extends Command {
     boolean quickTurn = true;
 
     public DrivetrainDriveCommand() {
-        // Use requires() here to declare subsystem dependencies
         requires(Robot.drivetrain);
     }
 
-    // Called just before this Command runs the first time
-    @Override
-    protected void initialize() {
-
-    }
-
-    // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
         Limelight.setCamMode(Limelight.CamMode.VISION);
@@ -79,7 +71,6 @@ public class DrivetrainDriveCommand extends Command {
         Robot.drivetrain.curvatureDrive(speed, turn, quickTurn);
     }
 
-    // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
         return false;
