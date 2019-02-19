@@ -8,6 +8,7 @@ import frc.robot.RobotMap;
 public class LiftMoveCommand extends Command {
 
     private final double THRESHOLD = 0.4;
+    private final double MAX_OFFSET = 1;
 
     private enum Direction{
         UP, DOWN, NULL;
@@ -47,6 +48,7 @@ public class LiftMoveCommand extends Command {
         setAutoComp();
         calibrateAutoComp();
         runAutoComp();
+        checkHeight();
     }
 
     // value is used many times, setAutoComp() and calibrateAutoComp()
@@ -119,6 +121,23 @@ public class LiftMoveCommand extends Command {
             autoCompDir = Direction.NULL;
             targetLevel = Level.ZERO;
             Robot.oi.operatorGamepad.gamepadRumble(0.25);
+        }
+    }
+
+    private void checkForRumble(double targetHeight) {
+        if (Math.abs(Robot.lift.getHeight() - targetHeight) <= MAX_OFFSET) {
+            Robot.oi.operatorGamepad.gamepadRumble(1);
+            Robot.oi.operatorGamepad.gamepadRumble(0);
+        }
+    }
+
+    private void checkHeight() {
+        if(targetLevel == Level.ONE) {
+            checkForRumble(RobotMap.LEVEL_1_HEIGHT);
+        } else if(targetLevel == Level.TWO) {
+            checkForRumble(RobotMap.LEVEL_2_HEIGHT);
+        } else if(targetLevel == Level.THREE) {
+            checkForRumble(RobotMap.LEVEL_3_HEIGHT);
         }
     }
 
