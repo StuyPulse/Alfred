@@ -81,8 +81,8 @@ public final class Lift extends Subsystem {
         return false;
     }
 
-    public void overrideOpticalSensor() {
-        isOpticalSensorOverrided = true;
+    public void toggleOpticalSensorOverride() {
+        isOpticalSensorOverrided = !isOpticalSensorOverrided;
     }
 
     public void stop() {

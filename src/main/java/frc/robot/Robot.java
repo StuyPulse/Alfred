@@ -187,6 +187,7 @@ public class Robot extends TimedRobot {
                 Robot.drivetrain.getRightGreyhillTicks());
         SmartDashboard.putNumber("Lift Encoder Val: ", Robot.lift.getHeight());
         SmartDashboard.putBoolean("Lift Bottom Optical Sensor: ", Robot.lift.isAtBottom());
+        SmartDashboard.putBoolean("Is Lift Optical Sensor Overrided: ", Robot.lift.isOpticalSensorOverrided);
         SmartDashboard.putNumber("Tom's Metric for Tail: ", Robot.tail.getTomsMetric());
         if(isGamePieceDetected()) {
             //Once a game piece is detected, it blinks two times and stops.
