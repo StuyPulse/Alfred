@@ -41,6 +41,7 @@ public class TailClimbCommand extends Command {
             if(Robot.tail.ratchetMoved()) {
                 Robot.tail.engageRatchet();
             }
+            Robot.abom.setWantPumpingStatus(true);
             Robot.tail.setSpeed(speed);
         } else {
             Robot.tail.stop();

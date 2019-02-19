@@ -76,7 +76,7 @@ public class Robot extends TimedRobot {
 
         CameraServer.getInstance().startAutomaticCapture(0);
         SmartDashboard.putNumber("TURN_DIV", 35);
-        SmartDashboard.putNumber("MOVE_TURN_MUL", 6 );
+        SmartDashboard.putNumber("MOVE_TURN_MUL", 6);
 
         SmartDashboard.putNumber("TURN_MIN_SPEED", 0.2);
         SmartDashboard.putNumber("TURN_MIN_ANGLE", 1);
