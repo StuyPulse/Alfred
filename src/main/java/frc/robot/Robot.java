@@ -172,6 +172,11 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopPeriodic() {
+        if(isGamePieceDetected()) {
+            relayController.setLEDForward();
+        } else {
+            relayController.setLEDNeutral();
+        }
         Scheduler.getInstance().run();
         SmartDashboard.putNumber("Drivetrain Left Greyhill Encoder Val: ", Robot.drivetrain.getLeftGreyhillDistance());
         SmartDashboard.putNumber("Drivetrain Right Greyhill Encoder Val: ",
