@@ -14,8 +14,7 @@ import frc.robot.commands.BITHPOIN;
 import frc.robot.commands.DrivetrainHighGearCommand;
 import frc.robot.commands.DrivetrainLowGearCommand;
 import frc.robot.commands.FangsLowerCommand;
-import frc.robot.commands.FangsRaiseCommand;
-import frc.robot.commands.FangsLowerRollersOutCommand;
+import frc.robot.commands.FangsRaiseRollersOutCommand;
 import frc.robot.commands.FloopCloseCommand;
 import frc.robot.commands.FloopOpenCommand;
 import frc.robot.commands.LiftMoveToHeightCommand;
@@ -58,8 +57,8 @@ public class OI {
         operatorGamepad.getRightBumper().whenReleased(new RollersRampDownAcquireCommand(1));
         operatorGamepad.getLeftBumper().whileHeld(new RollersConstantDeacquireCommand());
 
-        operatorGamepad.getTopButton().whenPressed(new FangsRaiseCommand());
-        operatorGamepad.getBottomButton().whenPressed(new FangsLowerRollersOutCommand());
+        operatorGamepad.getTopButton().whenPressed(new FangsRaiseRollersOutCommand());
+        operatorGamepad.getBottomButton().whenPressed(new FangsLowerCommand());
         operatorGamepad.getRightButton().whenPressed(new FloopCloseCommand());
         operatorGamepad.getRightButton().whenReleased(new FloopOpenCommand());
         operatorGamepad.getLeftButton().whenPressed(new BITHPOIN());
