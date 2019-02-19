@@ -32,43 +32,34 @@ public class DrivetrainDriveCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        Limelight.setCamMode(Limelight.CamMode.VISION);
-        printDebugStatements();
+        setCamMode();
         setSpeed();
         setTurn();
         updateDrivetrain();
     }
+    
+    protected void setCamMode() {
+        if(Robot.oi.driverGamepad.getRawDPadDown()){
+            Limelight.setCamMode(Limelight.CamMode.DRIVER);
+        } else {
+            Limelight.setCamMode(Limelight.CamMode.VISION);
+        }
+    }
 
     protected void setSpeed() {
-        // Reset the speed to prevent this from becoming acceleration
-        speed = 0;
         // Set speed to the axes of the triggers
-        speed += Math.pow(Robot.oi.driverGamepad.getRawRightTriggerAxis(), 2);
+        speed = Math.pow(Robot.oi.driverGamepad.getRawRightTriggerAxis(), 2);
         speed -= Math.pow(Robot.oi.driverGamepad.getRawLeftTriggerAxis(), 2);
 
         // Enable Quick Turn if robot is not moving
         quickTurn = Math.abs(speed) < 0.125;
     }
 
-    private void printDebugStatements(){
-        // Debug statement prints out if there is a valid target
-        // System.out.println("validTarget? :" + Limelight.hasValidTarget());
-        // System.out.println("XOffset :" + Limelight.getTargetXAngle());
-        // System.out.println("Skew :" + Limelight.getTargetSkew());
-        // System.out.println("W/H :" + Limelight.hasValidBlueAspectRatio(minRatio, maxRatio));
-        // Sets to driver mode for debugging
-        if(Robot.oi.driverGamepad.getRawDPadDown()){
-            Limelight.setCamMode(Limelight.CamMode.DRIVER);
-        }
-    }
-
     protected void setTurn() {
-        // Turn on Driver mode
-        // Limelight.setCamMode(Limelight.CamMode.DRIVER);
-
         // Set the turn value to the joystick's x value
         turn = Math.pow(Robot.oi.driverGamepad.getLeftX(), RobotMap.JOYSTICK_SCALAR) / 2.0;
 
+        // If raised to an even power, correct the sign
         if (RobotMap.JOYSTICK_SCALAR % 2 == 0) {
             turn *= Math.signum((Robot.oi.driverGamepad.getLeftX()));
         }
