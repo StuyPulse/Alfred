@@ -58,7 +58,7 @@ public final class Drivetrain extends Subsystem {
         // Greyhill Encoders
         leftGreyhill = new Encoder(RobotMap.DRIVETRAIN_LEFT_ENCODER_CHANNEL_A, RobotMap.DRIVETRAIN_LEFT_ENCODER_CHANNEL_B);
         rightGreyhill = new Encoder(RobotMap.DRIVETRAIN_RIGHT_ENCODER_CHANNEL_A, RobotMap.DRIVETRAIN_RIGHT_ENCODER_CHANNEL_B);
-        
+    
         leftGreyhill.setDistancePerPulse(RobotMap.DRIVETRAIN_GREYHILL_INCHES_PER_PULSE);
         rightGreyhill.setDistancePerPulse(-1.0 * RobotMap.DRIVETRAIN_GREYHILL_INCHES_PER_PULSE);
 
@@ -76,7 +76,6 @@ public final class Drivetrain extends Subsystem {
         leftTopMotor.setInverted(true);
         leftMiddleMotor.setInverted(true);
         leftBottomMotor.setInverted(true);
-
         // Speed Groups
         leftSpeedGroup = new SpeedControllerGroup(leftTopMotor, leftMiddleMotor, leftBottomMotor);
         rightSpeedGroup = new SpeedControllerGroup(rightTopMotor, rightMiddleMotor, rightBottomMotor);
@@ -86,13 +85,11 @@ public final class Drivetrain extends Subsystem {
         // navx
         navX = new AHRS(SPI.Port.kMXP);
         // Drive
-        differentialDrive = new DifferentialDrive(leftSpeedGroup, rightSpeedGroup);
-
-    }
+        differentialDrive = new DifferentialDrive(leftSpeedGroup, rightSpeedGroup);  }
 
     @Override
     public void initDefaultCommand() {
-        setDefaultCommand(new DrivetrainDriveCommand());
+         setDefaultCommand(new DrivetrainDriveCommand());
     }
 
     public void curvatureDrive(double speed, double angle) {

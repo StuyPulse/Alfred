@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.*;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -21,6 +22,7 @@ import frc.robot.subsystems.Floop;
 import frc.robot.subsystems.Lift;
 import frc.robot.subsystems.Rollers;
 import frc.robot.subsystems.Tail;
+import frc.util.Limelight;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -39,6 +41,8 @@ public class Robot extends TimedRobot {
     public static Compressor compressor;
     public static Rollers rollers;
     public static Fangs fangs;
+
+    public static double liftSpeedGoingDown;
 
     public static DigitalInput IRsensor;
 
@@ -61,9 +65,23 @@ public class Robot extends TimedRobot {
         fangs = new Fangs();
         oi = new OI();
         IRsensor = new DigitalInput(RobotMap.IR_SENSOR_PORT);
-        // chooser.addOption("My Auto", new MyAutoCommand());
+        //chooser.addOption("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
         SmartDashboard.putBoolean("Enable compressor", true);
+
+        CameraServer.getInstance().startAutomaticCapture(0);
+        SmartDashboard.putNumber("TURN_DIV", 120);
+        SmartDashboard.putNumber("MOVE_TURN_DIV", 80);
+
+        SmartDashboard.putNumber("TURN_MIN_SPEED", 0.2);
+        SmartDashboard.putNumber("TURN_MIN_ANGLE", 1);
+
+        SmartDashboard.putBoolean("VALID_TARGET", false);
+        SmartDashboard.putBoolean("VALID_HEIGHT", false);
+        SmartDashboard.putBoolean("VALID_RATIO", false);
+        SmartDashboard.putBoolean("VALID_SKEW", false);
+
+        SmartDashboard.putNumber("CAM_MODE", 1);
     }
 
     /**
@@ -79,6 +97,7 @@ public class Robot extends TimedRobot {
     public void robotPeriodic() {
         controlCompressor();
         SmartDashboard.putBoolean("IR Sensor", isGamePieceDetected());
+        liftSpeedGoingDown = SmartDashboard.getNumber("Lift Auto Complete Speed Going Down", 0.5);
     }
 
     /**
@@ -109,7 +128,6 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousInit() {
-        setUpDoubleSolenoids();
         autonomousCommand = chooser.getSelected();
 
         /*

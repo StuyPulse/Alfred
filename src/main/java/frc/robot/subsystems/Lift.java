@@ -24,6 +24,7 @@ public final class Lift extends Subsystem {
     private Solenoid brakeSolenoid;
 
     public boolean rampDisabled;
+    public boolean isOpticalSensorOverrided;
 
     public Lift() {
         masterTalon = new WPI_TalonSRX(RobotMap.LIFT_MASTER_TALON_MOTOR_PORT);
@@ -44,7 +45,7 @@ public final class Lift extends Subsystem {
 
         disableRamping();
 
-        /// Encoders
+        // Encoders
         masterTalon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
     }
 
@@ -70,11 +71,18 @@ public final class Lift extends Subsystem {
     }
 
     public boolean isAtBottom() {
-        boolean atBottom = !bottomOpticalSensor.get();
-        if (atBottom) {
-            setHeight(RobotMap.LIFT_MIN_HEIGHT);
+        if (!isOpticalSensorOverrided) {
+            boolean atBottom = !bottomOpticalSensor.get();
+            if (atBottom) {
+                setHeight(RobotMap.LIFT_MIN_HEIGHT);
+            }
+            return atBottom; // The sensor is inverted
         }
-        return atBottom; //The sensor is inverted
+        return false;
+    }
+
+    public void overrideOpticalSensor() {
+        isOpticalSensorOverrided = true;
     }
 
     public void stop() {
@@ -167,7 +175,7 @@ public final class Lift extends Subsystem {
         brakeSolenoid.set(true);
     }
 
-    public void enableRamping() { 
+    public void enableRamping() {
         rampDisabled = false;
     }
 

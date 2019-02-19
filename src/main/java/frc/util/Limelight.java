@@ -7,6 +7,8 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.drive.Vector2d; // Returning Goal Cordinates
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.RobotMap;
 
 public class Limelight {
     // Network Table used to contact Lime Light
@@ -21,10 +23,53 @@ public class Limelight {
      * @return Whether or not the limelight has a target in view
      */
     public static boolean hasValidTarget() {
-        // > 0.5 converts double to boolean
-        return validTargetEntry.getDouble(0) > 0.5;
+        System.out.println("running limelight");
+        double targetEntry = validTargetEntry.getDouble(0);
+        double targetHeightThreshold = RobotMap.TARGET_HEIGHT_THRESHOLD;
+        double minAspectRatio = RobotMap.MIN_ASPECT_RATIO;
+        double maxAspectRatio = RobotMap.MAX_ASPECT_RATIO;
+        double angleThreshold = RobotMap.ANGLE_THRESHOLD;
+        return 
+            hasAnyTarget(targetEntry)
+            & hasValidHeight(targetHeightThreshold)
+            & hasValidBlueAspectRatio(minAspectRatio, maxAspectRatio)
+            & hasValidBlueOrientation(angleThreshold)
+            ;
+    }
+    public static boolean hasAnyTarget(double targetEntry){
+        // > 0.5 converts double to boolean, targetEntry is either 0 or 1
+        boolean output = targetEntry > 0.5;
+        System.out.println(output);
+        SmartDashboard.putBoolean("VALID_TARGET", output);
+        return output;
     }
 
+    public static boolean hasValidHeight(double targetHeightThreshold){
+        // Check if target is in a possible position
+        boolean output = getTargetYAngle() < targetHeightThreshold;
+        SmartDashboard.putBoolean("VALID_HEIGHT", output);
+        return output;
+    }
+
+    public static boolean hasValidBlueAspectRatio(double minRatio, double maxRatio){
+        // Checks if target's box has a valid aspect ratio is good
+        double aspectRatio = getHorizontalSidelength() / getVerticalSidelength();
+        boolean output = aspectRatio > minRatio && aspectRatio < maxRatio ;
+        SmartDashboard.putBoolean("VALID_RATIO", output);
+        System.out.println(aspectRatio);
+        return output;
+    }
+
+    public static boolean hasValidBlueOrientation(double angleThreshold){
+        // Checks if rotation of blue box (rotated box) is good
+        double diffFromNeg90 = Math.abs(-90 - getTargetSkew());
+        double diffFrom0 =  Math.abs(getTargetSkew());
+        double smallerDifference = Math.min(diffFromNeg90,diffFrom0);
+        boolean output = smallerDifference <= angleThreshold;
+        SmartDashboard.putBoolean("VALID_SKEW", output);
+        return output;
+    }
+    
     // Horizontal Offset From Crosshair To Target (-27 degrees to 27 degrees)
     public static final double MIN_X_ANGLE = -27;
     public static final double MAX_X_ANGLE = 27;
@@ -184,22 +229,6 @@ public class Limelight {
      */
     public static double getRawCrosshairY(int crosshair) {
         return table.getEntry("cy" + crosshair).getDouble(0);
-    }
-
-    /* Contour Corner Values */
-    
-    /**
-     * Enable “send contours” in the “Output” tab to stream corner coordinates:
-     * @return Corners of contours, sorted in clockwise direction. (Represented as Vectors)
-     */
-    public static Vector2d[] getPoints() {
-        double[] x = table.getEntry("tcornx").getDoubleArray(new double[] {0});
-        double[] y = table.getEntry("tcorny").getDoubleArray(new double[] {0});
-        Vector2d[] points = new Vector2d[x.length];
-        for(int i = 0;i< x.length; i++){
-            points[i] = new Vector2d(x[i],y[i]);
-        }
-        return points;
     }
 
     /* Custom Grip Values */

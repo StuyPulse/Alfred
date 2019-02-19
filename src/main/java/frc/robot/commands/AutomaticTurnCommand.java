@@ -7,7 +7,7 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.drive.Vector2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 import frc.util.Limelight;
 
@@ -21,23 +21,30 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
     @Override
     protected void setTurn() {
         // Set the turn value to the joysticks x value
-        super.setTurn(); 
-        debugInfo();
-        
-        if(hasValidTarget()){
-            // Add corrective values to turn based on how fast the robot is moving
-            turn += Limelight.getTargetXAngle() / (RobotMap.TURN_DIV * Math.max(RobotMap.MOVE_TURN_DIV * speed, 1));
+        super.setTurn();
+
+        // Get turn constants 
+        double smallAngleThreshold = SmartDashboard.getNumber("TURN_MIN_ANGLE",1);
+        double smallAngleSpeed = SmartDashboard.getNumber("TURN_MIN_SPEED",0.5);
+         
+        // Add corrective values to turn based on how fast the robot is moving
+        if( Limelight.hasValidTarget() && Math.abs(Limelight.getTargetXAngle()) > smallAngleThreshold){
+            turn += getTurnValue(Limelight.getTargetXAngle(), smallAngleSpeed);
         }
     }
+    private double getTurnValue(double targetXAngle, double minTurn){
+        double turnDampingConstant = SmartDashboard.getNumber("TURN_DIV", 120);
+        // This number gets larger when the robot is already moving.
+        double turnDriveDamper = SmartDashboard.getNumber("MOVE_TURN_DIV", 2) * speed;
+        // This value iis the final drive damping constant, it can never be < 1.
+        double turnDriveDamperCorrected = Math.max(turnDriveDamper,1);
 
-    private void debugInfo(){
-        System.out.println();
-        Vector2d[] points = Limelight.getPoints();
-        for(Vector2d i:points){
-            System.out.print("("+i.x+i.y+")");
-        }
-        System.out.println();
-        System.out.println("Area: "+ Limelight.getTargetArea());
-        System.out.println("Skew: "+ Limelight.getTargetSkew());
+        double finalDampingConstant = turnDriveDamperCorrected * turnDampingConstant;
+        
+        double outputTurn = targetXAngle/finalDampingConstant;
+
+        double outputPolarity = Math.signum(outputTurn);
+        return outputPolarity * Math.max(Math.abs(outputTurn),minTurn);
+        
     }
 }
