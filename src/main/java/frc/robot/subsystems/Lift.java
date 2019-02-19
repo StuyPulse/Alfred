@@ -24,6 +24,7 @@ public final class Lift extends Subsystem {
     private Solenoid brakeSolenoid;
 
     public boolean rampDisabled;
+    public boolean isOpticalSensorOverrided;
 
     public Lift() {
         masterTalon = new WPI_TalonSRX(RobotMap.LIFT_MASTER_TALON_MOTOR_PORT);
@@ -71,10 +72,14 @@ public final class Lift extends Subsystem {
 
     public boolean isAtBottom() {
         boolean atBottom = !bottomOpticalSensor.get();
-        if (atBottom) {
+        if (atBottom && !isOpticalSensorOverrided) {
             setHeight(RobotMap.LIFT_MIN_HEIGHT);
         }
         return atBottom; //The sensor is inverted
+    }
+
+    public void overrideOpticalSensor() {
+        isOpticalSensorOverrided = true;
     }
 
     public void stop() {
