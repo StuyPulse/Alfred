@@ -71,11 +71,14 @@ public final class Lift extends Subsystem {
     }
 
     public boolean isAtBottom() {
-        boolean atBottom = !bottomOpticalSensor.get();
-        if (atBottom && !isOpticalSensorOverrided) {
-            setHeight(RobotMap.LIFT_MIN_HEIGHT);
+        if (!isOpticalSensorOverrided) {
+            boolean atBottom = !bottomOpticalSensor.get();
+            if (atBottom) {
+                setHeight(RobotMap.LIFT_MIN_HEIGHT);
+            }
+            return atBottom; // The sensor is inverted
         }
-        return atBottom; //The sensor is inverted
+        return false;
     }
 
     public void overrideOpticalSensor() {
@@ -172,7 +175,7 @@ public final class Lift extends Subsystem {
         brakeSolenoid.set(true);
     }
 
-    public void enableRamping() { 
+    public void enableRamping() {
         rampDisabled = false;
     }
 
