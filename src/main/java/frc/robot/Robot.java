@@ -222,7 +222,7 @@ public class Robot extends TimedRobot {
         if(Timer.getFPGATimestamp() - startTime > 4) {
             relayController.setLEDForward();
         }
-        else if(Timer.getFPGATimestamp() - startTime % 2 == 0) {
+        else if((int)(Timer.getFPGATimestamp() - startTime) % 2 == 0) {
             relayController.setLEDForward();
         }
         else {
