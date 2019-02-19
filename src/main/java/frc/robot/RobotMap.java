@@ -154,5 +154,4 @@ public interface RobotMap {
     double SLOW_ROLLER_MULTIPLIER = 0.75;
     //TODO: find the actual max speed
     double SLOW_ROLLER_MAXIMUM = 1;
-
 }
