@@ -11,6 +11,7 @@ import edu.wpi.first.cameraserver.*;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -187,6 +188,14 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("Lift Encoder Val: ", Robot.lift.getHeight());
         SmartDashboard.putBoolean("Lift Bottom Optical Sensor: ", Robot.lift.isAtBottom());
         SmartDashboard.putNumber("Tom's Metric for Tail: ", Robot.tail.getTomsMetric());
+        if(isGamePieceDetected()) {
+            //Once a game piece is detected, it blinks two times and stops.
+            blinkLED();
+        }
+        else {
+            //Stops the LEDs as long as it doesn't detect a game piece.
+            relayController.setLEDNeutral();
+        }
     }
 
     /**
@@ -211,5 +220,18 @@ public class Robot extends TimedRobot {
 
     private boolean isGamePieceDetected() {
         return IRsensor.get();
+    }
+
+    private void blinkLED() {
+        double startTime = Timer.getFPGATimestamp();
+        if(Timer.getFPGATimestamp() - startTime > 4) {
+            relayController.setLEDForward();
+        }
+        else if((int)(Timer.getFPGATimestamp() - startTime) % 2 == 0) {
+            relayController.setLEDForward();
+        }
+        else {
+            relayController.setLEDNeutral();
+        }
     }
 }
