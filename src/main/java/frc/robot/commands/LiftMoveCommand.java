@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
@@ -9,6 +10,9 @@ public class LiftMoveCommand extends Command {
 
     private final double THRESHOLD = 0.4;
     private final double MAX_OFFSET = 1;
+
+    private double rumbleStartTime;
+    private boolean reachedHeight;
 
     private enum Direction{
         UP, DOWN, NULL;
@@ -126,8 +130,16 @@ public class LiftMoveCommand extends Command {
 
     private void checkForRumble(double targetHeight) {
         if (Math.abs(Robot.lift.getHeight() - targetHeight) <= MAX_OFFSET) {
-            Robot.oi.operatorGamepad.gamepadRumble(1);
-            Robot.oi.operatorGamepad.gamepadRumble(0);
+            if (!reachedHeight) {
+                reachedHeight = true;
+                rumbleStartTime = Timer.getFPGATimestamp();
+                Robot.oi.operatorGamepad.gamepadRumble(1);
+            }
+            if (Timer.getFPGATimestamp() - rumbleStartTime > 1.0) {
+                Robot.oi.operatorGamepad.gamepadRumble(0);
+            }
+        } else {
+            reachedHeight = false;
         }
     }
 

@@ -10,7 +10,6 @@ package frc.robot.subsystems;
 import frc.robot.RobotMap;
 import frc.robot.commands.TailClimbCommand;
 import edu.wpi.first.wpilibj.command.Subsystem;
-
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
