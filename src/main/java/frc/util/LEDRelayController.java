@@ -3,7 +3,7 @@ import edu.wpi.first.wpilibj.Relay;
 
 public class LEDRelayController extends Relay {
 
-    private LEDRelayController(int channel) {
+    public LEDRelayController(int channel) {
         super(channel);
         setLEDNeutral();
     }   
