@@ -24,22 +24,26 @@ public class Limelight {
      */
     public static boolean hasValidTarget() {
         System.out.println("running limelight");
-        double targetEntry = validTargetEntry.getDouble(0);
         double targetHeightThreshold = RobotMap.TARGET_HEIGHT_THRESHOLD;
         double minAspectRatio = RobotMap.MIN_ASPECT_RATIO;
         double maxAspectRatio = RobotMap.MAX_ASPECT_RATIO;
         double angleThreshold = RobotMap.ANGLE_THRESHOLD;
         return 
-            hasAnyTarget(targetEntry)
+            hasAnyTarget()
             & hasValidHeight(targetHeightThreshold)
             & hasValidBlueAspectRatio(minAspectRatio, maxAspectRatio)
             & hasValidBlueOrientation(angleThreshold)
             ;
     }
-    public static boolean hasAnyTarget(double targetEntry){
+    
+    /**
+     * Decides if a target shows up on limelight screen
+     * @return if it has any target
+     */
+    public static boolean hasAnyTarget(){
         // > 0.5 converts double to boolean, targetEntry is either 0 or 1
-        boolean output = targetEntry > 0.5;
-        System.out.println(output);
+        double validTarget = validTargetEntry.getDouble(0);
+        boolean output = validTarget > 0.5;
         SmartDashboard.putBoolean("VALID_TARGET", output);
         return output;
     }
@@ -56,7 +60,7 @@ public class Limelight {
         double aspectRatio = getHorizontalSidelength() / getVerticalSidelength();
         boolean output = aspectRatio > minRatio && aspectRatio < maxRatio ;
         SmartDashboard.putBoolean("VALID_RATIO", output);
-        System.out.println(aspectRatio);
+        SmartDashboard.putNumber("ASPECT_RATIO", aspectRatio);
         return output;
     }
 
@@ -67,6 +71,7 @@ public class Limelight {
         double smallerDifference = Math.min(diffFromNeg90,diffFrom0);
         boolean output = smallerDifference <= angleThreshold;
         SmartDashboard.putBoolean("VALID_SKEW", output);
+        SmartDashboard.putNumber("SKEW_VALUE", smallerDifference);
         return output;
     }
     
