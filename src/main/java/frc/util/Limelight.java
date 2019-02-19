@@ -38,7 +38,7 @@ public class Limelight {
     
     /**
      * Decides if a target shows up on limelight screen
-     * @return if it has any target
+     * @return If it has any target
      */
     public static boolean hasAnyTarget(){
         // > 0.5 converts double to boolean, targetEntry is either 0 or 1
@@ -48,6 +48,10 @@ public class Limelight {
         return output;
     }
 
+    /**
+     * @param targetHeightThreshold Height threshold for target
+     * @return If the target fits the height threshold
+     */
     public static boolean hasValidHeight(double targetHeightThreshold){
         // Check if target is in a possible position
         boolean output = getTargetYAngle() < targetHeightThreshold;
@@ -55,6 +59,13 @@ public class Limelight {
         return output;
     }
 
+    /**
+     * The blue aspect ratio is the ratio of the width to height of the rotated
+     * rectangle.
+     * @param minRatio Min ratio for the blue aspect ratio
+     * @param maxRatio Max ratio for the blue aspect ratio
+     * @return If the blue aspect ratio fits the thresholds
+     */
     public static boolean hasValidBlueAspectRatio(double minRatio, double maxRatio){
         // Checks if target's box has a valid aspect ratio is good
         double aspectRatio = getHorizontalSidelength() / getVerticalSidelength();
@@ -63,7 +74,11 @@ public class Limelight {
         SmartDashboard.putNumber("ASPECT_RATIO", aspectRatio);
         return output;
     }
-
+    /**
+     * 
+     * @param angleThreshold maximum skew the target can have
+     * @return if the skew is less than the maximum skew
+     */
     public static boolean hasValidBlueOrientation(double angleThreshold){
         // Checks if rotation of blue box (rotated box) is good
         double diffFromNeg90 = Math.abs(-90 - getTargetSkew());
