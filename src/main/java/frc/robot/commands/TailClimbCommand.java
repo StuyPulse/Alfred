@@ -7,31 +7,43 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 public class TailClimbCommand extends Command {
 
     private double speed;
+    private double currTime;
+    private double startTime;
 
     public TailClimbCommand() {;
         requires(Robot.tail);
     }
 
+    public void initialize() {
+        
+    }
+
     @Override
     protected void execute() {
+        currTime = Timer.getFPGATimestamp();
         this.speed = Robot.oi.operatorGamepad.getRightY();
-        if(speed > .5)  {
+        if(speed > .5) {
             if(!Robot.tail.ratchetMoved()) {
                 Robot.tail.disengageRatchet();
+                startTime = Timer.getFPGATimestamp();
             }
-            Robot.tail.setSpeed(1.0);
-        }
-        if(speed < .5) {
+            if(currTime - startTime > .2) {
+                Robot.tail.setSpeed(1.0);
+            }
+        } else if(speed < -0.5) {
             if(Robot.tail.ratchetMoved()) {
                 Robot.tail.engageRatchet();
             }
             Robot.tail.setSpeed(speed);
+        } else {
+            Robot.tail.stop();
         }
     }
 
