@@ -7,15 +7,15 @@
 
 package frc.robot;
 
-import edu.wpi.first.cameraserver.*;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.LiftMoveToHeightCommand;
 import frc.robot.subsystems.Abom;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Fangs;
@@ -24,7 +24,6 @@ import frc.robot.subsystems.Lift;
 import frc.robot.subsystems.Rollers;
 import frc.robot.subsystems.Tail;
 import frc.util.LEDRelayController;
-import frc.util.Limelight;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -133,7 +132,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousInit() {
-        // autonomousCommand = chooser.getSelected();
+        autonomousCommand = new LiftMoveToHeightCommand(RobotMap.LEVEL_1_HEIGHT);
         Robot.lift.tiltForward();
         /*
          * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
@@ -143,9 +142,9 @@ public class Robot extends TimedRobot {
          */
 
         // schedule the autonomous command (example)
-        // if (autonomousCommand != null) {
-        //     autonomousCommand.start();
-        // }
+        if (autonomousCommand != null) {
+            autonomousCommand.start();
+        }
     }
 
     /**

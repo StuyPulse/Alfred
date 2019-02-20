@@ -30,7 +30,8 @@ public class LiftMoveToHeightCommand extends Command {
         // Ends if the lift is close enough to the target or at the bottom and top.
         double error = targetHeight - Robot.lift.getHeight();
         return Math.abs(error) < ACCEPTED_ERROR_RANGE 
-            || (Robot.lift.isAtBottom() && error < 0);
+            || (Robot.lift.isAtBottom() && error < 0)
+            || Math.abs(Robot.oi.operatorGamepad.getLeftY()) > 0.05;
     }
 
     @Override
