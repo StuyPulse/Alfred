@@ -9,17 +9,17 @@ package frc.robot;
 
 public interface RobotMap {
 
-    String ROBOT_NAME = "Alfred";
+    String ROBOT_NAME = "Edwin";
     /***************************************************************************************
     * Drivetrain Motor Ports
     ****************************************************************************************/
-    int LEFT_TOP_MOTOR_PORT = 2;
-    int LEFT_MIDDLE_MOTOR_PORT = 3;
-    int LEFT_BOTTOM_MOTOR_PORT = 1;
+    int LEFT_TOP_MOTOR_PORT = 13;
+    int LEFT_MIDDLE_MOTOR_PORT = 12;
+    int LEFT_BOTTOM_MOTOR_PORT = 14;
 
-    int RIGHT_TOP_MOTOR_PORT = 6;
-    int RIGHT_MIDDLE_MOTOR_PORT = 7;
-    int RIGHT_BOTTOM_MOTOR_PORT = 5;
+    int RIGHT_TOP_MOTOR_PORT = 2;
+    int RIGHT_MIDDLE_MOTOR_PORT = 3;
+    int RIGHT_BOTTOM_MOTOR_PORT = 1;
 
     int GEAR_SHIFT_CHANNEL = 0;
 
@@ -36,14 +36,14 @@ public interface RobotMap {
      * Tail and Abom Ports
      ****************************************************************************************/
     int RATCHET_SOLENOID_PORT = 1; //PCM 2 (10)
-    int TAIL_MOTOR_PORT = 4;
+    int TAIL_MOTOR_PORT = 0;
     int ABOM_SOLENOID_PORT = 6;
 
     /**************************************************************************
      * Lift Ports
      *************************************************************************/
-    int LIFT_MASTER_TALON_MOTOR_PORT = 8;
-    int LIFT_FOLLOWER_VICTOR_MOTOR_PORT = 9;
+    int LIFT_MASTER_TALON_MOTOR_PORT = 9;
+    int LIFT_FOLLOWER_VICTOR_MOTOR_PORT = 10;
 
     int LIFT_TILT_SOLENOID_FORWARD_PORT = 5; //PCM 2 (13)
     int LIFT_TILT_SOLENOID_REVERSE_PORT = 7; //PCM 2 (15)
@@ -65,7 +65,7 @@ public interface RobotMap {
     /***************************************************************************************
      * Rollers Motor Port
      ****************************************************************************************/
-     int ROLLER_MOTOR_PORT = 10;
+     int ROLLER_MOTOR_PORT = 11;
 
     /***************************************************************************************
      * IR Sensor Port
