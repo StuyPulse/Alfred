@@ -133,8 +133,8 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousInit() {
-        autonomousCommand = chooser.getSelected();
-
+        // autonomousCommand = chooser.getSelected();
+        Robot.lift.tiltForward();
         /*
          * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
          * switch(autoSelected) { case "My Auto": autonomousCommand = new
@@ -143,9 +143,9 @@ public class Robot extends TimedRobot {
          */
 
         // schedule the autonomous command (example)
-        if (autonomousCommand != null) {
-            autonomousCommand.start();
-        }
+        // if (autonomousCommand != null) {
+        //     autonomousCommand.start();
+        // }
     }
 
     /**
@@ -163,9 +163,9 @@ public class Robot extends TimedRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         Robot.floop.open();
-        if (autonomousCommand != null) {
-            autonomousCommand.cancel();
-        }
+        // if (autonomousCommand != null) {
+        //     autonomousCommand.cancel();
+        // }
     }
 
     /**
