@@ -72,6 +72,11 @@ public interface RobotMap {
      ****************************************************************************************/
     int IR_SENSOR_PORT = 9;
 
+    /**************************************************************************************** 
+     * IR Sensor Port
+     ****************************************************************************************/
+    int LED_CHANNEL = 0;
+    
     /***************************************************************************************
      * Gamepad Ports
      ****************************************************************************************/
@@ -90,7 +95,7 @@ public interface RobotMap {
      ****************************************************************************************/
     double TARGET_HEIGHT_THRESHOLD = 6;
     double MIN_ASPECT_RATIO = 1.2;
-    double MAX_ASPECT_RATIO = 2.9;
+    double MAX_ASPECT_RATIO = 3.3;
     double ANGLE_THRESHOLD = 25;
 
     /***************************************************************************************
@@ -133,7 +138,7 @@ public interface RobotMap {
     double LIFT_ENCODER_TICKS_PER_REV = 1024.0;
     double LIFT_ENCODER_RAW_MULTIPLIER = 1 / 1207.0;
     double LIFT_MIN_SPEED = 0.1;
-    double LIFT_SPEED_MULTIPLIER = 0.5;
+    double LIFT_SPEED_MULTIPLIER = .8;
 
     // Waiting on eng for the height
     // Eric said the total carriage movement is about 74 in

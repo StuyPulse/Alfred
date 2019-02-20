@@ -33,7 +33,15 @@ public class LiftMoveCommand extends Command {
     protected void execute() {
 
         if(targetLevel == Level.ZERO) {
-            Robot.lift.move(Robot.oi.operatorGamepad.getLeftY());
+            Robot.lift.move(Math.pow(Robot.oi.operatorGamepad.getLeftY(), 3));
+        }
+
+        if (Robot.oi.operatorGamepad.getRawStartButton()) {
+            Robot.lift.toggleOpticalSensorOverride();
+        }
+
+        if (Robot.oi.operatorGamepad.getRawSelectButton()) {
+            Robot.lift.resetEncoder();
         }
 
         setAutoComp();
