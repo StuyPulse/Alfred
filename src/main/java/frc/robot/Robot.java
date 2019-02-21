@@ -189,4 +189,12 @@ public class Robot extends TimedRobot {
         levelChooser.addObject("Level Three", RobotStartLevel.LEVEL_THREE);
         SmartDashboard.putData("Which level is the bot starting on?", levelChooser);
     }
+
+    public boolean isRobotOnRight() {
+        return isRobotOnRight;
+    }
+
+    public RobotStartLevel robotStartLevel() {
+        return startLevel;
+    }
 }
