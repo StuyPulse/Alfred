@@ -42,8 +42,8 @@ public class Lvl2_CS1_HP_CS2AutonCommand extends CommandGroup {
     addSequential(new FloopOpenCommand());
     
     // score second hatch panel
-    addSequential(new DrivetrainMoveInchesCommand(BACKUP_DISTANCE, -1))
-    addSequential(new DrivetrainRelativeRotateCommand(isRobotOnRight ? TURN_TO_CS2 : -TURN_TO_CS2, -1));
+    addSequential(new DrivetrainMoveInchesCommand(BACKUP_DISTANCE, -1));
+    addSequential(new DrivetrainRelativeRotateCommand(isRobotOnRight ? ANGLE_TO_CS2 : -ANGLE_TO_CS2, -1));
     addSequential(new DrivetrainMoveInchesCommand(HP_TO_CS2, -1));
     addSequential(new DrivetrainAbsoluteRotateCommand(0, -1));
     addSequential(new AutomaticDriveCommand(), 5);
