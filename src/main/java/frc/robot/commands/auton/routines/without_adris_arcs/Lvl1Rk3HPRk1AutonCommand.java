@@ -15,7 +15,7 @@ import frc.robot.commands.auton.DrivetrainAbsoluteRotateCommand;
 import frc.robot.commands.auton.DrivetrainMoveInchesCommand;
 import frc.robot.commands.auton.DrivetrainRelativeRotateCommand;
 
-public class Lvl1Rkt3HPRkt1AutonCommand extends CommandGroup {
+public class Lvl1Rk3HPRk1AutonCommand extends CommandGroup {
   /**
    * Starts backwards on level 1,
    * scores on far side of rocket,
@@ -31,7 +31,7 @@ public class Lvl1Rkt3HPRkt1AutonCommand extends CommandGroup {
   public final double BACK_UP_DISTANCE = 10;
   public final double RKT3_TO_HP = 100;
 
-  public Lvl1Rkt3HPRkt1AutonCommand(boolean isRobotOnRight) {
+  public Lvl1Rk3HPRk1AutonCommand(boolean isRobotOnRight) {
 
     //score first hatch panel 
     addSequential(new DrivetrainMoveInchesCommand(LVL2_TO_CS2, -1));
