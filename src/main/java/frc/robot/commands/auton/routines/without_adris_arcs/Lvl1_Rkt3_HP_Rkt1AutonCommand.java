@@ -34,17 +34,19 @@ public class Lvl1_Rkt3_HP_Rkt1AutonCommand extends CommandGroup {
 
     //score first hatch panel 
     addSequential(new DrivetrainMoveInchesCommand(LVL2_TO_CS2, -1));
-    addSequential(new DrivetrainRelativeRotateCommand(ANGLE_TO_RKT3, -1));
+    addSequential(new DrivetrainRelativeRotateCommand(ANGLE_TO_RKT3, 1));
     addSequential(new AutomaticDriveCommand(), 5);
     addSequential(new FloopCloseCommand());
 
     //get second hatch panel from hp
-    addSequential(new DrivetrainMoveInchesCommand(10, -1)); //TODO: find actual distances
+    addSequential(new DrivetrainMoveInchesCommand(10, -1));
     addSequential(new DrivetrainAbsoluteRotateCommand(180, 1));
-    addSequential(new DrivetrainMoveInchesCommand(150, 1));
+    addSequential(new DrivetrainMoveInchesCommand(100, 1));
+    addSequential(new AutomaticDriveCommand(), 5);
     addSequential(new FloopOpenCommand());
 
     //score second hatch panel
+    addSequential(new DrivetrainMoveInchesCommand(10, -1));
     addSequential(new DrivetrainRelativeRotateCommand(180, 1));
     addSequential(new AutomaticDriveCommand(), 5);
     addSequential(new FloopCloseCommand());

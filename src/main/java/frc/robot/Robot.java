@@ -44,7 +44,11 @@ public class Robot extends TimedRobot {
 
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<>();
+    private static SendableChooser<RobotStartPosition> sideChooser = new SendableChooser<>();
+    private static SendableChooser<RobotStartLevel> levelChooser = new SendableChooser<>(); 
 
+    private boolean isRobotOnRight;
+    private RobotStartLevel startLevel;
     /**
      * This function is run when the robot is first started up and should be used
      * for any initialization code.
@@ -64,6 +68,15 @@ public class Robot extends TimedRobot {
         IRsensor = new DigitalInput(RobotMap.IR_SENSOR_PORT);
         // chooser.addOption("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
+        initSmartDashboard();
+    }
+
+    public enum RobotStartPosition {
+        RIGHT_SIDE_OF_DRIVER, LEFT_SIDE_OF_DRIVER
+    }
+
+    public enum RobotStartLevel {
+        LEVEL_ONE, LEVEL_TWO, LEVEL_THREE;
     }
 
     /**
@@ -110,19 +123,9 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
         setUpDoubleSolenoids();
-        autonomousCommand = chooser.getSelected();
-
-        /*
-         * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
-         * switch(autoSelected) { case "My Auto": autonomousCommand = new
-         * MyAutoCommand(); break; case "Default Auto": default: autonomousCommand = new
-         * ExampleCommand(); break; }
-         */
-
-        // schedule the autonomous command (example)
-        if (autonomousCommand != null) {
-            autonomousCommand.start();
-        }
+        
+        isRobotOnRight = (sideChooser.getSelected() == RobotStartPosition.RIGHT_SIDE_OF_DRIVER);
+        startLevel = levelChooser.getSelected();
     }
 
     /**
@@ -174,5 +177,16 @@ public class Robot extends TimedRobot {
 
     private boolean isGamePieceDetected() {
         return IRsensor.get();
+    }
+
+    private void initSmartDashboard() {
+        sideChooser.addDefault("Right", RobotStartPosition.RIGHT_SIDE_OF_DRIVER);
+        sideChooser.addObject("Left", RobotStartPosition.LEFT_SIDE_OF_DRIVER);
+        SmartDashboard.putData("Where is the bot starting?", sideChooser);
+
+        levelChooser.addDefault("Level One", RobotStartLevel.LEVEL_ONE);
+        levelChooser.addObject("Level Two", RobotStartLevel.LEVEL_TWO);
+        levelChooser.addObject("Level Three", RobotStartLevel.LEVEL_THREE);
+        SmartDashboard.putData("Which level is the bot starting on?", levelChooser);
     }
 }

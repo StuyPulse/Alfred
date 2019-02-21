@@ -30,16 +30,17 @@ public class Lvl1_CS2_HP_CS3AutonCommand extends CommandGroup {
 
     //get second hatch panel from hp
     addSequential(new DrivetrainMoveInchesCommand(10, -1));
-    addSequential(new DrivetrainAbsoluteRotateCommand(90, 1));
+    addSequential(new DrivetrainAbsoluteRotateCommand(-90, 1));
     addSequential(new DrivetrainMoveInchesCommand(10, 1));
-    addSequential(new DrivetrainRelativeRotateCommand(20, 1));
+    addSequential(new DrivetrainRelativeRotateCommand(-20, 1));
     addSequential(new AutomaticDriveCommand(), 5);
     addSequential(new FloopOpenCommand());
 
     //score second hatch panel
-    addSequential(new DrivetrainRelativeRotateCommand(20, -1));
+    addSequential(new DrivetrainMoveInchesCommand(-10, 1));
+    addSequential(new DrivetrainRelativeRotateCommand(20, 1));
     addSequential(new DrivetrainMoveInchesCommand(50, -1));
-    addSequential(new DrivetrainAbsoluteRotateCommand(90, -1));
+    addSequential(new DrivetrainAbsoluteRotateCommand(0, -1));
     addSequential(new AutomaticDriveCommand(), 5);
     addSequential(new FloopCloseCommand());
     addSequential(new DrivetrainMoveInchesCommand(10,-1));
