@@ -14,6 +14,7 @@ import frc.robot.RobotMap;
 import frc.robot.commands.AbomPumpControlCommand;
 
 public final class Abom extends Subsystem {
+    
     Solenoid abomSolenoid;
     private boolean wantPumping;
 

@@ -10,8 +10,8 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class FangsLowerRollersInCommand extends CommandGroup {
-  public FangsLowerRollersInCommand() {
-    addParallel(new FangsLowerCommand());
-    addSequential(new RollersConstantAcquireCommand(), 0.5);
-  }
+    public FangsLowerRollersInCommand() {
+        addParallel(new FangsLowerCommand());
+        addSequential(new RollersConstantAcquireCommand(), 0.5);
+    }
 }

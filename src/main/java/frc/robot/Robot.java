@@ -32,7 +32,9 @@ import frc.util.LEDRelayController;
  * creating this project, you must also update the build.gradle file in the
  * project.
  */
+
 public class Robot extends TimedRobot {
+
     public static Drivetrain drivetrain;
     public static OI oi;
     public static Floop floop;
@@ -56,6 +58,7 @@ public class Robot extends TimedRobot {
      * This function is run when the robot is first started up and should be used
      * for any initialization code.
      */
+
     @Override
     public void robotInit() {
         drivetrain = new Drivetrain();
@@ -97,6 +100,7 @@ public class Robot extends TimedRobot {
      * This runs after the mode specific periodic functions, but before LiveWindow
      * and SmartDashboard integrated updating.
      */
+
     @Override
     public void robotPeriodic() {
         controlCompressor();
@@ -109,6 +113,7 @@ public class Robot extends TimedRobot {
      * can use it to reset any subsystem information you want to clear when the
      * robot is disabled.
      */
+
     @Override
     public void disabledInit() {
     }
@@ -170,6 +175,7 @@ public class Robot extends TimedRobot {
     /**
      * This function is called periodically during operator control.
      */
+
     @Override
     public void teleopPeriodic() {
         // if(!isGamePieceDetected()) {
@@ -201,6 +207,7 @@ public class Robot extends TimedRobot {
     /**
      * This function is called periodically during test mode.
      */
+
     @Override
     public void testPeriodic() {
     }

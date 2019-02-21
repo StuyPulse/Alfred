@@ -12,12 +12,12 @@ import frc.robot.Robot;
 
 public class AbomToggleCommand extends InstantCommand {
 
-  public AbomToggleCommand() {
-    requires(Robot.abom);
-  }
+    public AbomToggleCommand() {
+        requires(Robot.abom);
+    }
 
-  @Override
-  protected void initialize() {
-    Robot.abom.setWantPumpingStatus(!Robot.abom.getWantPumpingStatus());
-  }
+    @Override
+    protected void initialize() {
+        Robot.abom.setWantPumpingStatus(!Robot.abom.getWantPumpingStatus());
+    }
 }

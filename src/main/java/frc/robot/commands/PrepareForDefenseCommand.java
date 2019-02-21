@@ -10,9 +10,8 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class PrepareForDefenseCommand extends CommandGroup {
-    /*
-     * A series of commands to bring the robot to a legal position to play defense
-     */
+    
+    //A series of commands to bring the robot to a legal position to play defense
 
     //TODO: find the actual value to bring the carriage to the top of the first stage
     private final double TOP_OF_FIRST_STAGE = 10;
