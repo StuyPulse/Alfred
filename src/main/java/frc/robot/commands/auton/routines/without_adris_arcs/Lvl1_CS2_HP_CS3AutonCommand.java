@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.auton.routines.withoutAdrisArcs;
+package frc.robot.commands.auton.routines.without_adris_arcs;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.commands.AutomaticDriveCommand;
