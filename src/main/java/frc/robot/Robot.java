@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -102,6 +103,7 @@ public class Robot extends TimedRobot {
         controlCompressor();
         SmartDashboard.putBoolean("IR Sensor", isGamePieceDetected());
         liftSpeedGoingDown = SmartDashboard.getNumber("Lift Auto Complete Speed Going Down", 0.5);
+        SmartDashboard.putString("Match Time", returnTime());
     }
 
     /**
@@ -220,6 +222,15 @@ public class Robot extends TimedRobot {
 
     private boolean isGamePieceDetected() {
         return IRsensor.get();
+    }
+
+    private String returnTime() {
+        boolean isAuton = DriverStation.getInstance().isAutonomous();
+        double DTime = DriverStation.getInstance().getMatchTime();
+        int time = DTime == -1 ? 0 : (int) DTime; 
+        String minutes = Integer.toString(time / 60);
+        String seconds = (time % 60 < 10 ? "0" : "") + Integer.toString(time % 60);
+        return (isAuton ? "Sandstorm: " : "Teleop: ") + minutes + ":" + seconds;
     }
 
     // private void blinkLED() {
