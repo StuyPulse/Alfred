@@ -226,11 +226,20 @@ public class Robot extends TimedRobot {
 
     private String returnTime() {
         boolean isAuton = DriverStation.getInstance().isAutonomous();
-        double DTime = DriverStation.getInstance().getMatchTime();
-        int time = DTime == -1 ? 0 : (int) DTime; 
-        String minutes = Integer.toString(time / 60);
-        String seconds = (time % 60 < 10 ? "0" : "") + Integer.toString(time % 60);
-        return (isAuton ? "Sandstorm: " : "Teleop: ") + minutes + ":" + seconds;
+        int DTime = (int) DriverStation.getInstance().getMatchTime();
+        if (DTime == -1) {
+            DTime = 0; 
+        }
+        String minutes = Integer.toString(DTime / 60);
+        String seconds = Integer.toString(DTime % 60);
+        if (DTime % 60 < 10) {
+            seconds = "0" + seconds;
+        }
+        if (isAuton) {
+            return "Sandstorm: " + minutes + ":" + seconds;
+        } else {
+            return "Teleop: " + minutes + ":" + seconds;
+        }
     }
 
     // private void blinkLED() {
