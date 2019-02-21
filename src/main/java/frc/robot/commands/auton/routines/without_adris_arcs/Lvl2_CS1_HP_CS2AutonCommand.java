@@ -22,28 +22,32 @@ public class Lvl2_CS1_HP_CS2AutonCommand extends CommandGroup {
    * Go to hp
    * Score on cargo ship (closest to level 1)
   */
-  public final double ANGLE_TO_HP = Math.toDegrees(Math.atan(107 / 100));
-  public final double CS1_TO_HP = Math.sqrt(107 * 107 / 100 / 100);
+  public final double BACKUP_DISTANCE = 10;
+  public final double ANGLE_TO_HP = -180 + Math.toDegrees(Math.atan(107 / 100));
+  public final double CS1_GET_CLOSER_TO_HP = Math.sqrt(107 * 107 +  100 * 100);
+  public final double ANGLE_TO_CS2 = Math.toDegrees(Math.atan(110 / 185));
+  public final double HP_TO_CS2 = Math.sqrt(110 * 110 + 185 * 185);
 
-  public Lvl2_CS1_HP_CS2AutonCommand() {
+  public Lvl2_CS1_HP_CS2AutonCommand(boolean isRobotOnRight) {
     // score first hatch panel
     addSequential(new FloopOpenCommand());
     addSequential(new AutomaticDriveCommand());
     addSequential(new FloopCloseCommand());
 
     // go to hp, acquire hatch panel
-    addSequential(new DrivetrainMoveInchesCommand(10, -1));
-    addSequential(new DrivetrainRelativeRotateCommand(-180 + ANGLE_TO_HP, 1));
-    addSequential(new DrivetrainMoveInchesCommand(CS1_TO_HP, 1));
+    addSequential(new DrivetrainMoveInchesCommand(BACKUP_DISTANCE, -1));
+    addSequential(new DrivetrainRelativeRotateCommand(isRobotOnRight ? ANGLE_TO_HP : -ANGLE_TO_HP, 1));
+    addSequential(new DrivetrainMoveInchesCommand(CS1_GET_CLOSER_TO_HP, 1));
     addSequential(new AutomaticDriveCommand());
     addSequential(new FloopOpenCommand());
     
     // score second hatch panel
-    addSequential(new DrivetrainRelativeRotateCommand(20, -1));
-    addSequential(new DrivetrainMoveInchesCommand(50, -1));
-    addSequential(new DrivetrainAbsoluteRotateCommand(90, -1));
+    addSequential(new DrivetrainMoveInchesCommand(BACKUP_DISTANCE, -1))
+    addSequential(new DrivetrainRelativeRotateCommand(isRobotOnRight ? TURN_TO_CS2 : -TURN_TO_CS2, -1));
+    addSequential(new DrivetrainMoveInchesCommand(HP_TO_CS2, -1));
+    addSequential(new DrivetrainAbsoluteRotateCommand(0, -1));
     addSequential(new AutomaticDriveCommand(), 5);
     addSequential(new FloopCloseCommand());
-    addSequential(new DrivetrainMoveInchesCommand(10, -1));
+    addSequential(new DrivetrainMoveInchesCommand(BACKUP_DISTANCE, -1));
   }
 }
