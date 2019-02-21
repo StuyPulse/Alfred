@@ -29,6 +29,7 @@ public class Lvl1_CS2_HP_CS3AutonCommand extends CommandGroup {
     addSequential(new FloopCloseCommand());
 
     //get second hatch panel from hp
+    addSequential(new DrivetrainMoveInches(10, -1));
     addSequential(new DrivetrainAbsoluteRotateCommand(90, 1));
     addSequential(new DrivetrainMoveInchesCommand(10, 1));
     addSequential(new DrivetrainRelativeRotateCommand(20, 1));
