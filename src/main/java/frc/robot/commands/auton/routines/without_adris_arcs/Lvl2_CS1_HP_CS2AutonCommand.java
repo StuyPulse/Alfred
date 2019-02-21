@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.commands.AutomaticDriveCommand;
 import frc.robot.commands.FloopCloseCommand;
 import frc.robot.commands.FloopOpenCommand;
+import frc.robot.commands.auton.DrivetrainAbsoluteRotateCommand;
 import frc.robot.commands.auton.DrivetrainMoveInchesCommand;
 import frc.robot.commands.auton.DrivetrainRelativeRotateCommand;
 
@@ -31,9 +32,9 @@ public class Lvl2_CS1_HP_CS2AutonCommand extends CommandGroup {
     addSequential(new FloopCloseCommand());
 
     // go to hp, acquire hatch panel
-    addSequential(new DrivetrainMoveInches(10, -1));
-    addSequential(new DrivetrainRelativeRotate(-180 + ANGLE_TO_HP);
-    addSequential(new DrivetrainDriveInchesCommand(CS1_TO_HP);
+    addSequential(new DrivetrainMoveInchesCommand(10, -1));
+    addSequential(new DrivetrainRelativeRotateCommand(-180 + ANGLE_TO_HP, 1));
+    addSequential(new DrivetrainMoveInchesCommand(CS1_TO_HP, 1));
     addSequential(new AutomaticDriveCommand());
     addSequential(new FloopOpenCommand());
     
@@ -43,6 +44,6 @@ public class Lvl2_CS1_HP_CS2AutonCommand extends CommandGroup {
     addSequential(new DrivetrainAbsoluteRotateCommand(90, -1));
     addSequential(new AutomaticDriveCommand(), 5);
     addSequential(new FloopCloseCommand());
-    addSequential(new DrivetrainMoveInchesCommand(10, -1))
+    addSequential(new DrivetrainMoveInchesCommand(10, -1));
   }
 }
