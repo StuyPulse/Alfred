@@ -26,8 +26,8 @@ public class Lvl1_CS2_HP_CS3AutonCommand extends CommandGroup {
   public final double BACKUP_DISTANCE = 10;
   public final double GET_CLOSER_TO_HP = 10;
   public final double FACE_HP_ANGLE = 20;
-  public final double TURN_TO_CS2 = 20;
-  public final double HP_TO_CS2 = 50;
+  public final double TURN_TO_CS3 = 20;
+  public final double HP_TO_CS3 = 50;
 
   public Lvl1_CS2_HP_CS3AutonCommand(boolean isRobotOnRight) {
 
@@ -45,8 +45,8 @@ public class Lvl1_CS2_HP_CS3AutonCommand extends CommandGroup {
 
     //score second hatch panel
     addSequential(new DrivetrainMoveInchesCommand(BACKUP_DISTANCE, -1));
-    addSequential(new DrivetrainRelativeRotateCommand(isRobotOnRight ? -TURN_TO_CS2 : TURN_TO_CS2, 1));
-    addSequential(new DrivetrainMoveInchesCommand(HP_TO_CS2, -1));
+    addSequential(new DrivetrainRelativeRotateCommand(isRobotOnRight ? -TURN_TO_CS3 : TURN_TO_CS3, 1));
+    addSequential(new DrivetrainMoveInchesCommand(HP_TO_CS3, -1));
     addSequential(new DrivetrainAbsoluteRotateCommand(0, 1));
     addSequential(new AutomaticDriveCommand(), 5);
     addSequential(new FloopCloseCommand());
