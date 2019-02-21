@@ -11,37 +11,38 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.commands.AutomaticDriveCommand;
 import frc.robot.commands.FloopCloseCommand;
 import frc.robot.commands.FloopOpenCommand;
-import frc.robot.commands.auton.DrivetrainAbsoluteRotateCommand;
 import frc.robot.commands.auton.DrivetrainMoveInchesCommand;
 import frc.robot.commands.auton.DrivetrainRelativeRotateCommand;
 
-public class Lvl1_CS2_HP_CS3AutonCommand extends CommandGroup {
-  /**
-   * Start on level 1
-   * Score on cargo ship (closest to level 1)
+public class Lvl2_CS1_HP_CS2AutonCommand extends CommandGroup {
+  /** 
+   * Start on level 2
+   * Score on cargo ship (closest to level 2)
    * Go to hp
-   * Score on cargo ship (first one on side)
-   */
-  public Lvl1_CS2_HP_CS3AutonCommand() {
+   * Score on cargo ship (closest to level 1)
+  */
+  public final double ANGLE_TO_HP = Math.toDegrees(Math.atan(107 / 100));
+  public final double CS1_TO_HP = Math.sqrt(107 * 107 / 100 / 100);
 
-    //score first hatch panel 
-    addSequential(new AutomaticDriveCommand(), 5);
+  public Lvl2_CS1_HP_CS2AutonCommand() {
+    // score first hatch panel
+    addSequential(new FloopOpenCommand());
+    addSequential(new AutomaticDriveCommand());
     addSequential(new FloopCloseCommand());
 
-    //get second hatch panel from hp
+    // go to hp, acquire hatch panel
     addSequential(new DrivetrainMoveInches(10, -1));
-    addSequential(new DrivetrainAbsoluteRotateCommand(90, 1));
-    addSequential(new DrivetrainMoveInchesCommand(10, 1));
-    addSequential(new DrivetrainRelativeRotateCommand(20, 1));
-    addSequential(new AutomaticDriveCommand(), 5);
+    addSequential(new DrivetrainRelativeRotate(-180 + ANGLE_TO_HP);
+    addSequential(new DrivetrainDriveInchesCommand(CS1_TO_HP);
+    addSequential(new AutomaticDriveCommand());
     addSequential(new FloopOpenCommand());
-
-    //score second hatch panel
+    
+    // score second hatch panel
     addSequential(new DrivetrainRelativeRotateCommand(20, -1));
     addSequential(new DrivetrainMoveInchesCommand(50, -1));
     addSequential(new DrivetrainAbsoluteRotateCommand(90, -1));
     addSequential(new AutomaticDriveCommand(), 5);
     addSequential(new FloopCloseCommand());
-    addSequential(new DrivetrainMoveInchesCommand(10,-1));
+    addSequential(new DrivetrainMoveInchesCommand(10, -1))
   }
 }

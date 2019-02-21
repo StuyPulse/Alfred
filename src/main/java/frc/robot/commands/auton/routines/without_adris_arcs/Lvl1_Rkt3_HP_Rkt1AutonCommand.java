@@ -48,5 +48,6 @@ public class Lvl1_Rkt3_HP_Rkt1AutonCommand extends CommandGroup {
     addSequential(new DrivetrainRelativeRotateCommand(180, 1));
     addSequential(new AutomaticDriveCommand(), 5);
     addSequential(new FloopCloseCommand());
+    addSequential(new DrivetrainMoveInchesCommand(10,-1));
   }
 }
