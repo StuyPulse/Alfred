@@ -17,6 +17,7 @@ import frc.robot.Robot;
 public class DrivetrainDriveStraightCommand extends DrivetrainMoveInchesCommand {
 
     private PIDController rotationPIDController;
+    protected double speedScaleFactor = 1;
     private double gyroPIDOutput;
     private double rotateP;
     private double rotateI;
@@ -44,7 +45,7 @@ public class DrivetrainDriveStraightCommand extends DrivetrainMoveInchesCommand 
     @Override
     protected void execute() {
         double sign = Math.signum(this.distance - Robot.drivetrain.getGreyhillDistance());
-        Robot.drivetrain.tankDrive(sign * speed + getGyroPIDOutput(), sign * speed - getGyroPIDOutput());
+        Robot.drivetrain.tankDrive(sign * speed * speedScaleFactor + getGyroPIDOutput(), sign * speed * speedScaleFactor - getGyroPIDOutput());
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -62,6 +63,14 @@ public class DrivetrainDriveStraightCommand extends DrivetrainMoveInchesCommand 
 
     protected double getGyroPIDOutput() {
         return gyroPIDOutput;
+    }
+
+    public void setTargetAngle(double angle) {
+        rotationPIDController.setSetpoint(angle);
+    }
+
+    public void setSpeedScale(double speedScaleFactor) {
+        this.speedScaleFactor = speedScaleFactor;
     }
     
     private class GyroPIDSource implements PIDSource {
