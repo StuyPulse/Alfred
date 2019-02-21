@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.LiftMoveToHeightCommand;
 import frc.robot.subsystems.Abom;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Fangs;
@@ -64,7 +65,7 @@ public class Robot extends TimedRobot {
 
         CameraServer.getInstance().startAutomaticCapture(0);
         SmartDashboard.putNumber("TURN_DIV", 35);
-        SmartDashboard.putNumber("MOVE_TURN_MUL", 6 );
+        SmartDashboard.putNumber("MOVE_TURN_MUL", 6);
 
         SmartDashboard.putNumber("TURN_MIN_SPEED", 0.2);
         SmartDashboard.putNumber("TURN_MIN_ANGLE", 1);
@@ -95,8 +96,8 @@ public class Robot extends TimedRobot {
 
     @Override
     public void autonomousInit() {
-        autonomousCommand = chooser.getSelected();
-
+        autonomousCommand = new LiftMoveToHeightCommand(RobotMap.LEVEL_1_HEIGHT);
+        Robot.lift.tiltForward();
         if (autonomousCommand != null) {
             autonomousCommand.start();
         }
@@ -110,9 +111,9 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopInit() {
         Robot.floop.open();
-        if (autonomousCommand != null) {
-            autonomousCommand.cancel();
-        }
+        // if (autonomousCommand != null) {
+        //     autonomousCommand.cancel();
+        // }
     }
 
     @Override

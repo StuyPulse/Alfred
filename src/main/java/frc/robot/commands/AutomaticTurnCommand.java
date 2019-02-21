@@ -30,11 +30,11 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
         if( Limelight.hasValidTarget() /*&& Math.abs(Limelight.getTargetXAngle()) > smallAngleThreshold */){
             //turn += getTurnValue(Limelight.getTargetXAngle(), smallAngleSpeed);
             /*Math.max(SmartDashboard.getNumber("MOVE_TURN_DIV", 2) * speed,1)*/
-            double turn_MUL = SmartDashboard.getNumber("MOVE_TURN_MUL", 2) * speed;
+            double turn_MUL = SmartDashboard.getNumber("MOVE_TURN_MUL", 6) * speed;
             double sgn = Math.signum(Limelight.getTargetXAngle());
             turn += Math.max(turn_MUL, 1) * sgn * 
                     Math.sqrt(Math.abs(Limelight.getTargetXAngle())) /
-                    (SmartDashboard.getNumber("TURN_DIV", 40));
+                    (SmartDashboard.getNumber("TURN_DIV", 35));
             
         }
     }

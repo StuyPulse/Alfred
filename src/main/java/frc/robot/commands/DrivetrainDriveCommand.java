@@ -49,7 +49,7 @@ public class DrivetrainDriveCommand extends Command {
         // System.out.println("Skew :" + Limelight.getTargetSkew());
         // System.out.println("W/H :" + Limelight.hasValidBlueAspectRatio(minRatio, maxRatio));
         // Sets to driver mode for debugging
-        if(Robot.oi.driverGamepad.getRawDPadDown()){
+        if (Robot.oi.driverGamepad.getRawDPadDown()){
             Limelight.setCamMode(Limelight.CamMode.DRIVER);
         }
     }
