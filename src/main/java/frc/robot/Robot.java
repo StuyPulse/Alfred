@@ -226,13 +226,13 @@ public class Robot extends TimedRobot {
 
     private String returnTime() {
         boolean isAuton = DriverStation.getInstance().isAutonomous();
-        int DTime = (int) DriverStation.getInstance().getMatchTime();
-        if (DTime == -1) {
-            DTime = 0; 
+        int dTime = (int) DriverStation.getInstance().getMatchTime();
+        if (dTime == -1) {
+            dTime = 0; 
         }
-        String minutes = Integer.toString(DTime / 60);
-        String seconds = Integer.toString(DTime % 60);
-        if (DTime % 60 < 10) {
+        String minutes = Integer.toString(dTime / 60);
+        String seconds = Integer.toString(dTime % 60);
+        if (dTime % 60 < 10) {
             seconds = "0" + seconds;
         }
         if (isAuton) {
