@@ -15,39 +15,43 @@ import frc.robot.commands.auton.DrivetrainAbsoluteRotateCommand;
 import frc.robot.commands.auton.DrivetrainMoveInchesCommand;
 import frc.robot.commands.auton.DrivetrainRelativeRotateCommand;
 
-public class Lvl2_CS1_HP_CS2AutonCommand extends CommandGroup {
-  /** 
-   * Start on level 2
-   * Score on cargo ship (closest to level 2)
-   * Go to hp
+public class Lvl1Cs2HpCs3AutonCommand extends CommandGroup {
+  /**
+   * Start on level 1
    * Score on cargo ship (closest to level 1)
-  */
+   * Go to hp
+   * Score on cargo ship (first one on side)
+   */
+
   public final double BACKUP_DISTANCE = 10;
-  public final double ANGLE_TO_HP = -180 + Math.toDegrees(Math.atan(107 / 100));
-  public final double CS1_GET_CLOSER_TO_HP = Math.sqrt(107 * 107 +  100 * 100);
-  public final double ANGLE_TO_CS2 = Math.toDegrees(Math.atan(110 / 185));
-  public final double HP_TO_CS2 = Math.sqrt(110 * 110 + 185 * 185);
+  public final double LVL1_TO_CS2 = 100;
+  public final double TURN_TO_HP = 100;
+  public final double CS2_TO_HP = 100;
+  public final double TURN_TO_CS3 = 20;
+  public final double HP_TO_CS3 = 150;
 
-  public Lvl2_CS1_HP_CS2AutonCommand(boolean isRobotOnRight) {
-    // score first hatch panel
-    addSequential(new FloopOpenCommand());
-    addSequential(new AutomaticDriveCommand());
-    addSequential(new FloopCloseCommand());
+  public Lvl1Cs2HpCs3AutonCommand(boolean isRobotOnRight) {
 
-    // go to hp, acquire hatch panel
-    addSequential(new DrivetrainMoveInchesCommand(BACKUP_DISTANCE, -1));
-    addSequential(new DrivetrainRelativeRotateCommand(isRobotOnRight ? ANGLE_TO_HP : -ANGLE_TO_HP, 1));
-    addSequential(new DrivetrainMoveInchesCommand(CS1_GET_CLOSER_TO_HP, 1));
-    addSequential(new AutomaticDriveCommand());
-    addSequential(new FloopOpenCommand());
-    
-    // score second hatch panel
-    addSequential(new DrivetrainMoveInchesCommand(BACKUP_DISTANCE, -1));
-    addSequential(new DrivetrainRelativeRotateCommand(isRobotOnRight ? ANGLE_TO_CS2 : -ANGLE_TO_CS2, -1));
-    addSequential(new DrivetrainMoveInchesCommand(HP_TO_CS2, -1));
-    addSequential(new DrivetrainAbsoluteRotateCommand(0, -1));
+    //score first hatch panel 
+    addSequential(new DrivetrainMoveInchesCommand(LVL1_TO_CS2, 1));
+    addSequential(new DrivetrainAbsoluteRotateCommand(isRobotOnRight ? -90 : 90, 1));
     addSequential(new AutomaticDriveCommand(), 5);
     addSequential(new FloopCloseCommand());
+
+    //get second hatch panel from hp
     addSequential(new DrivetrainMoveInchesCommand(BACKUP_DISTANCE, -1));
+    addSequential(new DrivetrainRelativeRotateCommand(isRobotOnRight ? -TURN_TO_HP : TURN_TO_HP, 1));
+    addSequential(new DrivetrainMoveInchesCommand(CS2_TO_HP, 1));
+    addSequential(new AutomaticDriveCommand(), 5);
+    addSequential(new FloopOpenCommand());
+
+    //score second hatch panel
+    addSequential(new DrivetrainMoveInchesCommand(BACKUP_DISTANCE, -1));
+    addSequential(new DrivetrainRelativeRotateCommand(isRobotOnRight ? -TURN_TO_CS3 : TURN_TO_CS3, 1));
+    addSequential(new DrivetrainMoveInchesCommand(HP_TO_CS3, -1));
+    addSequential(new DrivetrainAbsoluteRotateCommand(isRobotOnRight ? -90 : 90, 1));
+    addSequential(new AutomaticDriveCommand(), 5);
+    addSequential(new FloopCloseCommand());
+    addSequential(new DrivetrainMoveInchesCommand(BACKUP_DISTANCE,-1));
   }
 }

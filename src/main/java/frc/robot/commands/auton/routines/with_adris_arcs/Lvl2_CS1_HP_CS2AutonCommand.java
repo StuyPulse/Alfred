@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.auton;
+package frc.robot.commands.auton.routines.with_adris_arcs;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
