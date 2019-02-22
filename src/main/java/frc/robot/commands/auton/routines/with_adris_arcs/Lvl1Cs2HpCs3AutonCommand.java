@@ -15,38 +15,41 @@ import frc.robot.commands.auton.DrivetrainAbsoluteRotateCommand;
 import frc.robot.commands.auton.DrivetrainDriveCurveCommand;
 import frc.robot.commands.auton.DrivetrainMoveInchesCommand;
 
-public class Lvl1Rk3HpRk1AaAutonCommand extends CommandGroup {
+public class Lvl1Cs2HpCs3AutonCommand extends CommandGroup {
   /**
-   * Starts backwards on level 1,
-   * scores on far side of rocket,
-   * goes to human player,
-   * scores on close side of rocket.
+   Start on level 1
+   * Score on cargo ship (closest to level 1)
+   * Go to hp
+   * Score on cargo ship (first one on side)
    * 
    * With Adris Arcs
    */
 
-  public final double LVL1_TO_CS2 = 216;
-  public final double CS2_TO_RK3 = 87;
+  public final double LVL1_TO_CS2 = 177;
   public final double BACKUP = 10;
-  public final double PASS_RKT = 138;
-  public final double CENTER_WITH_HP = 39;
-  public final double RK1_TO_HP = 79;
-  
-  public Lvl1Rk3HpRk1AaAutonCommand(boolean isRobotOnRight) {
+  public final double CS2_TO_HP = 157;
+  public final double LINE_UP_WITH_HP = 55;
+  public final double HP_TO_CS3 = 181;
 
-    DrivetrainDriveCurveCommand driveCommandToRk3 = 
-      new DrivetrainDriveCurveCommand(LVL1_TO_CS2 + CS2_TO_RK3);
-    driveCommandToRk3.addSpeedChange(0, -1);
-    driveCommandToRk3.addTurn(LVL1_TO_CS2, isRobotOnRight? -90 : 90);
+  public Lvl1Cs2HpCs3AutonCommand(boolean isRobotOnRight) {
 
     DrivetrainDriveCurveCommand driveCommandToHp = 
-      new DrivetrainDriveCurveCommand(PASS_RKT + CENTER_WITH_HP + RK1_TO_HP);
+    new DrivetrainDriveCurveCommand(CS2_TO_HP + LINE_UP_WITH_HP);
     driveCommandToHp.addTurn(0, 180);
-    driveCommandToHp.addTurn(PASS_RKT, isRobotOnRight? -90 : 90);
-    driveCommandToHp.addTurn(PASS_RKT + CENTER_WITH_HP, 180);
+    driveCommandToHp.addTurn(CS2_TO_HP, isRobotOnRight ? -90 : 90);
+    driveCommandToHp.addTurn(CS2_TO_HP + LINE_UP_WITH_HP, 180);
+
+    DrivetrainDriveCurveCommand driveCommandToCs3 = 
+    new DrivetrainDriveCurveCommand(BACKUP + LINE_UP_WITH_HP + HP_TO_CS3);
+    driveCommandToCs3.addSpeedChange(0, -1);
+    driveCommandToCs3.addTurn(BACKUP, isRobotOnRight ? -90 : 90);
+    driveCommandToCs3.addSpeedChange(BACKUP + LINE_UP_WITH_HP, 1);
+    driveCommandToCs3.addTurn(BACKUP + LINE_UP_WITH_HP, 180);
+    driveCommandToCs3.addTurn(BACKUP + LINE_UP_WITH_HP + HP_TO_CS3, isRobotOnRight ? 90 : -90);
 
     //score first hatch panel
-    addSequential(driveCommandToRk3);
+    addSequential(new DrivetrainMoveInchesCommand(LVL1_TO_CS2, 1));
+    addSequential(new DrivetrainAbsoluteRotateCommand(isRobotOnRight ? -90 : 90, 1));
     addSequential(new AutomaticDriveCommand(), 5);
     addSequential(new FloopCloseCommand());
 
@@ -57,8 +60,8 @@ public class Lvl1Rk3HpRk1AaAutonCommand extends CommandGroup {
     addSequential(new FloopOpenCommand());
 
     //score second hatch panel
-    addSequential(new DrivetrainAbsoluteRotateCommand(0, 1));
-    addSequential(new AutomaticDriveCommand());
+    addSequential(driveCommandToCs3);
+    addSequential(new AutomaticDriveCommand(), 5);
     addSequential(new FloopCloseCommand());
   }
 }
