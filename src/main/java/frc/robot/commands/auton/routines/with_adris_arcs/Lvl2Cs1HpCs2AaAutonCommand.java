@@ -8,8 +8,14 @@
 package frc.robot.commands.auton.routines.with_adris_arcs;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc.robot.commands.AutomaticDriveCommand;
+import frc.robot.commands.FloopCloseCommand;
+import frc.robot.commands.FloopOpenCommand;
+import frc.robot.commands.auton.DrivetrainDriveCurveCommand;
+import frc.robot.commands.auton.DrivetrainMoveInchesCommand;
+import frc.robot.commands.auton.DrivetrainRelativeRotateCommand;
 
-public class Lv2Cs1HpCs2AaAutonCommand extends CommandGroup {
+public class Lvl2Cs1HpCs2AaAutonCommand extends CommandGroup {
   /**
    * Starts on level 2
    * scores on cargo ship (front, with Adris Arcs)
@@ -29,7 +35,7 @@ public class Lv2Cs1HpCs2AaAutonCommand extends CommandGroup {
   public final double HP_3_MID1_GO_TO_MID2_TO_CS2 = 138; //3500 mm
   public final double HP_4_MID2_GO_TO_CS2 = 80; //2000 mm
 
-  public Lv2Cs1HpCs2AaAutonCommand(boolean isRobotOnRight) {
+  public Lvl2Cs1HpCs2AaAutonCommand(boolean isRobotOnRight) {
     DrivetrainDriveCurveCommand driveToCs1 = new DrivetrainDriveCurveCommand(
       LV2_1_GO_TO_MID_TO_CS1 + 
       LV2_2_MID_ALIGN_TO_CS1 + 
@@ -64,7 +70,7 @@ public class Lv2Cs1HpCs2AaAutonCommand extends CommandGroup {
 
     // got to HP
     addSequential(new DrivetrainMoveInchesCommand(BACK_UP_DISTANCE, -1));
-    addSequential(new DrivetrainRelativeRotatCommand(-90));
+    addSequential(new DrivetrainRelativeRotateCommand(-90, 1));
     addSequential(driveToHp);
     addSequential(new AutomaticDriveCommand(), 5);
     addSequential(new FloopOpenCommand());
@@ -73,7 +79,7 @@ public class Lv2Cs1HpCs2AaAutonCommand extends CommandGroup {
     addSequential(driveToCs2);
     addSequential(new AutomaticDriveCommand(), 5);
     addSequential(new FloopCloseCommand());
-    addSequential(new DrivetrainMoveInchesCommand(BACK_UP_DISTANCE, -1))
+    addSequential(new DrivetrainMoveInchesCommand(BACK_UP_DISTANCE, -1));
 
 
   }
