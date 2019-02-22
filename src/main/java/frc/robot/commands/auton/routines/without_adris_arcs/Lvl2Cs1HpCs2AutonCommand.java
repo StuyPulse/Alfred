@@ -38,7 +38,7 @@ public class Lvl2Cs1HpCs2AutonCommand extends CommandGroup {
     addSequential(new DrivetrainMoveInchesCommand(BACKUP_DISTANCE, -1));
     addSequential(new DrivetrainRelativeRotateCommand(isRobotOnRight ? ANGLE_TO_HP : -ANGLE_TO_HP, 1));
     addSequential(new DrivetrainMoveInchesCommand(CS1_GET_CLOSER_TO_HP, 1));
-    addSequential(new AutomaticDriveCommand());
+    addSequential(new AutomaticDriveCommand(), 5);
     addSequential(new FloopOpenCommand());
     
     // score second hatch panel
