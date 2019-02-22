@@ -36,7 +36,8 @@ public class Lvl1Rk3HpRk1AaAutonCommand extends CommandGroup {
 
     DrivetrainDriveCurveCommand driveCommandToRk3 = 
       new DrivetrainDriveCurveCommand(LVL1_TO_CS2 + CS2_TO_RK3);
-    driveCommandToRk3.addTurn(LVL1_TO_CS2, isRobotOnRight? 90 : -90);
+    driveCommandToRk3.addSpeedChange(0, -1);
+    driveCommandToRk3.addTurn(LVL1_TO_CS2, isRobotOnRight? -90 : 90);
 
     DrivetrainDriveCurveCommand driveCommandToHp = 
       new DrivetrainDriveCurveCommand(PASS_RKT + CENTER_WITH_HP + RK1_TO_HP);
