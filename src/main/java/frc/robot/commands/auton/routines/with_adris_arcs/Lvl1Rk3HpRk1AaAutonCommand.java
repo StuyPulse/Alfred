@@ -13,6 +13,7 @@ import frc.robot.commands.FloopCloseCommand;
 import frc.robot.commands.FloopOpenCommand;
 import frc.robot.commands.auton.DrivetrainAbsoluteRotateCommand;
 import frc.robot.commands.auton.DrivetrainDriveCurveCommand;
+import frc.robot.commands.auton.DrivetrainMoveInchesCommand;
 
 public class Lvl1Rk3HpRk1AaAutonCommand extends CommandGroup {
   /**
@@ -38,14 +39,15 @@ public class Lvl1Rk3HpRk1AaAutonCommand extends CommandGroup {
     driveCommandToRk3.addTurn(LVL1_TO_CS2, isRobotOnRight? 90 : -90);
 
     DrivetrainDriveCurveCommand driveCommandToHp = 
-      new DrivetrainDriveCurveCommand(BACKUP + PASS_RKT + CENTER_WITH_HP + RK1_TO_HP);
-    driveCommandToHp.addTurn(BACKUP, 180);
-    driveCommandToHp.addTurn(BACKUP + PASS_RKT, isRobotOnRight? -90 : 90);
-    driveCommandToHp.addTurn(BACKUP + PASS_RKT + CENTER_WITH_HP, 180);
+      new DrivetrainDriveCurveCommand(PASS_RKT + CENTER_WITH_HP + RK1_TO_HP);
+    driveCommandToHp.addTurn(0, 180);
+    driveCommandToHp.addTurn(PASS_RKT, isRobotOnRight? -90 : 90);
+    driveCommandToHp.addTurn(PASS_RKT + CENTER_WITH_HP, 180);
 
     addSequential(driveCommandToRk3);
     addSequential(new AutomaticDriveCommand(), 5);
     addSequential(new FloopCloseCommand());
+    addSequential(new DrivetrainMoveInchesCommand(BACKUP, -1));
     addSequential(driveCommandToHp);
     addSequential(new AutomaticDriveCommand(), 5);
     addSequential(new FloopOpenCommand());
