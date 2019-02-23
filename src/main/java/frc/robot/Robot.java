@@ -7,11 +7,14 @@
 
 package frc.robot;
 
-import edu.wpi.first.cameraserver.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -24,7 +27,7 @@ import frc.robot.subsystems.Lift;
 import frc.robot.subsystems.Rollers;
 import frc.robot.subsystems.Tail;
 import frc.util.LEDRelayController;
-import frc.util.Limelight;
+import frc.util.Logger;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -50,6 +53,10 @@ public class Robot extends TimedRobot {
 
     public static LEDRelayController relayController;
 
+    public static Logger logger;
+    private File writeFile;
+    private PrintWriter writer;
+ 
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<>();
 
@@ -137,6 +144,15 @@ public class Robot extends TimedRobot {
         Robot.lift.tiltForward();
         fangs.lower(); // This is only for edwin
 
+        // Logging
+        writeFile = new File("Logs\\Auton.csv");
+        try { 
+            writer = new PrintWriter(writeFile);
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+        logger = new Logger(writeFile, writer);
+
         /*
          * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
          * switch(autoSelected) { case "My Auto": autonomousCommand = new
@@ -168,6 +184,16 @@ public class Robot extends TimedRobot {
         fangs.lower(); // This is only for Edwin
 
         Robot.floop.open();
+
+        // Logging
+        writeFile = new File("Logs\\Auton.csv");
+        try { 
+            writer = new PrintWriter(writeFile);
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+        logger = new Logger(writeFile, writer);
+
         // if (autonomousCommand != null) {
         //     autonomousCommand.cancel();
         // }
