@@ -7,15 +7,15 @@
 
 package frc.robot;
 
-import edu.wpi.first.cameraserver.*;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.LiftMoveToHeightCommand;
 import frc.robot.subsystems.Abom;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Fangs;
@@ -24,7 +24,6 @@ import frc.robot.subsystems.Lift;
 import frc.robot.subsystems.Rollers;
 import frc.robot.subsystems.Tail;
 import frc.util.LEDRelayController;
-import frc.util.Limelight;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -33,7 +32,9 @@ import frc.util.Limelight;
  * creating this project, you must also update the build.gradle file in the
  * project.
  */
+
 public class Robot extends TimedRobot {
+
     public static Drivetrain drivetrain;
     public static OI oi;
     public static Floop floop;
@@ -52,11 +53,16 @@ public class Robot extends TimedRobot {
 
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<>();
+    private static SendableChooser<RobotStartPosition> sideChooser = new SendableChooser<>();
+    private static SendableChooser<RobotStartLevel> levelChooser = new SendableChooser<>(); 
 
+    private boolean isRobotOnRight;
+    private RobotStartLevel startLevel;
     /**
      * This function is run when the robot is first started up and should be used
      * for any initialization code.
      */
+
     @Override
     public void robotInit() {
         drivetrain = new Drivetrain();
@@ -72,21 +78,15 @@ public class Robot extends TimedRobot {
         relayController = new LEDRelayController(RobotMap.LED_CHANNEL);
         //chooser.addOption("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
-        SmartDashboard.putBoolean("Enable compressor", true);
+        initSmartDashboard();
+    }
 
-        CameraServer.getInstance().startAutomaticCapture(0);
-        SmartDashboard.putNumber("TURN_DIV", 35);
-        SmartDashboard.putNumber("MOVE_TURN_MUL", 6);
+    public enum RobotStartPosition {
+        RIGHT_SIDE_OF_DRIVER, LEFT_SIDE_OF_DRIVER
+    }
 
-        SmartDashboard.putNumber("TURN_MIN_SPEED", 0.2);
-        SmartDashboard.putNumber("TURN_MIN_ANGLE", 1);
-
-        SmartDashboard.putBoolean("VALID_TARGET", false);
-        SmartDashboard.putBoolean("VALID_HEIGHT", false);
-        SmartDashboard.putBoolean("VALID_RATIO", false);
-        SmartDashboard.putBoolean("VALID_SKEW", false);
-
-        SmartDashboard.putNumber("CAM_MODE", 1);
+    public enum RobotStartLevel {
+        LEVEL_ONE, LEVEL_TWO, LEVEL_THREE;
     }
 
     /**
@@ -98,6 +98,7 @@ public class Robot extends TimedRobot {
      * This runs after the mode specific periodic functions, but before LiveWindow
      * and SmartDashboard integrated updating.
      */
+
     @Override
     public void robotPeriodic() {
         controlCompressor();
@@ -110,6 +111,7 @@ public class Robot extends TimedRobot {
      * can use it to reset any subsystem information you want to clear when the
      * robot is disabled.
      */
+
     @Override
     public void disabledInit() {
     }
@@ -133,7 +135,13 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousInit() {
-        // autonomousCommand = chooser.getSelected();
+
+        setUpDoubleSolenoids();
+        
+        isRobotOnRight = (sideChooser.getSelected() == RobotStartPosition.RIGHT_SIDE_OF_DRIVER);
+        startLevel = levelChooser.getSelected();
+        
+        autonomousCommand = new LiftMoveToHeightCommand(RobotMap.LEVEL_1_HEIGHT);
         Robot.lift.tiltForward();
         /*
          * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
@@ -143,9 +151,9 @@ public class Robot extends TimedRobot {
          */
 
         // schedule the autonomous command (example)
-        // if (autonomousCommand != null) {
-        //     autonomousCommand.start();
-        // }
+        if (autonomousCommand != null) {
+            autonomousCommand.start();
+        }
     }
 
     /**
@@ -171,6 +179,7 @@ public class Robot extends TimedRobot {
     /**
      * This function is called periodically during operator control.
      */
+
     @Override
     public void teleopPeriodic() {
         // if(!isGamePieceDetected()) {
@@ -202,6 +211,7 @@ public class Robot extends TimedRobot {
     /**
      * This function is called periodically during test mode.
      */
+
     @Override
     public void testPeriodic() {
     }
@@ -221,6 +231,41 @@ public class Robot extends TimedRobot {
 
     private boolean isGamePieceDetected() {
         return IRsensor.get();
+    }
+
+    private void initSmartDashboard() {
+        sideChooser.addDefault("Right", RobotStartPosition.RIGHT_SIDE_OF_DRIVER);
+        sideChooser.addObject("Left", RobotStartPosition.LEFT_SIDE_OF_DRIVER);
+        SmartDashboard.putData("Where is the bot starting?", sideChooser);
+
+        levelChooser.addDefault("Level One", RobotStartLevel.LEVEL_ONE);
+        levelChooser.addObject("Level Two", RobotStartLevel.LEVEL_TWO);
+        levelChooser.addObject("Level Three", RobotStartLevel.LEVEL_THREE);
+        SmartDashboard.putData("Which level is the bot starting on?", levelChooser);
+        
+        SmartDashboard.putBoolean("Enable compressor", true);
+
+        CameraServer.getInstance().startAutomaticCapture(0);
+        SmartDashboard.putNumber("TURN_DIV", 35);
+        SmartDashboard.putNumber("MOVE_TURN_MUL", 6);
+
+        SmartDashboard.putNumber("TURN_MIN_SPEED", 0.2);
+        SmartDashboard.putNumber("TURN_MIN_ANGLE", 1);
+
+        SmartDashboard.putBoolean("VALID_TARGET", false);
+        SmartDashboard.putBoolean("VALID_HEIGHT", false);
+        SmartDashboard.putBoolean("VALID_RATIO", false);
+        SmartDashboard.putBoolean("VALID_SKEW", false);
+
+        SmartDashboard.putNumber("CAM_MODE", 1);
+    }
+
+    public boolean isRobotOnRight() {
+        return isRobotOnRight;
+    }
+
+    public RobotStartLevel robotStartLevel() {
+        return startLevel;
     }
 
     // private void blinkLED() {

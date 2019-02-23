@@ -15,13 +15,12 @@ import frc.robot.commands.auton.DrivetrainAbsoluteRotateCommand;
 import frc.robot.commands.auton.DrivetrainMoveInchesCommand;
 import frc.robot.commands.auton.DrivetrainRelativeRotateCommand;
 
-public class Lvl1_Rkt3_HP_Rkt1AutonCommand extends CommandGroup {
+public class Lvl1Rk3HPRk1AutonCommand extends CommandGroup {
   /**
    * Starts backwards on level 1,
    * scores on far side of rocket,
    * goes to human player,
    * scores on close side of rocket.
-   * No Adris arcs
    */
 
   public final double LVL2_TO_CS2 = 266.3;
@@ -29,24 +28,29 @@ public class Lvl1_Rkt3_HP_Rkt1AutonCommand extends CommandGroup {
   public final double CS1_TO_CS2 = 43.5;
   public final double ANGLE_TO_RKT3 = Math.toDegrees(Math.atan(RKT3_TO_CS2 / CS1_TO_CS2));
   public final double WIDTH_OF_HP = 48;
+  public final double BACK_UP_DISTANCE = 10;
+  public final double RKT3_TO_HP = 100;
 
-  public Lvl1_Rkt3_HP_Rkt1AutonCommand() {
+  public Lvl1Rk3HPRk1AutonCommand(boolean isRobotOnRight) {
 
     //score first hatch panel 
     addSequential(new DrivetrainMoveInchesCommand(LVL2_TO_CS2, -1));
-    addSequential(new DrivetrainRelativeRotateCommand(ANGLE_TO_RKT3, -1));
+    addSequential(new DrivetrainRelativeRotateCommand(isRobotOnRight? -ANGLE_TO_RKT3 : ANGLE_TO_RKT3, 1));
     addSequential(new AutomaticDriveCommand(), 5);
     addSequential(new FloopCloseCommand());
 
     //get second hatch panel from hp
-    addSequential(new DrivetrainMoveInchesCommand(10, -1)); //TODO: find actual distances
+    addSequential(new DrivetrainMoveInchesCommand(BACK_UP_DISTANCE, -1));
     addSequential(new DrivetrainAbsoluteRotateCommand(180, 1));
-    addSequential(new DrivetrainMoveInchesCommand(150, 1));
+    addSequential(new DrivetrainMoveInchesCommand(RKT3_TO_HP, 1));
+    addSequential(new AutomaticDriveCommand(), 5);
     addSequential(new FloopOpenCommand());
 
     //score second hatch panel
+    addSequential(new DrivetrainMoveInchesCommand(BACK_UP_DISTANCE, -1));
     addSequential(new DrivetrainRelativeRotateCommand(180, 1));
     addSequential(new AutomaticDriveCommand(), 5);
     addSequential(new FloopCloseCommand());
+    addSequential(new DrivetrainMoveInchesCommand(BACK_UP_DISTANCE,-1));
   }
 }

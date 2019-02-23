@@ -7,9 +7,13 @@ public class LEDRelayController extends Relay {
         super(channel);
         setLEDNeutral();
     }   
-    //Set neutral and sets forward preform opposite functions. Nuetral turns it off and forward turns it on
-    //These methods might need to have a name change because they make the method seem like 
-    //setter methods, implying a parameter, when they do not have one
+
+    /*
+     * Set neutral and sets forward preform opposite functions. Nuetral turns it off and forward turns it on
+     * These methods might need to have a name change because they make the method seem like 
+     * setter methods, implying a parameter, when they do not have one
+    */
+
     public void setLEDNeutral() {
         set(Relay.Value.kOff);
     }

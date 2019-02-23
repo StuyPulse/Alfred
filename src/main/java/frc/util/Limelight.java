@@ -1,4 +1,3 @@
-
 /* Lime Light Docs: http://docs.limelightvision.io/en/latest/networktables_api.html# */
 
 package frc.util;
