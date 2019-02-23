@@ -34,18 +34,21 @@ public class Lvl1Cs1HpCs2AutonCommand extends CommandGroup {
   public Lvl1Cs1HpCs2AutonCommand(boolean isRobotOnRight) {
 
     //score first hatch panel 
+    //TODO: uncomment automatic drive command when we have limelight
     //addSequential(new AutomaticDriveCommand(), 5);
-    addSequential(new DrivetrainMoveInchesCommand(LVL1_TO_CS1, 1));
+    addSequential(new DrivetrainMoveInchesCommand(LVL1_TO_CS1, 1)); //for w/o limelight
     addSequential(new FloopCloseCommand());
 
     //get second hatch panel from hp
     addSequential(new DrivetrainMoveInchesCommand(BACKUP_DISTANCE, -1));
     addSequential(new DrivetrainAbsoluteRotateCommand(isRobotOnRight ? 90 : -90, 1));
     addSequential(new DrivetrainMoveInchesCommand(GET_CLOSER_TO_HP, 1));
+    //TODO: uncomment below line when we have limelight
     //addSequential(new DrivetrainRelativeRotateCommand(isRobotOnRight ? FACE_HP_ANGLE : -FACE_HP_ANGLE, 1));
-    addSequential(new DrivetrainRelativeRotateCommand(180, 1));
+    addSequential(new DrivetrainRelativeRotateCommand(180, 1)); //for w/o limelight
+    //TODO: uncomment below line when we have limelight
     //addSequential(new AutomaticDriveCommand(), 5);
-    addSequential(new DrivetrainMoveInchesCommand(ROCKET_TO_HP, 1));
+    addSequential(new DrivetrainMoveInchesCommand(ROCKET_TO_HP, 1)); //for w/o limelight
     addSequential(new FloopOpenCommand());
 
     //score second hatch panel
@@ -53,8 +56,9 @@ public class Lvl1Cs1HpCs2AutonCommand extends CommandGroup {
     addSequential(new DrivetrainRelativeRotateCommand(isRobotOnRight ? -TURN_TO_CS3 : TURN_TO_CS3, 1));
     addSequential(new DrivetrainMoveInchesCommand(HP_TO_CS3, -1));
     addSequential(new DrivetrainAbsoluteRotateCommand(isRobotOnRight ? -90 : 90, 1));
+    //TODO: uncomment below line when we have limelight
     //addSequential(new AutomaticDriveCommand(), 5);
-    addSequential(new DrivetrainMoveInchesCommand(10, 1));
+    addSequential(new DrivetrainMoveInchesCommand(10, 1)); //for w/o limelight
     addSequential(new FloopCloseCommand());
     addSequential(new DrivetrainMoveInchesCommand(BACKUP_DISTANCE,-1));
   }
