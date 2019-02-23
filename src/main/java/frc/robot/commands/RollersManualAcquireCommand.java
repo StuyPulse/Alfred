@@ -18,12 +18,8 @@ public class RollersManualAcquireCommand extends Command {
     }
 
     @Override
-    protected void initialize() {
-    }
-
-    @Override
     protected void execute() {
-        double speed = Robot.oi.operatorGamepad.getRawLeftTriggerAxis();
+        double speed = Robot.oi.operatorGamepad.getRawRightTriggerAxis();
         double tunedSpeed = Math.pow(speed, 2) * RobotMap.SLOW_ROLLER_MAXIMUM;
         Robot.rollers.setSpeed(tunedSpeed);
     }

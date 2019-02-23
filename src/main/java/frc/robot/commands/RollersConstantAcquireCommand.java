@@ -17,10 +17,6 @@ public class RollersConstantAcquireCommand extends Command {
     }
 
     @Override
-    protected void initialize() {
-    }
-
-    @Override
     protected void execute() {
         Robot.rollers.acquire();
     }

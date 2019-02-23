@@ -5,7 +5,7 @@ import frc.robot.Robot;
 
 public class LiftMoveToHeightCommand extends Command {
     private double targetHeight;
-    private final double ACCEPTED_ERROR_RANGE = 2;
+    private final double ACCEPTED_ERROR_RANGE = .5;
 
     public LiftMoveToHeightCommand(double targetHeight) {
         requires(Robot.lift);
@@ -19,9 +19,9 @@ public class LiftMoveToHeightCommand extends Command {
     @Override
     protected void execute() {
         if (Robot.lift.getHeight() > targetHeight) {
-            Robot.lift.move(-1);
-        } else {
-            Robot.lift.move(1);
+            Robot.lift.move(-0.5);
+        } else{
+            Robot.lift.move(0.5);
         }
     }
 
@@ -31,11 +31,11 @@ public class LiftMoveToHeightCommand extends Command {
         double error = targetHeight - Robot.lift.getHeight();
         return Math.abs(error) < ACCEPTED_ERROR_RANGE 
             || (Robot.lift.isAtBottom() && error < 0)
-            || (Robot.lift.isAtTop() && error > 0);
+            || Math.abs(Robot.oi.operatorGamepad.getLeftY()) > 0.05;
     }
 
     @Override
     protected void end() {
-        Robot.lift.stopLift();
+        Robot.lift.stop();
     }
 }

@@ -7,22 +7,23 @@
 
 package frc.robot;
 
-import frc.robot.commands.AbomPumpCommand;
-import frc.robot.commands.AbomStopPumpCommand;
+import frc.robot.commands.AbomToggleCommand;
 import frc.robot.commands.AutomaticDriveCommand;
 import frc.robot.commands.AutomaticTurnCommand;
+import frc.robot.commands.BITHPOIN;
 import frc.robot.commands.DrivetrainHighGearCommand;
 import frc.robot.commands.DrivetrainLowGearCommand;
-import frc.robot.commands.FangsLowerCommand;
-import frc.robot.commands.FangsRaiseCommand;
+import frc.robot.commands.FangsLowerRollersInCommand;
+import frc.robot.commands.FangsRaiseRollersOutCommand;
 import frc.robot.commands.FloopCloseCommand;
+import frc.robot.commands.FloopOpenCommand;
 import frc.robot.commands.LiftMoveToHeightCommand;
-import frc.robot.commands.LiftTiltBackCommand;
-import frc.robot.commands.LiftTiltFowardCommand;
+import frc.robot.commands.LiftToggleCommand;
 import frc.robot.commands.RollersConstantAcquireCommand;
 import frc.robot.commands.RollersConstantDeacquireCommand;
 import frc.robot.commands.RollersManualAcquireCommand;
 import frc.robot.commands.RollersManualDeacquireCommand;
+import frc.robot.commands.RollersRampDownAcquireCommand;
 import frc.util.Gamepad;
 import frc.util.Gamepad.GamepadSwitchMode;
 
@@ -31,41 +32,45 @@ public class OI {
     public Gamepad driverGamepad;
     public Gamepad operatorGamepad;
 
+    private boolean abomPumping;
+
     public OI() {
         driverGamepad = new Gamepad(RobotMap.DRIVER_GAMEPAD_PORT, GamepadSwitchMode.PS4);
         operatorGamepad = new Gamepad(RobotMap.OPERATOR_GAMEPAD_PORT, GamepadSwitchMode.SWITCH_X);
+        abomPumping = false;
 
         /******************************************
-        * Driver Code
-        ******************************************/
+         * Driver Code
+         ******************************************/
         driverGamepad.getLeftButton().whileHeld(new AutomaticTurnCommand());
         driverGamepad.getTopButton().whileHeld(new AutomaticDriveCommand());
         driverGamepad.getBottomButton().whenPressed(new DrivetrainLowGearCommand());
         driverGamepad.getBottomButton().whenReleased(new DrivetrainHighGearCommand());
 
         /******************************************
-        * Operator Code
-        ******************************************/
+         * Operator Code
+         ******************************************/
         operatorGamepad.getRightTrigger().whileHeld(new RollersManualAcquireCommand());
         operatorGamepad.getLeftTrigger().whileHeld(new RollersManualDeacquireCommand());
 
         operatorGamepad.getRightBumper().whileHeld(new RollersConstantAcquireCommand());
+        operatorGamepad.getRightBumper().whenReleased(new RollersRampDownAcquireCommand(1));
         operatorGamepad.getLeftBumper().whileHeld(new RollersConstantDeacquireCommand());
 
-        operatorGamepad.getTopButton().whenPressed(new FangsRaiseCommand());
-        operatorGamepad.getBottomButton().whenPressed(new FangsLowerCommand());
-        operatorGamepad.getRightButton().whileHeld(new FloopCloseCommand());
-        // operatorGamepad.getLeftButton().whenPressed(new OverrideLimitSwitchCommand());
-        // TODO: Create an OverrideLimitSwitchCommand!
+        operatorGamepad.getTopButton().whenPressed(new FangsRaiseRollersOutCommand());
+        operatorGamepad.getBottomButton().whenPressed(new FangsLowerRollersInCommand());
+        operatorGamepad.getRightButton().whenPressed(new FloopCloseCommand());
+        operatorGamepad.getRightButton().whenReleased(new FloopOpenCommand());
+        operatorGamepad.getLeftButton().whenPressed(new BITHPOIN());
 
-        operatorGamepad.getDPadRight().whenPressed(new LiftTiltFowardCommand());
-        operatorGamepad.getDPadLeft().whenPressed(new LiftTiltBackCommand());
-        operatorGamepad.getDPadUp().whenPressed(new LiftMoveToHeightCommand(-1));
-        operatorGamepad.getDPadUp().whenPressed(new LiftTiltBackCommand());
-        operatorGamepad.getDPadDown().whenPressed(new LiftMoveToHeightCommand(0));
-        //TODO figure out defense mode height
+        operatorGamepad.getDPadLeft().whenPressed(new LiftToggleCommand());
+        operatorGamepad.getDPadDown().whenPressed(new LiftMoveToHeightCommand(RobotMap.LEVEL_1_HEIGHT));
+        operatorGamepad.getDPadRight().whenPressed(new LiftMoveToHeightCommand(RobotMap.LEVEL_2_HEIGHT));
+        operatorGamepad.getDPadUp().whenPressed(new LiftMoveToHeightCommand(RobotMap.LEVEL_3_HEIGHT));
 
-        operatorGamepad.getDPadUp().whenPressed(new AbomPumpCommand());
-        operatorGamepad.getDPadDown().whenPressed(new AbomStopPumpCommand());
+        operatorGamepad.getRightAnalogButton().whenPressed(new AbomToggleCommand());
+
+        //FOR LEFT JOYSTICK: LiftMoveCommand (default of lift subsystem)
+        //FOR RIGHT JOYSTICK: TailClimbCommand (default of tail subsystem)
     }
 }

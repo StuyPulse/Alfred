@@ -7,30 +7,24 @@
 
 package frc.robot.subsystems;
 
+import com.kauailabs.navx.frc.AHRS;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.RobotMap;
 import frc.robot.commands.DrivetrainDriveCommand;
 import frc.util.NEOEncoder;
 
-import com.kauailabs.navx.frc.AHRS;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
-import edu.wpi.first.wpilibj.command.Subsystem;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANEncoder;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
-/**
- * Add your docs here.
- */
 public final class Drivetrain extends Subsystem {
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
-    private CANSparkMax leftTopMotor,
-                        leftMiddleMotor,
-                        leftBottomMotor,
+    private CANSparkMax leftTopMotor, 
+                        leftMiddleMotor, 
+                        leftBottomMotor, 
                         rightTopMotor,
                         rightMiddleMotor,
                         rightBottomMotor;
@@ -66,9 +60,9 @@ public final class Drivetrain extends Subsystem {
         // Greyhill Encoders
         leftGreyhill = new Encoder(RobotMap.DRIVETRAIN_LEFT_ENCODER_CHANNEL_A, RobotMap.DRIVETRAIN_LEFT_ENCODER_CHANNEL_B);
         rightGreyhill = new Encoder(RobotMap.DRIVETRAIN_RIGHT_ENCODER_CHANNEL_A, RobotMap.DRIVETRAIN_RIGHT_ENCODER_CHANNEL_B);
-        
+    
         leftGreyhill.setDistancePerPulse(RobotMap.DRIVETRAIN_GREYHILL_INCHES_PER_PULSE);
-        rightGreyhill.setDistancePerPulse(RobotMap.DRIVETRAIN_GREYHILL_INCHES_PER_PULSE);
+        rightGreyhill.setDistancePerPulse(-1.0 * RobotMap.DRIVETRAIN_GREYHILL_INCHES_PER_PULSE);
 
         leftTopMotor.setIdleMode(CANSparkMax.IdleMode.kCoast);
         leftMiddleMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
@@ -84,7 +78,6 @@ public final class Drivetrain extends Subsystem {
         leftTopMotor.setInverted(true);
         leftMiddleMotor.setInverted(true);
         leftBottomMotor.setInverted(true);
-
         // Speed Groups
         leftSpeedGroup = new SpeedControllerGroup(leftTopMotor, leftMiddleMotor, leftBottomMotor);
         rightSpeedGroup = new SpeedControllerGroup(rightTopMotor, rightMiddleMotor, rightBottomMotor);
@@ -94,13 +87,11 @@ public final class Drivetrain extends Subsystem {
         // navx
         navX = new AHRS(SPI.Port.kMXP);
         // Drive
-        differentialDrive = new DifferentialDrive(leftSpeedGroup, rightSpeedGroup);
-
-    }
+        differentialDrive = new DifferentialDrive(leftSpeedGroup, rightSpeedGroup);  }
 
     @Override
     public void initDefaultCommand() {
-        setDefaultCommand(new DrivetrainDriveCommand());
+         setDefaultCommand(new DrivetrainDriveCommand());
     }
 
     public void curvatureDrive(double speed, double angle) {
@@ -173,11 +164,11 @@ public final class Drivetrain extends Subsystem {
     }
 
     public boolean isMoving() {
-        return Math.abs(rightSpeedGroup.get()) > 0 || Math.abs(leftSpeedGroup.get()) > 0;
+        //not 0,but 0.07 because joysticks are typically not at 0 when start
+        return Math.abs(rightSpeedGroup.get()) > 0.07 || Math.abs(leftSpeedGroup.get()) > 0.07;
     }
 
     public void highGearShift() {
-        //TODO: test + find the correct boolean value
         gearShift.set(false);
     }
 

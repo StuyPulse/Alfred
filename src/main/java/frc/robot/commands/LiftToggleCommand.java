@@ -10,14 +10,14 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 
-public class FangsRaiseCommand extends InstantCommand {
-    
-    public FangsRaiseCommand() {
-        requires(Robot.fangs);
-    }
+public class LiftToggleCommand extends InstantCommand {
+  public LiftToggleCommand() {
+    requires(Robot.lift);
+  }
 
-    @Override
-    protected void initialize() {
-        Robot.fangs.raise();
-    }
+  @Override
+  protected void initialize() {
+    Robot.lift.toggle();
+  }
+
 }
