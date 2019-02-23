@@ -143,6 +143,8 @@ public class Robot extends TimedRobot {
         
         autonomousCommand = new LiftMoveToHeightCommand(RobotMap.LEVEL_1_HEIGHT);
         Robot.lift.tiltForward();
+        fangs.lower(); // This is only for edwin
+
         /*
          * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
          * switch(autoSelected) { case "My Auto": autonomousCommand = new
@@ -170,6 +172,9 @@ public class Robot extends TimedRobot {
         // teleop starts running. If you want the autonomous to
         // continue until interrupted by another command, remove
         // this line or comment it out.
+        
+        fangs.lower(); // This is only for Edwin
+
         Robot.floop.open();
         // if (autonomousCommand != null) {
         //     autonomousCommand.cancel();
