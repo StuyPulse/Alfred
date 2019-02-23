@@ -35,14 +35,20 @@ public class Lvl1Cs2HpCs3AutonCommand extends CommandGroup {
     //score first hatch panel 
     addSequential(new DrivetrainMoveInchesCommand(LVL1_TO_CS2, 1));
     addSequential(new DrivetrainAbsoluteRotateCommand(isRobotOnRight ? -90 : 90, 1));
-    addSequential(new AutomaticDriveCommand(), 5);
+    
+    // remove following command and uncomment the AutomaticDriveCommand when limelight is working
+    addSequential(new DrivetrainMoveInchesCommand(10, 1));
+    //addSequential(new AutomaticDriveCommand(), 5);
     addSequential(new FloopCloseCommand());
 
     //get second hatch panel from hp
     addSequential(new DrivetrainMoveInchesCommand(BACKUP_DISTANCE, -1));
     addSequential(new DrivetrainRelativeRotateCommand(isRobotOnRight ? -TURN_TO_HP : TURN_TO_HP, 1));
     addSequential(new DrivetrainMoveInchesCommand(CS2_TO_HP, 1));
-    addSequential(new AutomaticDriveCommand(), 5);
+    // remove following commands and uncomment the AutomaticDriveCommand when limelight is working
+    addSequential(new DrivetrainRelativeRotateCommand(isRobotOnRight ? -10 : 10, 1));
+    addSequential(new DrivetrainMoveInchesCommand(10,1));
+    //addSequential(new AutomaticDriveCommand(), 5);
     addSequential(new FloopOpenCommand());
 
     //score second hatch panel
@@ -50,7 +56,9 @@ public class Lvl1Cs2HpCs3AutonCommand extends CommandGroup {
     addSequential(new DrivetrainRelativeRotateCommand(isRobotOnRight ? -TURN_TO_CS3 : TURN_TO_CS3, 1));
     addSequential(new DrivetrainMoveInchesCommand(HP_TO_CS3, -1));
     addSequential(new DrivetrainAbsoluteRotateCommand(isRobotOnRight ? -90 : 90, 1));
-    addSequential(new AutomaticDriveCommand(), 5);
+    // remove following commands and uncomment the AutomaticDriveCommand when limelight is working
+    addSequential(new DrivetrainMoveInchesCommand(10,1));
+    //addSequential(new AutomaticDriveCommand(), 5);
     addSequential(new FloopCloseCommand());
     addSequential(new DrivetrainMoveInchesCommand(BACKUP_DISTANCE,-1));
   }
