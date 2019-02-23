@@ -180,12 +180,12 @@ public final class Drivetrain extends Subsystem {
     }
 
     public void setRamp(double rampSeconds) {
-        leftTopMotor.setRampRate(rampSeconds);
-        rightTopMotor.setRampRate(rampSeconds);
-        leftMiddleMotor.setRampRate(rampSeconds);
-        rightMiddleMotor.setRampRate(rampSeconds);
-        leftBottomMotor.setRampRate(rampSeconds);
-        rightBottomMotor.setRampRate(rampSeconds);
+        leftTopMotor.setOpenLoopRampRate(rampSeconds);
+        rightTopMotor.setOpenLoopRampRate(rampSeconds);
+        leftMiddleMotor.setOpenLoopRampRate(rampSeconds);
+        // rightMiddleMotor.setRampRate(rampSeconds);
+        // leftBottomMotor.setRampRate(rampSeconds);
+        rightBottomMotor.setOpenLoopRampRate(rampSeconds);
     }
 
     public void resetGyro() {
