@@ -8,7 +8,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.RobotMap;
 import frc.util.Limelight;
 
 public class AutomaticTurnCommand extends DrivetrainDriveCommand {

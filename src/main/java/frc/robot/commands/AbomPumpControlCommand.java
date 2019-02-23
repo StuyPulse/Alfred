@@ -13,34 +13,35 @@ import frc.robot.Robot;
 import frc.robot.RobotMap;
 
 public class AbomPumpControlCommand extends Command {
-  private double lastPumped;
+    
+    private double lastPumped;
 
-  public AbomPumpControlCommand() {
-    requires(Robot.abom);
-  }
-
-  @Override
-  protected void initialize() {
-    lastPumped = -1;
-  }
-
-  @Override
-  protected void execute() {
-    if (!Robot.abom.getWantPumpingStatus()) {
-      Robot.abom.pumpOut();
-    } else if (!Robot.abom.get() && Robot.abom.shouldTakeAction(lastPumped, RobotMap.ABOM_TIME_TO_EXTEND)) {
-      Robot.abom.pumpIn();
-      lastPumped = Timer.getFPGATimestamp();
-    } else if (Robot.abom.get() && Robot.abom.shouldTakeAction(lastPumped, RobotMap.ABOM_TIME_TO_RETRACT)) {
-      Robot.abom.pumpOut();
-      lastPumped = Timer.getFPGATimestamp();
+    public AbomPumpControlCommand() {
+        requires(Robot.abom);
     }
-    // if you want to pump but it hasn't been long enough, it will not do anything until the above conditional is reached
-  }
 
-  @Override
-  protected boolean isFinished() {
-    return false;
-  }
+    @Override
+    protected void initialize() {
+        lastPumped = -1;
+    }
 
+    @Override
+    protected void execute() {
+        if (!Robot.abom.getWantPumpingStatus()) {
+            Robot.abom.pumpOut();
+        } else if (!Robot.abom.get() && Robot.abom.shouldTakeAction(lastPumped, RobotMap.ABOM_TIME_TO_EXTEND)) {
+            Robot.abom.pumpIn();
+            lastPumped = Timer.getFPGATimestamp();
+        } else if (Robot.abom.get() && Robot.abom.shouldTakeAction(lastPumped, RobotMap.ABOM_TIME_TO_RETRACT)) {
+            Robot.abom.pumpOut();
+            lastPumped = Timer.getFPGATimestamp();
+        }
+        // if you want to pump but it hasn't been long enough, it will not do anything
+        // until the above conditional is reached
+    }
+
+    @Override
+    protected boolean isFinished() {
+        return false;
+    }
 }
