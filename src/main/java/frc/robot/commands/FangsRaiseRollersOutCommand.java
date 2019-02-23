@@ -7,17 +7,14 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.InstantCommand;
-import frc.robot.Robot;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class FangsRaiseCommand extends InstantCommand {
-    
-    public FangsRaiseCommand() {
-        requires(Robot.fangs);
-    }
-
-    @Override
-    protected void initialize() {
-        Robot.fangs.raise();
+public class FangsRaiseRollersOutCommand extends CommandGroup {
+    /**
+     * Raises the Fangs while deacquiring with the Rollers.
+     */
+    public FangsRaiseRollersOutCommand() {
+        addParallel(new FangsRaiseCommand());
+        addSequential(new RollersConstantDeacquireCommand(), 0.5);
     }
 }

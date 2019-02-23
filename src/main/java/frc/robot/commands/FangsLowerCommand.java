@@ -16,7 +16,6 @@ public class FangsLowerCommand extends InstantCommand {
         requires(Robot.fangs);
     }
 
-    // Called just before this Command runs the first time
     @Override
     protected void initialize() {
         Robot.fangs.lower();

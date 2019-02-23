@@ -7,49 +7,54 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 public class TailClimbCommand extends Command {
 
     private double speed;
-    private boolean isRaised;
-    private boolean isRetracted;
+    private double currTime;
+    private double startTime;
 
     public TailClimbCommand() {;
         requires(Robot.tail);
-        this.isRaised = false;
-        this.isRetracted = false;
+    }
+
+    public void initialize() {
+        
     }
 
     @Override
     protected void execute() {
-        this.speed = Robot.oi.operatorGamepad.getLeftY();
-        // Raises the lift once
-        if (speed > .9 && !isRaised) {
-            Robot.tail.disengageRatchet();
-            isRaised = true;
-        }
-        // Retracts the lift once
-        if (speed < .9 && isRaised && !isRetracted) {
-            Robot.tail.engageRatchet();
-            isRetracted = true;
-        }
-        // Makes the lift go up and down
-        if (speed < 0) {
+        currTime = Timer.getFPGATimestamp();
+        this.speed = Robot.oi.operatorGamepad.getRightY();
+        if(speed > .5) {
+            if(!Robot.tail.ratchetMoved()) {
+                Robot.tail.disengageRatchet();
+                startTime = Timer.getFPGATimestamp();
+            }
+            if(currTime - startTime > .2) {
+                Robot.tail.setSpeed(1.0);
+            }
+        } else if(speed < -0.5) {
+            if(Robot.tail.ratchetMoved()) {
+                Robot.tail.engageRatchet();
+            }
             Robot.tail.setSpeed(speed);
+            Robot.abom.setWantPumpingStatus(true);
+        } else {
+            Robot.tail.stop();
         }
     }
 
-    // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
         return false;
     }
 
-    // Called once after isFinished returns true
     @Override
     protected void end() {
-        Robot.tail.setSpeed(0);
+        Robot.tail.stop();
     }
 }

@@ -7,9 +7,11 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.*;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -21,6 +23,8 @@ import frc.robot.subsystems.Floop;
 import frc.robot.subsystems.Lift;
 import frc.robot.subsystems.Rollers;
 import frc.robot.subsystems.Tail;
+import frc.util.LEDRelayController;
+import frc.util.Limelight;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -35,12 +39,16 @@ public class Robot extends TimedRobot {
     public static Floop floop;
     public static Abom abom;
     public static Tail tail;
-    public static Lift lift; 
+    public static Lift lift;
     public static Compressor compressor;
     public static Rollers rollers;
     public static Fangs fangs;
 
-    public static DigitalInput IRsensor; 
+    public static double liftSpeedGoingDown;
+
+    public static DigitalInput IRsensor;
+
+    public static LEDRelayController relayController;
 
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<>();
@@ -52,18 +60,33 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() {
         drivetrain = new Drivetrain();
-        oi = new OI();
         floop = new Floop();
         abom = new Abom();
         tail = new Tail();
-        lift = new Lift(); 
+        lift = new Lift();
         compressor = new Compressor();
         rollers = new Rollers();
         fangs = new Fangs();
-
+        oi = new OI();
         IRsensor = new DigitalInput(RobotMap.IR_SENSOR_PORT);
-        // chooser.addOption("My Auto", new MyAutoCommand());
+        relayController = new LEDRelayController(RobotMap.LED_CHANNEL);
+        //chooser.addOption("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
+        SmartDashboard.putBoolean("Enable compressor", true);
+
+        CameraServer.getInstance().startAutomaticCapture(0);
+        SmartDashboard.putNumber("TURN_DIV", 35);
+        SmartDashboard.putNumber("MOVE_TURN_MUL", 6);
+
+        SmartDashboard.putNumber("TURN_MIN_SPEED", 0.2);
+        SmartDashboard.putNumber("TURN_MIN_ANGLE", 1);
+
+        SmartDashboard.putBoolean("VALID_TARGET", false);
+        SmartDashboard.putBoolean("VALID_HEIGHT", false);
+        SmartDashboard.putBoolean("VALID_RATIO", false);
+        SmartDashboard.putBoolean("VALID_SKEW", false);
+
+        SmartDashboard.putNumber("CAM_MODE", 1);
     }
 
     /**
@@ -79,6 +102,7 @@ public class Robot extends TimedRobot {
     public void robotPeriodic() {
         controlCompressor();
         SmartDashboard.putBoolean("IR Sensor", isGamePieceDetected());
+        liftSpeedGoingDown = SmartDashboard.getNumber("Lift Auto Complete Speed Going Down", 0.5);
     }
 
     /**
@@ -109,9 +133,8 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousInit() {
-        setUpDoubleSolenoids();
-        autonomousCommand = chooser.getSelected();
-
+        // autonomousCommand = chooser.getSelected();
+        Robot.lift.tiltForward();
         /*
          * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
          * switch(autoSelected) { case "My Auto": autonomousCommand = new
@@ -120,9 +143,9 @@ public class Robot extends TimedRobot {
          */
 
         // schedule the autonomous command (example)
-        if (autonomousCommand != null) {
-            autonomousCommand.start();
-        }
+        // if (autonomousCommand != null) {
+        //     autonomousCommand.start();
+        // }
     }
 
     /**
@@ -139,9 +162,10 @@ public class Robot extends TimedRobot {
         // teleop starts running. If you want the autonomous to
         // continue until interrupted by another command, remove
         // this line or comment it out.
-        if (autonomousCommand != null) {
-            autonomousCommand.cancel();
-        }
+        Robot.floop.open();
+        // if (autonomousCommand != null) {
+        //     autonomousCommand.cancel();
+        // }
     }
 
     /**
@@ -149,7 +173,30 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopPeriodic() {
+        // if(!isGamePieceDetected()) {
+        //     relayController.setLEDForward();
+        // } else {
+        //     relayController.setLEDNeutral();
+        // }
         Scheduler.getInstance().run();
+        SmartDashboard.putNumber("Drivetrain Left Greyhill Encoder Val: ", Robot.drivetrain.getLeftGreyhillDistance());
+        SmartDashboard.putNumber("Drivetrain Right Greyhill Encoder Val: ",
+                Robot.drivetrain.getRightGreyhillDistance());
+        SmartDashboard.putNumber("Drivetrain Left Greyhill Raw Val: ", Robot.drivetrain.getLeftGreyhillTicks());
+        SmartDashboard.putNumber("Drivetrain Right Greyhill Raw Val: ",
+                Robot.drivetrain.getRightGreyhillTicks());
+        SmartDashboard.putNumber("Lift Encoder Val: ", Robot.lift.getHeight());
+        SmartDashboard.putBoolean("Lift Bottom Optical Sensor: ", Robot.lift.isAtBottom());
+        SmartDashboard.putBoolean("Is Lift Optical Sensor Overrided: ", Robot.lift.isOpticalSensorOverrided);
+        SmartDashboard.putNumber("Tom's Metric for Tail: ", Robot.tail.getTomsMetric());
+        // if(isGamePieceDetected()) {
+        //     //Once a game piece is detected, it blinks two times and stops.
+        //     blinkLED();
+        // }
+        // else {
+        //     //Stops the LEDs as long as it doesn't detect a game piece.
+        //     relayController.setLEDNeutral();
+        // }
     }
 
     /**
@@ -160,7 +207,7 @@ public class Robot extends TimedRobot {
     }
 
     public void controlCompressor() {
-        if (!drivetrain.isMoving()) {
+        if (!drivetrain.isMoving() && SmartDashboard.getBoolean("Enable compressor", false)) {
             compressor.start();
         } else {
             compressor.stop();
@@ -175,4 +222,17 @@ public class Robot extends TimedRobot {
     private boolean isGamePieceDetected() {
         return IRsensor.get();
     }
+
+    // private void blinkLED() {
+    //     double startTime = Timer.getFPGATimestamp();
+    //     if(Timer.getFPGATimestamp() - startTime > 4) {
+    //         relayController.setLEDForward();
+    //     }
+    //     else if((int)(Timer.getFPGATimestamp() - startTime) % 2 == 0) {
+    //         relayController.setLEDForward();
+    //     }
+    //     else {
+    //         relayController.setLEDNeutral();
+    //     }
+    // }
 }

@@ -7,21 +7,23 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
 public final class Rollers extends Subsystem {
-    private WPI_TalonSRX motor;
+    private WPI_VictorSPX motor;
 
     public Rollers() {
-        motor = new WPI_TalonSRX(RobotMap.ROLLER_MOTOR_PORT);
+        motor = new WPI_VictorSPX(RobotMap.ROLLER_MOTOR_PORT);
+        motor.setInverted(true);
+        motor.setNeutralMode(NeutralMode.Brake);
     }
 
     @Override
     public void initDefaultCommand() {
-        // TODO: Fix RollersRampingCommand to not take in a parameter after OI works
-        // setDefaultCommand(new RollersRampingCommand());
     }
 
     public void acquire() {
@@ -40,4 +42,7 @@ public final class Rollers extends Subsystem {
         motor.set(speed);
     }
 
+    public void rampAcquire() {
+        motor.configOpenloopRamp(0.5, 0);
+    }
 }

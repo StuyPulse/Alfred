@@ -8,29 +8,47 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
+import frc.robot.commands.AbomPumpControlCommand;
 
 public final class Abom extends Subsystem {
     Solenoid abomSolenoid;
+    private boolean wantPumping;
 
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
     public Abom() {
         abomSolenoid = new Solenoid(RobotMap.ABOM_SOLENOID_PORT);
     }
 
     @Override
     public void initDefaultCommand() {
+        setDefaultCommand(new AbomPumpControlCommand());
     }
 
-    // Toggles between out and in for the solenoid
-    public void toggle() {
-        abomSolenoid.set(!abomSolenoid.get());
+    public void pumpIn() {
+        abomSolenoid.set(true);
     }
 
-    // Retracts the Solenoid
-    public void stop() {
+    public void pumpOut() {
         abomSolenoid.set(false);
+    }
+
+    public boolean get() {
+        return abomSolenoid.get();
+    }
+
+    public boolean shouldTakeAction(double lastPumped, double timeToActuate) {
+        boolean output = lastPumped < 0 
+                || (Timer.getFPGATimestamp() - lastPumped) > timeToActuate;
+        return output;
+    }
+
+    public boolean getWantPumpingStatus() {
+        return wantPumping;
+    }
+
+    public void setWantPumpingStatus(boolean status) {
+        wantPumping = status;
     }
 }
