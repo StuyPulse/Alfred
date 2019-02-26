@@ -21,8 +21,6 @@ import frc.robot.RobotMap;
 import frc.robot.commands.DrivetrainDriveCommand;
 import frc.util.NEOEncoder;
 
-import org.jblas.*;
-
 public final class Drivetrain extends Subsystem {
     
     private CANSparkMax leftTopMotor, 
@@ -164,9 +162,23 @@ public final class Drivetrain extends Subsystem {
         double z = Math.sin(pitch);
         double co = Math.cos(Math.toRadians(58));
         double si = Math.sin(Math.toRadians(58));
-        if (x < 0) {
-            return 180 + Math.toDegrees(Math.atan(y / (si * x + co * z)));
-        } return Math.toDegrees(Math.atan(y / (si * x + co * z)));
+        if (si * x + co * z < 0) {
+            return 270 + Math.toDegrees(Math.atan(y / (si * x + co * z)));
+        } return 90 + Math.toDegrees(Math.atan(y / (si * x + co * z)));
+    }
+
+    // Remove after testing
+    public double getGyroAngle2() {
+        double yaw = Math.toRadians(navX.getYaw());
+        double pitch = Math.toRadians(navX.getPitch());
+        double x = Math.cos(yaw) * Math.cos(pitch);
+        double y = Math.sin(yaw) * Math.cos(pitch);
+        double z = Math.sin(pitch);
+        double co = Math.cos(Math.toRadians(58));
+        double si = Math.sin(Math.toRadians(58));
+        if (si * x + co * z < 0) {
+            return 270 + Math.toDegrees(Math.atan((si * x + co * z) / y));
+        } return 90 + Math.toDegrees(Math.atan((si * x + co * z) / y));
     }
 
     // Remove after gyro testing
