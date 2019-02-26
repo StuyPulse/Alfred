@@ -61,11 +61,11 @@ public final class Tail extends Subsystem {
 
     //TODO: check this values
     public void disengageRatchet() {
-        ratchetDoubleSolenoid.set(Value.kForward);
+        ratchetDoubleSolenoid.set(Value.kReverse);
     }
 
     public void engageRatchet() {
-        ratchetDoubleSolenoid.set(Value.kReverse);
+        ratchetDoubleSolenoid.set(Value.kForward);
     }
 
     public void engageSingleSolenoid() {
