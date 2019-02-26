@@ -56,7 +56,8 @@ public class Robot extends TimedRobot {
     public static Logger logger;
     private File writeFile;
     private PrintWriter writer;
- 
+    private File writeFolder;
+
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<>();
 
@@ -144,14 +145,22 @@ public class Robot extends TimedRobot {
         Robot.lift.tiltForward();
         fangs.lower(); // This is only for edwin
 
-        // Logging
-        writeFile = new File("Logs\\Auton.csv");
-        try { 
-            writer = new PrintWriter(writeFile);
-        } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
+        Boolean folderExists = new File("/home/lvuser/Logs").mkdirs();
+        if (!folderExists) {
+            writeFolder = new File("nameoffolder");
+            writeFolder.mkdir();
         }
-        logger = new Logger(writeFile, writer);
+
+        // Logging
+        try {
+            writeFile = new File("/home/lvuser/Logs/" + logger.getTime() + ".csv"); 
+            writer = new PrintWriter(writeFile);
+            logger = new Logger(writeFile, writer);
+        } catch (FileNotFoundException e) {
+            System.out.println("File cannot be created");
+            logger = new Logger();
+            logger.setCannotLog();
+        }
 
         /*
          * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
@@ -185,15 +194,24 @@ public class Robot extends TimedRobot {
 
         Robot.floop.open();
 
-        // Logging
-        writeFile = new File("Logs\\Auton.csv");
-        try { 
-            writer = new PrintWriter(writeFile);
-        } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
+        Boolean folderExists = new File("/home/lvuser/Logs").mkdirs();
+        if (!folderExists) {
+            writeFolder = new File("nameoffolder");
+            writeFolder.mkdir();
         }
-        logger = new Logger(writeFile, writer);
 
+        // Logging
+        try {
+            writeFile = new File("/home/lvuser/Logs/" + logger.getTime() + ".csv"); 
+            writer = new PrintWriter(writeFile);
+            logger = new Logger(writeFile, writer);
+        } catch (FileNotFoundException e) {
+            System.out.println("File cannot be created");
+            logger = new Logger();
+            logger.setCannotLog();
+        }
+        System.out.println("Created");
+        
         // if (autonomousCommand != null) {
         //     autonomousCommand.cancel();
         // }
