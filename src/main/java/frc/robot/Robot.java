@@ -10,6 +10,8 @@ package frc.robot;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -139,6 +141,7 @@ public class Robot extends TimedRobot {
     public void autonomousInit() {
         autonomousCommand = new LiftMoveToHeightCommand(RobotMap.LEVEL_1_HEIGHT);
         Robot.lift.tiltForward();
+        Robot.tail.engageSingleSolenoid();
         /*
          * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
          * switch(autoSelected) { case "My Auto": autonomousCommand = new
@@ -202,6 +205,10 @@ public class Robot extends TimedRobot {
         //     //Stops the LEDs as long as it doesn't detect a game piece.
         //     relayController.setLEDNeutral();
         // }
+        if ((int) DriverStation.getInstance().getMatchTime() >= 118) {
+            tail.disengageSingleSolenoid();
+            tail.disengageRatchet();
+        }
     }
 
     /**
