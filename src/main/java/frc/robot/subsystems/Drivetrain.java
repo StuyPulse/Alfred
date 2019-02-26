@@ -162,7 +162,8 @@ public final class Drivetrain extends Subsystem {
 
     public void highGearShift() {
         gearShift.set(false);
-    }
+    }  
+    
 
     public void lowGearShift() {
         gearShift.set(true);

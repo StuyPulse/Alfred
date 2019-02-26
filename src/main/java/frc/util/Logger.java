@@ -10,18 +10,18 @@ public class Logger {
 
     public Logger(File writeFile, PrintWriter writer) {
         this.writer = writer;
-        sb = new StringBuilder();
-        sb.append("Time Stamp, Command, Relevant Value");
+        writer.write("Time Stamp, Command, Relevant Value");
+        cannotLog = false;
     }
 
     public Logger() {
+        cannotLog = false;
     }
 
     public void write(String command, String value) {
         if (!cannotLog) {
             String currentTime = getTime();
-            sb.append(currentTime + ", " + command + ", " + value);
-            writer.write(sb.toString());
+            writer.write(currentTime + ", " + command + ", " + value);
         }
     }
 

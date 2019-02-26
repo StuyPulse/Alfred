@@ -82,7 +82,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putData("Auto mode", chooser);
         SmartDashboard.putBoolean("Enable compressor", true);
 
-        CameraServer.getInstance().startAutomaticCapture(0);
+        // CameraServer.getInstance().startAutomaticCapture(0);
         SmartDashboard.putNumber("TURN_DIV", 35);
         SmartDashboard.putNumber("MOVE_TURN_MUL", 6);
 
@@ -153,7 +153,7 @@ public class Robot extends TimedRobot {
 
         // Logging
         try {
-            writeFile = new File("/home/lvuser/Logs/" + logger.getTime() + ".csv"); 
+            writeFile = new File("/home/lvuser/Logs/" + getTime() + ".csv"); 
             writer = new PrintWriter(writeFile);
             logger = new Logger(writeFile, writer);
         } catch (FileNotFoundException e) {
@@ -161,7 +161,6 @@ public class Robot extends TimedRobot {
             logger = new Logger();
             logger.setCannotLog();
         }
-
         /*
          * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
          * switch(autoSelected) { case "My Auto": autonomousCommand = new
@@ -202,7 +201,7 @@ public class Robot extends TimedRobot {
 
         // Logging
         try {
-            writeFile = new File("/home/lvuser/Logs/" + logger.getTime() + ".csv"); 
+            writeFile = new File("/home/lvuser/Logs/" + getTime() + ".csv"); 
             writer = new PrintWriter(writeFile);
             logger = new Logger(writeFile, writer);
         } catch (FileNotFoundException e) {
@@ -210,7 +209,6 @@ public class Robot extends TimedRobot {
             logger = new Logger();
             logger.setCannotLog();
         }
-        System.out.println("Created");
         
         // if (autonomousCommand != null) {
         //     autonomousCommand.cancel();
@@ -284,4 +282,11 @@ public class Robot extends TimedRobot {
     //         relayController.setLEDNeutral();
     //     }
     // }
+    public String getTime() {
+        long time = System.currentTimeMillis();
+        long second =(time / 1000) % 60;
+        long minute =(time / (1000 * 60)) % 60;
+        long hour = ((time / (1000 * 60 * 60)) % 24) - 5;
+        return String.format("%02d:%02d:%02d", hour, minute, second);
+    }
 }
