@@ -21,6 +21,8 @@ import frc.robot.RobotMap;
 import frc.robot.commands.DrivetrainDriveCommand;
 import frc.util.NEOEncoder;
 
+import org.jblas.*;
+
 public final class Drivetrain extends Subsystem {
     
     private CANSparkMax leftTopMotor, 
@@ -155,7 +157,63 @@ public final class Drivetrain extends Subsystem {
     }
 
     public double getGyroAngle() {
-        return navX.getAngle();
+        double yaw = Math.toRadians(navX.getYaw());
+        double pitch = Math.toRadians(navX.getPitch());
+        double x = Math.cos(yaw) * Math.cos(pitch);
+        double y = Math.sin(yaw) * Math.cos(pitch);
+        double z = Math.sin(pitch);
+        double co = Math.cos(Math.toRadians(58));
+        double si = Math.sin(Math.toRadians(58));
+        if (x < 0) {
+            return 180 + Math.toDegrees(Math.atan(y / (si * x + co * z)));
+        } return Math.toDegrees(Math.atan(y / (si * x + co * z)));
+    }
+
+    // Remove after gyro testing
+    public double getRoll() {
+        return navX.getRoll();
+    }
+
+    // Remove after gyro testing
+    public double getPitch() {
+        return navX.getPitch();
+    }
+
+    // Remove after gyro testing
+    public double getYaw() {
+        return navX.getYaw();
+    }
+
+    // Remove after gyro testing
+    public double getx() {
+        double yaw = Math.toRadians(navX.getYaw());
+        double pitch = Math.toRadians(navX.getPitch());
+        double x = Math.cos(yaw) * Math.cos(pitch);
+        return x;
+    }
+
+     // Remove after gyro testing
+    public double gety() {
+        double yaw = Math.toRadians(navX.getYaw());
+        double pitch = Math.toRadians(navX.getPitch());
+        double y = Math.sin(yaw) * Math.cos(pitch);
+        return y;
+    }
+
+     // Remove after gyro testing
+    public double getz() {
+        double pitch = Math.toRadians(navX.getPitch());
+        double z = Math.sin(pitch);
+        return z;
+    }
+
+    // Remove after gyro testing
+    public double getNewz() {
+        double x = getx();
+        double z = getz();
+        double co = Math.cos(Math.toRadians(58));
+        double si = Math.sin(Math.toRadians(58));
+        return (si * x + co * z);
     }
 
     public boolean isMoving() {

@@ -194,6 +194,14 @@ public class Robot extends TimedRobot {
         SmartDashboard.putBoolean("Lift Bottom Optical Sensor: ", Robot.lift.isAtBottom());
         SmartDashboard.putBoolean("Is Lift Optical Sensor Overrided: ", Robot.lift.isOpticalSensorOverrided);
         SmartDashboard.putNumber("Tom's Metric for Tail: ", Robot.tail.getTomsMetric());
+        SmartDashboard.putNumber("Gyro Reading: ", Robot.drivetrain.getGyroAngle());
+        SmartDashboard.putNumber("Gyro Roll", Robot.drivetrain.getRoll());
+        SmartDashboard.putNumber("Gyro Pitch", Robot.drivetrain.getPitch());
+        SmartDashboard.putNumber("Gyro Yaw", Robot.drivetrain.getYaw());
+        SmartDashboard.putNumber("Gyro x", Robot.drivetrain.getx());
+        SmartDashboard.putNumber("Gyro y", Robot.drivetrain.gety());
+        SmartDashboard.putNumber("Gyro z", Robot.drivetrain.getz());
+        SmartDashboard.putNumber("Gyro new z", Robot.drivetrain.getNewz());
         // if(isGamePieceDetected()) {
         //     //Once a game piece is detected, it blinks two times and stops.
         //     blinkLED();
