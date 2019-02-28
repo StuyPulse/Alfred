@@ -155,30 +155,52 @@ public final class Drivetrain extends Subsystem {
     }
 
     public double getGyroAngle() {
-        double yaw = Math.toRadians(navX.getYaw());
-        double pitch = Math.toRadians(navX.getPitch());
+        double yaw = Math.toRadians(navX.getYaw()); // z rotation
+        double pitch = Math.toRadians(navX.getPitch()); // y rotation
         double x = Math.cos(yaw) * Math.cos(pitch);
         double y = Math.sin(yaw) * Math.cos(pitch);
         double z = Math.sin(pitch);
         double co = Math.cos(Math.toRadians(58));
         double si = Math.sin(Math.toRadians(58));
-        if (si * x + co * z < 0) {
-            return 270 + Math.toDegrees(Math.atan(y / (si * x + co * z)));
-        } return 90 + Math.toDegrees(Math.atan(y / (si * x + co * z)));
+        double newZ = si * x + co * z;
+        double angle = Math.toDegrees(Math.atan(y / newZ));
+        // First quadrant
+        if (newZ >= 0 && y >= 0) {
+            return angle;
+        }
+        // Second and Third quadrants
+        else if (newZ < 0) {
+            return 180 + angle;
+        }
+        // Fourth quadrant
+        else {
+            return 360 + angle;
+        }
     }
 
     // Remove after testing
     public double getGyroAngle2() {
-        double yaw = Math.toRadians(navX.getYaw());
-        double pitch = Math.toRadians(navX.getPitch());
+        double yaw = Math.toRadians(navX.getYaw()); // z rotation
+        double pitch = Math.toRadians(navX.getPitch()); // y rotation
         double x = Math.cos(yaw) * Math.cos(pitch);
         double y = Math.sin(yaw) * Math.cos(pitch);
         double z = Math.sin(pitch);
-        double co = Math.cos(Math.toRadians(58));
-        double si = Math.sin(Math.toRadians(58));
-        if (si * x + co * z < 0) {
-            return 270 + Math.toDegrees(Math.atan((si * x + co * z) / y));
-        } return 90 + Math.toDegrees(Math.atan((si * x + co * z) / y));
+        double co = Math.cos(Math.toRadians(360-58));
+        double si = Math.sin(Math.toRadians(360-58));
+        double newZ = si * x + co * z;
+        double angle = Math.toDegrees(Math.atan(y / newZ));
+        // First quadrant
+        if (newZ >= 0 && y >= 0) {
+            return angle;
+        }
+        // Second and Third quadrants
+        else if (newZ < 0) {
+            return 180 + angle;
+        }
+        // Fourth quadrant
+        else {
+            return 360 + angle;
+        }
     }
 
     // Remove after gyro testing
