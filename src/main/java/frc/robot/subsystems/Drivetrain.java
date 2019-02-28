@@ -154,40 +154,14 @@ public final class Drivetrain extends Subsystem {
         rightGreyhill.reset();
     }
 
-    public double getGyroAngle() {
+    // TODO: Do same thing with z basis vector
+    public double getGyroAngle(double testAngle) {
         double yaw = Math.toRadians(navX.getYaw()); // z rotation
         double pitch = Math.toRadians(navX.getPitch()); // y rotation
         double x = Math.cos(yaw) * Math.cos(pitch);
         double y = Math.sin(yaw) * Math.cos(pitch);
         double z = Math.sin(pitch);
-        double co = Math.cos(Math.toRadians(58));
-        double si = Math.sin(Math.toRadians(58));
-        double newZ = si * x + co * z;
-        double angle = Math.toDegrees(Math.atan(y / newZ));
-        // First quadrant
-        if (newZ >= 0 && y >= 0) {
-            return angle;
-        }
-        // Second and Third quadrants
-        else if (newZ < 0) {
-            return 180 + angle;
-        }
-        // Fourth quadrant
-        else {
-            return 360 + angle;
-        }
-    }
-
-    // Remove after testing
-    public double getGyroAngle2() {
-        double yaw = Math.toRadians(navX.getYaw()); // z rotation
-        double pitch = Math.toRadians(navX.getPitch()); // y rotation
-        double x = Math.cos(yaw) * Math.cos(pitch);
-        double y = Math.sin(yaw) * Math.cos(pitch);
-        double z = Math.sin(pitch);
-        double co = Math.cos(Math.toRadians(360-58));
-        double si = Math.sin(Math.toRadians(360-58));
-        double newZ = si * x + co * z;
+        double newZ = Math.sin(Math.toRadians(testAngle)) * x + Math.cos(Math.toRadians(testAngle)) * z;
         double angle = Math.toDegrees(Math.atan(y / newZ));
         // First quadrant
         if (newZ >= 0 && y >= 0) {
