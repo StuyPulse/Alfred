@@ -158,7 +158,7 @@ public final class Drivetrain extends Subsystem {
     public double getGyroAngle(double testAngle) {
         double yaw = Math.toRadians(navX.getYaw()); // z rotation
         double pitch = Math.toRadians(navX.getPitch()); // y rotation
-        double x = Math.cos(yaw) * Math.cos(pitch);
+        double x = Math.cos(yaw) * Math.cos(pitch);   
         double y = Math.sin(yaw) * Math.cos(pitch);
         double z = Math.sin(pitch);
         double newZ = Math.sin(Math.toRadians(testAngle)) * x + Math.cos(Math.toRadians(testAngle)) * z;
@@ -175,6 +175,12 @@ public final class Drivetrain extends Subsystem {
         else {
             return 360 + angle;
         }
+    }
+    
+    public double colinsMethod(double testAngle) {
+        double x = Math.sin(32 * (Math.pi / 180.0)) * navX.getYaw();
+        x+=Math.cos(32 * (Math.pi / 180.0)) * navX.getRoll();
+        return x;
     }
 
     // Remove after gyro testing
