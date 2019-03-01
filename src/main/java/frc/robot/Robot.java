@@ -121,6 +121,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("Gyro y", Robot.drivetrain.gety());
         SmartDashboard.putNumber("Gyro z", Robot.drivetrain.getz());
         SmartDashboard.putNumber("Gyro new z", Robot.drivetrain.getNewz());
+        SmartDashboard.putNumber("Gyro Colin's Method", Robot.drivetrain.colinsMethod());
     }
 
     /**
@@ -185,6 +186,7 @@ public class Robot extends TimedRobot {
         // if (autonomousCommand != null) {
         //     autonomousCommand.cancel();
         // }
+        Robot.drivetrain.resetGyro();
     }
 
     /**
