@@ -40,6 +40,7 @@ public final class Drivetrain extends Subsystem {
     private AHRS navX;
     
     private Solenoid gearShift;
+    private double absoluteGyroAngle;
 
     public Drivetrain() {
         // Left Side Motors
@@ -86,7 +87,8 @@ public final class Drivetrain extends Subsystem {
         // navx
         navX = new AHRS(SPI.Port.kMXP);
         // Drive
-        differentialDrive = new DifferentialDrive(leftSpeedGroup, rightSpeedGroup);  }
+        differentialDrive = new DifferentialDrive(leftSpeedGroup, rightSpeedGroup); 
+    }
 
     @Override
     public void initDefaultCommand() {
@@ -177,10 +179,23 @@ public final class Drivetrain extends Subsystem {
         }
     }
     
-    public double colinsMethod(double testAngle) {
-        double x = Math.sin(32 * (Math.pi / 180.0)) * navX.getYaw();
-        x+=Math.cos(32 * (Math.pi / 180.0)) * navX.getRoll();
+    public double colinsMethod() {
+        double x = Math.sin(122 * (Math.PI / 180.0)) * navX.getYaw();
+        x+=Math.cos(122 * (Math.PI / 180.0)) * navX.getRoll();
         return x;
+    }
+
+    public void resetGyro() {
+        absoluteGyroAngle = colinsMethod() - absoluteGyroAngle;
+    }
+
+    public void resetGyroError() {
+        absoluteGyroAngle = 0;
+    }
+
+    public double getAngle() {
+        absoluteGyroAngle += colinsMethod();
+        return absoluteGyroAngle;
     }
 
     // Remove after gyro testing
