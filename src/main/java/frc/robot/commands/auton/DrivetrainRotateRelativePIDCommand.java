@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
-public abstract class DrivetrainRotatePIDCommand extends DrivetrainRelativeRotateCommand {
+public abstract class DrivetrainRotateRelativePIDCommand extends DrivetrainRelativeRotateCommand {
     
     private double gyroPIDOutput;
     private boolean isSet = false;
@@ -27,7 +27,7 @@ public abstract class DrivetrainRotatePIDCommand extends DrivetrainRelativeRotat
     private boolean inRange;
     private double timeInRange;
 
-    public DrivetrainRotatePIDCommand(double targetAngle) {
+    public DrivetrainRotateRelativePIDCommand(double targetAngle) {
         super(targetAngle, 0.5);
     }
 
