@@ -7,6 +7,8 @@
 
 package frc.robot.subsystems;
 
+import javax.swing.DefaultListCellRenderer;
+
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -164,12 +166,28 @@ public final class Drivetrain extends Subsystem {
         gearShift.set(false);
     }  
     
-
     public void lowGearShift() {
         gearShift.set(true);
     }
 
     public void toggleGearShift(){
         gearShift.set(!(gearShift.get()));
+    }
+
+    public double getLeftPercentOutput() {
+        if (leftTopMotor) {
+            
+        }
+        return Math.max(leftTopMotor.getAppliedOutput(), leftMiddleMotor.getAppliedOutput());
+    }
+    public double getPercentOutput(String motor) {
+        switch (motor) {
+            case "left":
+                return motor1Output;
+            case "right":
+                return motor2Output;
+            default:
+                return 0;
+        }
     }
 }
