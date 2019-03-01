@@ -106,6 +106,7 @@ public class Robot extends TimedRobot {
         controlCompressor();
         SmartDashboard.putBoolean("IR Sensor", isGamePieceDetected());
         liftSpeedGoingDown = SmartDashboard.getNumber("Lift Auto Complete Speed Going Down", 0.5);
+        SmartDashboard.putNumber("Collin's Method: ", Robot.drivetrain.colinsMethod());
         SmartDashboard.putNumber("Gyro Reading 32: ", Robot.drivetrain.getGyroAngle(32));
         SmartDashboard.putNumber("Gyro Reading 58: ", Robot.drivetrain.getGyroAngle(58));
         SmartDashboard.putNumber("Gyro Reading -32: ", Robot.drivetrain.getGyroAngle(-32));
