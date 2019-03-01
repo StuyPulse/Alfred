@@ -89,7 +89,7 @@ public class DrivetrainStraightRampingCommand extends DrivetrainDriveStraightCom
 
         @Override
         public double pidGet() {
-            return Robot.drivetrain.getGyroAngle();
+            return Robot.drivetrain.getAbsoluteAngle();
         }
     }
 

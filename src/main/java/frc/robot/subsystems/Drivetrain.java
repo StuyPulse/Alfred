@@ -39,7 +39,7 @@ public final class Drivetrain extends Subsystem {
     
     private Solenoid gearShift;
 
-    public double absoluteGyroError;
+    private double calibratedAngle;
 
     public Drivetrain() {
         // Left Side Motors
@@ -86,7 +86,8 @@ public final class Drivetrain extends Subsystem {
         // navx
         navX = new AHRS(SPI.Port.kMXP);
         // Drive
-        differentialDrive = new DifferentialDrive(leftSpeedGroup, rightSpeedGroup);  }
+        differentialDrive = new DifferentialDrive(leftSpeedGroup, rightSpeedGroup); 
+    }
 
     @Override
     public void initDefaultCommand() {
@@ -158,8 +159,23 @@ public final class Drivetrain extends Subsystem {
         rightGreyhill.reset();
     }
 
-    public double getGyroAngle() {
-        return navX.getAngle();
+    public double getAbsoluteAngle() {
+        double x = Math.sin(122 * (Math.PI / 180.0)) * navX.getYaw();
+        x+=Math.cos(122 * (Math.PI / 180.0)) * navX.getRoll();
+        return x;
+    }
+
+    public void resetGyro() {
+        calibratedAngle = getAbsoluteAngle() - calibratedAngle;
+    }
+
+    public void resetCalibration() {
+        calibratedAngle = 0;
+    }
+
+    public double getRelativeAngle() {
+        calibratedAngle += getAbsoluteAngle();
+        return calibratedAngle;
     }
 
     public boolean isMoving() {
@@ -187,17 +203,5 @@ public final class Drivetrain extends Subsystem {
         // leftBottomMotor.setRampRate(rampSeconds);
         rightBottomMotor.setOpenLoopRampRate(rampSeconds);
     }
-
-    public void resetGyro() {
-        absoluteGyroError += getGyroAngle();
-        navX.reset();
-    }
-
-    public void resetGyroError() {
-        absoluteGyroError = 0;
-    }
-
-    public double getAbsoluteGyroAngle() {
-        return absoluteGyroError + getGyroAngle();
-    }
 }
+

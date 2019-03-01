@@ -27,7 +27,7 @@ public class DrivetrainRelativeRotateCommand extends Command {
     @Override
     protected void initialize() {
         Robot.drivetrain.resetGyro();
-        startAngle = Robot.drivetrain.getGyroAngle();
+        startAngle = Robot.drivetrain.getAbsoluteAngle();
     }
 
     @Override

@@ -37,7 +37,7 @@ public class DrivetrainDriveStraightCommand extends DrivetrainMoveInchesCommand 
 
         Robot.drivetrain.resetGyro();
         rotationPIDController = new PIDController(0, 0, 0, new GyroPIDSource(), new GyroPIDOutput());
-        rotationPIDController.setSetpoint(Robot.drivetrain.getGyroAngle());
+        rotationPIDController.setSetpoint(Robot.drivetrain.getRelativeAngle());
         rotationPIDController.setPID(rotateP, rotateI, rotateD);
         rotationPIDController.enable();
     }
@@ -85,7 +85,7 @@ public class DrivetrainDriveStraightCommand extends DrivetrainMoveInchesCommand 
 
         @Override
         public double pidGet() {
-            return Robot.drivetrain.getGyroAngle();
+            return Robot.drivetrain.getRelativeAngle();
         }
     }
 

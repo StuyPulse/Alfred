@@ -31,7 +31,7 @@ public class DrivetrainAbsoluteRotateCommand extends Command {
 
     @Override
     protected void execute() {
-        if (Robot.drivetrain.getAbsoluteGyroAngle() > targetAngle) {
+        if (Robot.drivetrain.getAbsoluteAngle() > targetAngle) {
             Robot.drivetrain.tankDrive(-speed, speed);
         } else {
             Robot.drivetrain.tankDrive(speed, -speed);
@@ -40,7 +40,7 @@ public class DrivetrainAbsoluteRotateCommand extends Command {
 
     @Override
     protected boolean isFinished() {
-        return Math.abs(Robot.drivetrain.getAbsoluteGyroAngle() - targetAngle) <= MAX_OFFSET;
+        return Math.abs(Robot.drivetrain.getAbsoluteAngle() - targetAngle) <= MAX_OFFSET;
     }
 
     @Override

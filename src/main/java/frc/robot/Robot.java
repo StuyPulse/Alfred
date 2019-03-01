@@ -104,6 +104,8 @@ public class Robot extends TimedRobot {
         controlCompressor();
         SmartDashboard.putBoolean("IR Sensor", isGamePieceDetected());
         liftSpeedGoingDown = SmartDashboard.getNumber("Lift Auto Complete Speed Going Down", 0.5);
+        SmartDashboard.putNumber("Absolute Gyro Angle: ", Robot.drivetrain.getAbsoluteAngle());
+        SmartDashboard.putNumber("Relative Gyro Angle: ", Robot.drivetrain.getRelativeAngle());
     }
 
     /**
@@ -179,6 +181,7 @@ public class Robot extends TimedRobot {
         // if (autonomousCommand != null) {
         //     autonomousCommand.cancel();
         // }
+        Robot.drivetrain.resetGyro();
     }
 
     /**
