@@ -14,7 +14,6 @@ public class DrivetrainRelativeRotateCommand extends Command {
 
     final double MAX_OFFSET = 5;
 
-    protected double startAngle;
     protected double targetAngle;
     protected double speed;
 
@@ -27,26 +26,26 @@ public class DrivetrainRelativeRotateCommand extends Command {
     @Override
     protected void initialize() {
         Robot.drivetrain.resetGyro();
-        startAngle = Robot.drivetrain.getRelativeAngle();
     }
 
     @Override
     protected void execute() {
-        if (targetAngle > 0 && targetAngle < 180) {
-            Robot.drivetrain.tankDrive(speed, -speed);
-        } else {
-            Robot.drivetrain.tankDrive(-speed, speed);
-        }
+        speed = Math.abs(speed) * Math.signum(targetAngle);
+        Robot.drivetrain.tankDrive(speed, -speed);
     }
 
     @Override
     protected boolean isFinished() {
-        return Math.abs(targetAngle - startAngle) <= MAX_OFFSET;
+        return getDeltaAngle() <= MAX_OFFSET;
     }
 
     @Override
     protected void end() {
-        Robot.drivetrain.resetGyro();
         Robot.drivetrain.stop();
+        Robot.drivetrain.resetGyro();
+    }
+
+    protected double getDeltaAngle() {
+        return Math.abs(targetAngle - Robot.drivetrain.getRelativeAngle()) % 360;
     }
 }
