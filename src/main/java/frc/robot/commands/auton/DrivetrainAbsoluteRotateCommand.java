@@ -30,6 +30,7 @@ public class DrivetrainAbsoluteRotateCommand extends Command {
     protected void initialize() {
         Robot.drivetrain.resetGyro();
         turnAngle = targetAngle - convertAngle(Robot.drivetrain.getAbsoluteAngle());
+        turnAngle = convertAngle(turnAngle);
     }
 
     @Override
@@ -54,6 +55,11 @@ public class DrivetrainAbsoluteRotateCommand extends Command {
     }
 
     protected double convertAngle(double angle) {
-        return angle < 0 ? 360 + angle : angle;
+        if (Math.abs(angle) > 180) {
+            return -1 * Math.signum(angle) * (360 - Math.abs(angle));
+        } else if (Math.abs(angle) == 180) {
+            return 180;
+        }
+        return angle;
     }
 }
