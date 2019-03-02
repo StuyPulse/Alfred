@@ -45,7 +45,7 @@ public class Logger {
     }
     
     /**
-     * Writes the drivetrain motor values and the gamepad inputs
+     * Logs the drivetrain motor values and the gamepad inputs
      * @param value Extra values we want to Log
      */
     public void writeDrivetrain(String value) {
@@ -67,7 +67,7 @@ public class Logger {
     }
 
     /**
-     * Writes the lift motor values and the gamepad inputs
+     * Logs the lift motor values and the gamepad inputs
      * @param value Extra values we want to Log
      */
     public void writeLift(String value) {
@@ -89,7 +89,7 @@ public class Logger {
     }
 
     /**
-     * Writes the sparkMotor Subsystem's motor values and the gamepad inputs
+     * Logs the sparkMotor Subsystem's motor values and the gamepad inputs
      * @param subsystem The subsystem we want to Log
      * @param value Extra values we want to Log
      * @param motor The motor in the subsystem (Modify drivetrain or lift for subsystems with multiple motors)
@@ -113,7 +113,7 @@ public class Logger {
     }
 
     /**
-     * Writes the Victor_SPX Subsystem's motor values and the gamepad inputs
+     * Logs the Victor_SPX Subsystem's motor values and the gamepad inputs
      * @param subsystem The subsystem we want to Log
      * @param value Extra values we want to Log
      * @param motor The motor in the subsystem (Modify drivetrain or lift for subsystems with multiple motors)
@@ -193,7 +193,7 @@ public class Logger {
     }
 
     /**
-     * @return The operator's inputs, which logs every button
+     * @return All of the operator's button inputs
      */
     public String getOperatorButtons(Gamepad operator) {
         String output = "";
