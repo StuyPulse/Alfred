@@ -28,9 +28,7 @@ public final class Drivetrain extends Subsystem {
     
     private CANSparkMax leftTopMotor, 
                         leftMiddleMotor, 
-                        leftBottomMotor, 
                         rightTopMotor,
-                        rightMiddleMotor,
                         rightBottomMotor;
 
     private SpeedControllerGroup leftSpeedGroup, rightSpeedGroup;
@@ -48,13 +46,11 @@ public final class Drivetrain extends Subsystem {
         // Left Side Motors
         leftTopMotor = new CANSparkMax(RobotMap.LEFT_TOP_MOTOR_PORT, MotorType.kBrushless);
         leftMiddleMotor = new CANSparkMax(RobotMap.LEFT_MIDDLE_MOTOR_PORT, MotorType.kBrushless);
-        // leftBottomMotor = new CANSparkMax(RobotMap.LEFT_BOTTOM_MOTOR_PORT,
-        // MotorType.kBrushless);
+        // leftBottomMotor = new CANSparkMax(RobotMap.LEFT_BOTTOM_MOTOR_PORT, MotorType.kBrushless);
 
         // Right Side Motors
         rightTopMotor = new CANSparkMax(RobotMap.RIGHT_TOP_MOTOR_PORT, MotorType.kBrushless);
-        // rightMiddleMotor = new CANSparkMax(RobotMap.RIGHT_MIDDLE_MOTOR_PORT,
-        // MotorType.kBrushless);
+        // rightMiddleMotor = new CANSparkMax(RobotMap.RIGHT_MIDDLE_MOTOR_PORT, MotorType.kBrushless);
         rightBottomMotor = new CANSparkMax(RobotMap.RIGHT_BOTTOM_MOTOR_PORT, MotorType.kBrushless);
 
         // NEO/SPARK MAX Encoders
