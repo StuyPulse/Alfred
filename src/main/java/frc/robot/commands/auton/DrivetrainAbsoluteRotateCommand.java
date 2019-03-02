@@ -54,11 +54,10 @@ public class DrivetrainAbsoluteRotateCommand extends Command {
         return Math.abs(targetAngle - Robot.drivetrain.getAbsoluteAngle()) % 360;
     }
 
+    //example of what this does: convertAngle(270) --> -90
     protected double convertAngle(double angle) {
         if (Math.abs(angle) > 180) {
             return -1 * Math.signum(angle) * (360 - Math.abs(angle));
-        } else if (Math.abs(angle) == 180) {
-            return 180;
         }
         return angle;
     }
