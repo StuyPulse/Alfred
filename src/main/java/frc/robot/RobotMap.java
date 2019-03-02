@@ -9,7 +9,7 @@ package frc.robot;
 
 public interface RobotMap {
 
-    String ROBOT_NAME = "Alfred";
+    String ROBOT_NAME = "Edwin";
     
     /***************************************************************************************
     * Drivetrain Motor Ports
