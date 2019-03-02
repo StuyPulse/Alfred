@@ -161,7 +161,7 @@ public class Robot extends TimedRobot {
         Robot.lift.tiltForward();
 
         // Logging
-        writeFile = new File("/home/lvuser/Logs/" + getTime() + ".csv");
+        writeFile = new File("/home/lvuser/Logs/" + getTime() + "_Auton.csv");
         logger = new Logger(writeFile);
         /*
          * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
@@ -196,7 +196,7 @@ public class Robot extends TimedRobot {
         Robot.floop.open();
 
         // Logging
-        writeFile = new File("/home/lvuser/Logs/" + getTime() + ".csv");
+        writeFile = new File("/home/lvuser/Logs/" + getTime() + "_Teleop.csv");
         logger = new Logger(writeFile);
 
         // if (autonomousCommand != null) {
