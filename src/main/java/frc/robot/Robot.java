@@ -8,10 +8,9 @@
 package frc.robot;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -100,6 +99,13 @@ public class Robot extends TimedRobot {
         SmartDashboard.putBoolean("VALID_SKEW", false);
 
         SmartDashboard.putNumber("CAM_MODE", 1);
+
+        Boolean folderExists = new File("/home/lvuser/Logs").mkdirs();
+        if (!folderExists) {
+            writeFolder = new File("Logs");
+            writeFolder.mkdir();
+        }
+
     }
 
     /**
@@ -127,7 +133,9 @@ public class Robot extends TimedRobot {
 
     @Override
     public void disabledInit() {
-        logger.close();
+        if (logger != null) {
+            logger.close();
+        }
     }
 
     @Override
@@ -151,13 +159,6 @@ public class Robot extends TimedRobot {
     public void autonomousInit() {
         autonomousCommand = new LiftMoveToHeightCommand(RobotMap.LEVEL_1_HEIGHT);
         Robot.lift.tiltForward();
-        fangs.lower(); // This is only for edwin
-
-        Boolean folderExists = new File("/home/lvuser/Logs").mkdirs();
-        if (!folderExists) {
-            writeFolder = new File("nameoffolder");
-            writeFolder.mkdir();
-        }
 
         // Logging
         writeFile = new File("/home/lvuser/Logs/" + getTime() + ".csv");
@@ -181,16 +182,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousPeriodic() {
-        if (Timer.getFPGATimestamp() - 2 > time) {
-            logger.writeDrivetrain("");
-            logger.writeLift("");
-            logger.writeSparkMotorSubsystem(tail, "", tail.getMotor());
-            logger.writeVictorMotorSubsystem(rollers, "", rollers.getMotor());
-            logger.writePneumaticSubsystem(fangs, "", fangs.getPiston());
-            logger.writePneumaticSubsystem(floop, "", floop.getPiston());
-            logger.writePneumaticSubsystem(abom, Boolean.toString(abom.getWantPumpingStatus()), abom.getPiston());
-            time = Timer.getFPGATimestamp();
-        }
+        Log();
         Scheduler.getInstance().run();
     }
 
@@ -201,15 +193,7 @@ public class Robot extends TimedRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
 
-        fangs.lower(); // This is only for Edwin
-
         Robot.floop.open();
-
-        Boolean folderExists = new File("/home/lvuser/Logs").mkdirs();
-        if (!folderExists) {
-            writeFolder = new File("nameoffolder");
-            writeFolder.mkdir();
-        }
 
         // Logging
         writeFile = new File("/home/lvuser/Logs/" + getTime() + ".csv");
@@ -227,21 +211,12 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopPeriodic() {
-        if (Timer.getFPGATimestamp() - 2 > time) {
-            logger.writeDrivetrain("");
-            logger.writeLift("");
-            logger.writeSparkMotorSubsystem(tail, "", tail.getMotor());
-            logger.writeVictorMotorSubsystem(rollers, "", rollers.getMotor());
-            logger.writePneumaticSubsystem(fangs, "", fangs.getPiston());
-            logger.writePneumaticSubsystem(floop, "", floop.getPiston());
-            logger.writePneumaticSubsystem(abom, Boolean.toString(abom.getWantPumpingStatus()), abom.getPiston());
-            time = Timer.getFPGATimestamp();
-        }
         // if(!isGamePieceDetected()) {
         // relayController.setLEDForward();
         // } else {
         // relayController.setLEDNeutral();
         // }
+        Log();
         Scheduler.getInstance().run();
         SmartDashboard.putNumber("Drivetrain Left Greyhill Encoder Val: ", Robot.drivetrain.getLeftGreyhillDistance());
         SmartDashboard.putNumber("Drivetrain Right Greyhill Encoder Val: ",
@@ -301,10 +276,20 @@ public class Robot extends TimedRobot {
     // }
     // }
     public String getTime() {
-        long time = System.currentTimeMillis();
-        long second = (time / 1000) % 60;
-        long minute = (time / (1000 * 60)) % 60;
-        long hour = ((time / (1000 * 60 * 60)) % 24) - 5;
-        return String.format("%02d:%02d:%02d", hour, minute, second);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
+        return LocalDateTime.now().minusHours(5).format(formatter);
+    }
+
+    public void Log() {
+        if (Timer.getFPGATimestamp() - 2 > time) {
+            logger.writeDrivetrain("");
+            logger.writeLift("");
+            logger.writeSparkMotorSubsystem(tail, "", tail.getMotor());
+            logger.writeVictorMotorSubsystem(rollers, "", rollers.getMotor());
+            logger.writePneumaticSubsystem(fangs, "", fangs.getPiston());
+            logger.writePneumaticSubsystem(floop, "", floop.getPiston());
+            logger.writePneumaticSubsystem(abom, Boolean.toString(abom.getWantPumpingStatus()), abom.getPiston());
+            time = Timer.getFPGATimestamp();
+        }
     }
 }
