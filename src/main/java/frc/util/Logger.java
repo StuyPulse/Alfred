@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
@@ -16,23 +16,38 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Robot;
 
 public class Logger {
+    // Writer used to write to the file
     PrintWriter writer;
+
+    // Boolean to make sure a null logger does not crash the bot
     boolean cannotLog;
 
+    /**
+     * Constructor
+     * @param writeFile The desired file we want to write into
+    */
     public Logger(File writeFile) {
         cannotLog = false;
+
+        // Write the headings, and check to see if the file exists
         try {
             writer = new PrintWriter(new BufferedWriter(new FileWriter(writeFile)));
             writer.println("Timestamp, Subsystem, Command, " +
                         "Motor Output, Encoder Value, Motor stalling?, Motor Current, Motor Voltage, " +
-                        "Driver Trigger Left, Driver Trigger Right, Driver Left Stick Y, " + 
-                        "Operator Buttons Pressed, Other Value");
+                        "Driver Trigger Left, Driver Trigger Right, Driver Left Stick Y, Driver Gear Shift, " + 
+                        "Operator Buttons Pressed, Operator Trigger Left, Operator Trigger Right, " +
+                        "Operator Left Stick Y, Operator Right Stick Y, Other Value");
             writeToFile();
         } catch (IOException e) {
+            // Prevent writing if there is no file
             setCannotLog();
         }
     }
-
+    
+    /**
+     * Writes the drivetrain motor values and the gamepad inputs
+     * @param value Extra values we want to Log
+     */
     public void writeDrivetrain(String value) {
         if (!cannotLog) {
             writer.println(
@@ -43,13 +58,18 @@ public class Logger {
                 //TODO: Needs Motor stalling value
                 Robot.drivetrain.getLeftMotorCurrent() + ":" + Robot.drivetrain.getRightMotorCurrent() + ", " +
                 Robot.drivetrain.getLeftMotorVoltage() + ":" + Robot.drivetrain.getRightMotorVoltage() + ", " +
-                getDriverInputs(Robot.oi.driverGamepad) + ", " + 
-                getOperatorButtons(Robot.oi.operatorGamepad) + ", " +
+                getCurvatureDriverInputs(Robot.oi.driverGamepad) + ", " + 
+                getOperatorButtons(Robot.oi.operatorGamepad) + ", " + 
+                getOperatorAxisInputs(Robot.oi.operatorGamepad) + ", " +
                 value
             );
         }
     }
 
+    /**
+     * Writes the lift motor values and the gamepad inputs
+     * @param value Extra values we want to Log
+     */
     public void writeLift(String value) {
         if (!cannotLog) {
             writer.println(
@@ -60,13 +80,20 @@ public class Logger {
                 //TODO: Needs Motor stalling value
                 Robot.lift.getMotorCurrent() + ", " +
                 Robot.lift.getMotorVoltage() + ":" + Robot.lift.getMotorVoltage() + ", " +
-                getDriverInputs(Robot.oi.driverGamepad) + ", " + 
+                getCurvatureDriverInputs(Robot.oi.driverGamepad) + ", " + 
                 getOperatorButtons(Robot.oi.operatorGamepad) + ", " +
+                getOperatorAxisInputs(Robot.oi.operatorGamepad) + ", " +
                 value
             );
         }
     }
 
+    /**
+     * Writes the sparkMotor Subsystem's motor values and the gamepad inputs
+     * @param subsystem The subsystem we want to Log
+     * @param value Extra values we want to Log
+     * @param motor The motor in the subsystem (Modify drivetrain or lift for subsystems with multiple motors)
+     */
     public void writeSparkMotorSubsystem(Subsystem subsystem, String value, CANSparkMax motor) {
         if (!cannotLog) {
             writer.println(
@@ -77,13 +104,20 @@ public class Logger {
                 //TODO: Needs Motor stalling value
                 motor.getOutputCurrent() + ", " +
                 motor.getBusVoltage() + ", " +
-                getDriverInputs(Robot.oi.driverGamepad) + ", " + 
+                getCurvatureDriverInputs(Robot.oi.driverGamepad) + ", " + 
                 getOperatorButtons(Robot.oi.operatorGamepad) + ", " +
+                getOperatorAxisInputs(Robot.oi.operatorGamepad) + ", " +
                 value
             );
         }
     }
 
+    /**
+     * Writes the Victor_SPX Subsystem's motor values and the gamepad inputs
+     * @param subsystem The subsystem we want to Log
+     * @param value Extra values we want to Log
+     * @param motor The motor in the subsystem (Modify drivetrain or lift for subsystems with multiple motors)
+     */
     public void writeVictorMotorSubsystem(Subsystem subsystem, String value, WPI_VictorSPX motor) {
         if (!cannotLog) {
             writer.println(
@@ -94,13 +128,20 @@ public class Logger {
                 //TODO: Needs Motor stalling value
                 "No Current, " +
                 motor.getBusVoltage() + ", " +
-                getDriverInputs(Robot.oi.driverGamepad) + ", " + 
+                getCurvatureDriverInputs(Robot.oi.driverGamepad) + ", " + 
                 getOperatorButtons(Robot.oi.operatorGamepad) + ", " +
+                getOperatorAxisInputs(Robot.oi.operatorGamepad) + ", " +
                 value
             );
         }
     }
 
+    /**
+     * Logs the Pneumatic Subsystem's values and the gamepad inputs
+     * @param subsystem The subsystem we want to Log
+     * @param value Extra values we want to Log
+     * @param piston The piston in the subsystem (If more than one, make a separate method to log it)
+     */
     public void writePneumaticSubsystem(Subsystem subsystem, String value, Solenoid piston) {
         if (!cannotLog) {
             writer.println(
@@ -111,26 +152,49 @@ public class Logger {
                 //TODO: Needs Motor stalling value
                 "No Current, " +
                 "No Voltage, " +
-                getDriverInputs(Robot.oi.driverGamepad) + ", " + 
+                getCurvatureDriverInputs(Robot.oi.driverGamepad) + ", " + 
                 getOperatorButtons(Robot.oi.operatorGamepad) + ", " +
+                getOperatorAxisInputs(Robot.oi.operatorGamepad) + ", " +
                 value
             );
         }
     }
 
+    /**
+     * @return The current date in hours:minutes:seconds format
+     */
     public String getTime() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
-        return LocalDateTime.now().minusHours(5).format(formatter);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss");
+        return LocalTime.now().minusHours(5).format(formatter);
     }
 
-    public String getDriverInputs(Gamepad driver) {
+    /**
+     * @return The driver's inputs, with triggers, the axis of the left stick, and gear shift
+     */
+    public String getCurvatureDriverInputs(Gamepad driver) {
         String output = "";
-        output += Robot.oi.driverGamepad.getRawLeftTriggerAxis() + ", " +
-                  Robot.oi.driverGamepad.getRawRightTriggerAxis() + ", " + 
-                  Robot.oi.driverGamepad.getLeftX();
+        output += driver.getRawLeftTriggerAxis() + ", " +
+                  driver.getRawRightTriggerAxis() + ", " + 
+                  driver.getLeftX() + ", " +
+                  driver.getRawBottomButton();
         return output;
     }
 
+    /**
+     * @return The Operator's axis inputs, with triggers and the Y axis for the both sticks
+     */
+    public String getOperatorAxisInputs(Gamepad operator) {
+        String output = "";
+        output += operator.getRawLeftTriggerAxis() + ", " +
+                  operator.getRawRightTriggerAxis() + ", " + 
+                  operator.getLeftY() + ", " +
+                  operator.getRightY();
+        return output;
+    }
+
+    /**
+     * @return The operator's inputs, which logs every button
+     */
     public String getOperatorButtons(Gamepad operator) {
         String output = "";
         if (operator.getRawDPadDown()) {
@@ -171,7 +235,7 @@ public class Logger {
         }
         return output;
     }
-
+    
     public void close() {
         if (writer != null) {
             writer.close();
