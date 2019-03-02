@@ -7,15 +7,16 @@
 
 package frc.robot;
 
-import edu.wpi.first.cameraserver.*;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.LiftMoveToHeightCommand;
 import frc.robot.subsystems.Abom;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Fangs;
@@ -24,7 +25,6 @@ import frc.robot.subsystems.Lift;
 import frc.robot.subsystems.Rollers;
 import frc.robot.subsystems.Tail;
 import frc.util.LEDRelayController;
-import frc.util.Limelight;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -33,7 +33,9 @@ import frc.util.Limelight;
  * creating this project, you must also update the build.gradle file in the
  * project.
  */
+
 public class Robot extends TimedRobot {
+
     public static Drivetrain drivetrain;
     public static OI oi;
     public static Floop floop;
@@ -57,6 +59,7 @@ public class Robot extends TimedRobot {
      * This function is run when the robot is first started up and should be used
      * for any initialization code.
      */
+
     @Override
     public void robotInit() {
         drivetrain = new Drivetrain();
@@ -98,11 +101,13 @@ public class Robot extends TimedRobot {
      * This runs after the mode specific periodic functions, but before LiveWindow
      * and SmartDashboard integrated updating.
      */
+
     @Override
     public void robotPeriodic() {
         controlCompressor();
         SmartDashboard.putBoolean("IR Sensor", isGamePieceDetected());
         liftSpeedGoingDown = SmartDashboard.getNumber("Lift Auto Complete Speed Going Down", 0.5);
+        SmartDashboard.putString("Match Time", returnTime());
     }
 
     /**
@@ -110,6 +115,7 @@ public class Robot extends TimedRobot {
      * can use it to reset any subsystem information you want to clear when the
      * robot is disabled.
      */
+
     @Override
     public void disabledInit() {
     }
@@ -133,7 +139,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousInit() {
-        // autonomousCommand = chooser.getSelected();
+        autonomousCommand = new LiftMoveToHeightCommand(RobotMap.LEVEL_1_HEIGHT);
         Robot.lift.tiltForward();
         fangs.lower(); // This is only for edwin
 
@@ -145,9 +151,9 @@ public class Robot extends TimedRobot {
          */
 
         // schedule the autonomous command (example)
-        // if (autonomousCommand != null) {
-        //     autonomousCommand.start();
-        // }
+        if (autonomousCommand != null) {
+            autonomousCommand.start();
+        }
     }
 
     /**
@@ -176,6 +182,7 @@ public class Robot extends TimedRobot {
     /**
      * This function is called periodically during operator control.
      */
+
     @Override
     public void teleopPeriodic() {
         // if(!isGamePieceDetected()) {
@@ -207,6 +214,7 @@ public class Robot extends TimedRobot {
     /**
      * This function is called periodically during test mode.
      */
+
     @Override
     public void testPeriodic() {
     }
@@ -226,6 +234,24 @@ public class Robot extends TimedRobot {
 
     private boolean isGamePieceDetected() {
         return IRsensor.get();
+    }
+
+    private String returnTime() {
+        boolean isAuton = DriverStation.getInstance().isAutonomous();
+        int dTime = (int) DriverStation.getInstance().getMatchTime();
+        if (dTime == -1) {
+            dTime = 0; 
+        }
+        String minutes = Integer.toString(dTime / 60);
+        String seconds = Integer.toString(dTime % 60);
+        if (dTime % 60 < 10) {
+            seconds = "0" + seconds;
+        }
+        if (isAuton) {
+            return "Sandstorm: " + minutes + ":" + seconds;
+        } else {
+            return "Teleop: " + minutes + ":" + seconds;
+        }
     }
 
     // private void blinkLED() {

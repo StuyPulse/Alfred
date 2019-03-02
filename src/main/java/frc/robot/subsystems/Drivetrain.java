@@ -22,6 +22,7 @@ import frc.robot.commands.DrivetrainDriveCommand;
 import frc.util.NEOEncoder;
 
 public final class Drivetrain extends Subsystem {
+    
     private CANSparkMax leftTopMotor, 
                         leftMiddleMotor, 
                         rightTopMotor,
