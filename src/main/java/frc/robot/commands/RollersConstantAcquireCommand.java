@@ -15,12 +15,7 @@ public class RollersConstantAcquireCommand extends Command {
     public RollersConstantAcquireCommand() {
         requires(Robot.rollers);
     }
-
-    @Override
-    protected void initialize() {
-        Robot.logger.write("RollersConstantAcquireCommand", "Init");
-    }
-
+    
     @Override
     protected void execute() {
         Robot.rollers.acquire();

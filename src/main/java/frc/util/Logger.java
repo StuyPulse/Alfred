@@ -35,7 +35,7 @@ public class Logger {
                 Robot.drivetrain.getGreyhillDistance() + ", " + 
                 //TODO: Needs Motor stalling value
                 getDriverInputs(Robot.oi.driverGamepad) + ", " + 
-                getOperatorButtons(Robot.oi.operator) + ", "
+                getOperatorButtons(Robot.oi.operatorGamepad) + ", "
             );
             writer.flush();
         }

@@ -11,13 +11,12 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 
 public class LiftToggleCommand extends InstantCommand {
-  public LiftToggleCommand() {
-    requires(Robot.lift);
-  }
+    public LiftToggleCommand() {
+        requires(Robot.lift);
+    }
 
-  @Override
-  protected void initialize() {
-    Robot.lift.toggle();
-  }
-
+    @Override
+    protected void initialize() {
+        Robot.lift.toggle();
+    }
 }

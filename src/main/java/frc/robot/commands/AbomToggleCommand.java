@@ -18,11 +18,6 @@ public class AbomToggleCommand extends InstantCommand {
 
     @Override
     protected void initialize() {
-        if (Robot.abom.getWantPumpingStatus()) {
-            Robot.logger.write("AbomToggleCommand", "start");
-        } else {
-            Robot.logger.write("AbomToggleCommand", "stop");
-        }
         Robot.abom.setWantPumpingStatus(!Robot.abom.getWantPumpingStatus());
     }
 }

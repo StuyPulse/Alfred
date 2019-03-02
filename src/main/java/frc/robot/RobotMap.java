@@ -9,7 +9,8 @@ package frc.robot;
 
 public interface RobotMap {
 
-    String ROBOT_NAME = "Edwin";
+    String ROBOT_NAME = "Alfred";
+    
     /***************************************************************************************
     * Drivetrain Motor Ports
     ****************************************************************************************/
@@ -137,7 +138,7 @@ public interface RobotMap {
      *************************************************************************/
     double LIFT_ENCODER_TICKS_PER_REV = 1024.0;
     double LIFT_ENCODER_RAW_MULTIPLIER = 1 / 1207.0;
-    double LIFT_MIN_SPEED = 0.1;
+    double LIFT_MIN_SPEED = 0.05;
     double LIFT_SPEED_MULTIPLIER = .8;
 
     // Waiting on eng for the height

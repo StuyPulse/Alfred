@@ -19,18 +19,9 @@ public class DrivetrainDriveCommand extends Command {
     boolean quickTurn = true;
 
     public DrivetrainDriveCommand() {
-        // Use requires() here to declare subsystem dependencies
         requires(Robot.drivetrain);
     }
 
-    // Called just before this Command runs the first time
-    @Override
-    protected void initialize() {
-        Robot.logger.write("DrivetrainDriveCommand", "Init");
-        System.out.println("Done!");
-    }
-
-    // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
         Limelight.setCamMode(Limelight.CamMode.VISION);
@@ -58,7 +49,7 @@ public class DrivetrainDriveCommand extends Command {
         // System.out.println("Skew :" + Limelight.getTargetSkew());
         // System.out.println("W/H :" + Limelight.hasValidBlueAspectRatio(minRatio, maxRatio));
         // Sets to driver mode for debugging
-        if(Robot.oi.driverGamepad.getRawDPadDown()){
+        if (Robot.oi.driverGamepad.getRawDPadDown()){
             Limelight.setCamMode(Limelight.CamMode.DRIVER);
         }
     }
@@ -80,7 +71,6 @@ public class DrivetrainDriveCommand extends Command {
         Robot.drivetrain.curvatureDrive(speed, turn, quickTurn);
     }
 
-    // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
         return false;

@@ -21,10 +21,6 @@ public class TailClimbCommand extends Command {
         requires(Robot.tail);
     }
 
-    public void initialize() {
-        
-    }
-
     @Override
     protected void execute() {
         currTime = Timer.getFPGATimestamp();

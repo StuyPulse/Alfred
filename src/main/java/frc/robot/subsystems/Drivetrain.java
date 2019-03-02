@@ -25,7 +25,13 @@ import frc.util.NEOEncoder;
 import frc.util.Gamepad.LeftTriggerButton;
 
 public final class Drivetrain extends Subsystem {
-    private CANSparkMax leftTopMotor, leftMiddleMotor, rightTopMotor, rightBottomMotor;
+    
+    private CANSparkMax leftTopMotor, 
+                        leftMiddleMotor, 
+                        leftBottomMotor, 
+                        rightTopMotor,
+                        rightMiddleMotor,
+                        rightBottomMotor;
 
     private SpeedControllerGroup leftSpeedGroup, rightSpeedGroup;
 
