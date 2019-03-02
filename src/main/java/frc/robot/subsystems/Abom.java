@@ -52,4 +52,8 @@ public final class Abom extends Subsystem {
     public void setWantPumpingStatus(boolean status) {
         wantPumping = status;
     }
+
+    public Solenoid getPiston() {
+        return abomSolenoid;
+    }
 }

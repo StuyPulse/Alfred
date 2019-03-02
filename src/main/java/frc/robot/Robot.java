@@ -15,6 +15,7 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -60,6 +61,7 @@ public class Robot extends TimedRobot {
     private File writeFile;
     private File writeFolder;
 
+    private double time;
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<>();
 
@@ -171,6 +173,7 @@ public class Robot extends TimedRobot {
         if (autonomousCommand != null) {
             autonomousCommand.start();
         }
+        time = Timer.getFPGATimestamp();
     }
 
     /**
@@ -178,6 +181,16 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousPeriodic() {
+        if (Timer.getFPGATimestamp() - 2 > time) {
+            logger.writeDrivetrain("");
+            logger.writeLift("");
+            logger.writeSparkMotorSubsystem(tail, "", tail.getMotor());
+            logger.writeVictorMotorSubsystem(rollers, "", rollers.getMotor());
+            logger.writePneumaticSubsystem(fangs, "", fangs.getPiston());
+            logger.writePneumaticSubsystem(floop, "", floop.getPiston());
+            logger.writePneumaticSubsystem(abom, Boolean.toString(abom.getWantPumpingStatus()), abom.getPiston());
+            time = Timer.getFPGATimestamp();
+        }
         Scheduler.getInstance().run();
     }
 
@@ -205,6 +218,7 @@ public class Robot extends TimedRobot {
         // if (autonomousCommand != null) {
         // autonomousCommand.cancel();
         // }
+        time = Timer.getFPGATimestamp();
     }
 
     /**
@@ -213,6 +227,16 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopPeriodic() {
+        if (Timer.getFPGATimestamp() - 2 > time) {
+            logger.writeDrivetrain("");
+            logger.writeLift("");
+            logger.writeSparkMotorSubsystem(tail, "", tail.getMotor());
+            logger.writeVictorMotorSubsystem(rollers, "", rollers.getMotor());
+            logger.writePneumaticSubsystem(fangs, "", fangs.getPiston());
+            logger.writePneumaticSubsystem(floop, "", floop.getPiston());
+            logger.writePneumaticSubsystem(abom, Boolean.toString(abom.getWantPumpingStatus()), abom.getPiston());
+            time = Timer.getFPGATimestamp();
+        }
         // if(!isGamePieceDetected()) {
         // relayController.setLEDForward();
         // } else {
@@ -236,6 +260,7 @@ public class Robot extends TimedRobot {
         // //Stops the LEDs as long as it doesn't detect a game piece.
         // relayController.setLEDNeutral();
         // }
+        
     }
 
     /**

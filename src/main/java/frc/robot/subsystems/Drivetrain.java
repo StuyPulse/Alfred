@@ -191,4 +191,20 @@ public final class Drivetrain extends Subsystem {
     public double getRightMotorOutput() {
         return (rightTopMotor.getAppliedOutput() + rightBottomMotor.getAppliedOutput()) / 2;
     }
+
+    public double getLeftMotorCurrent() {
+        return (leftTopMotor.getOutputCurrent() + leftMiddleMotor.getOutputCurrent()) / 2;
+    }
+
+    public double getRightMotorCurrent() {
+        return (rightTopMotor.getOutputCurrent() + rightBottomMotor.getOutputCurrent()) / 2;
+    }
+
+    public double getLeftMotorVoltage() {
+        return (leftTopMotor.getBusVoltage() + leftMiddleMotor.getBusVoltage()) / 2;
+    }
+
+    public double getRightMotorVoltage() {
+        return (rightTopMotor.getBusVoltage() + rightBottomMotor.getBusVoltage()) / 2;
+    }
 }

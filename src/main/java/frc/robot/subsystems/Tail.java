@@ -65,4 +65,8 @@ public final class Tail extends Subsystem {
     public boolean ratchetMoved() {
         return ratchetSolenoid.get();
     }
+
+    public CANSparkMax getMotor() {
+        return tailMotor;
+    }
 }

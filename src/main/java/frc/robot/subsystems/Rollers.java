@@ -46,4 +46,8 @@ public final class Rollers extends Subsystem {
     public void rampAcquire() {
         motor.configOpenloopRamp(0.5, 0);
     }
+
+    public WPI_VictorSPX getMotor() {
+        return motor;
+    }
 }

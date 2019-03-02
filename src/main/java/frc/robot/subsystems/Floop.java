@@ -35,6 +35,10 @@ public final class Floop extends Subsystem {
         return floopSolenoid.get();
     }
 
+    public Solenoid getPiston() {
+        return floopSolenoid;
+    }
+
     @Override
     public void initDefaultCommand() {
     }

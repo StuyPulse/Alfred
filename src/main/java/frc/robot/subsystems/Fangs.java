@@ -42,4 +42,8 @@ public final class Fangs extends Subsystem {
     public boolean isUp() {
         return fangsSolenoid.get();
     }
+
+    public Solenoid getPiston() {
+        return fangsSolenoid;
+    }
 }

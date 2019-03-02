@@ -189,4 +189,16 @@ public final class Lift extends Subsystem {
     public void disableRamping() {
         rampDisabled = true;
     }
+    
+    public double getMotorOutput() {
+        return masterTalon.getMotorOutputPercent();
+    }
+
+    public double getMotorVoltage() {
+        return masterTalon.getBusVoltage();
+    }
+
+    public double getMotorCurrent() {
+        return masterTalon.getOutputCurrent();
+    }
 }
