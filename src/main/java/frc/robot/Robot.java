@@ -11,6 +11,7 @@ import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -86,7 +87,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putData("Auto mode", chooser);
         SmartDashboard.putBoolean("Enable compressor", true);
 
-        // CameraServer.getInstance().startAutomaticCapture(0);
+        CameraServer.getInstance().startAutomaticCapture(0);
         SmartDashboard.putNumber("TURN_DIV", 35);
         SmartDashboard.putNumber("MOVE_TURN_MUL", 6);
 
@@ -163,6 +164,7 @@ public class Robot extends TimedRobot {
         // Logging
         writeFile = new File("/home/lvuser/Logs/" + getTime() + "_Auton.csv");
         logger = new Logger(writeFile);
+
         /*
          * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
          * switch(autoSelected) { case "My Auto": autonomousCommand = new
@@ -275,12 +277,14 @@ public class Robot extends TimedRobot {
     // relayController.setLEDNeutral();
     // }
     // }
+    
     public String getTime() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
         return LocalDateTime.now().minusHours(5).format(formatter);
     }
 
     public void Log() {
+        // TODO: Find out what events should call this method
         if (Timer.getFPGATimestamp() - 2 > time) {
             logger.writeDrivetrain("");
             logger.writeLift("");
