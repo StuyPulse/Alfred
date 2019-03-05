@@ -60,21 +60,21 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() {
         drivetrain = new Drivetrain();
-        floop = new Floop();
-        abom = new Abom();
-        tail = new Tail();
-        lift = new Lift();
-        compressor = new Compressor();
-        rollers = new Rollers();
-        fangs = new Fangs();
-        oi = new OI();
-        IRsensor = new DigitalInput(RobotMap.IR_SENSOR_PORT);
-        relayController = new LEDRelayController(RobotMap.LED_CHANNEL);
-        //chooser.addOption("My Auto", new MyAutoCommand());
-        SmartDashboard.putData("Auto mode", chooser);
-        SmartDashboard.putBoolean("Enable compressor", true);
+        // floop = new Floop();
+        // abom = new Abom();
+        // tail = new Tail();
+        // lift = new Lift();
+        // compressor = new Compressor();
+        // rollers = new Rollers();
+        // fangs = new Fangs();
+        // oi = new OI();
+        // IRsensor = new DigitalInput(RobotMap.IR_SENSOR_PORT);
+        // relayController = new LEDRelayController(RobotMap.LED_CHANNEL);
+        // //chooser.addOption("My Auto", new MyAutoCommand());
+        // SmartDashboard.putData("Auto mode", chooser);
+        // SmartDashboard.putBoolean("Enable compressor", true);
 
-        CameraServer.getInstance().startAutomaticCapture(0);
+        // CameraServer.getInstance().startAutomaticCapture(0);
         SmartDashboard.putNumber("TURN_DIV", 35);
         SmartDashboard.putNumber("MOVE_TURN_MUL", 6);
 
@@ -100,9 +100,9 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotPeriodic() {
-        controlCompressor();
-        SmartDashboard.putBoolean("IR Sensor", isGamePieceDetected());
-        liftSpeedGoingDown = SmartDashboard.getNumber("Lift Auto Complete Speed Going Down", 0.5);
+        // controlCompressor();
+        // SmartDashboard.putBoolean("IR Sensor", isGamePieceDetected());
+        // liftSpeedGoingDown = SmartDashboard.getNumber("Lift Auto Complete Speed Going Down", 0.5);
     }
 
     /**
@@ -134,8 +134,8 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
         // autonomousCommand = chooser.getSelected();
-        Robot.lift.tiltForward();
-        fangs.lower(); // This is only for edwin
+        // Robot.lift.tiltForward();
+        // fangs.lower(); // This is only for edwin
 
         /*
          * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
@@ -165,9 +165,9 @@ public class Robot extends TimedRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         
-        fangs.lower(); // This is only for Edwin
+        // fangs.lower(); // This is only for Edwin
 
-        Robot.floop.open();
+        // Robot.floop.open();
         // if (autonomousCommand != null) {
         //     autonomousCommand.cancel();
         // }
@@ -184,18 +184,18 @@ public class Robot extends TimedRobot {
         //     relayController.setLEDNeutral();
         // }
         Scheduler.getInstance().run();
-        SmartDashboard.putNumber("Drivetrain Left Greyhill Encoder Val: ", Robot.drivetrain.getLeftGreyhillDistance());
-        SmartDashboard.putNumber("Drivetrain Right Greyhill Encoder Val: ",
-                Robot.drivetrain.getRightGreyhillDistance());
-        SmartDashboard.putNumber("Drivetrain Left Greyhill Raw Val: ", Robot.drivetrain.getLeftGreyhillTicks());
-        SmartDashboard.putNumber("Drivetrain Right Greyhill Raw Val: ",
-                Robot.drivetrain.getRightGreyhillTicks());
-        SmartDashboard.putNumber("Lift Encoder Val: ", Robot.lift.getHeight());
-        SmartDashboard.putBoolean("Lift Bottom Optical Sensor: ", Robot.lift.isAtBottom());
-        SmartDashboard.putBoolean("Is Lift Optical Sensor Overrided: ", Robot.lift.isOpticalSensorOverrided);
-        SmartDashboard.putNumber("Tom's Metric for Tail: ", Robot.tail.getTomsMetric());
-        // if(isGamePieceDetected()) {
-        //     //Once a game piece is detected, it blinks two times and stops.
+        // SmartDashboard.putNumber("Drivetrain Left Greyhill Encoder Val: ", Robot.drivetrain.getLeftGreyhillDistance());
+        // SmartDashboard.putNumber("Drivetrain Right Greyhill Encoder Val: ",
+        //         Robot.drivetrain.getRightGreyhillDistance());
+        // SmartDashboard.putNumber("Drivetrain Left Greyhill Raw Val: ", Robot.drivetrain.getLeftGreyhillTicks());
+        // SmartDashboard.putNumber("Drivetrain Right Greyhill Raw Val: ",
+        //         Robot.drivetrain.getRightGreyhillTicks());
+        // SmartDashboard.putNumber("Lift Encoder Val: ", Robot.lift.getHeight());
+        // SmartDashboard.putBoolean("Lift Bottom Optical Sensor: ", Robot.lift.isAtBottom());
+        // SmartDashboard.putBoolean("Is Lift Optical Sensor Overrided: ", Robot.lift.isOpticalSensorOverrided);
+        // SmartDashboard.putNumber("Tom's Metric for Tail: ", Robot.tail.getTomsMetric());
+        // // if(isGamePieceDetected()) {
+        // //     //Once a game piece is detected, it blinks two times and stops.
         //     blinkLED();
         // }
         // else {
@@ -212,16 +212,16 @@ public class Robot extends TimedRobot {
     }
 
     public void controlCompressor() {
-        if (!drivetrain.isMoving() && SmartDashboard.getBoolean("Enable compressor", false)) {
-            compressor.start();
-        } else {
-            compressor.stop();
-        }
+        // if (!drivetrain.isMoving() && SmartDashboard.getBoolean("Enable compressor", false)) {
+        //     compressor.start();
+        // } else {
+        //     compressor.stop();
+        // }
     }
 
     private void setUpDoubleSolenoids() {
-        lift.tiltBack();
-        fangs.lower();
+        // lift.tiltBack();
+        // fangs.lower();
     }
 
     private boolean isGamePieceDetected() {
