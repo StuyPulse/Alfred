@@ -279,13 +279,13 @@ public class Robot extends TimedRobot {
     // }
     
     public String getTime() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-hh-mm-ss");
         return LocalDateTime.now().minusHours(5).format(formatter);
     }
 
     public void Log() {
         // TODO: Find out what events should call this method
-        if (Timer.getFPGATimestamp() - 2 > time) {
+        // if (Timer.getFPGATimestamp() - 2 > time) {
             logger.writeDrivetrain("");
             logger.writeLift("");
             logger.writeSparkMotorSubsystem(tail, "", tail.getMotor());
@@ -294,6 +294,6 @@ public class Robot extends TimedRobot {
             logger.writePneumaticSubsystem(floop, "", floop.getPiston());
             logger.writePneumaticSubsystem(abom, Boolean.toString(abom.getWantPumpingStatus()), abom.getPiston());
             time = Timer.getFPGATimestamp();
-        }
+        // }
     }
 }

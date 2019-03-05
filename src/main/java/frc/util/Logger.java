@@ -1,3 +1,8 @@
+/* TO GET FILES FROM THE ROBORIO:
+ * ssh into the roborio with: "ssh lvuser@roborio-694-frc.local"
+ * cd into the Logs folder
+ * type scp lvuser@roborio-694-frc.local:/home/lvuser/Logs/{file} C:\Users\{path to place we want} 
+*/
 package frc.util;
 
 import java.io.BufferedWriter;
