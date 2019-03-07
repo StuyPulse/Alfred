@@ -20,7 +20,7 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
     @Override
     protected void setTurn() {
 
-        super.setTurn();
+        super.setTurn(); 
         // Add corrective values to turn based on how fast the robot is moving
         if( Limelight.hasValidTarget() /*&& Math.abs(Limelight.getTargetXAngle()) > smallAngleThreshold */){
             //turn += getTurnValue(Limelight.getTargetXAngle(), smallAngleSpeed);
