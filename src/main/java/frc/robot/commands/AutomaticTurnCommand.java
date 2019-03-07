@@ -19,8 +19,6 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
 
     @Override
     protected void setTurn() {
-        // Enable CV
-        cameraMode = Limelight.CamMode.VISION;
 
         // Add corrective values to turn based on how fast the robot is moving
         if( Limelight.hasValidTarget() /*&& Math.abs(Limelight.getTargetXAngle()) > smallAngleThreshold */){

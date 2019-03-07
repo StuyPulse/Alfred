@@ -17,6 +17,7 @@ public class DrivetrainDriveCommand extends Command {
     double speed = 0;
     double turn = 0;
     boolean quickTurn = true;
+    boolean isDriverControlling = true;
     Limelight.CamMode cameraMode = Limelight.CamMode.DRIVER;
 
     public DrivetrainDriveCommand() {
@@ -25,11 +26,25 @@ public class DrivetrainDriveCommand extends Command {
 
     @Override
     protected void execute() {
-        Limelight.setCamMode(cameraMode);
-        
+        if(Robot.oi.driverGamepad.getRawLeftButton() || Robot.oi.driveGamepad.getRawTopButton()) {
+            isDriverControlling = false;
+        }
+        setMode();
         setSpeed();
         setTurn();
         updateDrivetrain();
+    }
+    
+    protected void setMode() {
+        if(isDriverControlling){
+            Limelight.setPipeline(1);
+            Limelight.setCamMode(Limelight.CamMode.DRIVER);
+            Limelight.setLEDMode(LEDMode.FORCE_OFF);
+        }else{
+            Limelight.setPipeline(0);
+            Limelight.setCamMode(Limelight.CamMode.DRIVER);
+            Limelight.setLEDMode(LEDMode.FORCE_ON);
+        }
     }
 
     protected void setSpeed() {
