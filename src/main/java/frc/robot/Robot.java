@@ -108,6 +108,7 @@ public class Robot extends TimedRobot {
         controlCompressor();
         SmartDashboard.putBoolean("IR Sensor", isGamePieceDetected());
         liftSpeedGoingDown = SmartDashboard.getNumber("Lift Auto Complete Speed Going Down", 0.5);
+        SmartDashboard.putString("Match Time", returnTime());
     }
 
     /**
@@ -234,6 +235,24 @@ public class Robot extends TimedRobot {
 
     private boolean isGamePieceDetected() {
         return IRsensor.get();
+    }
+
+    private String returnTime() {
+        boolean isAuton = DriverStation.getInstance().isAutonomous();
+        int dTime = (int) DriverStation.getInstance().getMatchTime();
+        if (dTime == -1) {
+            dTime = 0; 
+        }
+        String minutes = Integer.toString(dTime / 60);
+        String seconds = Integer.toString(dTime % 60);
+        if (dTime % 60 < 10) {
+            seconds = "0" + seconds;
+        }
+        if (isAuton) {
+            return "Sandstorm: " + minutes + ":" + seconds;
+        } else {
+            return "Teleop: " + minutes + ":" + seconds;
+        }
     }
 
     // private void blinkLED() {
