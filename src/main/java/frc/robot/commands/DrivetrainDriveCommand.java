@@ -39,7 +39,7 @@ public class DrivetrainDriveCommand extends Command {
             Limelight.setLEDMode(LEDMode.FORCE_OFF);
         }else{
             Limelight.setPipeline(0);
-            Limelight.setCamMode(Limelight.CamMode.DRIVER);
+            Limelight.setCamMode(Limelight.CamMode.VISION);
             Limelight.setLEDMode(LEDMode.FORCE_ON);
         }
     }
