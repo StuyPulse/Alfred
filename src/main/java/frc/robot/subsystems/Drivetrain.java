@@ -83,7 +83,8 @@ public final class Drivetrain extends Subsystem {
         // // navx
         // navX = new AHRS(SPI.Port.kMXP);
         // // Drive
-        differentialDrive = new DifferentialDrive(leftSpeedGroup, rightSpeedGroup);  }
+        //differentialDrive = new DifferentialDrive(leftSpeedGroup, rightSpeedGroup);
+      }
 
     @Override
     public void initDefaultCommand() {

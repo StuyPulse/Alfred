@@ -11,12 +11,14 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.util.Limelight;
+import frc.util.Limelight.LEDMode;
 
 public class DrivetrainDriveCommand extends Command {
     // Variables to feed to curvature drive
     double speed = 0;
     double turn = 0;
     boolean quickTurn = true;
+    boolean isDriverControlling = true;
     Limelight.CamMode cameraMode = Limelight.CamMode.DRIVER;
 
     public DrivetrainDriveCommand() {
@@ -33,10 +35,24 @@ public class DrivetrainDriveCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        Limelight.setCamMode(cameraMode);
+        isDriverControlling = Math.floor(System.currentTimeMillis()%2000)> 1000;
+        System.out.println(isDriverControlling);
+        setMode();
         setSpeed();
         setTurn();
-        updateDrivetrain();
+        //updateDrivetrain();
+    }
+
+    protected void setMode(){
+        if(isDriverControlling){
+            Limelight.setPipeline(1);
+            Limelight.setCamMode(Limelight.CamMode.DRIVER);
+            Limelight.setLEDMode(LEDMode.FORCE_OFF);
+        }else{
+            Limelight.setPipeline(0);
+            Limelight.setCamMode(Limelight.CamMode.VISION);
+            Limelight.setLEDMode(LEDMode.FORCE_ON);
+        }
     }
 
     protected void setSpeed() {
@@ -44,10 +60,10 @@ public class DrivetrainDriveCommand extends Command {
         speed = 0;
 
         // Set speed to the axes of the triggers
-        speed += Math.pow(Robot.oi.driverGamepad.getRawRightTriggerAxis(), 2);
-        speed -= Math.pow(Robot.oi.driverGamepad.getRawLeftTriggerAxis(), 2);
+        // speed += Math.pow(Robot.oi.driverGamepad.getRawRightTriggerAxis(), 2);
+        // speed -= Math.pow(Robot.oi.driverGamepad.getRawLeftTriggerAxis(), 2);
 
-        // Enable Quick Turn if robot is not moving
+        // // Enable Quick Turn if robot is not moving
         quickTurn = Math.abs(speed) < 0.125;
     }
 
@@ -55,7 +71,7 @@ public class DrivetrainDriveCommand extends Command {
         cameraMode = Limelight.CamMode.DRIVER;
 
         // Set the turn value to the joystick's x value
-        turn = Math.pow(Robot.oi.driverGamepad.getLeftX(), RobotMap.JOYSTICK_SCALAR) / 2.0;
+        //turn = Math.pow(Robot.oi.driverGamepad.getLeftX(), RobotMap.JOYSTICK_SCALAR) / 2.0;
 
         if (RobotMap.JOYSTICK_SCALAR % 2 == 0) {
             turn *= Math.signum((Robot.oi.driverGamepad.getLeftX()));
