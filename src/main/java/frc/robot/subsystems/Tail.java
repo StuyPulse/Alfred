@@ -29,14 +29,14 @@ import frc.robot.commands.TailClimbCommand;
 public final class Tail extends Subsystem {
 
     CANSparkMax tailMotor;
-    DoubleSolenoid ratchetDoubleSolenoid;
+    // DoubleSolenoid ratchetDoubleSolenoid;
     Solenoid ratchetSingleSolenoid;
 
 
     public Tail() {
         tailMotor = new CANSparkMax(RobotMap.TAIL_MOTOR_PORT, MotorType.kBrushless);
 
-        ratchetDoubleSolenoid = new DoubleSolenoid(1 ,RobotMap.RATCHET_DOUBLE_SOLENOID_FORWARD_PORT , RobotMap.RATCHET_DOUBLE_SOLENOID_REVERSE_PORT);
+        // ratchetDoubleSolenoid = new DoubleSolenoid(1 ,RobotMap.RATCHET_DOUBLE_SOLENOID_FORWARD_PORT , RobotMap.RATCHET_DOUBLE_SOLENOID_REVERSE_PORT);
         ratchetSingleSolenoid = new Solenoid(RobotMap.RATCHET_SINGLE_SOLENOID_PORT);
 
         tailMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
@@ -61,22 +61,14 @@ public final class Tail extends Subsystem {
 
     //TODO: check this values
     public void disengageRatchet() {
-        ratchetDoubleSolenoid.set(Value.kReverse);
-    }
-
-    public void engageRatchet() {
-        ratchetDoubleSolenoid.set(Value.kForward);
-    }
-
-    public void engageSingleSolenoid() {
         ratchetSingleSolenoid.set(true);
     }
 
-    public void disengageSingleSolenoid() {
-        ratchetSingleSolenoid.set(false);
+    public void engageRatchet() {
+          ratchetSingleSolenoid.set(false);
     }
 
     public boolean ratchetMoved() {
-        return ratchetDoubleSolenoid.get() == Value.kForward;
+        return ratchetSingleSolenoid.get();
     }
 }

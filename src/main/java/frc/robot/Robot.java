@@ -143,7 +143,6 @@ public class Robot extends TimedRobot {
     public void autonomousInit() {
         autonomousCommand = new LiftMoveToHeightCommand(RobotMap.LEVEL_1_HEIGHT);
         Robot.lift.tiltForward();
-        Robot.tail.engageSingleSolenoid();
         /*
          * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
          * switch(autoSelected) { case "My Auto": autonomousCommand = new
