@@ -102,6 +102,14 @@ public final class Lift extends Subsystem {
             stop();
         } else if (isAtBottom() && speed < 0) {
             stop();
+        } else if (speed < 0 && getHeight() < RobotMap.LEVEL_1_HEIGHT) {
+            releaseBrake();
+            double rampSpeed = speed * RobotMap.LIFT_SPEED_MULTIPLIER * (getHeight() / 10);
+            if (rampSpeed < -0.3) {
+                masterTalon.set(rampSpeed);
+            } else {
+                masterTalon.set(-0.3);
+            }
         } else {
             releaseBrake();
             masterTalon.set(speed * RobotMap.LIFT_SPEED_MULTIPLIER);
