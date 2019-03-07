@@ -25,7 +25,7 @@ public class DrivetrainDriveCommand extends Command {
 
     @Override
     protected void execute() {
-        isDriverControlling = !(Robot.oi.driverGamepad.getRawLeftButton() || Robot.oi.driverGamepad.getRawTopButton())
+        isDriverControlling = !(Robot.oi.driverGamepad.getRawLeftButton() || Robot.oi.driverGamepad.getRawTopButton());
         setMode();
         setSpeed();
         setTurn();
