@@ -92,6 +92,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putBoolean("VALID_SKEW", false);
 
         SmartDashboard.putNumber("CAM_MODE", 1);
+        SmartDashboard.putNumber("LIMELIGHT_MOTOR_OUTPUT", 0);
     }
 
     /**
