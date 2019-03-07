@@ -163,7 +163,7 @@ public final class Lift extends Subsystem {
     }
 
     public boolean isTiltedForward() {
-        return tiltSolenoid.get() == Value.kForward;
+        return tiltSolenoid.get() == Value.kReverse;
     }
 
     public void toggle() {
