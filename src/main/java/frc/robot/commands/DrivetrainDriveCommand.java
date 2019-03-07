@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.util.Limelight;
+import frc.util.Limelight.LEDMode;
 
 public class DrivetrainDriveCommand extends Command {
     // Variables to feed to curvature drive
