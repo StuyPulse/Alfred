@@ -18,7 +18,6 @@ public class DrivetrainDriveCommand extends Command {
     double turn = 0;
     boolean quickTurn = true;
     boolean isDriverControlling = true;
-    Limelight.CamMode cameraMode = Limelight.CamMode.DRIVER;
 
     public DrivetrainDriveCommand() {
         requires(Robot.drivetrain);
@@ -26,9 +25,7 @@ public class DrivetrainDriveCommand extends Command {
 
     @Override
     protected void execute() {
-        if(Robot.oi.driverGamepad.getRawLeftButton() || Robot.oi.driveGamepad.getRawTopButton()) {
-            isDriverControlling = false;
-        }
+        isDriverControlling = !(Robot.oi.driverGamepad.getRawLeftButton() || Robot.oi.driverGamepad.getRawTopButton())
         setMode();
         setSpeed();
         setTurn();
@@ -59,8 +56,6 @@ public class DrivetrainDriveCommand extends Command {
     }
 
     protected void setTurn() {
-        cameraMode = Limelight.CamMode.DRIVER;
-
         // Set the turn value to the joystick's x value
         turn = Math.pow(Robot.oi.driverGamepad.getLeftX(), RobotMap.JOYSTICK_SCALAR) / 2.0;
 
