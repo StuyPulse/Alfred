@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -198,17 +199,13 @@ public class Robot extends TimedRobot {
         SmartDashboard.putBoolean("Lift Bottom Optical Sensor: ", Robot.lift.isAtBottom());
         SmartDashboard.putBoolean("Is Lift Optical Sensor Overrided: ", Robot.lift.isOpticalSensorOverrided);
         SmartDashboard.putNumber("Tom's Metric for Tail: ", Robot.tail.getTomsMetric());
-        // if(isGamePieceDetected()) {
-        //     //Once a game piece is detected, it blinks two times and stops.
-        //     blinkLED();
-        // }
-        // else {
-        //     //Stops the LEDs as long as it doesn't detect a game piece.
-        //     relayController.setLEDNeutral();
-        // }
-        if ((int) DriverStation.getInstance().getMatchTime() >= 148) {
-            tail.disengageSingleSolenoid();
-            tail.disengageRatchet();
+        if(isGamePieceDetected()) {
+            //Once a game piece is detected, it blinks two times and stops.
+            blinkLED();
+        }
+        else {
+            //Stops the LEDs as long as it doesn't detect a game piece.
+            relayController.setLEDNeutral();
         }
     }
 
@@ -255,16 +252,16 @@ public class Robot extends TimedRobot {
         }
     }
 
-    // private void blinkLED() {
-    //     double startTime = Timer.getFPGATimestamp();
-    //     if(Timer.getFPGATimestamp() - startTime > 4) {
-    //         relayController.setLEDForward();
-    //     }
-    //     else if((int)(Timer.getFPGATimestamp() - startTime) % 2 == 0) {
-    //         relayController.setLEDForward();
-    //     }
-    //     else {
-    //         relayController.setLEDNeutral();
-    //     }
-    // }
+    private void blinkLED() {
+        double startTime = Timer.getFPGATimestamp();
+        if(Timer.getFPGATimestamp() - startTime > 4) {
+            relayController.setLEDForward();
+        }
+        else if((int)(Timer.getFPGATimestamp() - startTime) % 2 == 0) {
+            relayController.setLEDForward();
+        }
+        else {
+            relayController.setLEDNeutral();
+        }
+    }
 }

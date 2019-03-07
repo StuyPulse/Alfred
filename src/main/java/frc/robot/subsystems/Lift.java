@@ -155,15 +155,15 @@ public final class Lift extends Subsystem {
     }
 
     public void tiltForward() {
-        tiltSolenoid.set(Value.kReverse);
-    }
-
-    public void tiltBack() {
         tiltSolenoid.set(Value.kForward);
     }
 
+    public void tiltBack() {
+        tiltSolenoid.set(Value.kReverse);
+    }
+
     public boolean isTiltedForward() {
-        return tiltSolenoid.get() == Value.kReverse;
+        return tiltSolenoid.get() == Value.kForward;
     }
 
     public void toggle() {
