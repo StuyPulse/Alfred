@@ -206,7 +206,7 @@ public class Robot extends TimedRobot {
         //     //Stops the LEDs as long as it doesn't detect a game piece.
         //     relayController.setLEDNeutral();
         // }
-        if ((int) DriverStation.getInstance().getMatchTime() >= 118) {
+        if ((int) DriverStation.getInstance().getMatchTime() >= 148) {
             tail.disengageSingleSolenoid();
             tail.disengageRatchet();
         }
