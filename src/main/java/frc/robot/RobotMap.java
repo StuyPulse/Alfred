@@ -36,7 +36,10 @@ public interface RobotMap {
     /***************************************************************************************
      * Tail and Abom Ports
      ****************************************************************************************/
-    int RATCHET_SOLENOID_PORT = 1; //PCM 2 (10)
+    //TODO: find actual ports
+    int RATCHET_DOUBLE_SOLENOID_FORWARD_PORT = 2;
+    int RATCHET_DOUBLE_SOLENOID_REVERSE_PORT = 3; 
+    int RATCHET_SINGLE_SOLENOID_PORT = 6; 
     int TAIL_MOTOR_PORT = 4;
     int ABOM_SOLENOID_PORT = 6;
 
