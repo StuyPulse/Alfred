@@ -51,8 +51,11 @@ public class Robot extends TimedRobot {
     public static double liftSpeedGoingDown;
 
     public static DigitalInput IRsensor;
+    public static double autonStartTime;
+    public static double autonCurrTime;
 
     public static LEDRelayController relayController;
+    public boolean hasBeenZeroed;
 
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<>();
@@ -80,8 +83,8 @@ public class Robot extends TimedRobot {
         SmartDashboard.putBoolean("Enable compressor", true);
 
         CameraServer.getInstance().startAutomaticCapture(0);
-        SmartDashboard.putNumber("TURN_DIV", 35);
-        SmartDashboard.putNumber("MOVE_TURN_MUL", 6);
+        SmartDashboard.putNumber("TURN_DIV", 30);
+        SmartDashboard.putNumber("MOVE_TURN_MUL", 5.5);
 
         SmartDashboard.putNumber("TURN_MIN_SPEED", 0.2);
         SmartDashboard.putNumber("TURN_MIN_ANGLE", 1);
@@ -93,6 +96,7 @@ public class Robot extends TimedRobot {
 
         SmartDashboard.putNumber("CAM_MODE", 1);
         SmartDashboard.putNumber("LIMELIGHT_MOTOR_OUTPUT", 0);
+        hasBeenZeroed = false;
     }
 
     /**
@@ -149,8 +153,9 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousInit() {
-        autonomousCommand = new LiftMoveToHeightCommand(RobotMap.LEVEL_1_HEIGHT);
+        // autonomousCommand = new LiftMoveToHeightCommand(RobotMap.LEVEL_1_HEIGHT);
         Robot.lift.tiltForward();
+        autonStartTime = Timer.getFPGATimestamp();
         /*
          * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
          * switch(autoSelected) { case "My Auto": autonomousCommand = new
@@ -159,9 +164,9 @@ public class Robot extends TimedRobot {
          */
 
         // schedule the autonomous command (example)
-        if (autonomousCommand != null) {
-            autonomousCommand.start();
-        }
+        // if (autonomousCommand != null) {
+        //     autonomousCommand.start();
+        // }
     }
 
     /**
@@ -169,7 +174,19 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousPeriodic() {
+
         Scheduler.getInstance().run();
+        autonCurrTime = Timer.getFPGATimestamp();
+        System.out.println("HAS BEEN ZEROED: " + hasBeenZeroed);
+        System.out.println("LIFT IS AT BOTTOM: " + lift.isAtBottom());
+        double timeElapsed = autonCurrTime - autonStartTime;
+        System.out.println("TIME ELAPSED IS LESSS THAN 5: " + timeElapsed);
+        if(!hasBeenZeroed && !lift.isAtBottom() && (timeElapsed < 2)) {
+            lift.move(-0.5);
+        } else {
+            hasBeenZeroed = true;
+        }
+        System.out.println("LIFT IS AT THE BOTTOM");
     }
 
     @Override
