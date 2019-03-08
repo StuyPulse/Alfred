@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AutonLiftStartCommand;
+import frc.robot.commands.LiftMoveToHeightCommand;
 import frc.robot.subsystems.Abom;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Fangs;
@@ -152,7 +153,9 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousInit() {
-        // autonomousCommand = new AutonLiftStartCommand();
+        autonomousCommand = new LiftMoveToHeightCommand(RobotMap.LEVEL_1_HEIGHT);
+        lift.tiltForward();
+        lift.setHeight(RobotMap.START_HEIGHT);
         autonStartTime = Timer.getFPGATimestamp();
         /*
          * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
@@ -162,9 +165,9 @@ public class Robot extends TimedRobot {
          */
 
         // schedule the autonomous command (example)
-        // if (autonomousCommand != null) {
-        //     autonomousCommand.start();
-        // }
+        if (autonomousCommand != null) {
+            autonomousCommand.start();
+        }
     }
 
     /**
