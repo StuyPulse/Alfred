@@ -30,9 +30,11 @@ public class TailClimbCommand extends Command {
                 Robot.tail.disengageRatchet();
                 startTime = Timer.getFPGATimestamp();
             }
-            // if(currTime - startTime > .2) {
+            if(currTime - startTime > .2) {
+
                 Robot.tail.setSpeed(1.0);
-            // }
+            }
+
         } else if(speed < -0.5) {
             if(Robot.tail.ratchetMoved()) {
                 Robot.tail.engageRatchet();
