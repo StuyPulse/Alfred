@@ -10,7 +10,6 @@ package frc.robot;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
@@ -18,7 +17,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.LiftMoveToHeightCommand;
+import frc.robot.commands.AutonLiftStartCommand;
 import frc.robot.subsystems.Abom;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Fangs;
@@ -153,8 +152,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousInit() {
-        // autonomousCommand = new LiftMoveToHeightCommand(RobotMap.LEVEL_1_HEIGHT);
-        Robot.lift.tiltForward();
+        // autonomousCommand = new AutonLiftStartCommand();
         autonStartTime = Timer.getFPGATimestamp();
         /*
          * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
@@ -176,17 +174,6 @@ public class Robot extends TimedRobot {
     public void autonomousPeriodic() {
 
         Scheduler.getInstance().run();
-        autonCurrTime = Timer.getFPGATimestamp();
-        System.out.println("HAS BEEN ZEROED: " + hasBeenZeroed);
-        System.out.println("LIFT IS AT BOTTOM: " + lift.isAtBottom());
-        double timeElapsed = autonCurrTime - autonStartTime;
-        System.out.println("TIME ELAPSED IS LESSS THAN 5: " + timeElapsed);
-        if(!hasBeenZeroed && !lift.isAtBottom() && (timeElapsed < 2)) {
-            lift.move(-0.5);
-        } else {
-            hasBeenZeroed = true;
-        }
-        System.out.println("LIFT IS AT THE BOTTOM");
     }
 
     @Override

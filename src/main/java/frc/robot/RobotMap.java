@@ -151,9 +151,9 @@ public interface RobotMap {
     double LIFT_RAMP_HEIGHT_THRESHOLD = 1.0;
 
     //TODO: Test these values
-    double LEVEL_1_HEIGHT = 11.68; //8.68
-    double LEVEL_2_HEIGHT = 40.5; //37,5
-    double LEVEL_3_HEIGHT = 67.6; //64.6
+    double LEVEL_1_HEIGHT = 8.68;
+    double LEVEL_2_HEIGHT = 37.5;
+    double LEVEL_3_HEIGHT = 64.6;
 
     double LIFT_LEVEL_OFFSHOOT = 2.0;
 

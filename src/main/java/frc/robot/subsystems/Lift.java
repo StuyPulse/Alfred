@@ -134,12 +134,6 @@ public final class Lift extends Subsystem {
             double distanceFromBottom = currentHeight;
             speed = rampMultiplier(distanceFromBottom) * desiredSpeed;
             speed = Math.min(speed, -RobotMap.LIFT_MIN_SPEED);
-        } else if (currentHeight > RobotMap.LIFT_MAX_HEIGHT - RobotMap.LIFT_RAMP_HEIGHT_THRESHOLD) {
-            // If you want to move the lift up, get the distance from the top and adjust
-            // speed proportionally.
-            double distanceFromTop = RobotMap.LIFT_MAX_HEIGHT - currentHeight;
-            speed = rampMultiplier(distanceFromTop) * desiredSpeed;
-            speed = Math.max(speed, RobotMap.LIFT_MIN_SPEED);
         }
         // If the current height isn't within the height range for ramping, move without
         // ramping.
