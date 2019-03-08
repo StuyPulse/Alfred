@@ -153,7 +153,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousInit() {
-        autonomousCommand = new LiftMoveToHeightCommand(RobotMap.LEVEL_1_HEIGHT);
+        // autonomousCommand = new LiftMoveToHeightCommand(RobotMap.LEVEL_1_HEIGHT);
         lift.tiltForward();
         lift.setHeight(RobotMap.START_HEIGHT);
         autonStartTime = Timer.getFPGATimestamp();
@@ -165,9 +165,9 @@ public class Robot extends TimedRobot {
          */
 
         // schedule the autonomous command (example)
-        if (autonomousCommand != null) {
-            autonomousCommand.start();
-        }
+        // if (autonomousCommand != null) {
+        //     autonomousCommand.start();
+        // }
     }
 
     /**
