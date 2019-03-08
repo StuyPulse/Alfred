@@ -96,10 +96,10 @@ public class Logger {
     /**
      * Logs the sparkMotor Subsystem's motor values and the gamepad inputs
      * @param subsystem The subsystem we want to Log
-     * @param value Extra values we want to Log
      * @param motor The motor in the subsystem (Modify drivetrain or lift for subsystems with multiple motors)
+     * @param value Extra values we want to Log
      */
-    public void writeSparkMotorSubsystem(Subsystem subsystem, String value, CANSparkMax motor) {
+    public void writeSparkMotorSubsystem(Subsystem subsystem, CANSparkMax motor, String value) {
         if (!cannotLog) {
             writer.println(
                 getTime() + ", " + 
@@ -120,10 +120,10 @@ public class Logger {
     /**
      * Logs the Victor_SPX Subsystem's motor values and the gamepad inputs
      * @param subsystem The subsystem we want to Log
-     * @param value Extra values we want to Log
      * @param motor The motor in the subsystem (Modify drivetrain or lift for subsystems with multiple motors)
+     * @param value Extra values we want to Log
      */
-    public void writeVictorMotorSubsystem(Subsystem subsystem, String value, WPI_VictorSPX motor) {
+    public void writeVictorMotorSubsystem(Subsystem subsystem, WPI_VictorSPX motor, String value) {
         if (!cannotLog) {
             writer.println(
                 getTime() + ", " + 
@@ -144,10 +144,10 @@ public class Logger {
     /**
      * Logs the Pneumatic Subsystem's values and the gamepad inputs
      * @param subsystem The subsystem we want to Log
-     * @param value Extra values we want to Log
      * @param piston The piston in the subsystem (If more than one, make a separate method to log it)
+     * @param value Extra values we want to Log
      */
-    public void writePneumaticSubsystem(Subsystem subsystem, String value, Solenoid piston) {
+    public void writePneumaticSubsystem(Subsystem subsystem, Solenoid piston, String value) {
         if (!cannotLog) {
             writer.println(
                 getTime() + ", " + 

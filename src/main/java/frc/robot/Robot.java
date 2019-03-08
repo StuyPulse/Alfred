@@ -288,11 +288,11 @@ public class Robot extends TimedRobot {
         // if (Timer.getFPGATimestamp() - 2 > time) {
             logger.writeDrivetrain("");
             logger.writeLift("");
-            logger.writeSparkMotorSubsystem(tail, "", tail.getMotor());
-            logger.writeVictorMotorSubsystem(rollers, "", rollers.getMotor());
-            logger.writePneumaticSubsystem(fangs, "", fangs.getPiston());
-            logger.writePneumaticSubsystem(floop, "", floop.getPiston());
-            logger.writePneumaticSubsystem(abom, Boolean.toString(abom.getWantPumpingStatus()), abom.getPiston());
+            logger.writeSparkMotorSubsystem(tail, tail.getMotor(), "");
+            logger.writeVictorMotorSubsystem(rollers, rollers.getMotor(), "");
+            logger.writePneumaticSubsystem(fangs, fangs.getPiston(), "");
+            logger.writePneumaticSubsystem(floop, floop.getPiston(), "");
+            logger.writePneumaticSubsystem(abom, abom.getPiston(), Boolean.toString(abom.getWantPumpingStatus()));
             time = Timer.getFPGATimestamp();
         // }
     }
