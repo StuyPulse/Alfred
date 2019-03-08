@@ -25,7 +25,7 @@ public final class Lift extends Subsystem {
     private WPI_TalonSRX masterTalon;
     private WPI_VictorSPX followerTalon;
 
-    private DigitalInput bottomOpticalSensor;
+    // private DigitalInput bottomOpticalSensor;
 
     private DoubleSolenoid tiltSolenoid;
     private Solenoid brakeSolenoid;
@@ -48,7 +48,7 @@ public final class Lift extends Subsystem {
                 RobotMap.LIFT_TILT_SOLENOID_REVERSE_PORT);
         brakeSolenoid = new Solenoid(1, RobotMap.LIFT_BRAKE_SOLENOID_PORT);
 
-        bottomOpticalSensor = new DigitalInput(RobotMap.LIFT_BOTTOM_OPTICAL_SENSOR_PORT);
+        // bottomOpticalSensor = new DigitalInput(RobotMap.LIFT_BOTTOM_OPTICAL_SENSOR_PORT);
 
         disableRamping();
 
@@ -78,13 +78,13 @@ public final class Lift extends Subsystem {
     }
 
     public boolean isAtBottom() {
-        if (!isOpticalSensorOverrided) {
-            boolean atBottom = !bottomOpticalSensor.get();
-            if (atBottom) {
-                setHeight(RobotMap.LIFT_MIN_HEIGHT);
-            }
-            return atBottom; // The sensor is inverted
-        }
+        // if (!isOpticalSensorOverrided) {
+        //     boolean atBottom = !bottomOpticalSensor.get();
+        //     if (atBottom) {
+        //         setHeight(RobotMap.LIFT_MIN_HEIGHT);
+        //     }
+        //     return atBottom; // The sensor is inverted
+        // }
         return false;
     }
 

@@ -155,7 +155,7 @@ public class Robot extends TimedRobot {
     public void autonomousInit() {
         // autonomousCommand = new LiftMoveToHeightCommand(RobotMap.LEVEL_1_HEIGHT);
         lift.tiltForward();
-        lift.setHeight(RobotMap.START_HEIGHT);
+        lift.setHeight(-1 * RobotMap.START_HEIGHT);
         autonStartTime = Timer.getFPGATimestamp();
         /*
          * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
@@ -224,7 +224,7 @@ public class Robot extends TimedRobot {
     }
 
     public void controlCompressor() {
-        if (!drivetrain.isMoving() && SmartDashboard.getBoolean("Enable compressor", false)) {
+        if (SmartDashboard.getBoolean("Enable compressor", false)) {
             compressor.start();
         } else {
             compressor.stop();
