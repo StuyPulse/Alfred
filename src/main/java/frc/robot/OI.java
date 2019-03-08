@@ -13,6 +13,7 @@ import frc.robot.commands.AutomaticTurnCommand;
 import frc.robot.commands.BITHPOIN;
 import frc.robot.commands.DrivetrainHighGearCommand;
 import frc.robot.commands.DrivetrainLowGearCommand;
+import frc.robot.commands.DrivetrainNudgeCommand;
 import frc.robot.commands.FangsLowerRollersInCommand;
 import frc.robot.commands.FangsRaiseRollersOutCommand;
 import frc.robot.commands.FloopCloseCommand;
@@ -47,6 +48,8 @@ public class OI {
         driverGamepad.getTopButton().whileHeld(new AutomaticDriveCommand());
         driverGamepad.getBottomButton().whenPressed(new DrivetrainLowGearCommand());
         driverGamepad.getBottomButton().whenReleased(new DrivetrainHighGearCommand());
+        driverGamepad.getDPadLeft().whenPressed(new DrivetrainNudgeCommand(-1));
+        driverGamepad.getDPadRight().whenPressed(new DrivetrainNudgeCommand(1));
 
         /******************************************
          * Operator Code
