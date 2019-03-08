@@ -14,6 +14,8 @@ import java.time.format.DateTimeFormatter;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
@@ -124,6 +126,7 @@ public class Robot extends TimedRobot {
         controlCompressor();
         SmartDashboard.putBoolean("IR Sensor", isGamePieceDetected());
         liftSpeedGoingDown = SmartDashboard.getNumber("Lift Auto Complete Speed Going Down", 0.5);
+        SmartDashboard.putString("Match Time", returnTime());
     }
 
     /**
@@ -160,11 +163,12 @@ public class Robot extends TimedRobot {
     public void autonomousInit() {
         autonomousCommand = new LiftMoveToHeightCommand(RobotMap.LEVEL_1_HEIGHT);
         Robot.lift.tiltForward();
+        Robot.tail.engageSingleSolenoid();
 
         // Logging
         writeFile = new File("/home/lvuser/Logs/" + getTime() + "_Auton.csv");
         logger = new Logger(writeFile);
-
+        
         /*
          * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
          * switch(autoSelected) { case "My Auto": autonomousCommand = new
@@ -237,7 +241,10 @@ public class Robot extends TimedRobot {
         // //Stops the LEDs as long as it doesn't detect a game piece.
         // relayController.setLEDNeutral();
         // }
-
+        if ((int) DriverStation.getInstance().getMatchTime() >= 118) {
+            tail.disengageSingleSolenoid();
+            tail.disengageRatchet();
+        }
     }
 
     /**
@@ -263,6 +270,24 @@ public class Robot extends TimedRobot {
 
     private boolean isGamePieceDetected() {
         return IRsensor.get();
+    }
+
+    private String returnTime() {
+        boolean isAuton = DriverStation.getInstance().isAutonomous();
+        int dTime = (int) DriverStation.getInstance().getMatchTime();
+        if (dTime == -1) {
+            dTime = 0; 
+        }
+        String minutes = Integer.toString(dTime / 60);
+        String seconds = Integer.toString(dTime % 60);
+        if (dTime % 60 < 10) {
+            seconds = "0" + seconds;
+        }
+        if (isAuton) {
+            return "Sandstorm: " + minutes + ":" + seconds;
+        } else {
+            return "Teleop: " + minutes + ":" + seconds;
+        }
     }
 
     // private void blinkLED() {

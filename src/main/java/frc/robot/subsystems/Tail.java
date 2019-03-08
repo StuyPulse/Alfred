@@ -7,14 +7,15 @@
 
 package frc.robot.subsystems;
 
-import frc.robot.RobotMap;
-import frc.robot.commands.TailClimbCommand;
-import edu.wpi.first.wpilibj.command.Subsystem;
-
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.RobotMap;
+import frc.robot.commands.TailClimbCommand;
 
 /*
  * The tail mechanism is the second lift of the robot.
@@ -28,11 +29,15 @@ import edu.wpi.first.wpilibj.Solenoid;
 public final class Tail extends Subsystem {
 
     CANSparkMax tailMotor;
-    Solenoid ratchetSolenoid;
+    DoubleSolenoid ratchetDoubleSolenoid;
+    Solenoid ratchetSingleSolenoid;
+
 
     public Tail() {
         tailMotor = new CANSparkMax(RobotMap.TAIL_MOTOR_PORT, MotorType.kBrushless);
-        ratchetSolenoid = new Solenoid(1 , RobotMap.RATCHET_SOLENOID_PORT);
+
+        ratchetDoubleSolenoid = new DoubleSolenoid(RobotMap.RATCHET_DOUBLE_SOLENOID_FORWARD_PORT , RobotMap.RATCHET_DOUBLE_SOLENOID_REVERSE_PORT);
+        ratchetSingleSolenoid = new Solenoid(RobotMap.RATCHET_SINGLE_SOLENOID_PORT);
 
         tailMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
     }
@@ -54,16 +59,25 @@ public final class Tail extends Subsystem {
         return tailMotor.getBusVoltage() * tailMotor.getOutputCurrent();
     }
 
+    //TODO: check this values
     public void disengageRatchet() {
-        ratchetSolenoid.set(true);
+        ratchetDoubleSolenoid.set(Value.kReverse);
     }
 
     public void engageRatchet() {
-        ratchetSolenoid.set(false);
+        ratchetDoubleSolenoid.set(Value.kForward);
+    }
+
+    public void engageSingleSolenoid() {
+        ratchetSingleSolenoid.set(true);
+    }
+
+    public void disengageSingleSolenoid() {
+        ratchetSingleSolenoid.set(false);
     }
 
     public boolean ratchetMoved() {
-        return ratchetSolenoid.get();
+        return ratchetDoubleSolenoid.get() == Value.kForward;
     }
 
     public CANSparkMax getMotor() {
