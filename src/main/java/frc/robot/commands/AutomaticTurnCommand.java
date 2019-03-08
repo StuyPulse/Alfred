@@ -22,17 +22,14 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
 
         super.setTurn(); 
         // Add corrective values to turn based on how fast the robot is moving
-        if( Limelight.hasValidTarget() /*&& Math.abs(Limelight.getTargetXAngle()) > smallAngleThreshold */){
-            //turn += getTurnValue(Limelight.getTargetXAngle(), smallAngleSpeed);
-            /*Math.max(SmartDashboard.getNumber("MOVE_TURN_DIV", 2) * speed,1)*/
+        if (Limelight.hasValidTarget()) {
             double turn_MUL = SmartDashboard.getNumber("MOVE_TURN_MUL", 6) * speed;
             double sgn = Math.signum(Limelight.getTargetXAngle());
             double output =  Math.max(turn_MUL, 1) * sgn * 
                              Math.sqrt(Math.abs(Limelight.getTargetXAngle())) /
                              (SmartDashboard.getNumber("TURN_DIV", 35));
             SmartDashboard.putNumber("LIMELIGHT_MOTOR_OUTPUT", output);
-            turn += output;
-            
+            turn += output; 
         }
     }
 }
