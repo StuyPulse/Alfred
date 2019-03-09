@@ -23,7 +23,7 @@
               "Crosshair/Crosshair color": "#FFFFFFFF",
               "Controls/Show controls": true,
               "Controls/Rotation": "NONE",
-              "compression": 15.0,
+              "compression": 14.0,
               "fps": 30,
               "imageWidth": 320,
               "imageHeight": 200
@@ -40,7 +40,7 @@
               "_title": " Right Encoder Val: "
             }
           },
-          "8,2": {
+          "7,3": {
             "size": [
               1,
               1
@@ -49,19 +49,6 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Drivetrain Left Greyhill Encoder Val: ",
               "_title": " Left Encoder Val: "
-            }
-          },
-          "6,2": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/Lift Bottom Optical Sensor: ",
-              "_title": "SmartDashboard/Lift Bottom Optical Sensor: ",
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
             }
           },
           "5,2": {
@@ -77,9 +64,9 @@
               "Colors/Color when false": "#8B0000FF"
             }
           },
-          "8,1": {
+          "6,2": {
             "size": [
-              1,
+              2,
               1
             ],
             "content": {
@@ -88,7 +75,7 @@
               "_title": "SmartDashboard/Enable compressor"
             }
           },
-          "7,3": {
+          "8,2": {
             "size": [
               1,
               1
