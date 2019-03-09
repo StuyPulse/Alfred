@@ -9,6 +9,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
 
 public class LiftMoveToHeightCommand extends Command {
     private double targetHeight;
@@ -22,9 +23,17 @@ public class LiftMoveToHeightCommand extends Command {
     @Override
     protected void execute() {
         if (Robot.lift.getHeight() > targetHeight) {
-            Robot.lift.move(-0.5);
+            if(Robot.lift.getHeight() - targetHeight > RobotMap.LIFT_RAMP_MOVE_TO_HEIGHT_THRESHOLD) {
+                Robot.lift.move(-0.5);
+            } else {
+                Robot.lift.move(-0.25);
+            }
         } else{
-            Robot.lift.move(0.5);
+            if(targetHeight - Robot.lift.getHeight() > RobotMap.LIFT_RAMP_MOVE_TO_HEIGHT_THRESHOLD) {
+                Robot.lift.move(0.5);
+            } else {
+                Robot.lift.move(0.25);
+            }
         }
     }
 

@@ -49,7 +49,7 @@ public class OI {
         driverGamepad.getBottomButton().whenPressed(new DrivetrainLowGearCommand());
         driverGamepad.getBottomButton().whenReleased(new DrivetrainHighGearCommand());
 
-        /******************************************
+        /******************************************  
          * Operator Code
          ******************************************/
         operatorGamepad.getRightTrigger().whileHeld(new RollersManualAcquireCommand());

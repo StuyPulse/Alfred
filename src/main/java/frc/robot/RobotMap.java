@@ -136,19 +136,23 @@ public interface RobotMap {
     double DRIVETRAIN_ENCODER_EMPIRICAL_MULTIPLIER = 1.3;
     double DRIVETRAIN_GREYHILL_INCHES_PER_PULSE = ((WHEEL_INCHES_PER_REVOLUTION * DRIVETRAIN_OUTER_GEAR_RATIO) / GREYHILL_PULSES_PER_REVOLUTION) * DRIVETRAIN_ENCODER_EMPIRICAL_MULTIPLIER;
 
+    int DRIVETRAIN_CURRENT_LIMIT = 5;
+
     /**************************************************************************
-     * Lift Constants
+     * Lift Constant
      *************************************************************************/
     double LIFT_ENCODER_TICKS_PER_REV = 1024.0;
     double LIFT_ENCODER_RAW_MULTIPLIER = 1 / 1207.0;
     double LIFT_MIN_SPEED = 0.05;
     double LIFT_SPEED_MULTIPLIER = .8;
+    double LIFT_RAMP_RATE = 0.25;
 
     // Waiting on eng for the height
     // Eric said the total carriage movement is about 74 in
     double LIFT_MAX_HEIGHT = -1;
     double LIFT_MIN_HEIGHT = 0;
     double LIFT_RAMP_HEIGHT_THRESHOLD = 1.0;
+    double LIFT_RAMP_MOVE_TO_HEIGHT_THRESHOLD = 5.0;
 
     //TODO: Test these values
     double LEVEL_1_HEIGHT = 8.68;

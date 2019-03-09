@@ -50,7 +50,7 @@ public final class Lift extends Subsystem {
 
         // bottomOpticalSensor = new DigitalInput(RobotMap.LIFT_BOTTOM_OPTICAL_SENSOR_PORT);
 
-        disableRamping();
+        enableRamping();
 
         // Encoders
         masterTalon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
@@ -178,9 +178,13 @@ public final class Lift extends Subsystem {
 
     public void enableRamping() {
         rampDisabled = false;
+        masterTalon.configOpenloopRamp(RobotMap.LIFT_RAMP_RATE);
+        followerTalon.configOpenloopRamp(RobotMap.LIFT_RAMP_RATE);
     }
 
     public void disableRamping() {
         rampDisabled = true;
+        masterTalon.configOpenloopRamp(0);
+        followerTalon.configOpenloopRamp(0);
     }
 }
