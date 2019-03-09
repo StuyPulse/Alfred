@@ -136,7 +136,7 @@ public interface RobotMap {
     double DRIVETRAIN_ENCODER_EMPIRICAL_MULTIPLIER = 1.3;
     double DRIVETRAIN_GREYHILL_INCHES_PER_PULSE = ((WHEEL_INCHES_PER_REVOLUTION * DRIVETRAIN_OUTER_GEAR_RATIO) / GREYHILL_PULSES_PER_REVOLUTION) * DRIVETRAIN_ENCODER_EMPIRICAL_MULTIPLIER;
 
-    int DRIVETRAIN_CURRENT_LIMIT = 5;
+    int DRIVETRAIN_CURRENT_LIMIT = 65;
 
     /**************************************************************************
      * Lift Constant
