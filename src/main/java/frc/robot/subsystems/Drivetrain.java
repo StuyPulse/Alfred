@@ -75,6 +75,15 @@ public final class Drivetrain extends Subsystem {
         leftTopMotor.setInverted(true);
         leftMiddleMotor.setInverted(true);
         // leftBottomMotor.setInverted(true);
+
+        rightTopMotor.setSmartCurrentLimit(RobotMap.DRIVETRAIN_CURRENT_LIMIT);
+        //rightMiddleMotor.setSmartCurrentLimit();
+        rightBottomMotor.setSmartCurrentLimit(RobotMap.DRIVETRAIN_CURRENT_LIMIT);
+        
+        leftTopMotor.setSmartCurrentLimit(RobotMap.DRIVETRAIN_CURRENT_LIMIT);
+        leftMiddleMotor.setSmartCurrentLimit(RobotMap.DRIVETRAIN_CURRENT_LIMIT);
+        //leftBottomMotor.setSmartCurrentLimit();
+
         // Speed Groups
         leftSpeedGroup = new SpeedControllerGroup(leftTopMotor, leftMiddleMotor);
         rightSpeedGroup = new SpeedControllerGroup(rightTopMotor, rightBottomMotor);
