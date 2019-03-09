@@ -141,11 +141,11 @@ public final class Lift extends Subsystem {
     }
 
     public void move(double speed) {
-        if (rampDisabled) {
+        // if (rampDisabled) {
             moveNoRamp(speed);
-        } else {
-            moveRamp(speed);
-        }
+        // } else {
+            // moveRamp(speed);
+        // }
     }
 
     public void tiltForward() {
