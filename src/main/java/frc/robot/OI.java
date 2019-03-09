@@ -32,13 +32,10 @@ public class OI {
     public Gamepad driverGamepad;
     public Gamepad operatorGamepad;
 
-    private boolean abomPumping;
-
     public OI() {
         
         driverGamepad = new Gamepad(RobotMap.DRIVER_GAMEPAD_PORT, GamepadSwitchMode.PS4);
         operatorGamepad = new Gamepad(RobotMap.OPERATOR_GAMEPAD_PORT, GamepadSwitchMode.SWITCH_X);
-        abomPumping = false;
 
         /******************************************
          * Driver Code

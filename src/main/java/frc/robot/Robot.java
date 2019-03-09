@@ -81,19 +81,19 @@ public class Robot extends TimedRobot {
         SmartDashboard.putBoolean("Enable compressor", true);
 
         CameraServer.getInstance().startAutomaticCapture(0);
-        SmartDashboard.putNumber("TURN_DIV", 30);
-        SmartDashboard.putNumber("MOVE_TURN_MUL", 5.5);
+        // SmartDashboard.putNumber("TURN_DIV", 30);
+        // SmartDashboard.putNumber("MOVE_TURN_MUL", 5.5);
 
-        SmartDashboard.putNumber("TURN_MIN_SPEED", 0.2);
-        SmartDashboard.putNumber("TURN_MIN_ANGLE", 1);
+        // SmartDashboard.putNumber("TURN_MIN_SPEED", 0.2);
+        // SmartDashboard.putNumber("TURN_MIN_ANGLE", 1);
 
-        SmartDashboard.putBoolean("VALID_TARGET", false);
-        SmartDashboard.putBoolean("VALID_HEIGHT", false);
-        SmartDashboard.putBoolean("VALID_RATIO", false);
-        SmartDashboard.putBoolean("VALID_SKEW", false);
+        // SmartDashboard.putBoolean("VALID_TARGET", false);
+        // SmartDashboard.putBoolean("VALID_HEIGHT", false);
+        // SmartDashboard.putBoolean("VALID_RATIO", false);
+        // SmartDashboard.putBoolean("VALID_SKEW", false);
 
-        SmartDashboard.putNumber("CAM_MODE", 1);
-        SmartDashboard.putNumber("LIMELIGHT_MOTOR_OUTPUT", 0);
+        // SmartDashboard.putNumber("CAM_MODE", 1);
+        // SmartDashboard.putNumber("LIMELIGHT_MOTOR_OUTPUT", 0);
         hasBeenZeroed = false;
     }
 
@@ -202,7 +202,7 @@ public class Robot extends TimedRobot {
         // }
         Scheduler.getInstance().run();
         SmartDashboard.putBoolean("Is Lift Optical Sensor Overrided: ", Robot.lift.isOpticalSensorOverrided);
-        SmartDashboard.putNumber("Tom's Metric for Tail: ", Robot.tail.getTomsMetric());
+        // SmartDashboard.putNumber("Tom's Metric for Tail: ", Robot.tail.getTomsMetric());
         if(isGamePieceDetected()) {
             //Once a game piece is detected, it blinks two times and stops.
             blinkLED();
