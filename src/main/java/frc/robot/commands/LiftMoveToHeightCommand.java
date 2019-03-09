@@ -24,7 +24,7 @@ public class LiftMoveToHeightCommand extends Command {
     protected void execute() {
         if (Robot.lift.getHeight() > targetHeight) {
             if(Robot.lift.getHeight() - targetHeight > RobotMap.LIFT_RAMP_MOVE_TO_HEIGHT_THRESHOLD) {
-                Robot.lift.move(-0.7);
+                Robot.lift.move(-0.5);
             } else {
                 Robot.lift.move(-0.25);
             }
@@ -43,7 +43,7 @@ public class LiftMoveToHeightCommand extends Command {
         double error = targetHeight - Robot.lift.getHeight();
         return Math.abs(error) < ACCEPTED_ERROR_RANGE 
             || (Robot.lift.isAtBottom() && error < 0)
-            || Math.abs(Robot.oi.operatorGamepad.getLeftY()) > 0.05;
+            || Math.abs(Robot.oi.operatorGamepad.getLeftY()) > 0.08;
     }
 
     @Override
