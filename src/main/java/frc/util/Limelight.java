@@ -108,11 +108,8 @@ public class Limelight {
      * @return if the skew is less than the maximum skew
      */
     public static boolean hasValidBlueOrientation(double angleThreshold) {
-        // Checks if rotation of blue box (rotated box) is good
-        double diffFromNeg90 = Math.abs(-90 - getTargetSkew());
-        double diffFrom0 = Math.abs(getTargetSkew());
-        double smallerDifference = Math.min(diffFromNeg90, diffFrom0);
-        boolean validOrientation = smallerDifference <= angleThreshold;
+        double skew = Math.abs(getTargetSkew());
+        boolean validOrientation = Math.min(skew, 90.0 - skew) <= angleThreshold;
 
         if (POST_TO_SMART_DASHBOARD) {
             SmartDashboard.putBoolean("VALID_SKEW", validOrientation);
