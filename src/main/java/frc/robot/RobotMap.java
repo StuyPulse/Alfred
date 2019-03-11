@@ -144,6 +144,7 @@ public interface RobotMap {
     double LIFT_ENCODER_TICKS_PER_REV = 1024.0;
     double LIFT_ENCODER_RAW_MULTIPLIER = 1 / 1207.0;
     double LIFT_MIN_SPEED = 0.05;
+    double LIFT_DEADBAND_OVERRIDE_THRESHOLD = 0.2;
     double LIFT_SPEED_MULTIPLIER = .8;
     double LIFT_RAMP_RATE = 0.25;
 
