@@ -12,21 +12,21 @@
         "tiles": {
           "0,0": {
             "size": [
-              4,
-              4
+              5,
+              5
             ],
             "content": {
               "_type": "Camera Stream",
               "_source0": "camera_server://USB Camera 0",
               "_title": "USB Camera 0",
-              "Crosshair/Show crosshair": true,
+              "Crosshair/Show crosshair": false,
               "Crosshair/Crosshair color": "#FFFFFFFF",
               "Controls/Show controls": true,
               "Controls/Rotation": "NONE",
-              "compression": -1.0,
-              "fps": -1,
-              "imageWidth": -1,
-              "imageHeight": -1
+              "compression": 14.0,
+              "fps": 30,
+              "imageWidth": 320,
+              "imageHeight": 200
             }
           },
           "5,3": {
@@ -40,7 +40,7 @@
               "_title": " Right Encoder Val: "
             }
           },
-          "4,3": {
+          "7,3": {
             "size": [
               1,
               1
@@ -51,20 +51,7 @@
               "_title": " Left Encoder Val: "
             }
           },
-          "4,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/Lift Bottom Optical Sensor: ",
-              "_title": "SmartDashboard/Lift Bottom Optical Sensor: ",
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
-            }
-          },
-          "4,1": {
+          "5,2": {
             "size": [
               1,
               1
@@ -77,9 +64,9 @@
               "Colors/Color when false": "#8B0000FF"
             }
           },
-          "4,2": {
+          "6,2": {
             "size": [
-              1,
+              2,
               1
             ],
             "content": {
@@ -88,7 +75,7 @@
               "_title": "SmartDashboard/Enable compressor"
             }
           },
-          "7,3": {
+          "8,2": {
             "size": [
               1,
               1
@@ -97,6 +84,17 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Lift Encoder Val: ",
               "_title": "Lift Encoder Val: "
+            }
+          },
+          "5,0": {
+            "size": [
+              3,
+              2
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Match Time",
+              "_title": "/SmartDashboard/Match Time"
             }
           }
         }
@@ -213,9 +211,9 @@
     }
   ],
   "windowGeometry": {
-    "x": -7.333333492279053,
-    "y": -7.333333492279053,
-    "width": 1294.6666259765625,
-    "height": 697.3333129882812
+    "x": -7.199999809265137,
+    "y": -7.199999809265137,
+    "width": 1550.4000244140625,
+    "height": 838.4000244140625
   }
 }
