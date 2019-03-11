@@ -83,12 +83,9 @@ public final class Drivetrain extends Subsystem {
         leftMiddleMotor.setInverted(true);
         // leftBottomMotor.setInverted(true);
 
-        rightTopMotor.setSmartCurrentLimit(RobotMap.DRIVETRAIN_CURRENT_LIMIT);
-        rightMiddleMotor.setSmartCurrentLimit(RobotMap.DRIVETRAIN_CURRENT_LIMIT);
+        //Sets smart current limit for all 4 motors. (Left Middle, Left Top, Right Middle, Right Top)
+        enableCurrentLimit();
         // rightBottomMotor.setSmartCurrentLimit(RobotMap.DRIVETRAIN_CURRENT_LIMIT);
-        
-        leftTopMotor.setSmartCurrentLimit(RobotMap.DRIVETRAIN_CURRENT_LIMIT);
-        leftMiddleMotor.setSmartCurrentLimit(RobotMap.DRIVETRAIN_CURRENT_LIMIT);
         //leftBottomMotor.setSmartCurrentLimit();
 
         // Speed Groups
@@ -190,13 +187,17 @@ public final class Drivetrain extends Subsystem {
     }
 
     public void enableCurrentLimit() {
-        leftMiddleMotor.setSmartCurrentLimit(RobotMap.DRIVETRAIN_CURRENT_LIMIT);
+        rightTopMotor.setSmartCurrentLimit(RobotMap.DRIVETRAIN_CURRENT_LIMIT);
         rightMiddleMotor.setSmartCurrentLimit(RobotMap.DRIVETRAIN_CURRENT_LIMIT);
+        leftTopMotor.setSmartCurrentLimit(RobotMap.DRIVETRAIN_CURRENT_LIMIT);
+        leftMiddleMotor.setSmartCurrentLimit(RobotMap.DRIVETRAIN_CURRENT_LIMIT);
     }
 
     public void disableCurrentLimit() {
-       leftMiddleMotor.setSmartCurrentLimit(RobotMap.DRIVETRAIN_FREE_LIMIT);
-       rightMiddleMotor.setSmartCurrentLimit(RobotMap.DRIVETRAIN_FREE_LIMIT);
+        rightTopMotor.setSmartCurrentLimit(RobotMap.DRIVETRAIN_CURRENT_LIMIT);
+        rightMiddleMotor.setSmartCurrentLimit(RobotMap.DRIVETRAIN_FREE_LIMIT);
+        leftTopMotor.setSmartCurrentLimit(RobotMap.DRIVETRAIN_CURRENT_LIMIT);
+        leftMiddleMotor.setSmartCurrentLimit(RobotMap.DRIVETRAIN_FREE_LIMIT);
     }
 
     /*public void setAutonCurrentLimit() {

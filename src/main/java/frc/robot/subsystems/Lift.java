@@ -49,8 +49,6 @@ public final class Lift extends Subsystem {
 
         // bottomOpticalSensor = new DigitalInput(RobotMap.LIFT_BOTTOM_OPTICAL_SENSOR_PORT);
 
-        masterTalon.configContinuousCurrentLimit(RobotMap.PEAK_LIMIT_AMPS);
-
         enableRamping();
 
         // Encoders
@@ -191,6 +189,7 @@ public final class Lift extends Subsystem {
 
     public void enableCurrentLimit() {
         masterTalon.configContinuousCurrentLimit(RobotMap.LIFT_CURRENT_LIMIT,0);
+        masterTalon.configContinuousCurrentLimit(RobotMap.PEAK_LIMIT_AMPS);
         masterTalon.configPeakCurrentLimit(0, 0);
         masterTalon.enableCurrentLimit(true);
     }
