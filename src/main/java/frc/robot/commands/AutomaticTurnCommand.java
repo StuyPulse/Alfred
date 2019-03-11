@@ -19,17 +19,27 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
 
     @Override
     protected void setTurn() {
+        // Get Gamepad Input
+        super.setTurn();
 
-        // Add corrective values to turn based on how fast the robot is moving
-        if( Limelight.hasValidTarget() /*&& Math.abs(Limelight.getTargetXAngle()) > smallAngleThreshold */){
-            //turn += getTurnValue(Limelight.getTargetXAngle(), smallAngleSpeed);
-            /*Math.max(SmartDashboard.getNumber("MOVE_TURN_DIV", 2) * speed,1)*/
-            double turn_MUL = SmartDashboard.getNumber("MOVE_TURN_MUL", 6) * speed;
-            double sgn = Math.signum(Limelight.getTargetXAngle());
-            turn += Math.max(turn_MUL, 1) * sgn * 
-                    Math.sqrt(Math.abs(Limelight.getTargetXAngle())) /
-                    (SmartDashboard.getNumber("TURN_DIV", 35));
+        // If Using CV
+        if(Limelight.hasValidTarget()) {
+            // Get Turn Div from Smart Dash Board
+            double turnDiv = SmartDashboard.getNumber("TURN_DIV", 35);
+
+            // Establish Turn Multiplier
+            double turnMult = SmartDashboard.getNumber("MOVE_TURN_MUL", 6);
+            turnMult = Math.max(turnMult * speed, 1);
+
+            // Calculating the amount to turn based on TargetXAngle
+            double turnSign = Math.signum(Limelight.getTargetXAngle());
+            double turnDelta = Math.sqrt(Math.abs(Limelight.getTargetXAngle()));
+            turnDelta *= turnSign; // SQRT of delta removes sign
+            turnDelta *= turnMult;
+            turnDelta /= turnDiv;
             
+            // Add Turn Delta to Turn
+            turn += turnDelta;
         }
     }
 }

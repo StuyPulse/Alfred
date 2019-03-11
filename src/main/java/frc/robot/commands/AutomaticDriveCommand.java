@@ -14,11 +14,20 @@ public class AutomaticDriveCommand extends AutomaticTurnCommand {
 
     @Override
     protected void setSpeed() {
-        quickTurn = true; // Automatic Drive Uses Quick Turn
-        double area = Limelight.getTargetArea();
+        // Automatic Drive Uses Quick Turn
+        quickTurn = true; 
+
+        // Run auto drive when target is in view
         if (Limelight.hasValidTarget()) {
-            // Set speed depending on how far away the goal is
-            speed = RobotMap.MIN_AUTO_SPEED + Math.max(RobotMap.FORWARD_AREA - area, 0) * RobotMap.AUTO_SPEED_MUL;
+            double area = Limelight.getTargetArea();
+
+            // Set speed depending distance of target
+            double accel; 
+            accel = Math.max(RobotMap.FORWARD_AREA - area, 0);
+            accel *= RobotMap.AUTO_SPEED_MUL;
+
+            speed = RobotMap.MIN_AUTO_SPEED;
+            speed += accel;
         } else {
             // if no target is found, fall back on gamepad speed
             super.setSpeed();

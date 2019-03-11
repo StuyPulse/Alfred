@@ -95,22 +95,11 @@ public interface RobotMap {
     double ABOM_TIME_TO_RETRACT = 0.2;
 
     /***************************************************************************************
-     * CV Constants
+     * Limelight Pipeline Constants
      ****************************************************************************************/
-    double TARGET_HEIGHT_THRESHOLD = 6;
-    double MIN_ASPECT_RATIO = 1.2;
-    double MAX_ASPECT_RATIO = 3.3;
-    double ANGLE_THRESHOLD = 25;
+    int DRIVER_PIPELINE = 1;
+    int CV_PIPELINE = 0;
 
-    /***************************************************************************************
-     * Aim Assist Constants
-     ****************************************************************************************/
-    
-    double TURN_DIV = 100; // Changes the speed that the robot will turn
-    double MOVE_TURN_DIV = 3; // Changes the speed that the robot will turn while moving (The more it moves, the less it turns)
-
-    double TURN_MIN_SPEED = 0.3;
-    double TURN_MIN_ANGLE = 0.1;
     /***************************************************************************************
      * Auton Assist Constants
      ****************************************************************************************/
