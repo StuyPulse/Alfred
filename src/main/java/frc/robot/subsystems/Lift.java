@@ -99,7 +99,7 @@ public final class Lift extends Subsystem {
 
     public void moveNoRamp(double speed) {
         if (Math.abs(speed) < RobotMap.LIFT_MIN_SPEED 
-            && Math.abs(Robot.oi.operatorGamepad.getLeftX()) < 0.2) {
+            && Math.abs(Robot.oi.operatorGamepad.getLeftX()) < RobotMap.LIFT_DEADBAND_OVERRIDE_THRESHOLD) {
             stop();
         } else if (isAtBottom() && speed < 0) {
             stop();
