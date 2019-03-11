@@ -12,7 +12,6 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -25,7 +24,7 @@ public final class Lift extends Subsystem {
     private WPI_TalonSRX masterTalon;
     private WPI_VictorSPX followerTalon;
 
-    private DigitalInput bottomOpticalSensor;
+    // private DigitalInput bottomOpticalSensor;
 
     private DoubleSolenoid tiltSolenoid;
     private Solenoid brakeSolenoid;
@@ -48,9 +47,9 @@ public final class Lift extends Subsystem {
                 RobotMap.LIFT_TILT_SOLENOID_REVERSE_PORT);
         brakeSolenoid = new Solenoid(1, RobotMap.LIFT_BRAKE_SOLENOID_PORT);
 
-        bottomOpticalSensor = new DigitalInput(RobotMap.LIFT_BOTTOM_OPTICAL_SENSOR_PORT);
+        // bottomOpticalSensor = new DigitalInput(RobotMap.LIFT_BOTTOM_OPTICAL_SENSOR_PORT);
 
-        disableRamping();
+        enableRamping();
 
         // Encoders
         masterTalon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
@@ -78,13 +77,13 @@ public final class Lift extends Subsystem {
     }
 
     public boolean isAtBottom() {
-        if (!isOpticalSensorOverrided) {
-            boolean atBottom = !bottomOpticalSensor.get();
-            if (atBottom) {
-                setHeight(RobotMap.LIFT_MIN_HEIGHT);
-            }
-            return atBottom; // The sensor is inverted
-        }
+        // if (!isOpticalSensorOverrided) {
+        //     boolean atBottom = !bottomOpticalSensor.get();
+        //     if (atBottom) {
+        //         setHeight(RobotMap.LIFT_MIN_HEIGHT);
+        //     }
+        //     return atBottom; // The sensor is inverted
+        // }
         return false;
     }
 
@@ -134,12 +133,6 @@ public final class Lift extends Subsystem {
             double distanceFromBottom = currentHeight;
             speed = rampMultiplier(distanceFromBottom) * desiredSpeed;
             speed = Math.min(speed, -RobotMap.LIFT_MIN_SPEED);
-        } else if (currentHeight > RobotMap.LIFT_MAX_HEIGHT - RobotMap.LIFT_RAMP_HEIGHT_THRESHOLD) {
-            // If you want to move the lift up, get the distance from the top and adjust
-            // speed proportionally.
-            double distanceFromTop = RobotMap.LIFT_MAX_HEIGHT - currentHeight;
-            speed = rampMultiplier(distanceFromTop) * desiredSpeed;
-            speed = Math.max(speed, RobotMap.LIFT_MIN_SPEED);
         }
         // If the current height isn't within the height range for ramping, move without
         // ramping.
@@ -147,11 +140,11 @@ public final class Lift extends Subsystem {
     }
 
     public void move(double speed) {
-        if (rampDisabled) {
+        // if (rampDisabled) {
             moveNoRamp(speed);
-        } else {
-            moveRamp(speed);
-        }
+        // } else {
+            // moveRamp(speed);
+        // }
     }
 
     public void tiltForward() {
@@ -184,9 +177,13 @@ public final class Lift extends Subsystem {
 
     public void enableRamping() {
         rampDisabled = false;
+        masterTalon.configOpenloopRamp(RobotMap.LIFT_RAMP_RATE);
+        followerTalon.configOpenloopRamp(RobotMap.LIFT_RAMP_RATE);
     }
 
     public void disableRamping() {
         rampDisabled = true;
+        masterTalon.configOpenloopRamp(0);
+        followerTalon.configOpenloopRamp(0);
     }
 }

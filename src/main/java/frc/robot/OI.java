@@ -33,25 +33,23 @@ public class OI {
     public Gamepad driverGamepad;
     public Gamepad operatorGamepad;
 
-    private boolean abomPumping;
-
     public OI() {
         
         driverGamepad = new Gamepad(RobotMap.DRIVER_GAMEPAD_PORT, GamepadSwitchMode.PS4);
         operatorGamepad = new Gamepad(RobotMap.OPERATOR_GAMEPAD_PORT, GamepadSwitchMode.SWITCH_X);
-        abomPumping = false;
 
         /******************************************
          * Driver Code
          ******************************************/
         driverGamepad.getLeftButton().whileHeld(new AutomaticTurnCommand());
         driverGamepad.getTopButton().whileHeld(new AutomaticDriveCommand());
+        driverGamepad.getRightButton().whenPressed(new LiftMoveToHeightCommand(RobotMap.START_HEIGHT));
         driverGamepad.getBottomButton().whenPressed(new DrivetrainLowGearCommand());
         driverGamepad.getBottomButton().whenReleased(new DrivetrainHighGearCommand());
         driverGamepad.getDPadLeft().whenPressed(new DrivetrainNudgeCommand(-1));
         driverGamepad.getDPadRight().whenPressed(new DrivetrainNudgeCommand(1));
 
-        /******************************************
+        /******************************************  
          * Operator Code
          ******************************************/
         operatorGamepad.getRightTrigger().whileHeld(new RollersManualAcquireCommand());
