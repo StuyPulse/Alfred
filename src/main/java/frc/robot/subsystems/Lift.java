@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 import frc.robot.commands.LiftMoveCommand;
+import frc.util.LimitSwitch;
 
 public final class Lift extends Subsystem {
 
@@ -31,8 +32,10 @@ public final class Lift extends Subsystem {
 
     public boolean rampDisabled;
     public boolean isOpticalSensorOverrided;
+    private LimitSwitch bottomLimitSwitch;
 
     public Lift() {
+        bottomLimitSwitch = new LimitSwitch(RobotMap.BOTTOM_LIMIT_SWITCH_PORT);
         masterTalon = new WPI_TalonSRX(RobotMap.LIFT_MASTER_TALON_MOTOR_PORT);
         followerTalon = new WPI_VictorSPX(RobotMap.LIFT_FOLLOWER_VICTOR_MOTOR_PORT);
 
@@ -84,7 +87,7 @@ public final class Lift extends Subsystem {
         //     }
         //     return atBottom; // The sensor is inverted
         // }
-        return false;
+        return bottomLimitSwitch.isPressed();
     }
 
     public void toggleOpticalSensorOverride() {

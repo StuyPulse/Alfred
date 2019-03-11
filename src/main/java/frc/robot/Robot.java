@@ -53,7 +53,6 @@ public class Robot extends TimedRobot {
     public static double autonCurrTime;
 
     public static LEDRelayController relayController;
-    public boolean hasBeenZeroed;
 
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<>();
@@ -94,7 +93,6 @@ public class Robot extends TimedRobot {
 
         // SmartDashboard.putNumber("CAM_MODE", 1);
         // SmartDashboard.putNumber("LIMELIGHT_MOTOR_OUTPUT", 0);
-        hasBeenZeroed = false;
     }
 
     /**
