@@ -113,7 +113,7 @@ public class Limelight {
 
         if (POST_TO_SMART_DASHBOARD) {
             SmartDashboard.putBoolean("VALID_SKEW", validOrientation);
-            SmartDashboard.putNumber("SKEW_VALUE", smallerDifference);
+            SmartDashboard.putNumber("SKEW_VALUE", Math.min(skew, 90.0 - skew));
         }
 
         return validOrientation;
