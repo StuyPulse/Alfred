@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.LiftMoveCommand;
 
@@ -97,7 +98,8 @@ public final class Lift extends Subsystem {
     }
 
     public void moveNoRamp(double speed) {
-        if (Math.abs(speed) < RobotMap.LIFT_MIN_SPEED) {
+        if (Math.abs(speed) < RobotMap.LIFT_MIN_SPEED 
+            && Math.abs(Robot.oi.operatorGamepad.getLeftX()) < 0.2) {
             stop();
         } else if (isAtBottom() && speed < 0) {
             stop();
