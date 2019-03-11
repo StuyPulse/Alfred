@@ -11,12 +11,14 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.util.Limelight;
+import frc.util.Limelight.LEDMode;
 
 public class DrivetrainDriveCommand extends Command {
     // Variables to feed to curvature drive
     double speed = 0;
     double turn = 0;
     boolean quickTurn = true;
+    boolean isDriverControlling = true;
 
     public DrivetrainDriveCommand() {
         requires(Robot.drivetrain);
@@ -24,11 +26,23 @@ public class DrivetrainDriveCommand extends Command {
 
     @Override
     protected void execute() {
-        Limelight.setCamMode(Limelight.CamMode.VISION);
-        printDebugStatements();
+        isDriverControlling = !(Robot.oi.driverGamepad.getRawLeftButton() || Robot.oi.driverGamepad.getRawTopButton());
+        setMode();
         setSpeed();
         setTurn();
         updateDrivetrain();
+    }
+    
+    protected void setMode() {
+        if(isDriverControlling){
+            Limelight.setPipeline(1);
+            Limelight.setCamMode(Limelight.CamMode.DRIVER);
+            Limelight.setLEDMode(LEDMode.FORCE_OFF);
+        }else{
+            Limelight.setPipeline(0);
+            Limelight.setCamMode(Limelight.CamMode.VISION);
+            Limelight.setLEDMode(LEDMode.FORCE_ON);
+        }
     }
 
     protected void setSpeed() {
@@ -42,22 +56,7 @@ public class DrivetrainDriveCommand extends Command {
         quickTurn = Math.abs(speed) < 0.125;
     }
 
-    private void printDebugStatements(){
-        // Debug statement prints out if there is a valid target
-        // System.out.println("validTarget? :" + Limelight.hasValidTarget());
-        // System.out.println("XOffset :" + Limelight.getTargetXAngle());
-        // System.out.println("Skew :" + Limelight.getTargetSkew());
-        // System.out.println("W/H :" + Limelight.hasValidBlueAspectRatio(minRatio, maxRatio));
-        // Sets to driver mode for debugging
-        if (Robot.oi.driverGamepad.getRawDPadDown()){
-            Limelight.setCamMode(Limelight.CamMode.DRIVER);
-        }
-    }
-
     protected void setTurn() {
-        // Turn on Driver mode
-        // Limelight.setCamMode(Limelight.CamMode.DRIVER);
-
         // Set the turn value to the joystick's x value
         turn = Math.pow(Robot.oi.driverGamepad.getLeftX(), RobotMap.JOYSTICK_SCALAR) / 2.0;
 

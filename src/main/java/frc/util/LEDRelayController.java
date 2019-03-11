@@ -15,11 +15,11 @@ public class LEDRelayController extends Relay {
     */
 
     public void setLEDNeutral() {
-        set(Relay.Value.kOff);
+        set(Relay.Value.kForward);
     }
 
     //Don't know why it is kForward but it worked on Wildcard
     public void setLEDForward() {
-        set(Relay.Value.kForward);
+        set(Relay.Value.kOff);
     }
 }

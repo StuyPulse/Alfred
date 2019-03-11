@@ -36,7 +36,10 @@ public interface RobotMap {
     /***************************************************************************************
      * Tail and Abom Ports
      ****************************************************************************************/
-    int RATCHET_SOLENOID_PORT = 1; //PCM 2 (10)
+    //TODO: find actual ports
+    int RATCHET_DOUBLE_SOLENOID_FORWARD_PORT = 2;
+    int RATCHET_DOUBLE_SOLENOID_REVERSE_PORT = 3; 
+    int RATCHET_SINGLE_SOLENOID_PORT = 1; 
     int TAIL_MOTOR_PORT = 4;
     int ABOM_SOLENOID_PORT = 6;
 
@@ -133,24 +136,29 @@ public interface RobotMap {
     double DRIVETRAIN_ENCODER_EMPIRICAL_MULTIPLIER = 1.3;
     double DRIVETRAIN_GREYHILL_INCHES_PER_PULSE = ((WHEEL_INCHES_PER_REVOLUTION * DRIVETRAIN_OUTER_GEAR_RATIO) / GREYHILL_PULSES_PER_REVOLUTION) * DRIVETRAIN_ENCODER_EMPIRICAL_MULTIPLIER;
 
+    int DRIVETRAIN_CURRENT_LIMIT = 65;
+
     /**************************************************************************
-     * Lift Constants
+     * Lift Constant
      *************************************************************************/
     double LIFT_ENCODER_TICKS_PER_REV = 1024.0;
     double LIFT_ENCODER_RAW_MULTIPLIER = 1 / 1207.0;
     double LIFT_MIN_SPEED = 0.05;
     double LIFT_SPEED_MULTIPLIER = .8;
+    double LIFT_RAMP_RATE = 0.25;
 
     // Waiting on eng for the height
     // Eric said the total carriage movement is about 74 in
     double LIFT_MAX_HEIGHT = -1;
     double LIFT_MIN_HEIGHT = 0;
     double LIFT_RAMP_HEIGHT_THRESHOLD = 1.0;
+    double LIFT_RAMP_MOVE_TO_HEIGHT_THRESHOLD = 5.0;
 
     //TODO: Test these values
     double LEVEL_1_HEIGHT = 8.68;
     double LEVEL_2_HEIGHT = 37.5;
     double LEVEL_3_HEIGHT = 64.6;
+    double START_HEIGHT = 25.0;
 
     double LIFT_LEVEL_OFFSHOOT = 2.0;
 

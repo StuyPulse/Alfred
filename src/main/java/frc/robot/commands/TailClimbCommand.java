@@ -31,8 +31,10 @@ public class TailClimbCommand extends Command {
                 startTime = Timer.getFPGATimestamp();
             }
             if(currTime - startTime > .2) {
+
                 Robot.tail.setSpeed(1.0);
             }
+
         } else if(speed < -0.5) {
             if(Robot.tail.ratchetMoved()) {
                 Robot.tail.engageRatchet();
