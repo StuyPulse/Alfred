@@ -7,17 +7,18 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.InstantCommand;
-import frc.robot.Robot;
+import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.WaitCommand;
+import frc.robot.RobotMap;
 
-public class LiftTiltFowardCommand extends InstantCommand {
-    
-    public LiftTiltFowardCommand() {
-        requires(Robot.lift);
-    }
-
-    @Override
-    protected void initialize() {
-        Robot.lift.tiltForward();
-    }
+public class AutonLiftStartCommand extends CommandGroup {
+  /**
+   * Add your docs here.
+   */
+  public AutonLiftStartCommand() {
+    addSequential(new LiftTiltFowardCommand());
+    addSequential(new LiftMoveToBottomCommand(), 1.5);
+    addSequential(new WaitCommand(0.5));
+    addSequential(new LiftMoveToHeightCommand(RobotMap.LEVEL_1_HEIGHT));
+  }
 }

@@ -1,6 +1,6 @@
 plugins {
     id "java"
-    id "edu.wpi.first.GradleRIO" version "2019.2.1"
+    id "edu.wpi.first.GradleRIO" version "2019.4.1"
 }
 
 sourceCompatibility = JavaVersion.VERSION_11
@@ -62,3 +62,14 @@ jar {
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     manifest edu.wpi.first.gradlerio.GradleRIOPlugin.javaManifest(ROBOT_MAIN_CLASS)
 }
+File file = new File("src/main/java/frc/robot/RobotMap.java")
+System.out.println("=========================")
+if(file.text.contains('ROBOT_NAME = "Alfred"')) {
+    System.out.println("Built to ALFRED!!!")
+} else if(file.text.contains('ROBOT_NAME = "Edwin"')) {
+    System.out.println("Built to EDWIN!!!")
+} else {
+    System.out.println("[ATTENTION] Look at RobotMap and make sure you have robot name set!")
+    throw new IllegalStateException("Robot Name Not Found");
+}
+System.out.println("=========================")

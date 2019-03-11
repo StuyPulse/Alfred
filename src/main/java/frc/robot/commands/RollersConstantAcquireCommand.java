@@ -7,17 +7,27 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.InstantCommand;
+import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class LiftTiltFowardCommand extends InstantCommand {
-    
-    public LiftTiltFowardCommand() {
-        requires(Robot.lift);
+public class RollersConstantAcquireCommand extends Command {
+
+    public RollersConstantAcquireCommand() {
+        requires(Robot.rollers);
     }
 
     @Override
-    protected void initialize() {
-        Robot.lift.tiltForward();
+    protected void execute() {
+        Robot.rollers.acquire();
+    }
+
+    @Override
+    protected boolean isFinished() {
+        return false;
+    }
+
+    @Override
+    protected void end() {
+        Robot.rollers.stop();
     }
 }

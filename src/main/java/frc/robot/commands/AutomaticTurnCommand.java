@@ -7,24 +7,29 @@
 
 package frc.robot.commands;
 
-import frc.robot.RobotMap;
-import frc.util.LimeLight;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.util.Limelight;
 
 public class AutomaticTurnCommand extends DrivetrainDriveCommand {
 
     @Override
     protected void initialize() {
         setInterruptible(false);
-        // Enable CV on the limelight
-        LimeLight.setCamMode(LimeLight.CAM_MODE.VISION);
     }
 
     @Override
     protected void setTurn() {
-        // Set the turn value to the joysticks x value
-        super.setTurn();
 
+        super.setTurn(); 
         // Add corrective values to turn based on how fast the robot is moving
-        turn += LimeLight.getTargetXOffset() / (RobotMap.TURN_DIV * Math.max(RobotMap.MOVE_TURN_DIV * speed, 1));
+        if (Limelight.hasValidTarget()) {
+            double turn_MUL = SmartDashboard.getNumber("MOVE_TURN_MUL", 6) * speed;
+            double sgn = Math.signum(Limelight.getTargetXAngle());
+            double output =  Math.max(turn_MUL, 1) * sgn * 
+                             Math.sqrt(Math.abs(Limelight.getTargetXAngle())) /
+                             (SmartDashboard.getNumber("TURN_DIV", 35));
+            SmartDashboard.putNumber("LIMELIGHT_MOTOR_OUTPUT", output);
+            turn += output; 
+        }
     }
 }

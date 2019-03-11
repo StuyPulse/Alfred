@@ -7,28 +7,11 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Robot;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class RollersDeacquireFastCommand extends Command {
-
-    public RollersDeacquireFastCommand() {
-        requires(Robot.rollers);
+public class FangsLowerRollersInCommand extends CommandGroup {
+    public FangsLowerRollersInCommand() {
+        addParallel(new FangsLowerCommand());
+        addSequential(new RollersConstantAcquireCommand(), 0.5);
     }
-
-    @Override
-    protected void execute() {
-        Robot.rollers.deacquire();
-    }
-
-    @Override
-    protected boolean isFinished() {
-        return false;
-    }
-
-    @Override
-    protected void end() {
-        Robot.rollers.stop();
-    }
-
 }

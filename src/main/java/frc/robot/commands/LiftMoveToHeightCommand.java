@@ -1,12 +1,20 @@
+/*----------------------------------------------------------------------------*/
+/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
+/* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* the project.                                                               */
+/*----------------------------------------------------------------------------*/
+
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
 
 public class LiftMoveToHeightCommand extends Command {
   
     private double targetHeight;
-    private final double ACCEPTED_ERROR_RANGE = 2;
+    private final double ACCEPTED_ERROR_RANGE = .5;
 
     public LiftMoveToHeightCommand(double targetHeight) {
         requires(Robot.lift);
@@ -14,38 +22,40 @@ public class LiftMoveToHeightCommand extends Command {
     }
 
     @Override
-    protected void initialize() {
-    }
-
-    @Override
     protected void execute() {
         Robot.isLiftRunning = true;
         if (Robot.lift.getHeight() > targetHeight) {
-            Robot.lift.moveRamp(-1);
-        } else {
-            Robot.lift.moveRamp(1);
+            if(Robot.lift.getHeight() - targetHeight > RobotMap.LIFT_RAMP_MOVE_TO_HEIGHT_THRESHOLD) {
+                Robot.lift.move(-0.5);
+            } else {
+                Robot.lift.move(-0.25);
+            }
+        } else{
+            if(targetHeight - Robot.lift.getHeight() > RobotMap.LIFT_RAMP_MOVE_TO_HEIGHT_THRESHOLD) {
+                Robot.lift.move(0.7);
+            } else {
+                Robot.lift.move(0.25);
+            }
         }
     }
 
     @Override
     protected boolean isFinished() {
-        /*
-         * Finish if: -are within the height -at the top and still trying to go up -at
-         * the bottom and still trying to go down
-         */
+        // Ends if the lift is close enough to the target or at the bottom and top.
         double error = targetHeight - Robot.lift.getHeight();
-        return Math.abs(error) < ACCEPTED_ERROR_RANGE || (Robot.lift.isAtBottom() && error < 0)
-                || (Robot.lift.isAtTop() && error > 0);
+        return Math.abs(error) < ACCEPTED_ERROR_RANGE 
+            || (Robot.lift.isAtBottom() && error < 0)
+            || Math.abs(Robot.oi.operatorGamepad.getLeftY()) > 0.08;
     }
 
     @Override
     protected void end() {
         Robot.isLiftRunning = false;
-        Robot.lift.stopLift();
     }
 
     @Override
     protected void interrupted() {
         end();
+        Robot.lift.stop();
     }
 }

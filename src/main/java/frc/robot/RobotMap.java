@@ -8,29 +8,61 @@
 package frc.robot;
 
 public interface RobotMap {
-    // For example to map the left and right motors, you could define the
-    // following variables to use with your drivetrain subsystem.
-    // public static int leftMotor = 1;
-    // public static int rightMotor = 2;
 
-    // If you are using multiple modules, make sure to define both the port
-    // number and the module. For example you with a rangefinder:
-    // public static int rangefinderPort = 1;
-    // public static int rangefinderModule = 1;
+    String ROBOT_NAME = "Alfred";
+    
+    /***************************************************************************************
+    * Drivetrain Motor Ports
+    ****************************************************************************************/
+    int LEFT_TOP_MOTOR_PORT = 2;
+    int LEFT_MIDDLE_MOTOR_PORT = 3;
+    int LEFT_BOTTOM_MOTOR_PORT = 1;
+
+    int RIGHT_TOP_MOTOR_PORT = 6;
+    int RIGHT_MIDDLE_MOTOR_PORT = 7;
+    int RIGHT_BOTTOM_MOTOR_PORT = 5;
+
+    int GEAR_SHIFT_CHANNEL = 0;
+
+    /***************************************************************************************
+    * Drivetrain Encoder Ports
+    ****************************************************************************************/
+    int DRIVETRAIN_LEFT_ENCODER_CHANNEL_A = 2;
+    int DRIVETRAIN_LEFT_ENCODER_CHANNEL_B = 3;
+
+    int DRIVETRAIN_RIGHT_ENCODER_CHANNEL_A = 0;
+    int DRIVETRAIN_RIGHT_ENCODER_CHANNEL_B = 1;
 
     /***************************************************************************************
      * Tail and Abom Ports
      ****************************************************************************************/
-    int ABOM_SOLENOID_PORT = -1;
-    int TAIL_MOTOR_PORT = -1;
-    int RAISE_TAIL_SOLENOID_PORT = -1;
-    int RELEASE_ABOM_SOLENOID_PORT = -1;
+    //TODO: find actual ports
+    int RATCHET_DOUBLE_SOLENOID_FORWARD_PORT = 2;
+    int RATCHET_DOUBLE_SOLENOID_REVERSE_PORT = 3; 
+    int RATCHET_SINGLE_SOLENOID_PORT = 1; 
+    int TAIL_MOTOR_PORT = 4;
+    int ABOM_SOLENOID_PORT = 6;
+
+    /**************************************************************************
+     * Lift Ports
+     *************************************************************************/
+    int LIFT_MASTER_TALON_MOTOR_PORT = 8;
+    int LIFT_FOLLOWER_VICTOR_MOTOR_PORT = 9;
+
+    int LIFT_TILT_SOLENOID_FORWARD_PORT = 5; //PCM 2 (13)
+    int LIFT_TILT_SOLENOID_REVERSE_PORT = 7; //PCM 2 (15)
+
+    int LIFT_BRAKE_SOLENOID_PORT = 6; //PCM 2 (8)
+    int LIFT_TOP_OPTICAL_SENSOR_PORT = -1;
+    int LIFT_BOTTOM_OPTICAL_SENSOR_PORT = 5;
+
     /***************************************************************************************
-     * Abom Charge Constants
+     * Floop Solenoid Port
      ****************************************************************************************/
-    int ABOM_CHARGE_DELAY_MS = 300; // Time it takes for a piston to fire and retract
+    int FLOOP_CHANNEL = 4;
+
     /***************************************************************************************
-     * CV Constants
+     * Fangs Solenoid Port
      ****************************************************************************************/
     double ACCELERATION_DIV = 4; // Using averages, you can allow for smoother movement
     double CV_SPEED = 0; // Speed that stays the same through movements
@@ -38,102 +70,110 @@ public interface RobotMap {
      /***************************************************************************************
      * Brownout Protection Constants:
      ****************************************************************************************/
-    int DRIVETRAIN_CURRENT_LIMIT = 0;
+    int DRIVETRAIN_CURRENT_LIMIT = 65;
     int DRIVETRAIN_FREE_LIMIT = 0;
     int LIFT_CURRENT_LIMIT = 0;
     int PEAK_LIMIT_AMPS = 23;
+    int FANGS_CHANNEL = 3;
+
+    /***************************************************************************************
+     * Rollers Motor Port
+     ****************************************************************************************/
+     int ROLLER_MOTOR_PORT = 10;
+
+    /***************************************************************************************
+     * IR Sensor Port
+     ****************************************************************************************/
+    int IR_SENSOR_PORT = 9;
+
+    /**************************************************************************************** 
+     * IR Sensor Port
+     ****************************************************************************************/
+    int LED_CHANNEL = 0;
+    
+    /***************************************************************************************
+     * Gamepad Ports
+     ****************************************************************************************/
+    int DRIVER_GAMEPAD_PORT = 0;
+    int OPERATOR_GAMEPAD_PORT = 1;
+
+    /***************************************************************************************
+     * Abom Charge Constants
+     ****************************************************************************************/
+    double ABOM_CHARGE_DELAY_SEC = 2.0/3.0; // Time it takes for a piston to fire and retract
+    double ABOM_TIME_TO_EXTEND = 0.1;
+    double ABOM_TIME_TO_RETRACT = 0.2;
+
+    /***************************************************************************************
+     * CV Constants
+     ****************************************************************************************/
+    double TARGET_HEIGHT_THRESHOLD = 6;
+    double MIN_ASPECT_RATIO = 1.2;
+    double MAX_ASPECT_RATIO = 3.3;
+    double ANGLE_THRESHOLD = 25;
 
     /***************************************************************************************
      * Aim Assist Constants
      ****************************************************************************************/
-    double TURN_DIV = 24; // Changes the speed that the robot will turn
-    double MOVE_TURN_DIV = 2; // Changes the speed that the robot will turn while moving
+    
+    double TURN_DIV = 100; // Changes the speed that the robot will turn
+    double MOVE_TURN_DIV = 3; // Changes the speed that the robot will turn while moving (The more it moves, the less it turns)
 
+    double TURN_MIN_SPEED = 0.3;
+    double TURN_MIN_ANGLE = 0.1;
     /***************************************************************************************
-     * Auton Assist Variables
+     * Auton Assist Constants
      ****************************************************************************************/
     double FORWARD_AREA = 0.0145; // Area at which robot will move forward
     double MIN_AUTO_SPEED = 0.25; // Slowest speed for auto accelerate
     double AUTO_SPEED_MUL = 1.5 / FORWARD_AREA; // Auto Drive Speed
-    int JOYSTICK_SCALAR = 3; // Used to make joystick values smaller (Must be an odd number)(for CV)
+    int JOYSTICK_SCALAR = 3; // Used to make joystick values smaller
 
     /***************************************************************************************
-     * Gamepad Ports
+     * Drivetrain Motor Constants
      ****************************************************************************************/
-    int DRIVER_GAMEPAD_PORT = -1;
-    int OPERATOR_GAMEPAD_PORT = -1;
-
-    /***************************************************************************************
-     * Drivetrain Motor Ports
-     ****************************************************************************************/
-    int LEFT_TOP_MOTOR_PORT = -1;
-    int LEFT_MIDDLE_MOTOR_PORT = -1;
-    int LEFT_BOTTOM_MOTOR_PORT = -1;
-
-    int RIGHT_TOP_MOTOR_PORT = -1;
-    int RIGHT_MIDDLE_MOTOR_PORT = -1;
-    int RIGHT_BOTTOM_MOTOR_PORT = -1;
-
     double WHEEL_DIAMETER = 6;
     double WHEEL_INCHES_PER_REVOLUTION = WHEEL_DIAMETER * Math.PI;
 
-    int GEAR_SHIFT_CHANNEL = -1;
+    double NEO_ENCODER_EMPIRICAL_MULTIPLIER = 1;
+    double NEO_ENCODER_RAW_MULTIPLIER = WHEEL_INCHES_PER_REVOLUTION * NEO_ENCODER_EMPIRICAL_MULTIPLIER;
 
     /***************************************************************************************
      * Drivetrain Greyhill Encoder Constants
      ****************************************************************************************/
-    int DRIVETRAIN_LEFT_ENCODER_CHANNEL_A = -1;
-    int DRIVETRAIN_LEFT_ENCODER_CHANNEL_B = -1;
-
-    int DRIVETRAIN_RIGHT_ENCODER_CHANNEL_A = -1;
-    int DRIVETRAIN_RIGHT_ENCODER_CHANNEL_B = -1;
-
-    double GREYHILL_PULSES_PER_REVOLUTION = 1024; //TODO: check this
-    double DRIVETRAIN_GREYHILL_INCHES_PER_PULSE = WHEEL_INCHES_PER_REVOLUTION / GREYHILL_PULSES_PER_REVOLUTION;
-
-    /***************************************************************************************
-     * Floop Solenoid Constants
-     ****************************************************************************************/
-    int FLOOP_CHANNEL = -1;
+    double GREYHILL_PULSES_PER_REVOLUTION = 256 * 4.0; //TODO: check this
+    double DRIVETRAIN_OUTER_GEAR_RATIO = 24.0 / 60.0;
+    double DRIVETRAIN_ENCODER_EMPIRICAL_MULTIPLIER = 1.3;
+    double DRIVETRAIN_GREYHILL_INCHES_PER_PULSE = ((WHEEL_INCHES_PER_REVOLUTION * DRIVETRAIN_OUTER_GEAR_RATIO) / GREYHILL_PULSES_PER_REVOLUTION) * DRIVETRAIN_ENCODER_EMPIRICAL_MULTIPLIER;
 
     /**************************************************************************
-     * Lift Ports
+     * Lift Constant
      *************************************************************************/
-    int LIFT_MASTER_TALON_MOTOR_PORT = -1;
-    int LIFT_FOLLOWER_TALON_MOTOR_PORT = -1;
+    double LIFT_ENCODER_TICKS_PER_REV = 1024.0;
+    double LIFT_ENCODER_RAW_MULTIPLIER = 1 / 1207.0;
+    double LIFT_MIN_SPEED = 0.05;
+    double LIFT_SPEED_MULTIPLIER = .8;
+    double LIFT_RAMP_RATE = 0.25;
 
-    int LIFT_TILT_SOLENOID_FORWARD_PORT = -1;
-    int LIFT_TILT_SOLENOID_REVERSE_PORT = -1;
-
-    int LIFT_BRAKE_SOLENOID_PORT = -1;
-
-    int LIFT_TOP_LIMIT_SWITCH_PORT = -1;
-    int LIFT_BOTTOM_LIMIT_SWITCH_PORT = -1;
-
-    /**************************************************************************
-     * Lift Constants
-     *************************************************************************/
-    double LIFT_WINCH_DIAMETER_INCHES = 1.75;
-    double LIFT_EMPIRICAL_RAW_MULTIPLIER = 1;
-    double LIFT_ENCODER_RAW_MULTIPLIER = LIFT_EMPIRICAL_RAW_MULTIPLIER * (LIFT_WINCH_DIAMETER_INCHES * Math.PI);
-    double LIFT_MIN_SPEED = 0.1;
     // Waiting on eng for the height
+    // Eric said the total carriage movement is about 74 in
     double LIFT_MAX_HEIGHT = -1;
-    double LIFT_MIN_HEIGHT = -1;
-    double LIFT_RAMP_HEIGHT_THRESHOLD = 1;
+    double LIFT_MIN_HEIGHT = 0;
+    double LIFT_RAMP_HEIGHT_THRESHOLD = 1.0;
+    double LIFT_RAMP_MOVE_TO_HEIGHT_THRESHOLD = 5.0;
 
-    //TODO: Figure out actual heights and input
-    double LEVEL_1_HEIGHT = 5;
-    double LEVEL_2_HEIGHT = 10;
-    double LEVEL_3_HEIGHT = 15;
-    /***************************************************************************************
-     * Fangs Solenoid Constants
-     ****************************************************************************************/
-    int FANGS_CHANNEL = -1;
+    //TODO: Test these values
+    double LEVEL_1_HEIGHT = 8.68;
+    double LEVEL_2_HEIGHT = 37.5;
+    double LEVEL_3_HEIGHT = 64.6;
+    double START_HEIGHT = 25.0;
+
+    double LIFT_LEVEL_OFFSHOOT = 2.0;
 
     /***************************************************************************************
      * Rollers Constants
      ****************************************************************************************/
-    int ROLLER_MOTOR_PORT = -1;
     double SLOW_ROLLER_MULTIPLIER = 0.75;
+    //TODO: find the actual max speed
+    double SLOW_ROLLER_MAXIMUM = 1;
 }

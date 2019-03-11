@@ -11,7 +11,7 @@ import frc.robot.RobotMap;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class Floop extends Subsystem {
+public final class Floop extends Subsystem {
 
     private Solenoid floopSolenoid;
 
@@ -20,19 +20,15 @@ public class Floop extends Subsystem {
     }
 
     public void open() {
-        floopSolenoid.set(true);
-    }
-
-    public void close() {
         floopSolenoid.set(false);
     }
 
+    public void close() {
+        floopSolenoid.set(true);
+    }
+
     public void toggle() {
-        if(isOpen()) {
-            close();
-        } else {
-            open();
-        }
+        floopSolenoid.set(!isOpen());
     }
 
     public boolean isOpen() {

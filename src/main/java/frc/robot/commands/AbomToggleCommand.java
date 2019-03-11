@@ -10,14 +10,14 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 
-public class LiftTiltFowardCommand extends InstantCommand {
-    
-    public LiftTiltFowardCommand() {
-        requires(Robot.lift);
+public class AbomToggleCommand extends InstantCommand {
+
+    public AbomToggleCommand() {
+        requires(Robot.abom);
     }
 
     @Override
     protected void initialize() {
-        Robot.lift.tiltForward();
+        Robot.abom.setWantPumpingStatus(!Robot.abom.getWantPumpingStatus());
     }
 }

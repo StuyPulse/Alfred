@@ -10,32 +10,63 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
-import frc.util.LimeLight;
+import frc.util.Limelight;
+import frc.util.Limelight.LEDMode;
 
 public class DrivetrainDriveCommand extends Command {
     // Variables to feed to curvature drive
     double speed = 0;
     double turn = 0;
     boolean quickTurn = true;
+    boolean isDriverControlling = true;
 
     public DrivetrainDriveCommand() {
-        // Use requires() here to declare subsystem dependencies
         requires(Robot.drivetrain);
     }
 
-    // Called just before this Command runs the first time
-    @Override
-    protected void initialize() {
-        LimeLight.setCamMode(LimeLight.CAM_MODE.DRIVER);
-    }
-
-    // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
         Robot.isDrivetrainRunning = true;
+        boolean Controlling = !(Robot.oi.driverGamepad.getRawLeftButton() || Robot.oi.driverGamepad.getRawTopButton());
+        if(Controlling != isDriverControlling){
+            isDriverControlling = Controlling;
+            setMode();
+        }
         setSpeed();
         setTurn();
         updateDrivetrain();
+    }
+    
+    protected void setMode() {
+        if(isDriverControlling){
+            Limelight.setPipeline(1);
+            Limelight.setCamMode(Limelight.CamMode.DRIVER);
+            Limelight.setLEDMode(LEDMode.FORCE_OFF);
+        }else{
+            Limelight.setPipeline(0);
+            Limelight.setCamMode(Limelight.CamMode.VISION);
+            Limelight.setLEDMode(LEDMode.FORCE_ON);
+        }
+    }
+
+    protected void setSpeed() {
+        // Reset the speed to prevent this from becoming acceleration
+        speed = 0;
+        // Set speed to the axes of the triggers
+        speed += Math.pow(Robot.oi.driverGamepad.getRawRightTriggerAxis(), 2);
+        speed -= Math.pow(Robot.oi.driverGamepad.getRawLeftTriggerAxis(), 2);
+
+        // Enable Quick Turn if robot is not moving
+        quickTurn = Math.abs(speed) < 0.125;
+    }
+
+    protected void setTurn() {
+        // Set the turn value to the joystick's x value
+        turn = Math.pow(Robot.oi.driverGamepad.getLeftX(), RobotMap.JOYSTICK_SCALAR) / 2.0;
+
+        if (RobotMap.JOYSTICK_SCALAR % 2 == 0) {
+            turn *= Math.signum((Robot.oi.driverGamepad.getLeftX()));
+        }
     }
 
     // Sub commands for each curvature drive variable
@@ -43,21 +74,6 @@ public class DrivetrainDriveCommand extends Command {
         Robot.drivetrain.curvatureDrive(speed, turn, quickTurn);
     }
 
-    protected void setTurn() {
-        // Set the turn value to the joystick's x value
-        turn = Math.pow(Robot.oi.driverGamepad.getLeftX(), RobotMap.JOYSTICK_SCALAR);
-    }
-
-    protected void setSpeed() {
-        // Set speed to the axes of the triggers
-        speed += Math.pow(Robot.oi.driverGamepad.getRawRightTriggerAxis(), 2);
-        speed -= Math.pow(Robot.oi.driverGamepad.getRawLeftTriggerAxis(), 2);
-
-        // Enable Quick Turn if robot is not moving
-        quickTurn = speed < 0.125;
-    }
-
-    // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
         return false;

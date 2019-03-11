@@ -7,17 +7,16 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.InstantCommand;
-import frc.robot.Robot;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class LiftTiltFowardCommand extends InstantCommand {
+public class PrepareForDefenseCommand extends CommandGroup {
     
-    public LiftTiltFowardCommand() {
-        requires(Robot.lift);
-    }
+    //A series of commands to bring the robot to a legal position to play defense
 
-    @Override
-    protected void initialize() {
-        Robot.lift.tiltForward();
+    //TODO: find the actual value to bring the carriage to the top of the first stage
+    private final double TOP_OF_FIRST_STAGE = 10;
+    public PrepareForDefenseCommand() {
+        addSequential(new LiftMoveToHeightCommand(TOP_OF_FIRST_STAGE));
+        addSequential(new LiftTiltBackCommand());
     }
 }

@@ -7,35 +7,19 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 
-public class RollersAcquireFastCommand extends Command {
+public class LiftResetEncodersCommand extends InstantCommand {
+  public LiftResetEncodersCommand() {
+    // Use requires() here to declare subsystem dependencies
+    requires(Robot.lift);
+  }
 
-    public RollersAcquireFastCommand() {
-        requires(Robot.rollers);
-    }
+  // Called just before this Command runs the first time
+  @Override
+  protected void initialize() {
+    Robot.lift.resetEncoder();
 
-    @Override
-    protected void initialize() {
-    }
-
-    @Override
-    protected void execute() {
-        Robot.rollers.acquire();
-    }
-
-    @Override
-    protected boolean isFinished() {
-        return false;
-    }
-
-    @Override
-    protected void end() {
-        Robot.rollers.stop();
-    }
-
-    @Override
-    protected void interrupted() {
-    }
+  }
 }

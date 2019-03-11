@@ -13,7 +13,6 @@ import frc.robot.Robot;
 public class DrivetrainHighGearCommand extends InstantCommand {
 
     public DrivetrainHighGearCommand() {
-        super();
         requires(Robot.drivetrain);
     }
 

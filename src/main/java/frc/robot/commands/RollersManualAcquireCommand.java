@@ -11,20 +11,16 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
-public class RollersAcquireSlowCommand extends Command {
+public class RollersManualAcquireCommand extends Command {
 
-    public RollersAcquireSlowCommand() {
+    public RollersManualAcquireCommand() {
         requires(Robot.rollers);
     }
 
     @Override
-    protected void initialize() {
-    }
-
-    @Override
     protected void execute() {
-        double speed = Robot.oi.driverGamepad.getRawLeftTriggerAxis();
-        double tunedSpeed = Math.pow(speed, 2) * RobotMap.SLOW_ROLLER_MULTIPLIER;
+        double speed = Robot.oi.operatorGamepad.getRawRightTriggerAxis();
+        double tunedSpeed = Math.pow(speed, 2) * RobotMap.SLOW_ROLLER_MAXIMUM;
         Robot.rollers.setSpeed(tunedSpeed);
     }
 
@@ -36,9 +32,5 @@ public class RollersAcquireSlowCommand extends Command {
     @Override
     protected void end() {
         Robot.rollers.stop();
-    }
-
-    @Override
-    protected void interrupted() {
     }
 }

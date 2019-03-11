@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 
 public class FloopOpenCommand extends InstantCommand {
+    
     public FloopOpenCommand() {
         requires(Robot.floop);
     }
@@ -19,5 +20,4 @@ public class FloopOpenCommand extends InstantCommand {
     protected void initialize() {
         Robot.floop.open();
     }
-
 }

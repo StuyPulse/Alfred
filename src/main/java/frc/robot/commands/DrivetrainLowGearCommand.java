@@ -13,14 +13,11 @@ import frc.robot.Robot;
 public class DrivetrainLowGearCommand extends InstantCommand {
 
     public DrivetrainLowGearCommand() {
-        super();
         requires(Robot.drivetrain);
     }
 
-    // Called once when the command executes
     @Override
     protected void initialize() {
         Robot.drivetrain.lowGearShift();
     }
-
 }

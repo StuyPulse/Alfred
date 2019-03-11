@@ -1,12 +1,17 @@
+/*----------------------------------------------------------------------------*/
+/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
+/* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* the project.                                                               */
+/*----------------------------------------------------------------------------*/
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -14,22 +19,22 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 import frc.robot.commands.LiftMoveCommand;
 
-public class Lift extends Subsystem {
+public final class Lift extends Subsystem {
 
     private WPI_TalonSRX masterTalon;
-    private WPI_TalonSRX followerTalon;
+    private WPI_VictorSPX followerTalon;
 
-    private DigitalInput topLimitSwitch;
-    private DigitalInput bottomLimitSwitch;
+    // private DigitalInput bottomOpticalSensor;
 
     private DoubleSolenoid tiltSolenoid;
     private Solenoid brakeSolenoid;
 
     public boolean rampDisabled;
+    public boolean isOpticalSensorOverrided;
 
     public Lift() {
         masterTalon = new WPI_TalonSRX(RobotMap.LIFT_MASTER_TALON_MOTOR_PORT);
-        followerTalon = new WPI_TalonSRX(RobotMap.LIFT_FOLLOWER_TALON_MOTOR_PORT);
+        followerTalon = new WPI_VictorSPX(RobotMap.LIFT_FOLLOWER_VICTOR_MOTOR_PORT);
 
         followerTalon.follow(masterTalon);
 
@@ -38,16 +43,18 @@ public class Lift extends Subsystem {
 
         masterTalon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 
-        tiltSolenoid = new DoubleSolenoid(RobotMap.LIFT_TILT_SOLENOID_FORWARD_PORT,
+        tiltSolenoid = new DoubleSolenoid(1, RobotMap.LIFT_TILT_SOLENOID_FORWARD_PORT,
                 RobotMap.LIFT_TILT_SOLENOID_REVERSE_PORT);
-        brakeSolenoid = new Solenoid(RobotMap.LIFT_BRAKE_SOLENOID_PORT);
+        brakeSolenoid = new Solenoid(1, RobotMap.LIFT_BRAKE_SOLENOID_PORT);
 
-        topLimitSwitch = new DigitalInput(RobotMap.LIFT_TOP_LIMIT_SWITCH_PORT);
-        bottomLimitSwitch = new DigitalInput(RobotMap.LIFT_BOTTOM_LIMIT_SWITCH_PORT);
+        // bottomOpticalSensor = new DigitalInput(RobotMap.LIFT_BOTTOM_OPTICAL_SENSOR_PORT);
 
         masterTalon.configContinuousCurrentLimit(RobotMap.PEAK_LIMIT_AMPS);
 
         enableRamping();
+
+        // Encoders
+        masterTalon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
     }
 
     @Override
@@ -59,47 +66,46 @@ public class Lift extends Subsystem {
         masterTalon.setSelectedSensorPosition(0, 0, 0);
     }
 
-    public void setEncoder(double height) {
+    public void setHeight(double height) {
         masterTalon.setSelectedSensorPosition((int) (height / RobotMap.LIFT_ENCODER_RAW_MULTIPLIER), 0, 0);
     }
 
-    public boolean isAtTop() {
-        boolean atTop = topLimitSwitch.get();
-        if (atTop) {
-            setEncoder(RobotMap.LIFT_MAX_HEIGHT);
-        }
-        return atTop;
-    }
-
-    public boolean isAtBottom() {
-        boolean atBottom = bottomLimitSwitch.get();
-        if (atBottom) {
-            setEncoder(RobotMap.LIFT_MIN_HEIGHT);
-        }
-        return atBottom;
-    }
-
-    public int getRawHeight() {
+    public double getRawEncoderUnits() {
         return masterTalon.getSelectedSensorPosition();
     }
 
     public double getHeight() {
-        return getRawHeight() * RobotMap.LIFT_ENCODER_RAW_MULTIPLIER;
+        return -1.0 * getRawEncoderUnits() * RobotMap.LIFT_ENCODER_RAW_MULTIPLIER;
     }
 
-    public void stopLift() {
-        masterTalon.set(ControlMode.PercentOutput, 0);
+    public boolean isAtBottom() {
+        // if (!isOpticalSensorOverrided) {
+        //     boolean atBottom = !bottomOpticalSensor.get();
+        //     if (atBottom) {
+        //         setHeight(RobotMap.LIFT_MIN_HEIGHT);
+        //     }
+        //     return atBottom; // The sensor is inverted
+        // }
+        return false;
+    }
+
+    public void toggleOpticalSensorOverride() {
+        isOpticalSensorOverrided = !isOpticalSensorOverrided;
+    }
+
+    public void stop() {
+        masterTalon.set(0);
         enableBrake();
     }
 
     public void moveNoRamp(double speed) {
         if (Math.abs(speed) < RobotMap.LIFT_MIN_SPEED) {
-            stopLift();
-        } else if (isAtTop() || isAtBottom()) {
-            stopLift();
+            stop();
+        } else if (isAtBottom() && speed < 0) {
+            stop();
         } else {
             releaseBrake();
-            masterTalon.set(ControlMode.PercentOutput, speed);
+            masterTalon.set(speed * RobotMap.LIFT_SPEED_MULTIPLIER);
         }
     }
 
@@ -120,34 +126,47 @@ public class Lift extends Subsystem {
     }
 
     public void moveRamp(double desiredSpeed) {
+        System.out.println("moveRamp");
         double currentHeight = getHeight();
         double speed = desiredSpeed;
         if (desiredSpeed < 0 && currentHeight < RobotMap.LIFT_RAMP_HEIGHT_THRESHOLD) {
+            // If you want to move the lift down, get the distance from the bottom and
+            // adjust speed proportionally.
             double distanceFromBottom = currentHeight;
             speed = rampMultiplier(distanceFromBottom) * desiredSpeed;
             speed = Math.min(speed, -RobotMap.LIFT_MIN_SPEED);
-        } else if (currentHeight > RobotMap.LIFT_MAX_HEIGHT - RobotMap.LIFT_RAMP_HEIGHT_THRESHOLD) {
-            double distanceFromTop = RobotMap.LIFT_MAX_HEIGHT - currentHeight;
-            speed = rampMultiplier(distanceFromTop) * desiredSpeed;
-            speed = Math.max(speed, RobotMap.LIFT_MIN_SPEED);
         }
+        // If the current height isn't within the height range for ramping, move without
+        // ramping.
         moveNoRamp(speed);
     }
 
-    public void moveLift(double speed) {
-        if (rampDisabled) {
+    public void move(double speed) {
+        // if (rampDisabled) {
             moveNoRamp(speed);
-        } else {
-            moveRamp(speed);
-        }
+        // } else {
+            // moveRamp(speed);
+        // }
     }
 
-    public void tiltFoward() {
-        tiltSolenoid.set(Value.kForward);
+    public void tiltForward() {
+        tiltSolenoid.set(Value.kReverse);
     }
 
     public void tiltBack() {
-        tiltSolenoid.set(Value.kReverse);
+        tiltSolenoid.set(Value.kForward);
+    }
+
+    public boolean isTiltedForward() {
+        return tiltSolenoid.get() == Value.kReverse;
+    }
+
+    public void toggle() {
+        if (isTiltedForward()) {
+            tiltBack();
+        } else {
+            tiltForward();
+        }
     }
 
     public void enableBrake() {
@@ -160,10 +179,14 @@ public class Lift extends Subsystem {
 
     public void enableRamping() {
         rampDisabled = false;
+        masterTalon.configOpenloopRamp(RobotMap.LIFT_RAMP_RATE);
+        followerTalon.configOpenloopRamp(RobotMap.LIFT_RAMP_RATE);
     }
 
     public void disableRamping() {
         rampDisabled = true;
+        masterTalon.configOpenloopRamp(0);
+        followerTalon.configOpenloopRamp(0);
     }
 
     public void enableCurrentLimit() {
@@ -183,7 +206,8 @@ public class Lift extends Subsystem {
         masterTalon.enableCurrentLimit(true);
     }*/
 
-    public double getCurrent() {
+    /*public double getCurrent() {
         return masterTalon.getOutputCurrent() + followerTalon.getOutputCurrent();
     }
+    */
 }

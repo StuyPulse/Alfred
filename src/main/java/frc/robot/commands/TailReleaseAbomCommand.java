@@ -11,15 +11,14 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 
 public class TailReleaseAbomCommand extends InstantCommand {
+    
     public TailReleaseAbomCommand() {
         requires(Robot.tail);
     }
 
-    // Called just before this Command runs the first time
     @Override
     protected void initialize() {
         // Release the Abom!
-        Robot.tail.releaseAbom();
-        Robot.tail.retractSolenoid();
+        Robot.tail.disengageRatchet();
     }
 }
