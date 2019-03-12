@@ -50,23 +50,22 @@ public final class Lift extends Subsystem {
                 RobotMap.LIFT_TILT_SOLENOID_REVERSE_PORT);
         brakeSolenoid = new Solenoid(1, RobotMap.LIFT_BRAKE_SOLENOID_PORT);
 
-        // bottomOpticalSensor = new DigitalInput(RobotMap.LIFT_BOTTOM_OPTICAL_SENSOR_PORT);
+        // bottomOpticalSensor = new
+        // DigitalInput(RobotMap.LIFT_BOTTOM_OPTICAL_SENSOR_PORT);
 
         enableRamping();
 
         // Encoders
-        masterTalon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 
-                                                 RobotMap.kPIDLoopIdx, 
-                                                 RobotMap.kTimeoutMs);
+        masterTalon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, RobotMap.kPIDLoopIdx, RobotMap.kTimeoutMs);
         masterTalon.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, RobotMap.kTimeoutMs);
         masterTalon.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, RobotMap.kTimeoutMs);
         masterTalon.selectProfileSlot(RobotMap.kSlotIdx, RobotMap.kPIDLoopIdx);
-		masterTalon.config_kF(RobotMap.kSlotIdx, RobotMap.kF, RobotMap.kTimeoutMs);
-		masterTalon.config_kP(RobotMap.kSlotIdx, RobotMap.kP, RobotMap.kTimeoutMs);
-		masterTalon.config_kI(RobotMap.kSlotIdx, RobotMap.kI, RobotMap.kTimeoutMs);
-        masterTalon.config_kD(RobotMap.kSlotIdx, RobotMap.kD, RobotMap.kTimeoutMs);   
+        masterTalon.config_kF(RobotMap.kSlotIdx, RobotMap.kF, RobotMap.kTimeoutMs);
+        masterTalon.config_kP(RobotMap.kSlotIdx, RobotMap.kP, RobotMap.kTimeoutMs);
+        masterTalon.config_kI(RobotMap.kSlotIdx, RobotMap.kI, RobotMap.kTimeoutMs);
+        masterTalon.config_kD(RobotMap.kSlotIdx, RobotMap.kD, RobotMap.kTimeoutMs);
         masterTalon.configMotionCruiseVelocity(15000, RobotMap.kTimeoutMs);
-		masterTalon.configMotionAcceleration(6000, RobotMap.kTimeoutMs);                   
+        masterTalon.configMotionAcceleration(6000, RobotMap.kTimeoutMs);
     }
 
     @Override
@@ -92,11 +91,11 @@ public final class Lift extends Subsystem {
 
     public boolean isAtBottom() {
         // if (!isOpticalSensorOverrided) {
-        //     boolean atBottom = !bottomOpticalSensor.get();
-        //     if (atBottom) {
-        //         setHeight(RobotMap.LIFT_MIN_HEIGHT);
-        //     }
-        //     return atBottom; // The sensor is inverted
+        // boolean atBottom = !bottomOpticalSensor.get();
+        // if (atBottom) {
+        // setHeight(RobotMap.LIFT_MIN_HEIGHT);
+        // }
+        // return atBottom; // The sensor is inverted
         // }
         return false;
     }
@@ -111,8 +110,8 @@ public final class Lift extends Subsystem {
     }
 
     public void moveNoRamp(double speed) {
-        if (Math.abs(speed) < RobotMap.LIFT_MIN_SPEED 
-            && Math.abs(Robot.oi.operatorGamepad.getLeftX()) < RobotMap.LIFT_DEADBAND_OVERRIDE_THRESHOLD) {
+        if (Math.abs(speed) < RobotMap.LIFT_MIN_SPEED
+                && Math.abs(Robot.oi.operatorGamepad.getLeftX()) < RobotMap.LIFT_DEADBAND_OVERRIDE_THRESHOLD) {
             stop();
         } else if (isAtBottom() && speed < 0) {
             stop();
@@ -156,23 +155,15 @@ public final class Lift extends Subsystem {
 
     public void move(double speed) {
         // if (rampDisabled) {
-            moveNoRamp(speed);
+        moveNoRamp(speed);
         // } else {
-            // moveRamp(speed);
+        // moveRamp(speed);
         // }
     }
 
-    public void moveMagic(double speed) {
-        if (Math.abs(speed) < RobotMap.LIFT_MIN_SPEED 
-            && Math.abs(Robot.oi.operatorGamepad.getLeftX()) < RobotMap.LIFT_DEADBAND_OVERRIDE_THRESHOLD) {
-            stop();
-        } else if (isAtBottom() && speed < 0) {
-            stop();
-        } else {
-            releaseBrake();
-            double targetPos = speed * 40960.0;
-			masterTalon.set(ControlMode.MotionMagic, targetPos);
-        }
+    public void moveMagic(double targetPos) {
+        releaseBrake();
+        masterTalon.set(ControlMode.MotionMagic, targetPos);
     }
 
     public void tiltForward() {

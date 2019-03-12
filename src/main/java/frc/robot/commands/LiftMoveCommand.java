@@ -33,9 +33,6 @@ public class LiftMoveCommand extends Command {
 
     @Override
     protected void execute() {
-        if (targetLevel == Level.ZERO && Robot.oi.operatorGamepad.getRawLeftAnalogButton()) {
-            Robot.lift.moveMagic(Robot.oi.operatorGamepad.getLeftY());
-        }
         if(targetLevel == Level.ZERO) {
             Robot.lift.move(Math.pow(Robot.oi.operatorGamepad.getLeftY(), 3));
         }
