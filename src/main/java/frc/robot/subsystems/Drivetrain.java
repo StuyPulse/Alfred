@@ -99,10 +99,10 @@ public final class Drivetrain extends Subsystem {
         leftBottomMotor.setSmartCurrentLimit(RobotMap.DRIVETRAIN_CURRENT_LIMIT);
 
         // Speed Groups
-        highLeftSpeedGroup = new SpeedControllerGroup(leftTopMotor, leftMiddleMotor, leftBottomMotor);
-        highRightSpeedGroup = new SpeedControllerGroup(rightTopMotor, rightMiddleMotor, rightBottomMotor);
-        lowLeftSpeedGroup = new SpeedControllerGroup(leftTopMotor, leftMiddleMotor);
-        lowRightSpeedGroup = new SpeedControllerGroup(rightTopMotor, rightMiddleMotor);
+        lowLeftSpeedGroup = new SpeedControllerGroup(leftTopMotor, leftMiddleMotor, leftBottomMotor);
+        lowRightSpeedGroup = new SpeedControllerGroup(rightTopMotor, rightMiddleMotor, rightBottomMotor);
+        highLeftSpeedGroup = new SpeedControllerGroup(leftTopMotor, leftMiddleMotor);
+        highRightSpeedGroup = new SpeedControllerGroup(rightTopMotor, rightMiddleMotor);
         //Gear Shift
         gearShift = new Solenoid(RobotMap.GEAR_SHIFT_CHANNEL);
         // navx
