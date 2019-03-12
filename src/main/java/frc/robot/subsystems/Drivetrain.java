@@ -23,14 +23,17 @@ import frc.util.NEOEncoder;
 
 public final class Drivetrain extends Subsystem {
     
-    private CANSparkMax leftTopMotor, 
-                        leftMiddleMotor, 
+    private CANSparkMax leftTopMotor,
+                        leftMiddleMotor,
+                        leftBottomMotor,
                         rightTopMotor,
-                        rightMiddleMotor;
+                        rightMiddleMotor,
+                        rightBottomMotor;
 
-    private SpeedControllerGroup leftSpeedGroup, rightSpeedGroup;
 
-    private DifferentialDrive differentialDrive;
+    private SpeedControllerGroup highLeftSpeedGroup, highRightSpeedGroup, lowLeftSpeedGroup, lowRightSpeedGroup;
+
+    private DifferentialDrive lowDifferentialDrive, highDifferentialDrive;
 
     private NEOEncoder leftNEOEncoder, rightNEOEncoder;
     private Encoder leftGreyhill, rightGreyhill;
@@ -39,16 +42,27 @@ public final class Drivetrain extends Subsystem {
     
     private Solenoid gearShift;
 
+    public enum driveMode {
+        LOW_GEAR(true),
+        HIGH_GEAR(false);
+
+        private driveMode(boolean drive) {
+            this.val = drive;
+        }
+        
+        private boolean val;
+    }
+    
     public Drivetrain() {
         // Left Side Motors
         leftTopMotor = new CANSparkMax(RobotMap.LEFT_TOP_MOTOR_PORT, MotorType.kBrushless);
         leftMiddleMotor = new CANSparkMax(RobotMap.LEFT_MIDDLE_MOTOR_PORT, MotorType.kBrushless);
-        // leftBottomMotor = new CANSparkMax(RobotMap.LEFT_BOTTOM_MOTOR_PORT, MotorType.kBrushless);
+        leftBottomMotor = new CANSparkMax(RobotMap.LEFT_BOTTOM_MOTOR_PORT, MotorType.kBrushless);
 
         // Right Side Motors
         rightTopMotor = new CANSparkMax(RobotMap.RIGHT_TOP_MOTOR_PORT, MotorType.kBrushless);
         rightMiddleMotor = new CANSparkMax(RobotMap.RIGHT_MIDDLE_MOTOR_PORT, MotorType.kBrushless);
-        // rightBottomMotor = new CANSparkMax(RobotMap.RIGHT_BOTTOM_MOTOR_PORT, MotorType.kBrushless);
+        rightBottomMotor = new CANSparkMax(RobotMap.RIGHT_BOTTOM_MOTOR_PORT, MotorType.kBrushless);
 
         // NEO/SPARK MAX Encoders
         leftNEOEncoder = new NEOEncoder(leftMiddleMotor.getEncoder());
@@ -63,53 +77,71 @@ public final class Drivetrain extends Subsystem {
 
         leftTopMotor.setIdleMode(CANSparkMax.IdleMode.kCoast);
         leftMiddleMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
-        // leftBottomMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
+        leftBottomMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
         rightTopMotor.setIdleMode(CANSparkMax.IdleMode.kCoast);
         rightMiddleMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
-        // rightBottomMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
+        rightBottomMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
 
         //TODO: Ask engineering about motor polarity
         rightTopMotor.setInverted(true);
         rightMiddleMotor.setInverted(true);
-        // rightBottomMotor.setInverted(true);
+        rightBottomMotor.setInverted(true);
         leftTopMotor.setInverted(true);
         leftMiddleMotor.setInverted(true);
-        // leftBottomMotor.setInverted(true);
+        leftBottomMotor.setInverted(true);
 
         rightTopMotor.setSmartCurrentLimit(RobotMap.DRIVETRAIN_CURRENT_LIMIT);
         rightMiddleMotor.setSmartCurrentLimit(RobotMap.DRIVETRAIN_CURRENT_LIMIT);
-        // rightBottomMotor.setSmartCurrentLimit(RobotMap.DRIVETRAIN_CURRENT_LIMIT);
+        rightBottomMotor.setSmartCurrentLimit(RobotMap.DRIVETRAIN_CURRENT_LIMIT);
         
         leftTopMotor.setSmartCurrentLimit(RobotMap.DRIVETRAIN_CURRENT_LIMIT);
         leftMiddleMotor.setSmartCurrentLimit(RobotMap.DRIVETRAIN_CURRENT_LIMIT);
-        //leftBottomMotor.setSmartCurrentLimit();
+        leftBottomMotor.setSmartCurrentLimit(RobotMap.DRIVETRAIN_CURRENT_LIMIT);
 
         // Speed Groups
-        leftSpeedGroup = new SpeedControllerGroup(leftTopMotor, leftMiddleMotor);
-        rightSpeedGroup = new SpeedControllerGroup(rightTopMotor, rightMiddleMotor);
-
+        highLeftSpeedGroup = new SpeedControllerGroup(leftTopMotor, leftMiddleMotor, leftBottomMotor);
+        highRightSpeedGroup = new SpeedControllerGroup(rightTopMotor, rightMiddleMotor, rightBottomMotor);
+        lowLeftSpeedGroup = new SpeedControllerGroup(leftTopMotor, leftMiddleMotor);
+        lowRightSpeedGroup = new SpeedControllerGroup(rightTopMotor, rightMiddleMotor);
         //Gear Shift
         gearShift = new Solenoid(RobotMap.GEAR_SHIFT_CHANNEL);
         // navx
         navX = new AHRS(SPI.Port.kMXP);
         // Drive
-        differentialDrive = new DifferentialDrive(leftSpeedGroup, rightSpeedGroup);  }
+        highDifferentialDrive = new DifferentialDrive(highLeftSpeedGroup, highRightSpeedGroup);
+        lowDifferentialDrive = new DifferentialDrive(lowLeftSpeedGroup, lowRightSpeedGroup);
+      }
 
     @Override
     public void initDefaultCommand() {
          setDefaultCommand(new DrivetrainDriveCommand());
     }
 
-    public void curvatureDrive(double speed, double angle) {
-        differentialDrive.curvatureDrive(speed, angle, false);
+    public void curvatureDrive(double speed, double angle, driveMode mode) {
+        if(mode == driveMode.LOW_GEAR){
+            lowDifferentialDrive.curvatureDrive(speed, angle, false);
+        }
+        else {
+            highDifferentialDrive.curvatureDrive(speed, angle, false);
+        }
     }
 
-    public void curvatureDrive(double speed, double angle, boolean turn) {
-        differentialDrive.curvatureDrive(speed, angle, turn);
+    public void curvatureDrive(double speed, double angle, boolean turn, driveMode mode) {
+        if(mode == driveMode.LOW_GEAR) {
+            lowDifferentialDrive.curvatureDrive(speed, angle, turn);
+        }
+        else {
+            highDifferentialDrive.curvatureDrive(speed, angle, turn);
+        }
     }
 
-    public void stop() {
-        differentialDrive.tankDrive(0, 0);
+    public void stop(driveMode mode) {
+        if(mode == driveMode.LOW_GEAR) {
+            lowDifferentialDrive.tankDrive(0, 0);
+        }
+        else {
+            highDifferentialDrive.tankDrive(0,0);
+        }
     }
 
     private double getLeftNEOEncoderTicks() {
@@ -167,7 +199,7 @@ public final class Drivetrain extends Subsystem {
 
     public boolean isMoving() {
         //not 0,but 0.07 because joysticks are typically not at 0 when start
-        return Math.abs(rightSpeedGroup.get()) > 0.07 || Math.abs(leftSpeedGroup.get()) > 0.07;
+        return Math.abs(lowRightSpeedGroup.get()) > 0.07 || Math.abs(lowLeftSpeedGroup.get()) > 0.07;
     }
 
     public void highGearShift() {
