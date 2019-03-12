@@ -169,4 +169,18 @@ public interface RobotMap {
     double SLOW_ROLLER_MULTIPLIER = 0.75;
     //TODO: find the actual max speed
     double SLOW_ROLLER_MAXIMUM = 1;
+
+    /***************************************************************************************
+     * Lift Motion Magic Constants
+     ****************************************************************************************/
+    int smoothing = 0;
+    int kSlotIdx = 0;
+    int kPIDLoopIdx = 0;
+	int kTimeoutMs = 30;
+    double kP = 0.2;
+    double kI = 0.0;
+	double kD = 0.0;
+	double kF = 0.2;
+	int kIzone = 0;
+    double kPeakOutput = 1;
 }

@@ -7,8 +7,10 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
@@ -53,7 +55,18 @@ public final class Lift extends Subsystem {
         enableRamping();
 
         // Encoders
-        masterTalon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+        masterTalon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 
+                                                 RobotMap.kPIDLoopIdx, 
+                                                 RobotMap.kTimeoutMs);
+        masterTalon.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, RobotMap.kTimeoutMs);
+        masterTalon.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, RobotMap.kTimeoutMs);
+        masterTalon.selectProfileSlot(RobotMap.kSlotIdx, RobotMap.kPIDLoopIdx);
+		masterTalon.config_kF(RobotMap.kSlotIdx, RobotMap.kF, RobotMap.kTimeoutMs);
+		masterTalon.config_kP(RobotMap.kSlotIdx, RobotMap.kP, RobotMap.kTimeoutMs);
+		masterTalon.config_kI(RobotMap.kSlotIdx, RobotMap.kI, RobotMap.kTimeoutMs);
+        masterTalon.config_kD(RobotMap.kSlotIdx, RobotMap.kD, RobotMap.kTimeoutMs);   
+        masterTalon.configMotionCruiseVelocity(15000, RobotMap.kTimeoutMs);
+		masterTalon.configMotionAcceleration(6000, RobotMap.kTimeoutMs);                   
     }
 
     @Override
@@ -105,7 +118,7 @@ public final class Lift extends Subsystem {
             stop();
         } else {
             releaseBrake();
-            masterTalon.set(speed * RobotMap.LIFT_SPEED_MULTIPLIER);
+            masterTalon.set(ControlMode.PercentOutput, speed * RobotMap.LIFT_SPEED_MULTIPLIER);
         }
     }
 
@@ -147,6 +160,19 @@ public final class Lift extends Subsystem {
         // } else {
             // moveRamp(speed);
         // }
+    }
+
+    public void moveMagic(double speed) {
+        if (Math.abs(speed) < RobotMap.LIFT_MIN_SPEED 
+            && Math.abs(Robot.oi.operatorGamepad.getLeftX()) < RobotMap.LIFT_DEADBAND_OVERRIDE_THRESHOLD) {
+            stop();
+        } else if (isAtBottom() && speed < 0) {
+            stop();
+        } else {
+            releaseBrake();
+            double targetPos = speed * 40960.0;
+			masterTalon.set(ControlMode.MotionMagic, targetPos);
+        }
     }
 
     public void tiltForward() {
