@@ -126,7 +126,6 @@ public class LiftMoveCommand extends Command {
 
     @Override
     protected void end() {
-        Robot.isLiftRunning = false;
     }
 
     @Override

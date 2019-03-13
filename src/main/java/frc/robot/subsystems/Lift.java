@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.LiftMoveCommand;
 
@@ -92,6 +93,7 @@ public final class Lift extends Subsystem {
     }
 
     public void stop() {
+        Robot.isLiftRunning = false;
         masterTalon.set(0);
         enableBrake();
     }
@@ -103,6 +105,7 @@ public final class Lift extends Subsystem {
             stop();
         } else {
             releaseBrake();
+            Robot.isLiftRunning = true;
             masterTalon.set(speed * RobotMap.LIFT_SPEED_MULTIPLIER);
         }
     }

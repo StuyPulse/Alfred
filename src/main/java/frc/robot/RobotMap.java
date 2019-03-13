@@ -64,8 +64,7 @@ public interface RobotMap {
     /***************************************************************************************
      * Fangs Solenoid Port
      ****************************************************************************************/
-    double ACCELERATION_DIV = 4; // Using averages, you can allow for smoother movement
-    double CV_SPEED = 0; // Speed that stays the same through movements
+    int FANGS_CHANNEL = 3;
 
      /***************************************************************************************
      * Brownout Protection Constants:
@@ -74,7 +73,6 @@ public interface RobotMap {
     int DRIVETRAIN_FREE_LIMIT = 0;
     int LIFT_CURRENT_LIMIT = 0;
     int PEAK_LIMIT_AMPS = 23;
-    int FANGS_CHANNEL = 3;
 
     /***************************************************************************************
      * Rollers Motor Port
