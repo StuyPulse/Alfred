@@ -10,7 +10,6 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
-import frc.robot.subsystems.Drivetrain.driveMode;
 import frc.util.Limelight;
 import frc.util.Limelight.LEDMode;
 
@@ -71,7 +70,7 @@ public class DrivetrainDriveCommand extends Command {
 
     // Sub commands for each curvature drive variable
     protected void updateDrivetrain() {
-        Robot.drivetrain.curvatureDrive(speed, turn, quickTurn, driveMode.LOW_GEAR);
+        Robot.drivetrain.curvatureDrive(speed, turn, quickTurn);
     }
 
     @Override

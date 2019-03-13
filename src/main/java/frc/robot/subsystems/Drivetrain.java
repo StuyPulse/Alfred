@@ -33,7 +33,7 @@ public final class Drivetrain extends Subsystem {
 
     private SpeedControllerGroup highLeftSpeedGroup, highRightSpeedGroup, lowLeftSpeedGroup, lowRightSpeedGroup;
 
-    private DifferentialDrive lowDifferentialDrive, highDifferentialDrive;
+    private DifferentialDrive lowDifferentialDrive, highDifferentialDrive, currentDifferentialDrive;
 
     private NEOEncoder leftNEOEncoder, rightNEOEncoder;
     private Encoder leftGreyhill, rightGreyhill;
@@ -41,17 +41,6 @@ public final class Drivetrain extends Subsystem {
     private AHRS navX;
     
     private Solenoid gearShift;
-
-    public enum driveMode {
-        LOW_GEAR(true),
-        HIGH_GEAR(false);
-
-        private driveMode(boolean drive) {
-            this.val = drive;
-        }
-        
-        private boolean val;
-    }
     
     public Drivetrain() {
         // Left Side Motors
@@ -110,6 +99,8 @@ public final class Drivetrain extends Subsystem {
         // Drive
         highDifferentialDrive = new DifferentialDrive(highLeftSpeedGroup, highRightSpeedGroup);
         lowDifferentialDrive = new DifferentialDrive(lowLeftSpeedGroup, lowRightSpeedGroup);
+        //Default currentDrive set to low.
+        currentDifferentialDrive = lowDifferentialDrive;
       }
 
     @Override
@@ -117,31 +108,16 @@ public final class Drivetrain extends Subsystem {
          setDefaultCommand(new DrivetrainDriveCommand());
     }
 
-    public void curvatureDrive(double speed, double angle, driveMode mode) {
-        if(mode == driveMode.LOW_GEAR){
-            lowDifferentialDrive.curvatureDrive(speed, angle, false);
-        }
-        else {
-            highDifferentialDrive.curvatureDrive(speed, angle, false);
-        }
+    public void curvatureDrive(double speed, double angle) {
+        currentDifferentialDrive.curvatureDrive(speed, angle, false);
     }
 
-    public void curvatureDrive(double speed, double angle, boolean turn, driveMode mode) {
-        if(mode == driveMode.LOW_GEAR) {
-            lowDifferentialDrive.curvatureDrive(speed, angle, turn);
-        }
-        else {
-            highDifferentialDrive.curvatureDrive(speed, angle, turn);
-        }
+    public void curvatureDrive(double speed, double angle, boolean turn) {
+        currentDifferentialDrive.curvatureDrive(speed, angle, turn);
     }
 
-    public void stop(driveMode mode) {
-        if(mode == driveMode.LOW_GEAR) {
-            lowDifferentialDrive.tankDrive(0, 0);
-        }
-        else {
-            highDifferentialDrive.tankDrive(0,0);
-        }
+    public void stop() {
+        currentDifferentialDrive.tankDrive(0,0);
     }
 
     private double getLeftNEOEncoderTicks() {
@@ -199,15 +175,17 @@ public final class Drivetrain extends Subsystem {
 
     public boolean isMoving() {
         //not 0,but 0.07 because joysticks are typically not at 0 when start
-        return Math.abs(lowRightSpeedGroup.get()) > 0.07 || Math.abs(lowLeftSpeedGroup.get()) > 0.07;
+        return Math.abs(lowRightSpeedGroup.get()) > 0.07 || Math.abs(lowLeftSpeedGroup.get()) > 0.07 || Math.abs(highRightSpeedGroup.get()) > 0.07 || Math.abs(highLeftSpeedGroup.get()) > 0.07;
     }
 
     public void highGearShift() {
         gearShift.set(false);
+        currentDifferentialDrive = highDifferentialDrive;
     }
 
     public void lowGearShift() {
         gearShift.set(true);
+        currentDifferentialDrive = lowDifferentialDrive;
     }
 
     public void toggleGearShift(){
