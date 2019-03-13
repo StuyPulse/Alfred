@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.DrivetrainDriveCommand;
 import frc.util.NEOEncoder;
@@ -105,14 +106,17 @@ public final class Drivetrain extends Subsystem {
     }
 
     public void curvatureDrive(double speed, double angle) {
+        Robot.isDrivetrainRunning = (speed > 0.07);
         differentialDrive.curvatureDrive(speed, angle, false);
     }
 
     public void curvatureDrive(double speed, double angle, boolean turn) {
+        Robot.isDrivetrainRunning = (speed > 0.07);
         differentialDrive.curvatureDrive(speed, angle, turn);
     }
 
     public void stop() {
+        Robot.isDrivetrainRunning = false;
         differentialDrive.tankDrive(0, 0);
     }
 

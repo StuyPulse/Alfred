@@ -203,12 +203,14 @@ public class Robot extends TimedRobot {
         //     relayController.setLEDNeutral();
         // }
         Scheduler.getInstance().run();
+        //If both the drivetrain and lift are running, enable currentLimits for both.
         if(isDrivetrainRunning && isLiftRunning) {
-            drivetrain.enableCurrentLimit();
+            //Commented out drivetrain.enableCurrentLimit() because it's already enabled when initializing it. It never disables.
+            //drivetrain.enableCurrentLimit()
             lift.enableCurrentLimit();
         }
+        //If not, disable the lift current limit and still have the drivetrain current enabled.
         else {
-            drivetrain.disableCurrentLimit();
             lift.disableCurrentLimit();
         }
         SmartDashboard.putBoolean("Is Lift Optical Sensor Overrided: ", Robot.lift.isOpticalSensorOverrided);

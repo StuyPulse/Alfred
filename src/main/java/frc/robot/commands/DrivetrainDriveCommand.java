@@ -26,7 +26,6 @@ public class DrivetrainDriveCommand extends Command {
 
     @Override
     protected void execute() {
-        Robot.isDrivetrainRunning = true;
         boolean Controlling = !(Robot.oi.driverGamepad.getRawLeftButton() || Robot.oi.driverGamepad.getRawTopButton());
         if(Controlling != isDriverControlling){
             isDriverControlling = Controlling;
@@ -81,6 +80,5 @@ public class DrivetrainDriveCommand extends Command {
      
     @Override
     protected void end() {
-        Robot.isDrivetrainRunning = false;
     }
 }
