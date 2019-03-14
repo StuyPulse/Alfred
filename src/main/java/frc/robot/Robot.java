@@ -195,22 +195,23 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopPeriodic() {
+        double startTime = System.currentTimeMillis();
         // if(!isGamePieceDetected()) {
         //     relayController.setLEDForward();
         // } else {
         //     relayController.setLEDNeutral();
         // }
         Scheduler.getInstance().run();
-        SmartDashboard.putBoolean("Is Lift Optical Sensor Overrided: ", Robot.lift.isOpticalSensorOverrided);
+        // SmartDashboard.putBoolean("Is Lift Optical Sensor Overrided: ", Robot.lift.isOpticalSensorOverrided);
         // SmartDashboard.putNumber("Tom's Metric for Tail: ", Robot.tail.getTomsMetric());
         if(isGamePieceDetected()) {
             //Once a game piece is detected, it blinks two times and stops.
             blinkLED();
-        }
-        else {
+        } else {
             //Stops the LEDs as long as it doesn't detect a game piece.
             relayController.setLEDNeutral();
         }
+        SmartDashboard.putNumber("Time Diff", System.currentTimeMillis() - startTime);
     }
 
     /**
