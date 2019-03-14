@@ -7,16 +7,16 @@
 
 package frc.robot.commands;
 
-import frc.robot.Robot;
 import frc.robot.RobotMap;
+import frc.util.Limelight;
 
 public class AutomaticDriveCommand extends AutomaticTurnCommand {
 
     @Override
     protected void setSpeed() {
         quickTurn = true; // Automatic Drive Uses Quick Turn
-        double area = Robot.limelight.getTargetArea();
-        if (Robot.limelight.hasValidTarget()) {
+        double area = Limelight.getTargetArea();
+        if (Limelight.hasValidTarget()) {
             // Set speed depending on how far away the goal is
             speed = RobotMap.MIN_AUTO_SPEED + Math.max(RobotMap.FORWARD_AREA - area, 0) * RobotMap.AUTO_SPEED_MUL;
         } else {
