@@ -229,11 +229,6 @@ public class Robot extends TimedRobot {
         }
     }
 
-    private void setUpDoubleSolenoids() {
-        lift.tiltBack();
-        fangs.lower();
-    }
-
     private boolean isGamePieceDetected() {
         return IRsensor.get();
     }
