@@ -114,7 +114,7 @@ public class Robot extends TimedRobot {
         // SmartDashboard.putNumber("Drivetrain Right Greyhill Raw Val: ",
         //         Robot.drivetrain.getRightGreyhillTicks());
         SmartDashboard.putNumber("Lift Encoder Val: ", Robot.lift.getHeight());
-        // SmartDashboard.putBoolean("Lift Bottom Optical Sensor: ", Robot.lift.isAtBottom());
+        SmartDashboard.putBoolean("Lift Bottom Optical Sensor: ", Robot.lift.isAtBottom());
         // liftSpeedGoingDown = SmartDashboard.getNumber("Lift Auto Complete Speed Going Down", 0.5);
         SmartDashboard.putString("Match Time", returnTime());
     }

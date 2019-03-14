@@ -53,8 +53,7 @@ public interface RobotMap {
     int LIFT_TILT_SOLENOID_REVERSE_PORT = 7; //PCM 2 (15)
 
     int LIFT_BRAKE_SOLENOID_PORT = 6; //PCM 2 (8)
-    int LIFT_TOP_OPTICAL_SENSOR_PORT = -1;
-    int LIFT_BOTTOM_OPTICAL_SENSOR_PORT = 5;
+    int LIFT_BOTTOM_LIMIT_SENSOR_PORT = 5;
 
     /***************************************************************************************
      * Floop Solenoid Port
@@ -146,7 +145,7 @@ public interface RobotMap {
     // Waiting on eng for the height
     // Eric said the total carriage movement is about 74 in
     double LIFT_MAX_HEIGHT = -1;
-    double LIFT_MIN_HEIGHT = 0;
+    double LIFT_MIN_HEIGHT = 0.0;
     double LIFT_RAMP_HEIGHT_THRESHOLD = 1.0;
     double LIFT_RAMP_MOVE_TO_HEIGHT_THRESHOLD = 5.0;
 
