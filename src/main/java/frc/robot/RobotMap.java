@@ -71,8 +71,8 @@ public interface RobotMap {
      ****************************************************************************************/
     int DRIVETRAIN_CURRENT_LIMIT = 65;
     int DRIVETRAIN_FREE_LIMIT = 0;
-    int LIFT_CURRENT_LIMIT = 0;
-    int PEAK_LIMIT_AMPS = 23;
+    int LIFT_CURRENT_LIMIT = 20;
+    int PEAK_LIMIT_AMPS = 0;
 
     /***************************************************************************************
      * Rollers Motor Port

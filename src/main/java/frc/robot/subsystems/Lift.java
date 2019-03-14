@@ -191,10 +191,10 @@ public final class Lift extends Subsystem {
     }
 
     public void enableCurrentLimit() {
-        masterTalon.configContinuousCurrentLimit(RobotMap.LIFT_CURRENT_LIMIT,0);
-        masterTalon.configContinuousCurrentLimit(RobotMap.PEAK_LIMIT_AMPS);
-        masterTalon.configPeakCurrentLimit(0, 0);
+        masterTalon.configContinuousCurrentLimit(RobotMap.LIFT_CURRENT_LIMIT, 10);
+        masterTalon.configPeakCurrentLimit(RobotMap.PEAK_LIMIT_AMPS);
         masterTalon.enableCurrentLimit(true);
+        // Follower may go over the current limit, as it may not follow the current limit like the masterTalon
     }
 
     public void disableCurrentLimit() {
