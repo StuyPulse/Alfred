@@ -220,7 +220,7 @@ public class Robot extends TimedRobot {
     }
 
     public void controlCompressor() {
-        if (SmartDashboard.getBoolean("Enable compressor", false)) {
+        if (SmartDashboard.getBoolean("Enable compressor", true)) {
             compressor.start();
         } else {
             compressor.stop();

@@ -7,18 +7,22 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.CommandGroup;
-import edu.wpi.first.wpilibj.command.WaitCommand;
-import frc.robot.RobotMap;
+import edu.wpi.first.wpilibj.command.InstantCommand;
+import frc.robot.Robot;
 
-public class AutonLiftStartCommand extends CommandGroup {
-  /**
-   * Add your docs here.
-   */
-  public AutonLiftStartCommand() {
-    addSequential(new LiftTiltFowardCommand());
-    addSequential(new LiftMoveToBottomCommand(), 1.5);
-    addSequential(new WaitCommand(0.5));
-    addSequential(new LiftMoveToHeightCommand(RobotMap.HP_LEVEL_1_HEIGHT));
-  }
+/**
+ * Add your docs here.
+ */
+public class LiftSlowToggleCommand extends InstantCommand {
+    public LiftSlowToggleCommand() {
+        super();
+        requires(Robot.lift);
+    }
+
+    // Called once when the command executes
+    @Override
+    protected void initialize() {
+        Robot.lift.toggleWantSlow();
+    }
+
 }
