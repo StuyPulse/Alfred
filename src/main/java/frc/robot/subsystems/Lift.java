@@ -78,6 +78,7 @@ public final class Lift extends Subsystem {
     }
 
     public boolean isAtBottom() {
+        // TODO: Uncomment when limit sensor is added
         // if (!isOpticalSensorOverrided) {
         //     boolean atBottom = !bottomOpticalSensor.get();
         //     if (atBottom) {

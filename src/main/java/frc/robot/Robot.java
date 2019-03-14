@@ -19,7 +19,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Abom;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.Fangs;
 import frc.robot.subsystems.Floop;
 import frc.robot.subsystems.Lift;
 import frc.robot.subsystems.Rollers;
@@ -44,7 +43,6 @@ public class Robot extends TimedRobot {
     public static Lift lift;
     public static Compressor compressor;
     public static Rollers rollers;
-    public static Fangs fangs;
 
     public static double liftSpeedGoingDown;
 
@@ -72,7 +70,6 @@ public class Robot extends TimedRobot {
         lift = new Lift();
         compressor = new Compressor();
         rollers = new Rollers();
-        fangs = new Fangs();
         oi = new OI();
         IRsensor = new DigitalInput(RobotMap.IR_SENSOR_PORT);
         relayController = new LEDRelayController(RobotMap.LED_CHANNEL);
