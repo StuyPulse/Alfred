@@ -100,7 +100,7 @@ public interface RobotMap {
      * Aim Assist Constants
      ****************************************************************************************/
     
-    double TURN_DIV = 100; // Changes the speed that the robot will turn
+    double TURN_DIV = 20; // Changes the speed that the robot will turn
     double MOVE_TURN_DIV = 3; // Changes the speed that the robot will turn while moving (The more it moves, the less it turns)
 
     double TURN_MIN_SPEED = 0.3;
@@ -149,14 +149,14 @@ public interface RobotMap {
     double LIFT_RAMP_HEIGHT_THRESHOLD = 1.0;
     double LIFT_RAMP_MOVE_TO_HEIGHT_THRESHOLD = 5.0;
 
-    double HP_LEVEL_1_HEIGHT = 8.68;
-    double HP_LEVEL_2_HEIGHT = 37.5;
-    double HP_LEVEL_3_HEIGHT = 64.6;
+    double HP_LEVEL_1_HEIGHT = 8.68 + 2.0;
+    double HP_LEVEL_2_HEIGHT = 37.5 + 2.0;
+    double HP_LEVEL_3_HEIGHT = 64.6 + 2.0;
     double C_LEVEL_1_HEIGHT = 16.0;
     double C_LEVEL_2_HEIGHT = 43.75;
     double C_LEVEL_3_HEIGHT = 71.25;
 
-    double START_HEIGHT = 25.0;
+    double START_HEIGHT = 26.0;
 
     double LIFT_LEVEL_OFFSHOOT = 2.0;
 

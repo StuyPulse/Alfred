@@ -75,22 +75,21 @@ public class Robot extends TimedRobot {
         relayController = new LEDRelayController(RobotMap.LED_CHANNEL);
         //chooser.addOption("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
-        SmartDashboard.putBoolean("Enable compressor", true);
-
+        SmartDashboard.putBoolean("Enable compressor", false);
         // CameraServer.getInstance().startAutomaticCapture(0);
-        // SmartDashboard.putNumber("TURN_DIV", 30);
-        // SmartDashboard.putNumber("MOVE_TURN_MUL", 5.5);
+        SmartDashboard.putNumber("TURN_DIV", 20);
+        SmartDashboard.putNumber("MOVE_TURN_MUL", 5.5);
 
-        // SmartDashboard.putNumber("TURN_MIN_SPEED", 0.2);
-        // SmartDashboard.putNumber("TURN_MIN_ANGLE", 1);
+        SmartDashboard.putNumber("TURN_MIN_SPEED", 0.2);
+        SmartDashboard.putNumber("TURN_MIN_ANGLE", 1);
 
-        // SmartDashboard.putBoolean("VALID_TARGET", false);
-        // SmartDashboard.putBoolean("VALID_HEIGHT", false);
-        // SmartDashboard.putBoolean("VALID_RATIO", false);
-        // SmartDashboard.putBoolean("VALID_SKEW", false);
+        SmartDashboard.putBoolean("VALID_TARGET", false);
+        SmartDashboard.putBoolean("VALID_HEIGHT", false);
+        SmartDashboard.putBoolean("VALID_RATIO", false);
+        SmartDashboard.putBoolean("VALID_SKEW", false);
 
         // SmartDashboard.putNumber("CAM_MODE", 1);
-        // SmartDashboard.putNumber("LIMELIGHT_MOTOR_OUTPUT", 0);
+        SmartDashboard.putNumber("LIMELIGHT_MOTOR_OUTPUT", 0);
         hasBeenZeroed = false;
     }
 
@@ -106,7 +105,6 @@ public class Robot extends TimedRobot {
 
     @Override
     public void robotPeriodic() {
-        controlCompressor();
         // SmartDashboard.putNumber("Drivetrain Left Greyhill Encoder Val: ", Robot.drivetrain.getLeftGreyhillDistance());
         // SmartDashboard.putNumber("Drivetrain Right Greyhill Encoder Val: ",
         //         Robot.drivetrain.getRightGreyhillDistance());
@@ -115,6 +113,7 @@ public class Robot extends TimedRobot {
         //         Robot.drivetrain.getRightGreyhillTicks());
         SmartDashboard.putNumber("Lift Encoder Val: ", Robot.lift.getHeight());
         SmartDashboard.putBoolean("Lift Bottom Optical Sensor: ", Robot.lift.isAtBottom());
+        
         // liftSpeedGoingDown = SmartDashboard.getNumber("Lift Auto Complete Speed Going Down", 0.5);
         SmartDashboard.putString("Match Time", returnTime());
     }
@@ -192,6 +191,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopPeriodic() {
+        controlCompressor();
         double startTime = System.currentTimeMillis();
         // if(!isGamePieceDetected()) {
         //     relayController.setLEDForward();
@@ -220,7 +220,7 @@ public class Robot extends TimedRobot {
     }
 
     public void controlCompressor() {
-        if (SmartDashboard.getBoolean("Enable compressor", true)) {
+        if (SmartDashboard.getBoolean("Enable compressor", false)) {
             compressor.start();
         } else {
             compressor.stop();
