@@ -7,6 +7,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 import frc.util.Limelight;
 
@@ -18,7 +19,7 @@ public class AutomaticDriveCommand extends AutomaticTurnCommand {
         double area = Limelight.getTargetArea();
         if (Limelight.hasValidTarget()) {
             // Set speed depending on how far away the goal is
-            speed = RobotMap.MIN_AUTO_SPEED + Math.max(RobotMap.FORWARD_AREA - area, 0) * RobotMap.AUTO_SPEED_MUL;
+            speed = RobotMap.MIN_AUTO_SPEED + Math.max(SmartDashboard.getNumber("TURN_AREA",0.016) - area, 0) * RobotMap.AUTO_SPEED_MUL;
         } else {
             // if no target is found, fall back on gamepad speed
             super.setSpeed();

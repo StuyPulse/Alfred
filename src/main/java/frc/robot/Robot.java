@@ -82,6 +82,7 @@ public class Robot extends TimedRobot {
 
         SmartDashboard.putNumber("TURN_MIN_SPEED", 0.2);
         SmartDashboard.putNumber("TURN_MIN_ANGLE", 1);
+        SmartDashboard.putNumber("TURN_AREA", 0.016);
 
         SmartDashboard.putBoolean("VALID_TARGET", false);
         SmartDashboard.putBoolean("VALID_HEIGHT", false);

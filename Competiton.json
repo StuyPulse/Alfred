@@ -59,7 +59,7 @@
           "0,0": {
             "size": [
               7,
-              4
+              5
             ],
             "content": {
               "_type": "Camera Stream",
@@ -182,6 +182,17 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/MOVE_TURN_MUL",
               "_title": "SmartDashboard/MOVE_TURN_MUL"
+            }
+          },
+          "3,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/TURN_AREA",
+              "_title": "SmartDashboard/TURN_AREA"
             }
           }
         }

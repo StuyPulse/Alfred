@@ -108,8 +108,8 @@ public interface RobotMap {
     /***************************************************************************************
      * Auton Assist Constants
      ****************************************************************************************/
-    double FORWARD_AREA = 0.0145; // Area at which robot will move forward
-    double MIN_AUTO_SPEED = 0.25; // Slowest speed for auto accelerate
+    double FORWARD_AREA = 0.016; // Area at which robot will move forward
+    double MIN_AUTO_SPEED = 0.1; // Slowest speed for auto accelerate
     double AUTO_SPEED_MUL = 1.5 / FORWARD_AREA; // Auto Drive Speed
     int JOYSTICK_SCALAR = 3; // Used to make joystick values smaller
 
