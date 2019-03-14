@@ -58,11 +58,14 @@ public class OI {
 
         operatorGamepad.getRightButton().whenPressed(new FloopCloseCommand());
         operatorGamepad.getRightButton().whenReleased(new FloopOpenCommand());
+        operatorGamepad.getBottomButton().whenPressed(new LiftMoveToHeightCommand(RobotMap.C_LEVEL_1_HEIGHT));
+        operatorGamepad.getLeftButton().whenPressed(new LiftMoveToHeightCommand(RobotMap.C_LEVEL_2_HEIGHT));
+        operatorGamepad.getTopButton().whenPressed(new LiftMoveToHeightCommand(RobotMap.C_LEVEL_3_HEIGHT));
 
         operatorGamepad.getDPadLeft().whenPressed(new LiftToggleCommand());
-        operatorGamepad.getDPadDown().whenPressed(new LiftMoveToHeightCommand(RobotMap.LEVEL_1_HEIGHT));
-        operatorGamepad.getDPadRight().whenPressed(new LiftMoveToHeightCommand(RobotMap.LEVEL_2_HEIGHT));
-        operatorGamepad.getDPadUp().whenPressed(new LiftMoveToHeightCommand(RobotMap.LEVEL_3_HEIGHT));
+        operatorGamepad.getDPadDown().whenPressed(new LiftMoveToHeightCommand(RobotMap.HP_LEVEL_1_HEIGHT));
+        operatorGamepad.getDPadRight().whenPressed(new LiftMoveToHeightCommand(RobotMap.HP_LEVEL_2_HEIGHT));
+        operatorGamepad.getDPadUp().whenPressed(new LiftMoveToHeightCommand(RobotMap.HP_LEVEL_3_HEIGHT));
 
         operatorGamepad.getRightAnalogButton().whenPressed(new AbomToggleCommand());
 
