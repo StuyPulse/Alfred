@@ -80,7 +80,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putData("Auto mode", chooser);
         SmartDashboard.putBoolean("Enable compressor", true);
 
-        CameraServer.getInstance().startAutomaticCapture(0);
+        // CameraServer.getInstance().startAutomaticCapture(0);
         // SmartDashboard.putNumber("TURN_DIV", 30);
         // SmartDashboard.putNumber("MOVE_TURN_MUL", 5.5);
 
