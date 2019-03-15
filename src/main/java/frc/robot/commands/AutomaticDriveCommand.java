@@ -29,6 +29,7 @@ public class AutomaticDriveCommand extends AutomaticTurnCommand {
             SmartDashboard.putNumber("AutoDrive-AddedSpeed:", (forwardArea - area)*speedMultiplier);
             speed = minSpeed;
             speed += Math.max(forwardArea - area, 0) * speedMultiplier;
+            SmartDashboard.putBoolean("IS_NEAR", Math.max(forwardArea - area, 0) == 0);
             SmartDashboard.putNumber("AutoDrive-FinalSpeed:", speed);
         } else {
             // if no target is found, fall back on gamepad speed
