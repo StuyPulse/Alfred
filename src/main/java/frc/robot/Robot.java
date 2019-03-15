@@ -67,7 +67,7 @@ public class Robot extends TimedRobot {
         // compressor = new Compressor();
         // rollers = new Rollers();
         // fangs = new Fangs();
-        // oi = new OI();
+        oi = new OI();
         // IRsensor = new DigitalInput(RobotMap.IR_SENSOR_PORT);
         // relayController = new LEDRelayController(RobotMap.LED_CHANNEL);
         // //chooser.addOption("My Auto", new MyAutoCommand());

@@ -35,8 +35,7 @@ public class DrivetrainDriveCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        isDriverControlling = Math.floor(System.currentTimeMillis()%2000)> 1000;
-        System.out.println(isDriverControlling);
+        isDriverControlling = !(Robot.oi.driverGamepad.getRawLeftButton() || Robot.oi.driverGamepad.getRawTopButton());
         setMode();
         setSpeed();
         setTurn();

@@ -324,7 +324,7 @@ public class Limelight {
         }
 
         private int val;
-    };
+    }
 
     private static NetworkTableEntry camModeEntry = table.getEntry("camMode");
 
@@ -369,7 +369,7 @@ public class Limelight {
         }
 
         private int val;
-    };
+    }
 
     private static NetworkTableEntry CameraStreamEntry = table.getEntry("stream");
 
@@ -394,7 +394,7 @@ public class Limelight {
         }
 
         private int val;
-    };
+    }
 
     private static NetworkTableEntry SnapshotModeEntry = table.getEntry("snapshot");
 

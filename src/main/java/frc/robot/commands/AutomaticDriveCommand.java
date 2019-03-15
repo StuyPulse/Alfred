@@ -14,7 +14,7 @@ public class AutomaticDriveCommand extends AutomaticTurnCommand {
 
     @Override
     protected void setSpeed() {
-        quickTurn = true; // Automatic Drive Uses Quick Turn
+        quickTurn = false; // Automatic Drive Uses Quick Turn
         double area = Limelight.getTargetArea();
         if (Limelight.hasValidTarget()) {
             // Set speed depending on how far away the goal is
