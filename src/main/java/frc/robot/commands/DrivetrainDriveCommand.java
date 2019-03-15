@@ -38,13 +38,13 @@ public class DrivetrainDriveCommand extends Command {
     
     protected void setMode() {
         if(isDriverControlling){
-            Robot.limelight.setPipeline(1);
-            Robot.limelight.setCamMode(Limelight.CamMode.DRIVER);
-            Robot.limelight.setLEDMode(LEDMode.FORCE_OFF);
+            Limelight.setPipeline(1);
+            Limelight.setCamMode(Limelight.CamMode.DRIVER);
+            Limelight.setLEDMode(LEDMode.FORCE_OFF);
         }else{
-            Robot.limelight.setPipeline(0);
-            Robot.limelight.setCamMode(Limelight.CamMode.VISION);
-            Robot.limelight.setLEDMode(LEDMode.FORCE_ON);
+            Limelight.setPipeline(0);
+            Limelight.setCamMode(Limelight.CamMode.VISION);
+            Limelight.setLEDMode(LEDMode.FORCE_ON);
         }
     }
 
