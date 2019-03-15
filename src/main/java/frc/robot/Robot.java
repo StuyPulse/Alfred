@@ -84,16 +84,22 @@ public class Robot extends TimedRobot {
         SmartDashboard.putBoolean("Enable compressor", true);
 
        // CameraServer.getInstance().startAutomaticCapture(0);
-        // SmartDashboard.putNumber("TURN_DIV", 30);
-        // SmartDashboard.putNumber("MOVE_TURN_MUL", 5.5);
+        SmartDashboard.putNumber("TURN_DIV", 20);
+        SmartDashboard.putNumber("MOVE_TURN_MUL", 5.5);
 
-        // SmartDashboard.putNumber("TURN_MIN_SPEED", 0.2);
-        // SmartDashboard.putNumber("TURN_MIN_ANGLE", 1);
+        //Tuning values to check if target is valid
+        SmartDashboard.putNumber("TURN_MIN_SPEED", 0.2);
+        SmartDashboard.putNumber("TURN_MIN_ANGLE", 1);
 
-        // SmartDashboard.putBoolean("VALID_TARGET", false);
-        // SmartDashboard.putBoolean("VALID_HEIGHT", false);
-        // SmartDashboard.putBoolean("VALID_RATIO", false);
-        // SmartDashboard.putBoolean("VALID_SKEW", false);
+        //Tuning values for autoDrive
+        SmartDashboard.putNumber("AUTODRIVE_MIN_SPEED", 0.15);
+        SmartDashboard.putNumber("AUTODRIVE_FORWARD_AREA", 0.038);
+        SmartDashboard.putNumber("AUTODRIVE_SPEED_MUL", 1.5);
+
+        SmartDashboard.putBoolean("VALID_TARGET", false);
+        SmartDashboard.putBoolean("VALID_HEIGHT", false);
+        SmartDashboard.putBoolean("VALID_RATIO", false);
+        SmartDashboard.putBoolean("VALID_SKEW", false);
 
         // SmartDashboard.putNumber("CAM_MODE", 1);
         // SmartDashboard.putNumber("LIMELIGHT_MOTOR_OUTPUT", 0);
