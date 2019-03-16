@@ -194,6 +194,52 @@
               "_source0": "network_table:///SmartDashboard/TURN_AREA",
               "_title": "SmartDashboard/TURN_AREA"
             }
+          },
+          "3,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/AUTODRIVE_FORWARD_AREA",
+              "_title": "SmartDashboard/AUTODRIVE_FORWARD_AREA"
+            }
+          },
+          "3,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/AUTODRIVE_MIN_SPEED",
+              "_title": "SmartDashboard/AUTODRIVE_MIN_SPEED"
+            }
+          },
+          "2,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/AUTODRIVE_SPEED_MUL",
+              "_title": "SmartDashboard/AUTODRIVE_SPEED_MUL"
+            }
+          },
+          "3,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/IS_NEAR",
+              "_title": "SmartDashboard/IS_NEAR",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
           }
         }
       }
