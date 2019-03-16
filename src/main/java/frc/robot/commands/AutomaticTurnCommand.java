@@ -8,6 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Robot;
 import frc.util.Limelight;
 
 public class AutomaticTurnCommand extends DrivetrainDriveCommand {
@@ -19,19 +20,27 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
 
     @Override
     protected void setTurn() {
+        // Get Gamepad Input
+        super.setTurn();
 
-        super.setTurn(); 
-        System.out.println(Math.abs(Limelight.getTargetXAngle()));
-        // Add corrective values to turn based on how fast the robot is moving
-        if (Limelight.hasValidTarget()) {
-            double turn_MUL = SmartDashboard.getNumber("MOVE_TURN_MUL", 6) * speed;
-            double sgn = Math.signum(Limelight.getTargetXAngle());
-            System.out.println(Math.abs(Limelight.getTargetXAngle()));
-            double output =  Math.max(turn_MUL, 1) * sgn * 
-                             Math.sqrt(Math.abs(Limelight.getTargetXAngle())) /
-                             (SmartDashboard.getNumber("TURN_DIV", 20));
-            SmartDashboard.putNumber("LIMELIGHT_MOTOR_OUTPUT", output);
-            turn += output; 
+        // If Using CV
+        if(Limelight.hasValidTarget()) {
+            // Get Turn Div from Smart Dash Board
+            double turnDiv = SmartDashboard.getNumber("TURN_DIV", 20);
+
+            // Establish Turn Multiplier
+            double turnMult = SmartDashboard.getNumber("MOVE_TURN_MUL", 5.5);
+            turnMult = Math.max(turnMult * speed, 1);
+
+            // Calculating the amount to turn based on TargetXAngle
+            double turnSign = Math.signum(Limelight.getTargetXAngle());
+            double turnDelta = Math.sqrt(Math.abs(Limelight.getTargetXAngle()));
+            turnDelta *= turnSign; // SQRT of delta removes sign
+            turnDelta *= turnMult;
+            turnDelta /= turnDiv;
+            
+            // Add Turn Delta to Turn
+            turn += turnDelta;
         }
     }
 }
