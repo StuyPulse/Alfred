@@ -103,18 +103,6 @@ public interface RobotMap {
     double ANGLE_THRESHOLD = 25;
 
     /***************************************************************************************
-<<<<<<< HEAD
-=======
-     * Aim Assist Constants
-     ****************************************************************************************/
-    
-    double TURN_DIV = 20; // Changes the speed that the robot will turn
-    double MOVE_TURN_DIV = 3; // Changes the speed that the robot will turn while moving (The more it moves, the less it turns)
-
-    double TURN_MIN_SPEED = 0.3;
-    double TURN_MIN_ANGLE = 0.1;
-    /***************************************************************************************
->>>>>>> 5a921a12a79c332e82f57e4bb82c8bbebea6b379
      * Auton Assist Constants
      ****************************************************************************************/
     double FORWARD_AREA = 0.016; // Area at which robot will move forward

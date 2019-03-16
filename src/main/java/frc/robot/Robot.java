@@ -75,7 +75,6 @@ public class Robot extends TimedRobot {
         relayController = new LEDRelayController(RobotMap.LED_CHANNEL);
         //chooser.addOption("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
-        SmartDashboard.putBoolean("Enable compressor", false);
         // CameraServer.getInstance().startAutomaticCapture(0);
         SmartDashboard.putNumber("TURN_DIV", 20);
         SmartDashboard.putNumber("MOVE_TURN_MUL", 5.5);
@@ -190,6 +189,7 @@ public class Robot extends TimedRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         Robot.floop.open();
+        SmartDashboard.putBoolean("Enable compressor", false);
         // if (autonomousCommand != null) {
         //     autonomousCommand.cancel();
         // }
