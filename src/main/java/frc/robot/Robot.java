@@ -75,9 +75,6 @@ public class Robot extends TimedRobot {
         relayController = new LEDRelayController(RobotMap.LED_CHANNEL);
         //chooser.addOption("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
-        // CameraServer.getInstance().startAutomaticCapture(0);
-        SmartDashboard.putNumber("TURN_DIV", 20);
-        SmartDashboard.putNumber("MOVE_TURN_MUL", 5.5);
 
        // CameraServer.getInstance().startAutomaticCapture(0);
         SmartDashboard.putNumber("TURN_DIV", 20);
@@ -88,8 +85,14 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("TURN_MIN_ANGLE", 1);
 
         //Tuning values for autoDrive
-        SmartDashboard.putNumber("AUTODRIVE_MIN_SPEED", 0.15);
-        SmartDashboard.putNumber("AUTODRIVE_FORWARD_AREA", 0.038);
+        
+        //TODO: test these values!
+        // SmartDashboard.putNumber("AUTODRIVE_MIN_SPEED", 0.15);
+        // SmartDashboard.putNumber("AUTODRIVE_FORWARD_AREA", 0.038);
+        // SmartDashboard.putNumber("AUTODRIVE_SPEED_MUL", 1.5);
+        //TODO: replace these after CNY
+        SmartDashboard.putNumber("AUTODRIVE_MIN_SPEED", 0.1);
+        SmartDashboard.putNumber("AUTODRIVE_FORWARD_AREA", 0.016);
         SmartDashboard.putNumber("AUTODRIVE_SPEED_MUL", 1.5);
 
         SmartDashboard.putBoolean("VALID_TARGET", false);

@@ -29,7 +29,7 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
             double turnDiv = SmartDashboard.getNumber("TURN_DIV", 20);
 
             // Establish Turn Multiplier
-            double turnMult = SmartDashboard.getNumber("MOVE_TURN_MUL", 6);
+            double turnMult = SmartDashboard.getNumber("MOVE_TURN_MUL", 5.5);
             turnMult = Math.max(turnMult * speed, 1);
 
             // Calculating the amount to turn based on TargetXAngle
