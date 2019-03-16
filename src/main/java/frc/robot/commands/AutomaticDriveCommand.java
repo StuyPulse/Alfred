@@ -10,17 +10,17 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
+import frc.util.Limelight;
 
 public class AutomaticDriveCommand extends AutomaticTurnCommand {
 
     @Override
     protected void setSpeed() {
         quickTurn = true; // Automatic Drive Uses Quick Turn
-
-        SmartDashboard.putBoolean("LIMELIGHT_CONNECTED:", !(Robot.limelight.getTargetXAngle() == 0));
-        if (Robot.limelight.hasValidTarget()) {
+        SmartDashboard.putBoolean("LIMELIGHT_CONNECTED:", !(Limelight.getTargetXAngle() == 0));
+        if (Limelight.hasValidTarget()) {
             // Set speed depending on how far away the goal is
-            double area = Robot.limelight.getTargetArea();
+            double area = Limelight.getTargetArea();
             double minSpeed = SmartDashboard.getNumber("AUTODRIVE_MIN_SPEED", RobotMap.MIN_AUTO_SPEED);
             double forwardArea = SmartDashboard.getNumber("AUTODRIVE_FORWARD_AREA", RobotMap.FORWARD_AREA);
             double speedMultiplier = SmartDashboard.getNumber("AUTODRIVE_SPEED_MUL", RobotMap.AUTO_SPEED_MUL);

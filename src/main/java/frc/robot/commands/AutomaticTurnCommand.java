@@ -8,7 +8,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Robot;
 import frc.util.Limelight;
 
 public class AutomaticTurnCommand extends DrivetrainDriveCommand {
@@ -25,13 +24,15 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
 
 <<<<<<< HEAD
         super.setTurn(); 
+        System.out.println(Math.abs(Limelight.getTargetXAngle()));
         // Add corrective values to turn based on how fast the robot is moving
-        if (Robot.limelight.hasValidTarget()) {
+        if (Limelight.hasValidTarget()) {
             double turn_MUL = SmartDashboard.getNumber("MOVE_TURN_MUL", 6) * speed;
-            double sgn = Math.signum(Robot.limelight.getTargetXAngle());
+            double sgn = Math.signum(Limelight.getTargetXAngle());
+            System.out.println(Math.abs(Limelight.getTargetXAngle()));
             double output =  Math.max(turn_MUL, 1) * sgn * 
-                             Math.sqrt(Math.abs(Robot.limelight.getTargetXAngle())) /
-                             (SmartDashboard.getNumber("TURN_DIV", 35));
+                             Math.sqrt(Math.abs(Limelight.getTargetXAngle())) /
+                             (SmartDashboard.getNumber("TURN_DIV", 20));
             SmartDashboard.putNumber("LIMELIGHT_MOTOR_OUTPUT", output);
             turn += output; 
 =======

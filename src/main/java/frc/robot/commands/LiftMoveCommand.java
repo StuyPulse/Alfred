@@ -1,3 +1,4 @@
+
 /*----------------------------------------------------------------------------*/
 /* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
@@ -33,7 +34,9 @@ public class LiftMoveCommand extends Command {
 
     @Override
     protected void execute() {
-        if(targetLevel == Level.ZERO) {
+        if(targetLevel == Level.ZERO && Robot.lift.getWantSlow()) {
+            Robot.lift.move(Math.pow(Robot.oi.operatorGamepad.getLeftY(), 3) / 3.0);
+        } else if (targetLevel == Level.ZERO) {
             Robot.lift.move(Math.pow(Robot.oi.operatorGamepad.getLeftY(), 3));
         }
 
@@ -75,9 +78,9 @@ public class LiftMoveCommand extends Command {
 
     private void calibrateAutoComp() {
         if (autoCompDir == Direction.UP && targetLevel == Level.ZERO && isLeftAnalogPressed() && Robot.oi.operatorGamepad.getLeftY() <= THRESHOLD) {
-            if (Robot.lift.getHeight() < RobotMap.LEVEL_1_HEIGHT) {
+            if (Robot.lift.getHeight() < RobotMap.HP_LEVEL_1_HEIGHT) {
                 targetLevel = Level.ONE;
-            } else if (Robot.lift.getHeight() < RobotMap.LEVEL_2_HEIGHT) {
+            } else if (Robot.lift.getHeight() < RobotMap.HP_LEVEL_2_HEIGHT) {
                 targetLevel = Level.TWO;
             } else {
                 targetLevel = Level.THREE;
@@ -85,9 +88,9 @@ public class LiftMoveCommand extends Command {
         }
 
         if(autoCompDir == Direction.DOWN && targetLevel == Level.ZERO && isLeftAnalogPressed() && Robot.oi.operatorGamepad.getLeftY() >= -THRESHOLD) {
-            if(Robot.lift.getHeight() > RobotMap.LEVEL_3_HEIGHT) {
+            if(Robot.lift.getHeight() > RobotMap.HP_LEVEL_3_HEIGHT) {
                 targetLevel = Level.THREE;
-            } else if(Robot.lift.getHeight() > RobotMap.LEVEL_2_HEIGHT) {
+            } else if(Robot.lift.getHeight() > RobotMap.HP_LEVEL_2_HEIGHT) {
                 targetLevel = Level.TWO;
             } else {
                 targetLevel = Level.ONE;
@@ -97,17 +100,17 @@ public class LiftMoveCommand extends Command {
 
     private void runAutoComp() {
         if(targetLevel == Level.ONE && autoCompDir == Direction.UP) {
-            moveHeight(RobotMap.LEVEL_1_HEIGHT - RobotMap.LIFT_LEVEL_OFFSHOOT);
+            moveHeight(RobotMap.HP_LEVEL_1_HEIGHT - RobotMap.LIFT_LEVEL_OFFSHOOT);
         } else if(targetLevel == Level.TWO && autoCompDir == Direction.UP) {
-            moveHeight(RobotMap.LEVEL_2_HEIGHT - RobotMap.LIFT_LEVEL_OFFSHOOT);
+            moveHeight(RobotMap.HP_LEVEL_2_HEIGHT - RobotMap.LIFT_LEVEL_OFFSHOOT);
         } else if(targetLevel == Level.THREE && autoCompDir == Direction.UP) {
-            moveHeight(RobotMap.LEVEL_3_HEIGHT - RobotMap.LIFT_LEVEL_OFFSHOOT);
+            moveHeight(RobotMap.HP_LEVEL_3_HEIGHT - RobotMap.LIFT_LEVEL_OFFSHOOT);
         } else if(targetLevel == Level.ONE && autoCompDir == Direction.DOWN) {
-            moveHeight(RobotMap.LEVEL_1_HEIGHT + RobotMap.LIFT_LEVEL_OFFSHOOT);
+            moveHeight(RobotMap.HP_LEVEL_1_HEIGHT + RobotMap.LIFT_LEVEL_OFFSHOOT);
         } else if(targetLevel == Level.TWO && autoCompDir == Direction.DOWN) {
-            moveHeight(RobotMap.LEVEL_2_HEIGHT + RobotMap.LIFT_LEVEL_OFFSHOOT);
+            moveHeight(RobotMap.HP_LEVEL_2_HEIGHT + RobotMap.LIFT_LEVEL_OFFSHOOT);
         } else if(targetLevel == Level.THREE && autoCompDir == Direction.DOWN) {
-            moveHeight(RobotMap.LEVEL_3_HEIGHT + RobotMap.LIFT_LEVEL_OFFSHOOT);
+            moveHeight(RobotMap.HP_LEVEL_3_HEIGHT + RobotMap.LIFT_LEVEL_OFFSHOOT);
         }
     }
 

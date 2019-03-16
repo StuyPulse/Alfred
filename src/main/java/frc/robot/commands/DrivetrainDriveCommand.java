@@ -47,13 +47,13 @@ public class DrivetrainDriveCommand extends Command {
             isDriverControlling = controlling;
 
             if(isDriverControlling){
-                Robot.limelight.setPipeline(RobotMap.DRIVER_PIPELINE);
-                Robot.limelight.setCamMode(Limelight.CamMode.DRIVER);
-                Robot.limelight.setLEDMode(LEDMode.FORCE_OFF);
+                Limelight.setPipeline(RobotMap.DRIVER_PIPELINE);
+                Limelight.setCamMode(Limelight.CamMode.DRIVER);
+                Limelight.setLEDMode(LEDMode.FORCE_OFF);
             } else {
-                Robot.limelight.setPipeline(RobotMap.CV_PIPELINE);
-                Robot.limelight.setCamMode(Limelight.CamMode.VISION);
-                Robot.limelight.setLEDMode(LEDMode.FORCE_ON);
+                Limelight.setPipeline(RobotMap.CV_PIPELINE);
+                Limelight.setCamMode(Limelight.CamMode.VISION);
+                Limelight.setLEDMode(LEDMode.FORCE_ON);
             }
         }
     }

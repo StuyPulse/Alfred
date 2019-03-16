@@ -19,13 +19,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Abom;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.Fangs;
 import frc.robot.subsystems.Floop;
 import frc.robot.subsystems.Lift;
 import frc.robot.subsystems.Rollers;
 import frc.robot.subsystems.Tail;
 import frc.util.LEDRelayController;
-import frc.util.Limelight;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -45,8 +43,6 @@ public class Robot extends TimedRobot {
     public static Lift lift;
     public static Compressor compressor;
     public static Rollers rollers;
-    public static Fangs fangs;
-    public static Limelight limelight;
 
     public static double liftSpeedGoingDown;
 
@@ -74,14 +70,15 @@ public class Robot extends TimedRobot {
         lift = new Lift();
         compressor = new Compressor();
         rollers = new Rollers();
-        fangs = new Fangs();
         oi = new OI();
-        limelight = new Limelight();
         IRsensor = new DigitalInput(RobotMap.IR_SENSOR_PORT);
         relayController = new LEDRelayController(RobotMap.LED_CHANNEL);
         //chooser.addOption("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
-        SmartDashboard.putBoolean("Enable compressor", true);
+        SmartDashboard.putBoolean("Enable compressor", false);
+        // CameraServer.getInstance().startAutomaticCapture(0);
+        SmartDashboard.putNumber("TURN_DIV", 20);
+        SmartDashboard.putNumber("MOVE_TURN_MUL", 5.5);
 
        // CameraServer.getInstance().startAutomaticCapture(0);
         SmartDashboard.putNumber("TURN_DIV", 20);
@@ -102,7 +99,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putBoolean("VALID_SKEW", false);
 
         // SmartDashboard.putNumber("CAM_MODE", 1);
-        // SmartDashboard.putNumber("LIMELIGHT_MOTOR_OUTPUT", 0);
+        SmartDashboard.putNumber("LIMELIGHT_MOTOR_OUTPUT", 0);
         hasBeenZeroed = false;
     }
 
@@ -118,7 +115,6 @@ public class Robot extends TimedRobot {
 
     @Override
     public void robotPeriodic() {
-        controlCompressor();
         // SmartDashboard.putNumber("Drivetrain Left Greyhill Encoder Val: ", Robot.drivetrain.getLeftGreyhillDistance());
         // SmartDashboard.putNumber("Drivetrain Right Greyhill Encoder Val: ",
         //         Robot.drivetrain.getRightGreyhillDistance());
@@ -127,6 +123,7 @@ public class Robot extends TimedRobot {
         //         Robot.drivetrain.getRightGreyhillTicks());
         SmartDashboard.putNumber("Lift Encoder Val: ", Robot.lift.getHeight());
         SmartDashboard.putBoolean("Lift Bottom Optical Sensor: ", Robot.lift.isAtBottom());
+        
         // liftSpeedGoingDown = SmartDashboard.getNumber("Lift Auto Complete Speed Going Down", 0.5);
         SmartDashboard.putString("Match Time", returnTime());
     }
@@ -204,7 +201,8 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopPeriodic() {
-        double startTime = System.currentTimeMillis(); 
+        controlCompressor();
+        double startTime = System.currentTimeMillis();
         // if(!isGamePieceDetected()) {
         //     relayController.setLEDForward();
         // } else {
@@ -216,12 +214,11 @@ public class Robot extends TimedRobot {
         if(isGamePieceDetected()) {
             //Once a game piece is detected, it blinks two times and stops.
             blinkLED();
-        }
-        else {
+        } else {
             //Stops the LEDs as long as it doesn't detect a game piece.
             relayController.setLEDNeutral();
         }
-        SmartDashboard.putNumber("Time Diff", System.currentTimeMillis() - startTime); 
+        SmartDashboard.putNumber("Time Diff", System.currentTimeMillis() - startTime);
     }
 
     /**
