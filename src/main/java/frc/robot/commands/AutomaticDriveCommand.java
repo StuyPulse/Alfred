@@ -29,7 +29,8 @@ public class AutomaticDriveCommand extends AutomaticTurnCommand {
             SmartDashboard.putNumber("AutoDrive-MinSpeed:", minSpeed);
             accel = Math.max(forwardArea - area, 0);
             SmartDashboard.putNumber("AutoDrive-AreaDifference:", accel);
-            SmartDashboard.putBoolean("IS_NEAR", accel == 0);
+            boolean isNear = accel == 0;
+            SmartDashboard.putBoolean("IS_NEAR", isNear);
             accel *= speedMultiplier;
             SmartDashboard.putNumber("AutoDrive-AddedSpeed:", accel);
             speed = minSpeed;

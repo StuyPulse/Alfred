@@ -91,9 +91,9 @@ public class Robot extends TimedRobot {
         // SmartDashboard.putNumber("AUTODRIVE_FORWARD_AREA", 0.038);
         // SmartDashboard.putNumber("AUTODRIVE_SPEED_MUL", 1.5);
         //TODO: replace these after CNY
-        SmartDashboard.putNumber("AUTODRIVE_MIN_SPEED", 0.1);
-        SmartDashboard.putNumber("AUTODRIVE_FORWARD_AREA", 0.016);
-        SmartDashboard.putNumber("AUTODRIVE_SPEED_MUL", 1.5);
+        SmartDashboard.putNumber("AUTODRIVE_MIN_SPEED", 0.05);
+        SmartDashboard.putNumber("AUTODRIVE_FORWARD_AREA", 0.07);
+        SmartDashboard.putNumber("AUTODRIVE_SPEED_MUL", 2.75);
 
         SmartDashboard.putBoolean("VALID_TARGET", false);
         SmartDashboard.putBoolean("VALID_HEIGHT", false);
