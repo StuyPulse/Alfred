@@ -26,7 +26,7 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
         // If Using CV
         if(Limelight.hasValidTarget()) {
             // Get Turn Div from Smart Dash Board
-            double turnDiv = SmartDashboard.getNumber("TURN_DIV", 35);
+            double turnDiv = SmartDashboard.getNumber("TURN_DIV", 20);
 
             // Establish Turn Multiplier
             double turnMult = SmartDashboard.getNumber("MOVE_TURN_MUL", 6);
