@@ -26,31 +26,42 @@ public class DrivetrainDriveCommand extends Command {
 
     @Override
     protected void execute() {
-        boolean Controlling = !(Robot.oi.driverGamepad.getRawLeftButton() || Robot.oi.driverGamepad.getRawTopButton());
-        if(Controlling != isDriverControlling){
-            isDriverControlling = Controlling;
-            setMode();
-        }
+        setCameraMode();
         setSpeed();
         setTurn();
         updateDrivetrain();
     }
     
-    protected void setMode() {
-        if(isDriverControlling){
-            Robot.limelight.setPipeline(1);
-            Robot.limelight.setCamMode(Limelight.CamMode.DRIVER);
-            Robot.limelight.setLEDMode(LEDMode.FORCE_OFF);
-        }else{
-            Robot.limelight.setPipeline(0);
-            Robot.limelight.setCamMode(Limelight.CamMode.VISION);
-            Robot.limelight.setLEDMode(LEDMode.FORCE_ON);
+    private boolean getCVButtons(){
+        return (
+            Robot.oi.driverGamepad.getRawLeftButton() || 
+            Robot.oi.driverGamepad.getRawTopButton()
+        );
+    }
+
+    protected void setCameraMode() {
+        boolean controlling = !getCVButtons();
+
+        // Optimization that prevents spamming network table
+        if(controlling != isDriverControlling) {
+            isDriverControlling = controlling;
+
+            if(isDriverControlling){
+                Robot.limelight.setPipeline(RobotMap.DRIVER_PIPELINE);
+                Robot.limelight.setCamMode(Limelight.CamMode.DRIVER);
+                Robot.limelight.setLEDMode(LEDMode.FORCE_OFF);
+            } else {
+                Robot.limelight.setPipeline(RobotMap.CV_PIPELINE);
+                Robot.limelight.setCamMode(Limelight.CamMode.VISION);
+                Robot.limelight.setLEDMode(LEDMode.FORCE_ON);
+            }
         }
     }
 
     protected void setSpeed() {
         // Reset the speed to prevent this from becoming acceleration
         speed = 0;
+
         // Set speed to the axes of the triggers
         speed += Math.pow(Robot.oi.driverGamepad.getRawRightTriggerAxis(), 2);
         speed -= Math.pow(Robot.oi.driverGamepad.getRawLeftTriggerAxis(), 2);
@@ -61,11 +72,16 @@ public class DrivetrainDriveCommand extends Command {
 
     protected void setTurn() {
         // Set the turn value to the joystick's x value
-        turn = Math.pow(Robot.oi.driverGamepad.getLeftX(), RobotMap.JOYSTICK_SCALAR) / 2.0;
+        double leftStick = Robot.oi.driverGamepad.getLeftX();
+        leftStick = Math.pow(leftStick, RobotMap.JOYSTICK_SCALAR);
+        leftStick /= 2.0;
 
+        // Fix the sign for even powers
         if (RobotMap.JOYSTICK_SCALAR % 2 == 0) {
-            turn *= Math.signum((Robot.oi.driverGamepad.getLeftX()));
+            leftStick *= Math.signum((Robot.oi.driverGamepad.getLeftX()));
         }
+
+        turn = leftStick;
     }
 
     // Sub commands for each curvature drive variable

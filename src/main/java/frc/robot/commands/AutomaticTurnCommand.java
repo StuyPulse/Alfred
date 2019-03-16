@@ -20,7 +20,10 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
 
     @Override
     protected void setTurn() {
+        // Get Gamepad Input
+        super.setTurn();
 
+<<<<<<< HEAD
         super.setTurn(); 
         // Add corrective values to turn based on how fast the robot is moving
         if (Robot.limelight.hasValidTarget()) {
@@ -31,6 +34,26 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
                              (SmartDashboard.getNumber("TURN_DIV", 35));
             SmartDashboard.putNumber("LIMELIGHT_MOTOR_OUTPUT", output);
             turn += output; 
+=======
+        // If Using CV
+        if(Limelight.hasValidTarget()) {
+            // Get Turn Div from Smart Dash Board
+            double turnDiv = SmartDashboard.getNumber("TURN_DIV", 35);
+
+            // Establish Turn Multiplier
+            double turnMult = SmartDashboard.getNumber("MOVE_TURN_MUL", 6);
+            turnMult = Math.max(turnMult * speed, 1);
+
+            // Calculating the amount to turn based on TargetXAngle
+            double turnSign = Math.signum(Limelight.getTargetXAngle());
+            double turnDelta = Math.sqrt(Math.abs(Limelight.getTargetXAngle()));
+            turnDelta *= turnSign; // SQRT of delta removes sign
+            turnDelta *= turnMult;
+            turnDelta /= turnDiv;
+            
+            // Add Turn Delta to Turn
+            turn += turnDelta;
+>>>>>>> origin/autodrive-fix
         }
     }
 }
