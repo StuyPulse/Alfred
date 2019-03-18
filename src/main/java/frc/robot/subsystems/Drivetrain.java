@@ -114,6 +114,7 @@ public final class Drivetrain extends Subsystem {
         lowRightSpeedGroup = new SpeedControllerGroup(lowRightTopMotor, lowRightMiddleMotor, rightBottomMotor);
         highLeftSpeedGroup = new SpeedControllerGroup(highLeftTopMotor, highLeftMiddleMotor);
         highRightSpeedGroup = new SpeedControllerGroup(highRightTopMotor, highRightMiddleMotor);
+      
         //Gear Shift
         gearShift = new Solenoid(RobotMap.GEAR_SHIFT_CHANNEL);
         // navx
