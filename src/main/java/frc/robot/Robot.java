@@ -163,7 +163,6 @@ public class Robot extends TimedRobot {
         lift.tiltForward();
         lift.setHeight(-1 * RobotMap.START_HEIGHT);
         autonStartTime = Timer.getFPGATimestamp();
-        fangs.lower(); // This is only for edwin
 
         /*
          * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
@@ -194,8 +193,6 @@ public class Robot extends TimedRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         
-        fangs.lower(); // This is only for Edwin
-
         Robot.floop.open();
         SmartDashboard.putBoolean("Enable compressor", false);
         // if (autonomousCommand != null) {
