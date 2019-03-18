@@ -32,7 +32,7 @@ public class LiftMoveToHeightCommand extends Command {
             if(targetHeight - Robot.lift.getHeight() > RobotMap.LIFT_RAMP_MOVE_TO_HEIGHT_THRESHOLD) {
                 Robot.lift.move(0.7);
             } else {
-                Robot.lift.move(0.25);
+                Robot.lift.move(0.5);
             }
         }
     }
