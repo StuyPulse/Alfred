@@ -53,18 +53,12 @@ public interface RobotMap {
     int LIFT_TILT_SOLENOID_REVERSE_PORT = 7; //PCM 2 (15)
 
     int LIFT_BRAKE_SOLENOID_PORT = 6; //PCM 2 (8)
-    int LIFT_TOP_OPTICAL_SENSOR_PORT = -1;
-    int LIFT_BOTTOM_OPTICAL_SENSOR_PORT = 5;
+    int LIFT_BOTTOM_LIMIT_SENSOR_PORT = 5;
 
     /***************************************************************************************
      * Floop Solenoid Port
      ****************************************************************************************/
     int FLOOP_CHANNEL = 4;
-
-    /***************************************************************************************
-     * Fangs Solenoid Port
-     ****************************************************************************************/
-    int FANGS_CHANNEL = 3;
 
     /***************************************************************************************
      * Rollers Motor Port
@@ -95,6 +89,12 @@ public interface RobotMap {
     double ABOM_TIME_TO_RETRACT = 0.2;
 
     /***************************************************************************************
+     * Limelight Pipeline Constants
+     ****************************************************************************************/
+    int DRIVER_PIPELINE = 1;
+    int CV_PIPELINE = 0;
+
+    /***************************************************************************************
      * CV Constants
      ****************************************************************************************/
     double TARGET_HEIGHT_THRESHOLD = 6;
@@ -103,19 +103,10 @@ public interface RobotMap {
     double ANGLE_THRESHOLD = 25;
 
     /***************************************************************************************
-     * Aim Assist Constants
-     ****************************************************************************************/
-    
-    double TURN_DIV = 100; // Changes the speed that the robot will turn
-    double MOVE_TURN_DIV = 3; // Changes the speed that the robot will turn while moving (The more it moves, the less it turns)
-
-    double TURN_MIN_SPEED = 0.3;
-    double TURN_MIN_ANGLE = 0.1;
-    /***************************************************************************************
      * Auton Assist Constants
      ****************************************************************************************/
-    double FORWARD_AREA = 0.0145; // Area at which robot will move forward
-    double MIN_AUTO_SPEED = 0.25; // Slowest speed for auto accelerate
+    double FORWARD_AREA = 0.016; // Area at which robot will move forward
+    double MIN_AUTO_SPEED = 0.1; // Slowest speed for auto accelerate
     double AUTO_SPEED_MUL = 1.5 / FORWARD_AREA; // Auto Drive Speed
     int JOYSTICK_SCALAR = 3; // Used to make joystick values smaller
 
@@ -144,21 +135,25 @@ public interface RobotMap {
     double LIFT_ENCODER_TICKS_PER_REV = 1024.0;
     double LIFT_ENCODER_RAW_MULTIPLIER = 1 / 1207.0;
     double LIFT_MIN_SPEED = 0.05;
+    double LIFT_DEADBAND_OVERRIDE_THRESHOLD = 0.2;
     double LIFT_SPEED_MULTIPLIER = .8;
     double LIFT_RAMP_RATE = 0.25;
 
     // Waiting on eng for the height
     // Eric said the total carriage movement is about 74 in
     double LIFT_MAX_HEIGHT = -1;
-    double LIFT_MIN_HEIGHT = 0;
+    double LIFT_MIN_HEIGHT = 0.0;
     double LIFT_RAMP_HEIGHT_THRESHOLD = 1.0;
     double LIFT_RAMP_MOVE_TO_HEIGHT_THRESHOLD = 5.0;
 
-    //TODO: Test these values
-    double LEVEL_1_HEIGHT = 8.68;
-    double LEVEL_2_HEIGHT = 37.5;
-    double LEVEL_3_HEIGHT = 64.6;
-    double START_HEIGHT = 25.0;
+    double HP_LEVEL_1_HEIGHT = 8.68 + 2.0;
+    double HP_LEVEL_2_HEIGHT = 37.5 + 2.0;
+    double HP_LEVEL_3_HEIGHT = 64.6 + 2.0;
+    double C_LEVEL_1_HEIGHT = 16.0;
+    double C_LEVEL_2_HEIGHT = 43.75;
+    double C_LEVEL_3_HEIGHT = 71.25;
+
+    double START_HEIGHT = 26.0;
 
     double LIFT_LEVEL_OFFSHOOT = 2.0;
 

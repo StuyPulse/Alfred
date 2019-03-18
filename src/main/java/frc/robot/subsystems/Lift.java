@@ -12,10 +12,12 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.LiftMoveCommand;
 
@@ -24,13 +26,14 @@ public final class Lift extends Subsystem {
     private WPI_TalonSRX masterTalon;
     private WPI_VictorSPX followerTalon;
 
-    // private DigitalInput bottomOpticalSensor;
+    private DigitalInput bottomLimitSensor;
 
     private DoubleSolenoid tiltSolenoid;
     private Solenoid brakeSolenoid;
 
     public boolean rampDisabled;
-    public boolean isOpticalSensorOverrided;
+    public boolean isLimitSensorOverrided;
+    private boolean wantSlow;
 
     public Lift() {
         masterTalon = new WPI_TalonSRX(RobotMap.LIFT_MASTER_TALON_MOTOR_PORT);
@@ -47,7 +50,7 @@ public final class Lift extends Subsystem {
                 RobotMap.LIFT_TILT_SOLENOID_REVERSE_PORT);
         brakeSolenoid = new Solenoid(1, RobotMap.LIFT_BRAKE_SOLENOID_PORT);
 
-        // bottomOpticalSensor = new DigitalInput(RobotMap.LIFT_BOTTOM_OPTICAL_SENSOR_PORT);
+        bottomLimitSensor = new DigitalInput(RobotMap.LIFT_BOTTOM_LIMIT_SENSOR_PORT);
 
         enableRamping();
 
@@ -77,18 +80,18 @@ public final class Lift extends Subsystem {
     }
 
     public boolean isAtBottom() {
-        // if (!isOpticalSensorOverrided) {
-        //     boolean atBottom = !bottomOpticalSensor.get();
-        //     if (atBottom) {
-        //         setHeight(RobotMap.LIFT_MIN_HEIGHT);
-        //     }
-        //     return atBottom; // The sensor is inverted
-        // }
+        if (!isLimitSensorOverrided) {
+            boolean atBottom = !bottomLimitSensor.get();
+            if (atBottom) {
+                setHeight(RobotMap.LIFT_MIN_HEIGHT);
+            }
+            return atBottom; // The sensor is inverted
+        }
         return false;
     }
 
     public void toggleOpticalSensorOverride() {
-        isOpticalSensorOverrided = !isOpticalSensorOverrided;
+        isLimitSensorOverrided = !isLimitSensorOverrided;
     }
 
     public void stop() {
@@ -97,7 +100,8 @@ public final class Lift extends Subsystem {
     }
 
     public void moveNoRamp(double speed) {
-        if (Math.abs(speed) < RobotMap.LIFT_MIN_SPEED) {
+        if (Math.abs(speed) < RobotMap.LIFT_MIN_SPEED 
+            && Math.abs(Robot.oi.operatorGamepad.getLeftX()) < RobotMap.LIFT_DEADBAND_OVERRIDE_THRESHOLD) {
             stop();
         } else if (isAtBottom() && speed < 0) {
             stop();
@@ -185,5 +189,13 @@ public final class Lift extends Subsystem {
         rampDisabled = true;
         masterTalon.configOpenloopRamp(0);
         followerTalon.configOpenloopRamp(0);
+    }
+
+    public boolean getWantSlow() {
+        return wantSlow;
+    }
+
+    public void toggleWantSlow() {
+        wantSlow = !wantSlow;
     }
 }

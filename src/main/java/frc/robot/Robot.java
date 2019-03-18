@@ -19,7 +19,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Abom;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.Fangs;
 import frc.robot.subsystems.Floop;
 import frc.robot.subsystems.Lift;
 import frc.robot.subsystems.Rollers;
@@ -44,7 +43,6 @@ public class Robot extends TimedRobot {
     public static Lift lift;
     public static Compressor compressor;
     public static Rollers rollers;
-    public static Fangs fangs;
 
     public static double liftSpeedGoingDown;
 
@@ -72,28 +70,38 @@ public class Robot extends TimedRobot {
         lift = new Lift();
         compressor = new Compressor();
         rollers = new Rollers();
-        fangs = new Fangs();
         oi = new OI();
         IRsensor = new DigitalInput(RobotMap.IR_SENSOR_PORT);
         relayController = new LEDRelayController(RobotMap.LED_CHANNEL);
         //chooser.addOption("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
-        SmartDashboard.putBoolean("Enable compressor", true);
 
-        CameraServer.getInstance().startAutomaticCapture(0);
-        // SmartDashboard.putNumber("TURN_DIV", 30);
-        // SmartDashboard.putNumber("MOVE_TURN_MUL", 5.5);
+       // CameraServer.getInstance().startAutomaticCapture(0);
+        SmartDashboard.putNumber("TURN_DIV", 20);
+        SmartDashboard.putNumber("MOVE_TURN_MUL", 5.5);
 
-        // SmartDashboard.putNumber("TURN_MIN_SPEED", 0.2);
-        // SmartDashboard.putNumber("TURN_MIN_ANGLE", 1);
+        //Tuning values to check if target is valid
+        SmartDashboard.putNumber("TURN_MIN_SPEED", 0.2);
+        SmartDashboard.putNumber("TURN_MIN_ANGLE", 1);
 
-        // SmartDashboard.putBoolean("VALID_TARGET", false);
-        // SmartDashboard.putBoolean("VALID_HEIGHT", false);
-        // SmartDashboard.putBoolean("VALID_RATIO", false);
-        // SmartDashboard.putBoolean("VALID_SKEW", false);
+        //Tuning values for autoDrive
+        
+        //TODO: test these values!
+        // SmartDashboard.putNumber("AUTODRIVE_MIN_SPEED", 0.15);
+        // SmartDashboard.putNumber("AUTODRIVE_FORWARD_AREA", 0.038);
+        // SmartDashboard.putNumber("AUTODRIVE_SPEED_MUL", 1.5);
+        //TODO: replace these after CNY
+        SmartDashboard.putNumber("AUTODRIVE_MIN_SPEED", 0.05);
+        SmartDashboard.putNumber("AUTODRIVE_FORWARD_AREA", 0.07);
+        SmartDashboard.putNumber("AUTODRIVE_SPEED_MUL", 2.75);
+
+        SmartDashboard.putBoolean("VALID_TARGET", false);
+        SmartDashboard.putBoolean("VALID_HEIGHT", false);
+        SmartDashboard.putBoolean("VALID_RATIO", false);
+        SmartDashboard.putBoolean("VALID_SKEW", false);
 
         // SmartDashboard.putNumber("CAM_MODE", 1);
-        // SmartDashboard.putNumber("LIMELIGHT_MOTOR_OUTPUT", 0);
+        SmartDashboard.putNumber("LIMELIGHT_MOTOR_OUTPUT", 0);
         hasBeenZeroed = false;
     }
 
@@ -109,16 +117,16 @@ public class Robot extends TimedRobot {
 
     @Override
     public void robotPeriodic() {
-        controlCompressor();
-        SmartDashboard.putNumber("Drivetrain Left Greyhill Encoder Val: ", Robot.drivetrain.getLeftGreyhillDistance());
-        SmartDashboard.putNumber("Drivetrain Right Greyhill Encoder Val: ",
-                Robot.drivetrain.getRightGreyhillDistance());
-        SmartDashboard.putNumber("Drivetrain Left Greyhill Raw Val: ", Robot.drivetrain.getLeftGreyhillTicks());
-        SmartDashboard.putNumber("Drivetrain Right Greyhill Raw Val: ",
-                Robot.drivetrain.getRightGreyhillTicks());
+        // SmartDashboard.putNumber("Drivetrain Left Greyhill Encoder Val: ", Robot.drivetrain.getLeftGreyhillDistance());
+        // SmartDashboard.putNumber("Drivetrain Right Greyhill Encoder Val: ",
+        //         Robot.drivetrain.getRightGreyhillDistance());
+        // SmartDashboard.putNumber("Drivetrain Left Greyhill Raw Val: ", Robot.drivetrain.getLeftGreyhillTicks());
+        // SmartDashboard.putNumber("Drivetrain Right Greyhill Raw Val: ",
+        //         Robot.drivetrain.getRightGreyhillTicks());
         SmartDashboard.putNumber("Lift Encoder Val: ", Robot.lift.getHeight());
         SmartDashboard.putBoolean("Lift Bottom Optical Sensor: ", Robot.lift.isAtBottom());
-        liftSpeedGoingDown = SmartDashboard.getNumber("Lift Auto Complete Speed Going Down", 0.5);
+        
+        // liftSpeedGoingDown = SmartDashboard.getNumber("Lift Auto Complete Speed Going Down", 0.5);
         SmartDashboard.putString("Match Time", returnTime());
     }
 
@@ -189,6 +197,7 @@ public class Robot extends TimedRobot {
         fangs.lower(); // This is only for Edwin
 
         Robot.floop.open();
+        SmartDashboard.putBoolean("Enable compressor", false);
         // if (autonomousCommand != null) {
         //     autonomousCommand.cancel();
         // }
@@ -200,22 +209,24 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopPeriodic() {
+        controlCompressor();
+        double startTime = System.currentTimeMillis();
         // if(!isGamePieceDetected()) {
         //     relayController.setLEDForward();
         // } else {
         //     relayController.setLEDNeutral();
         // }
         Scheduler.getInstance().run();
-        SmartDashboard.putBoolean("Is Lift Optical Sensor Overrided: ", Robot.lift.isOpticalSensorOverrided);
+        // SmartDashboard.putBoolean("Is Lift Optical Sensor Overrided: ", Robot.lift.isOpticalSensorOverrided);
         // SmartDashboard.putNumber("Tom's Metric for Tail: ", Robot.tail.getTomsMetric());
         if(isGamePieceDetected()) {
             //Once a game piece is detected, it blinks two times and stops.
             blinkLED();
-        }
-        else {
+        } else {
             //Stops the LEDs as long as it doesn't detect a game piece.
             relayController.setLEDNeutral();
         }
+        SmartDashboard.putNumber("Time Diff", System.currentTimeMillis() - startTime);
     }
 
     /**
@@ -232,11 +243,6 @@ public class Robot extends TimedRobot {
         } else {
             compressor.stop();
         }
-    }
-
-    private void setUpDoubleSolenoids() {
-        lift.tiltBack();
-        fangs.lower();
     }
 
     private boolean isGamePieceDetected() {

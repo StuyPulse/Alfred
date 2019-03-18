@@ -10,14 +10,13 @@ package frc.robot;
 import frc.robot.commands.AbomToggleCommand;
 import frc.robot.commands.AutomaticDriveCommand;
 import frc.robot.commands.AutomaticTurnCommand;
-import frc.robot.commands.BITHPOIN;
 import frc.robot.commands.DrivetrainHighGearCommand;
 import frc.robot.commands.DrivetrainLowGearCommand;
-import frc.robot.commands.FangsLowerRollersInCommand;
-import frc.robot.commands.FangsRaiseRollersOutCommand;
+import frc.robot.commands.DrivetrainNudgeCommand;
 import frc.robot.commands.FloopCloseCommand;
 import frc.robot.commands.FloopOpenCommand;
 import frc.robot.commands.LiftMoveToHeightCommand;
+import frc.robot.commands.LiftSlowToggleCommand;
 import frc.robot.commands.LiftToggleCommand;
 import frc.robot.commands.RollersConstantAcquireCommand;
 import frc.robot.commands.RollersConstantDeacquireCommand;
@@ -45,6 +44,8 @@ public class OI {
         driverGamepad.getRightButton().whenPressed(new LiftMoveToHeightCommand(RobotMap.START_HEIGHT));
         driverGamepad.getBottomButton().whenPressed(new DrivetrainLowGearCommand());
         driverGamepad.getBottomButton().whenReleased(new DrivetrainHighGearCommand());
+        driverGamepad.getDPadLeft().whenPressed(new DrivetrainNudgeCommand(-1));
+        driverGamepad.getDPadRight().whenPressed(new DrivetrainNudgeCommand(1));
 
         /******************************************  
          * Operator Code
@@ -56,18 +57,19 @@ public class OI {
         operatorGamepad.getRightBumper().whenReleased(new RollersRampDownAcquireCommand(1));
         operatorGamepad.getLeftBumper().whileHeld(new RollersConstantDeacquireCommand());
 
-        operatorGamepad.getTopButton().whenPressed(new FangsRaiseRollersOutCommand());
-        operatorGamepad.getBottomButton().whenPressed(new FangsLowerRollersInCommand());
         operatorGamepad.getRightButton().whenPressed(new FloopCloseCommand());
         operatorGamepad.getRightButton().whenReleased(new FloopOpenCommand());
-        operatorGamepad.getLeftButton().whenPressed(new BITHPOIN());
+        operatorGamepad.getBottomButton().whenPressed(new LiftMoveToHeightCommand(RobotMap.C_LEVEL_1_HEIGHT));
+        operatorGamepad.getLeftButton().whenPressed(new LiftMoveToHeightCommand(RobotMap.C_LEVEL_2_HEIGHT));
+        operatorGamepad.getTopButton().whenPressed(new LiftMoveToHeightCommand(RobotMap.C_LEVEL_3_HEIGHT));
 
         operatorGamepad.getDPadLeft().whenPressed(new LiftToggleCommand());
-        operatorGamepad.getDPadDown().whenPressed(new LiftMoveToHeightCommand(RobotMap.LEVEL_1_HEIGHT));
-        operatorGamepad.getDPadRight().whenPressed(new LiftMoveToHeightCommand(RobotMap.LEVEL_2_HEIGHT));
-        operatorGamepad.getDPadUp().whenPressed(new LiftMoveToHeightCommand(RobotMap.LEVEL_3_HEIGHT));
+        operatorGamepad.getDPadDown().whenPressed(new LiftMoveToHeightCommand(RobotMap.HP_LEVEL_1_HEIGHT));
+        operatorGamepad.getDPadRight().whenPressed(new LiftMoveToHeightCommand(RobotMap.HP_LEVEL_2_HEIGHT));
+        operatorGamepad.getDPadUp().whenPressed(new LiftMoveToHeightCommand(RobotMap.HP_LEVEL_3_HEIGHT));
 
         operatorGamepad.getRightAnalogButton().whenPressed(new AbomToggleCommand());
+        operatorGamepad.getLeftAnalogButton().whenPressed(new LiftSlowToggleCommand());
 
         //FOR LEFT JOYSTICK: LiftMoveCommand (default of lift subsystem)
         //FOR RIGHT JOYSTICK: TailClimbCommand (default of tail subsystem)
