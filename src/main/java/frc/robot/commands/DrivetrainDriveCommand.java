@@ -32,7 +32,7 @@ public class DrivetrainDriveCommand extends Command {
         updateDrivetrain();
     }
     
-    private boolean getCVButtons(){
+    protected boolean getCVButtons(){
         return (
             Robot.oi.driverGamepad.getRawLeftButton() || 
             Robot.oi.driverGamepad.getRawTopButton()

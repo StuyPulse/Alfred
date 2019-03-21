@@ -7,13 +7,15 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDOutput;
+import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.util.Limelight;
 
 public class AutomaticDriveCommand extends AutomaticTurnCommand {
-
     @Override
     protected void setSpeed() {
         quickTurn = true; // Automatic Drive Uses Quick Turn
@@ -21,6 +23,7 @@ public class AutomaticDriveCommand extends AutomaticTurnCommand {
         if (Limelight.hasValidTarget()) {
             // Set speed depending on how far away the goal is
             double area = Limelight.getTargetArea();
+            double angle_P = 5;
             double minSpeed = SmartDashboard.getNumber("AUTODRIVE_MIN_SPEED", RobotMap.MIN_AUTO_SPEED);
             double forwardArea = SmartDashboard.getNumber("AUTODRIVE_FORWARD_AREA", RobotMap.FORWARD_AREA);
             double speedMultiplier = SmartDashboard.getNumber("AUTODRIVE_SPEED_MUL", RobotMap.AUTO_SPEED_MUL);
@@ -34,7 +37,7 @@ public class AutomaticDriveCommand extends AutomaticTurnCommand {
             accel *= speedMultiplier;
             SmartDashboard.putNumber("AutoDrive-AddedSpeed:", accel);
             speed = minSpeed;
-            speed += accel;
+            speed += accel*angle_P*(17-Limelight.getTargetXAngle())/17;
             
             SmartDashboard.putNumber("AutoDrive-FinalSpeed:", speed);
 
@@ -43,4 +46,5 @@ public class AutomaticDriveCommand extends AutomaticTurnCommand {
             super.setSpeed();
         }
     }
+
 }
