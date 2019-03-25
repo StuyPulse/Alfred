@@ -51,4 +51,5 @@ public final class FieldPosition extends ComplexData<FieldPosition> {
     public FieldPosition setY(double y) {
         return new FieldPosition(pos[0], y);
     }
+
 }
