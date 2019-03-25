@@ -1,0 +1,67 @@
+import org.gradle.internal.os.OperatingSystem
+
+plugins {
+    // Apply the java-library plugin to add support for Java Library
+    id 'java-library'
+}
+
+ext.FRC_YEAR = "2019"
+
+def getFrcToolsRoot() {
+    if(OperatingSystem.current().isWindows()) {
+        String pubFolder = System.getenv("PUBLIC")
+        if(pubFolder == null) {
+            pubFolder = "C:\\Users\\Public"
+        }
+        return pubFolder + "/frc${FRC_YEAR}"
+    }
+
+    else {
+        return System.getProperty("user.home") + "/frc${FRC_YEAR}"
+    }
+}
+
+def getShuffleboardJar() {
+    return files(getFrcToolsRoot() + "/tools/shuffleboard.jar")
+}
+
+def getDeployDest() {
+    return System.getProperty("user.home") + "/Shuffleboard/plugins"
+}
+
+//buildTypes {
+//    release {
+//        buildConfigField "String", "imageFilePath", getDeployDest() + "/FieldMap.jpg"
+//    }
+//}
+
+task ('deployWidget', type:Copy) {
+    dependsOn('build')
+    dependsOn('Alfred:build')
+    from ("build/libs") {
+        include "*.jar"
+    }
+    from file("src/main/resources/FieldMap.jpg")
+    into getDeployDest()
+}
+
+dependencies {
+    // This dependency is exported to consumers, that is to say found on their compile classpath.
+    api 'org.apache.commons:commons-math3:3.6.1'
+    
+    api getShuffleboardJar()
+
+    // This dependency is used internally, and not exposed to consumers on their own compile classpath.
+    implementation 'com.google.guava:guava:23.0'
+
+    // Use JUnit test framework
+    testImplementation 'junit:junit:4.12'
+}
+
+// In this section you declare where to find the dependencies of your project
+repositories {
+    // Use jcenter for resolving your dependencies.
+    // You can declare any Maven/Ivy/file repository here.
+    jcenter()
+    mavenCentral()
+}
