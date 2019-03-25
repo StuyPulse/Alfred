@@ -122,7 +122,7 @@ public class LiftMoveCommand extends Command {
         } else if(autoCompDir != Direction.NULL) {
             autoCompDir = Direction.NULL;
             targetLevel = Level.ZERO;
-            Robot.oi.operatorGamepad.gamepadRumble(0.25);
+            Robot.oi.operatorGamepad.rumble(0.25);
         }
     }
 

@@ -10,17 +10,23 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 
-public class FloopOpenCommand extends InstantCommand {
-    
-    public FloopOpenCommand() {
-        requires(Robot.floop);
-    }
+/**
+ * Add your docs here.
+ */
+public class FloopPullCommand extends InstantCommand {
+  /**
+   * Add your docs here.
+   */
+  public FloopPullCommand() {
+    super();
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
+  }
 
-    @Override
-    protected void initialize() {
-        Robot.floop.open();
-        if(Robot.IRsensor.get()) { 
-            Robot.floop.push();
-        }
-    }
+  // Called once when the command executes
+  @Override
+  protected void initialize() {
+      Robot.floop.pull();
+  }
+
 }

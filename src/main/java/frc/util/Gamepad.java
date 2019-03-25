@@ -561,7 +561,7 @@ public class Gamepad extends Joystick {
         }
     }
     
-    public void gamepadRumble(double intensity){
+    public void rumble(double intensity){
         setRumble(GenericHID.RumbleType.kLeftRumble, intensity);
         setRumble(GenericHID.RumbleType.kRightRumble, intensity);
     }
