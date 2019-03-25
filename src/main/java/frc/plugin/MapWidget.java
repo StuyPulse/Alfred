@@ -22,10 +22,9 @@ public class MapWidget extends SimpleAnnotatedWidget {
 
     @Override
     public Pane getView() {
-        Image fieldMap = new Image("file:///");
+        Image fieldMap = new Image(MapWidget.class.getResourceAsStream("/FieldMap.jpg"));
         GraphicsContext gc = new Canvas().getGraphicsContext2D();
         gc.drawImage(fieldMap,400, 600);
         return mapPane;
     }
-
 }

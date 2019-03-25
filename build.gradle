@@ -53,6 +53,7 @@ dependencies {
     nativeZip wpi.deps.vendor.jni(wpi.platforms.roborio)
     nativeDesktopZip wpi.deps.vendor.jni(wpi.platforms.desktop)
     testCompile 'junit:junit:4.12'
+    compileOnly getShuffleboardJar()
 }
 
 // Setting up my Jar File. In this case, adding all libraries into the main jar ('fat jar')
@@ -62,6 +63,38 @@ jar {
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     manifest edu.wpi.first.gradlerio.GradleRIOPlugin.javaManifest(ROBOT_MAIN_CLASS)
 }
+
+def getFrcToolsRoot() {
+    String FRC_YEAR = 2019
+    if(org.gradle.internal.os.OperatingSystem.current().isWindows()) {
+        String pubFolder = System.getenv("PUBLIC")
+        if(pubFolder == null) {
+            pubFolder = "C:\\Users\\Public"
+        }
+        return pubFolder + "/frc${FRC_YEAR}"
+    }
+
+    else {
+        return System.getProperty("user.home") + "/frc${FRC_YEAR}"
+    }
+}
+
+def getShuffleboardJar() {
+    return files(getFrcToolsRoot() + "/tools/shuffleboard.jar")
+}
+
+//TODO: MAKE IT SO THAT DEPLOYWIDGET AND BUILD RUN AT THE SAME TIME
+
+task ('deployWidget', type:Copy) {
+    dependsOn('build')
+    doLast {
+        from("map-widget/build/libs") {
+            include "*.jar"
+        }
+        into System.getProperty("user.home") + "/Shuffleboard/plugins"
+    }
+}
+
 //File file = new File("src/main/java/frc/robot/RobotMap.java")
 //System.out.println("=========================")
 //if(file.text.contains('ROBOT_NAME = "Alfred"')) {
