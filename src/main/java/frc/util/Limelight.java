@@ -89,6 +89,24 @@ public class Limelight {
         return output;
     }
     
+    // Uses network tables to check status of limelight
+    public static final int BUFFER_SIZE = 16;
+    private static long[] updateTimeBuffer = new long[BUFFER_SIZE];
+
+    /**
+     * For this function to work properly, 
+     * call 1-2 times per loop. 
+     * WILL NOT WORK IF YOU ONLY CALL ONCE
+     * @return if limelight is connected
+     */
+    public static boolean isConnected() { 
+        for(int i = BUFFER_SIZE - 1; i > 0; --i) {
+            updateTimeBuffer[i] = updateTimeBuffer[i - 1];
+        }
+        updateTimeBuffer[0] = xAngleEntry.getLastChange();
+        return updateTimeBuffer[0] != updateTimeBuffer[BUFFER_SIZE - 1];
+    }
+
     // Horizontal Offset From Crosshair To Target (-27 degrees to 27 degrees)
     public static final double MIN_X_ANGLE = -27;
     public static final double MAX_X_ANGLE = 27;

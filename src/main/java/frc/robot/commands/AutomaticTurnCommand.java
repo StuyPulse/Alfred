@@ -17,6 +17,7 @@ import frc.util.Limelight;
 public class AutomaticTurnCommand extends DrivetrainDriveCommand {
     private PIDController rotationPIDController;
     private double LimelightPIDOutput;
+
     @Override
     protected void initialize() {
         setInterruptible(false);
@@ -40,10 +41,12 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
             // Establish Turn Multiplier
             double turnMult = SmartDashboard.getNumber("MOVE_TURN_MUL", 5.5);
             turnMult = Math.max(turnMult * speed, 1);
+
             // Add PID Output, multiply it by the Speed P value.
-            super.turn += getLimelightPIDOutput() * turnMult;
+            super.turn += LimelightPIDOutput * turnMult;
         }
     }
+
     @Override
     protected boolean isFinished(){
         return !getCVButtons();
@@ -52,11 +55,6 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
     protected void end(){
         rotationPIDController.setPID(0, 0, 0);
         rotationPIDController.disable();
-    }
-
-    // PID stuff
-    protected double getLimelightPIDOutput() {
-        return LimelightPIDOutput;
     }
 
     private class LimelightPIDSource implements PIDSource {
@@ -71,11 +69,10 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
 
         @Override
         public double pidGet() {
-            double turnSign = Math.signum(Limelight.getTargetXAngle());
-            double turnDelta = Math.sqrt(Math.abs(Limelight.getTargetXAngle()));
-            return turnDelta * turnSign;
+            return Limelight.getTargetXAngle();
         }
     }
+
     private class LimelightPIDOutput implements PIDOutput {
         @Override
         public void pidWrite(double output) {

@@ -19,26 +19,32 @@ public class AutomaticDriveCommand extends AutomaticTurnCommand {
     @Override
     protected void setSpeed() {
         quickTurn = true; // Automatic Drive Uses Quick Turn
-        SmartDashboard.putBoolean("LIMELIGHT_CONNECTED:", !(Limelight.getTargetXAngle() == 0));
+        SmartDashboard.putBoolean("LIMELIGHT_CONNECTED:", Limelight.isConnected());
         if (Limelight.hasValidTarget()) {
             // Set speed depending on how far away the goal is
-            double area = Limelight.getTargetArea();
-            double angle_P = 5;
             double minSpeed = SmartDashboard.getNumber("AUTODRIVE_MIN_SPEED", RobotMap.MIN_AUTO_SPEED);
-            double forwardArea = SmartDashboard.getNumber("AUTODRIVE_FORWARD_AREA", RobotMap.FORWARD_AREA);
             double speedMultiplier = SmartDashboard.getNumber("AUTODRIVE_SPEED_MUL", RobotMap.AUTO_SPEED_MUL);
 
+            double area = Limelight.getTargetArea();
+            double forwardArea = SmartDashboard.getNumber("AUTODRIVE_FORWARD_AREA", RobotMap.FORWARD_AREA);
+            SmartDashboard.putBoolean("IS_NEAR", forwardArea < area);
+
             double accel;
-            SmartDashboard.putNumber("AutoDrive-MinSpeed:", minSpeed);
             accel = Math.max(forwardArea - area, 0);
-            SmartDashboard.putNumber("AutoDrive-AreaDifference:", accel);
-            boolean isNear = accel == 0;
-            SmartDashboard.putBoolean("IS_NEAR", isNear);
             accel *= speedMultiplier;
-            SmartDashboard.putNumber("AutoDrive-AddedSpeed:", accel);
+
+            double angle_P = 5;
+            double xAngleMul = Math.abs(Limelight.getTargetXAngle());
+            xAngleMul = Math.max(1.0 - xAngleMul / 24.0, 0.1);
+            xAngleMul *= angle_P;
+
+            accel *= xAngleMul;
+
             speed = minSpeed;
-            speed += accel*angle_P*(17-Limelight.getTargetXAngle())/17;
+            speed += accel;
             
+            SmartDashboard.putNumber("AutoDrive-AreaDifference:", Math.max(forwardArea - area, 0));
+            SmartDashboard.putNumber("AutoDrive-AddedSpeed:", accel);
             SmartDashboard.putNumber("AutoDrive-FinalSpeed:", speed);
 
         } else {
