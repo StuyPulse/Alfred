@@ -46,7 +46,10 @@ public class Robot extends TimedRobot {
 
     public static double liftSpeedGoingDown;
 
-    public static DigitalInput IRsensor;
+    public static DigitalInput IRsensor1;
+    public static DigitalInput IRsensor2;
+    public static DigitalInput IRsensor3;
+ 
     public static double autonStartTime;
     public static double autonCurrTime;
 
@@ -71,7 +74,10 @@ public class Robot extends TimedRobot {
         compressor = new Compressor();
         rollers = new Rollers();
         oi = new OI();
-        IRsensor = new DigitalInput(RobotMap.IR_SENSOR_PORT);
+        IRsensor1 = new DigitalInput(RobotMap.IR_SENSOR_PORT_1);
+        IRsensor2 = new DigitalInput(RobotMap.IR_SENSOR_PORT_2);
+        IRsensor3 = new DigitalInput(RobotMap.IR_SENSOR_PORT_3);
+
         relayController = new LEDRelayController(RobotMap.LED_CHANNEL);
         //chooser.addOption("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
@@ -241,7 +247,7 @@ public class Robot extends TimedRobot {
     }
 
     private boolean isGamePieceDetected() {
-        return IRsensor.get();
+        return IRsensor1.get() || IRsensor2.get() || IRsensor3.get();
     }
 
     private String returnTime() {
