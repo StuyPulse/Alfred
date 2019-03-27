@@ -1,4 +1,5 @@
 /* Lime Light Docs: http://docs.limelightvision.io/en/latest/networktables_api.html# */
+/* StuyPulse 694, Stuyvesant Highschool, NY */
 
 package frc.util;
 
@@ -7,88 +8,135 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.drive.Vector2d; // Returning Goal Cordinates
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.RobotMap;
 
 public class Limelight {
     // Network Table used to contact Lime Light
     private static NetworkTableInstance tableInstance = NetworkTableInstance.getDefault();
     private static NetworkTable table = tableInstance.getTable("limelight");
 
+    // Uses network tables to check status of limelight
+    private static NetworkTableEntry garbageTableEntry = table.getEntry("GARBAGE_TEST_VALUE");
+    private static boolean garbageTableValue = false;
+    public static long MAX_UPDATE_TIME = 1000;
+
+    /**
+     * @return if limelight is connected
+     */
+    public static boolean isConnected() { 
+        garbageTableValue = !garbageTableValue;
+        garbageTableEntry.forceSetBoolean(garbageTableValue);
+        long currentTime = garbageTableEntry.getLastChange();
+
+        long lastUpdate = (xAngleEntry.getLastChange() + yAngleEntry.getLastChange()) / 2;
+        return (currentTime - lastUpdate) < MAX_UPDATE_TIME;
+    }
+
     /* Commonly Used Contour Information */
     // Whether the limelight has any valid targets (0 or 1)
     private static NetworkTableEntry validTargetEntry = table.getEntry("tv");
+
+    // Not final incase user wants
+    // to change them at runtime
+    public static double DEFAULT_TARGET_HEIGHT_THRESHOLD = 6;
+    public static double DEFAULT_MIN_ASPECT_RATIO = 1.2;
+    public static double DEFAULT_MAX_ASPECT_RATIO = 3.3;
+    public static double DEFAULT_ANGLE_THRESHOLD = 25;
+
+    // Toggle for posting to SmartDashboard
+    public static final boolean POST_TO_SMART_DASHBOARD = true;
+
+    /**
+     * @param targetHeightThreshold Height threshold for target
+     * @param minRatio              Min ratio for the blue aspect ratio
+     * @param maxRatio              Max ratio for the blue aspect ratio
+     * @param angleThreshold        maximum skew the target can have
+     * @return Whether or not the limelight has a target in view
+     */
+    public static boolean hasValidTarget(
+            double targetHeightThreshold, 
+            double minRatio, double maxRatio,
+            double angleThreshold) {
+        return hasAnyTarget() 
+             & hasValidHeight(targetHeightThreshold) 
+             & hasValidBlueAspectRatio(minRatio, maxRatio)
+             & hasValidBlueOrientation(angleThreshold);
+    }
 
     /**
      * @return Whether or not the limelight has a target in view
      */
     public static boolean hasValidTarget() {
-        System.out.println("running limelight");
-        double targetHeightThreshold = RobotMap.TARGET_HEIGHT_THRESHOLD;
-        double minAspectRatio = RobotMap.MIN_ASPECT_RATIO;
-        double maxAspectRatio = RobotMap.MAX_ASPECT_RATIO;
-        double angleThreshold = RobotMap.ANGLE_THRESHOLD;
-        return 
-            hasAnyTarget()
-            & hasValidHeight(targetHeightThreshold)
-            & hasValidBlueAspectRatio(minAspectRatio, maxAspectRatio)
-            & hasValidBlueOrientation(angleThreshold)
-            ;
+        return hasValidTarget(
+            DEFAULT_TARGET_HEIGHT_THRESHOLD, 
+            DEFAULT_MIN_ASPECT_RATIO, 
+            DEFAULT_MAX_ASPECT_RATIO,
+            DEFAULT_ANGLE_THRESHOLD);
     }
-    
+
     /**
      * Decides if a target shows up on limelight screen
      * @return If it has any target
      */
-    public static boolean hasAnyTarget(){
-        // > 0.5 converts double to boolean, targetEntry is either 0 or 1
-        double validTarget = validTargetEntry.getDouble(0);
-        boolean output = validTarget > 0.5;
-        SmartDashboard.putBoolean("VALID_TARGET", output);
-        return output;
+    public static boolean hasAnyTarget() {
+        boolean validTarget = validTargetEntry.getDouble(0) > 0.5;
+
+        if (POST_TO_SMART_DASHBOARD) {
+            SmartDashboard.putBoolean("Valid Target", validTarget);
+        }
+
+        return validTarget;
     }
 
     /**
      * @param targetHeightThreshold Height threshold for target
      * @return If the target fits the height threshold
      */
-    public static boolean hasValidHeight(double targetHeightThreshold){
-        // Check if target is in a possible position
-        boolean output = getTargetYAngle() < targetHeightThreshold;
-        SmartDashboard.putBoolean("VALID_HEIGHT", output);
-        return output;
+    public static boolean hasValidHeight(double targetHeightThreshold) {
+        boolean validHeight = getTargetYAngle() < targetHeightThreshold;
+
+        if (POST_TO_SMART_DASHBOARD) {
+            SmartDashboard.putBoolean("Valid Height", validHeight);
+        }
+
+        return validHeight;
     }
 
     /**
      * The blue aspect ratio is the ratio of the width to height of the rotated
      * rectangle.
+     * 
      * @param minRatio Min ratio for the blue aspect ratio
      * @param maxRatio Max ratio for the blue aspect ratio
      * @return If the blue aspect ratio fits the thresholds
      */
-    public static boolean hasValidBlueAspectRatio(double minRatio, double maxRatio){
-        // Checks if target's box has a valid aspect ratio is good
+    public static boolean hasValidBlueAspectRatio(double minRatio, double maxRatio) {
         double aspectRatio = getHorizontalSidelength() / getVerticalSidelength();
-        boolean output = aspectRatio > minRatio && aspectRatio < maxRatio ;
-        SmartDashboard.putBoolean("VALID_RATIO", output);
-        SmartDashboard.putNumber("ASPECT_RATIO", aspectRatio);
-        return output;
+        boolean validRatio = aspectRatio > minRatio && aspectRatio < maxRatio;
+
+        if (POST_TO_SMART_DASHBOARD) {
+            SmartDashboard.putBoolean("Valid Ratio", validRatio);
+            SmartDashboard.putNumber("Aspect Ratio", aspectRatio);
+        }
+
+        return validRatio;
     }
+
     /**
-     * 
      * @param angleThreshold maximum skew the target can have
      * @return if the skew is less than the maximum skew
      */
-    public static boolean hasValidBlueOrientation(double angleThreshold){
-        // Checks if rotation of blue box (rotated box) is good
-        double diffFromNeg90 = Math.abs(-90 - getTargetSkew());
-        double diffFrom0 =  Math.abs(getTargetSkew());
-        double smallerDifference = Math.min(diffFromNeg90,diffFrom0);
-        boolean output = smallerDifference <= angleThreshold;
-        SmartDashboard.putBoolean("VALID_SKEW", output);
-        SmartDashboard.putNumber("SKEW_VALUE", smallerDifference);
-        return output;
+    public static boolean hasValidBlueOrientation(double angleThreshold) {
+        double skew = Math.abs(getTargetSkew());
+        boolean validOrientation = Math.min(skew, 90.0 - skew) <= angleThreshold;
+
+        if (POST_TO_SMART_DASHBOARD) {
+            SmartDashboard.putBoolean("Valid Skew", validOrientation);
+            SmartDashboard.putNumber("Skew Value", Math.min(skew, 90.0 - skew));
+        }
+
+        return validOrientation;
     }
-    
+
     // Horizontal Offset From Crosshair To Target (-27 degrees to 27 degrees)
     public static final double MIN_X_ANGLE = -27;
     public static final double MAX_X_ANGLE = 27;
@@ -107,7 +155,7 @@ public class Limelight {
     private static NetworkTableEntry yAngleEntry = table.getEntry("ty");
 
     /**
-     * @return The vertical angle of the target 
+     * @return The vertical angle of the target
      */
     public static double getTargetYAngle() {
         return yAngleEntry.getDouble(0);
@@ -160,6 +208,7 @@ public class Limelight {
 
     /**
      * Sidelength of shortest side of the fitted bounding box (0 - 320 pixels)
+     * 
      * @return Shortest side length of target in pixels
      */
     public static double getShortestSidelength() {
@@ -170,6 +219,7 @@ public class Limelight {
 
     /**
      * Sidelength of longest side of the fitted bounding box (0 - 320 pixels)
+     * 
      * @return Longest side length of the target in pixels
      */
     public static double getLongestSidelength() {
@@ -180,6 +230,7 @@ public class Limelight {
 
     /**
      * Horizontal sidelength of the rough bounding box (0 - 320 pixels)
+     * 
      * @return Horizontal side length of target in pixels
      */
     public static double getHorizontalSidelength() {
@@ -190,6 +241,7 @@ public class Limelight {
 
     /**
      * Vertical sidelength of the rough bounding box (0 - 320 pixels)
+     * 
      * @return Vertical side length of target in pixels
      */
     public static double getVerticalSidelength() {
@@ -218,7 +270,8 @@ public class Limelight {
 
     /**
      * @param target Target to read Area from
-     * @return Percent of the screen the corresponding target takes up on a scale of 0 to 1
+     * @return Percent of the screen the corresponding target takes up on a scale of
+     *         0 to 1
      */
     public static double getRawTargetArea(int target) {
         // Lime light returns a double from 0 - 100
@@ -407,34 +460,5 @@ public class Limelight {
      */
     public static void setSnapshotMode(SnapshotMode mode) {
         SnapshotModeEntry.setNumber(mode.getCodeValue());
-    }
-
-    /* Math using limelight values */
-    /**
-     * Calculate Distance using TY
-     * @param heightFromCamera Height from limelight camera to center of the target
-     * @param cameraAngle Angle at which the limelight is placed
-     * @return Distance from the target to the camera
-     */
-    public static double getTargetDistance(double heightFromCamera, double cameraAngle) {
-        return heightFromCamera / Math.tan(Math.toRadians(getTargetYAngle() + cameraAngle));
-    }
-
-    // Coordinates of limelight relative to the center of the robot
-    // This is necessary to make MP easier
-    public static final double LIMELIGHT_X_POS = 0;
-    public static final double LIMELIGHT_Y_POS = 0;
-
-    /**
-     * Calculate Coordinates using TY
-     * @param heightFromCamera Height from limelight camera to center of the target
-     * @param cameraAngle Angle at which the limelight is placed
-     * @return Coordinates of the target from the limelight camera
-     */
-    public static Vector2d getTargetCoordinates(double heightFromCamera, double cameraAngle) {
-        final double DISTANCE = getTargetDistance(heightFromCamera, cameraAngle);
-        final double XOFFSET = Math.toRadians(getTargetXAngle());
-        return new Vector2d(DISTANCE * Math.sin(XOFFSET) + LIMELIGHT_X_POS,
-                DISTANCE * Math.cos(XOFFSET) + LIMELIGHT_Y_POS);
     }
 }

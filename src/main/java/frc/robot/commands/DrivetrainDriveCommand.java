@@ -8,6 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.util.Limelight;
@@ -15,10 +16,9 @@ import frc.util.Limelight.LEDMode;
 
 public class DrivetrainDriveCommand extends Command {
     // Variables to feed to curvature drive
-    double speed = 0;
-    double turn = 0;
-    boolean quickTurn = true;
-    boolean isDriverControlling = true;
+    protected double speed = 0;
+    protected double turn = 0;
+    protected boolean quickTurn = true;
 
     public DrivetrainDriveCommand() {
         requires(Robot.drivetrain);
@@ -29,9 +29,11 @@ public class DrivetrainDriveCommand extends Command {
         setCameraMode();
         setSpeed();
         setTurn();
+        setQuickTurn();
         updateDrivetrain();
     }
-    
+
+    /* Switching between CV and Driver Mode */
     private boolean getCVButtons(){
         return (
             Robot.oi.driverGamepad.getRawLeftButton() || 
@@ -39,6 +41,7 @@ public class DrivetrainDriveCommand extends Command {
         );
     }
 
+    private boolean isDriverControlling = true;
     protected void setCameraMode() {
         boolean controlling = !getCVButtons();
 
@@ -58,6 +61,7 @@ public class DrivetrainDriveCommand extends Command {
         }
     }
 
+    /* Updating Speed */
     protected void setSpeed() {
         // Reset the speed to prevent this from becoming acceleration
         speed = 0;
@@ -65,11 +69,9 @@ public class DrivetrainDriveCommand extends Command {
         // Set speed to the axes of the triggers
         speed += Math.pow(Robot.oi.driverGamepad.getRawRightTriggerAxis(), 2);
         speed -= Math.pow(Robot.oi.driverGamepad.getRawLeftTriggerAxis(), 2);
-
-        // Enable Quick Turn if robot is not moving
-        quickTurn = Math.abs(speed) < 0.125;
     }
 
+    /* Updating Turning */
     protected void setTurn() {
         // Set the turn value to the joystick's x value
         double leftStick = Robot.oi.driverGamepad.getLeftX();
@@ -84,8 +86,22 @@ public class DrivetrainDriveCommand extends Command {
         turn = leftStick;
     }
 
+    /* Updating Quick Turn */
+    protected void setQuickTurn() {
+        // Enable Quick Turn if robot is not moving
+        quickTurn = Math.abs(speed) < 0.125;
+    }
+
     // Sub commands for each curvature drive variable
     protected void updateDrivetrain() {
+        if(RobotMap.DRIVETRAIN_SMARTDASHBORD_DEBUG) {
+            SmartDashboard.putNumber("Drivetrain Speed", speed);
+            SmartDashboard.putNumber("Drivetrain Turn", turn);
+            SmartDashboard.putBoolean("Drivetrain QuickTurn", quickTurn);
+            SmartDashboard.putBoolean("Drivetrain CV", getCVButtons());
+            SmartDashboard.putBoolean("Limelight Connected", Limelight.isConnected());
+        }
+
         Robot.drivetrain.curvatureDrive(speed, turn, quickTurn);
     }
 

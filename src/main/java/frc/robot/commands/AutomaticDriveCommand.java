@@ -8,7 +8,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.util.Limelight;
 
@@ -16,31 +15,18 @@ public class AutomaticDriveCommand extends AutomaticTurnCommand {
 
     @Override
     protected void setSpeed() {
-        quickTurn = true; // Automatic Drive Uses Quick Turn
-        SmartDashboard.putBoolean("LIMELIGHT_CONNECTED:", !(Limelight.getTargetXAngle() == 0));
+        // if no target is found, fall back on gamepad speed
+        super.setSpeed();
         if (Limelight.hasValidTarget()) {
-            // Set speed depending on how far away the goal is
-            double area = Limelight.getTargetArea();
-            double minSpeed = SmartDashboard.getNumber("AUTODRIVE_MIN_SPEED", RobotMap.MIN_AUTO_SPEED);
-            double forwardArea = SmartDashboard.getNumber("AUTODRIVE_FORWARD_AREA", RobotMap.FORWARD_AREA);
-            double speedMultiplier = SmartDashboard.getNumber("AUTODRIVE_SPEED_MUL", RobotMap.AUTO_SPEED_MUL);
+            speed += 1;
 
-            double accel;
-            SmartDashboard.putNumber("AutoDrive-MinSpeed:", minSpeed);
-            accel = Math.max(forwardArea - area, 0);
-            SmartDashboard.putNumber("AutoDrive-AreaDifference:", accel);
-            boolean isNear = accel == 0;
-            SmartDashboard.putBoolean("IS_NEAR", isNear);
-            accel *= speedMultiplier;
-            SmartDashboard.putNumber("AutoDrive-AddedSpeed:", accel);
-            speed = minSpeed;
-            speed += accel;
-            
-            SmartDashboard.putNumber("AutoDrive-FinalSpeed:", speed);
-
-        } else {
-            // if no target is found, fall back on gamepad speed
-            super.setSpeed();
+            /** Scaling speed based on XAngle
+             *  double turnSpeedDiv = 2;
+             *  double targetXValue = Math.abs(Limelight.getTargetXAngle());
+             *  double accel = Limelight.MAX_X_ANGLE - targetXValue / turnSpeedDiv;
+             *  accel /= Limelight.MAX_X_ANGLE;
+             *  speed += accel;
+             */
         }
     }
 }
