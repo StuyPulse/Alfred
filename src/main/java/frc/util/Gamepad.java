@@ -1,5 +1,6 @@
 package frc.util;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -30,13 +31,22 @@ public class Gamepad extends Joystick {
 	private GamepadSwitchMode switchMode;
 
 	public Gamepad(int port, GamepadSwitchMode switchMode) {
-		super(port);
+        super(port);
+        int controllerType = DriverStation.getInstance().getJoystickType(port);
 		switch(switchMode) {
             case AUTO_DETECT:
-                if(getRawAxis(3) != 0) {
+                if (controllerType == 21) {
                     this.switchMode = GamepadSwitchMode.PS4;
-                } else {
+                    break;
+                } else if (controllerType == 1) {
                     this.switchMode = GamepadSwitchMode.SWITCH_X;
+                    break;
+                } else if (controllerType == 20) {
+                    this.switchMode = GamepadSwitchMode.SWITCH_D;
+                    break;
+                } else {
+                    this.switchMode = null;
+                    break;
                 }
             default:
                 this.switchMode = switchMode;
