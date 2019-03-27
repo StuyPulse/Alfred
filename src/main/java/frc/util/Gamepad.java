@@ -23,14 +23,24 @@ public class Gamepad extends Joystick {
 	public enum GamepadSwitchMode {
 		SWITCH_X,
 		SWITCH_D,
-		PS4 //PS4 Controller Enum.
+		PS4,//PS4 Controller Enum.
+        AUTO_DETECT
 	}
 
 	private GamepadSwitchMode switchMode;
 
 	public Gamepad(int port, GamepadSwitchMode switchMode) {
 		super(port);
-		this.switchMode = switchMode;
+		switch(switchMode) {
+            case AUTO_DETECT:
+                if(getRawAxis(3) != 0) {
+                    this.switchMode = GamepadSwitchMode.PS4;
+                } else {
+                    this.switchMode = GamepadSwitchMode.SWITCH_X;
+                }
+            default:
+                this.switchMode = switchMode;
+        }
 	}
 
 	// Defaults to D mode (for backwards compatibility)
