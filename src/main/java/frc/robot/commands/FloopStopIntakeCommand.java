@@ -7,20 +7,17 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.InstantCommand;
+import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 import frc.robot.Robot;
 
-public class FloopOpenCommand extends InstantCommand {
-    
-    public FloopOpenCommand() {
-        requires(Robot.floop);
-    }
+public class FloopStopIntakeCommand extends CommandGroup {
 
-    @Override
-    protected void initialize() {
-        Robot.floop.open();
-        if(Robot.isGamePieceDetected()) { 
-            Robot.floop.push();
-        }
+  public FloopStopIntakeCommand() {
+    if (!Robot.floop.isOpen() || !Robot.floop.pushed()) {
+      addSequential(new FloopOpenCommand());
+      addSequential(new WaitCommand(1));
+      addSequential(new FloopPushCommand());
     }
+  }
 }

@@ -246,7 +246,7 @@ public class Robot extends TimedRobot {
         }
     }
 
-    private boolean isGamePieceDetected() {
+    public static boolean isGamePieceDetected() {
         return IRsensor1.get() || IRsensor2.get() || IRsensor3.get();
     }
 

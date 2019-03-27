@@ -10,17 +10,15 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 
-public class FloopOpenCommand extends InstantCommand {
-    
-    public FloopOpenCommand() {
-        requires(Robot.floop);
-    }
+public class FloopStartScoreCommand extends InstantCommand {
+  public FloopStartScoreCommand() {
+    requires(Robot.floop);
+  }
 
-    @Override
-    protected void initialize() {
-        Robot.floop.open();
-        if(Robot.isGamePieceDetected()) { 
-            Robot.floop.push();
-        }
-    }
+  @Override
+  protected void initialize() {
+    Robot.floop.close();
+    Robot.floop.push();
+  }
+
 }

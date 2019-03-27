@@ -18,13 +18,6 @@ public class FloopCloseCommand extends InstantCommand {
 
     @Override
     protected void initialize() {
-        if(Robot.IRsensor.get()) { 
-            Robot.floop.open();
-            Robot.floop.push();
-            Robot.oi.operatorGamepad.rumble(0.25); 
-        }else {
-            Robot.floop.close();
-            Robot.floop.pull(); 
-        }
+        Robot.floop.close();
     }
 }
