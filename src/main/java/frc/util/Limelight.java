@@ -14,6 +14,20 @@ public class Limelight {
     private static NetworkTableInstance tableInstance = NetworkTableInstance.getDefault();
     private static NetworkTable table = tableInstance.getTable("limelight");
 
+    /* Commonly Used Contour Information */
+    // Whether the limelight has any valid targets (0 or 1)
+    private static NetworkTableEntry validTargetEntry = table.getEntry("tv");
+
+    // Not final incase user wants
+    // to change them at runtime
+    public static double DEFAULT_TARGET_HEIGHT_THRESHOLD = 6;
+    public static double DEFAULT_MIN_ASPECT_RATIO = 1.2;
+    public static double DEFAULT_MAX_ASPECT_RATIO = 3.3;
+    public static double DEFAULT_ANGLE_THRESHOLD = 25;
+
+    // Toggle for posting to SmartDashboard
+    public static final boolean POST_TO_SMART_DASHBOARD = true;
+    
     // Uses network tables to check status of limelight
     private static NetworkTableEntry garbageTableEntry = table.getEntry("GARBAGE_TEST_VALUE");
     private static boolean garbageTableValue = false;
@@ -36,20 +50,6 @@ public class Limelight {
 
         return timeDifference < MAX_UPDATE_TIME;
     }
-
-    /* Commonly Used Contour Information */
-    // Whether the limelight has any valid targets (0 or 1)
-    private static NetworkTableEntry validTargetEntry = table.getEntry("tv");
-
-    // Not final incase user wants
-    // to change them at runtime
-    public static double DEFAULT_TARGET_HEIGHT_THRESHOLD = 6;
-    public static double DEFAULT_MIN_ASPECT_RATIO = 1.2;
-    public static double DEFAULT_MAX_ASPECT_RATIO = 3.3;
-    public static double DEFAULT_ANGLE_THRESHOLD = 25;
-
-    // Toggle for posting to SmartDashboard
-    public static final boolean POST_TO_SMART_DASHBOARD = true;
 
     /**
      * @param targetHeightThreshold Height threshold for target

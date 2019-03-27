@@ -34,7 +34,7 @@ public class DrivetrainDriveCommand extends Command {
     }
 
     /* Switching between CV and Driver Mode */
-    private boolean getCVButtons(){
+    private boolean getCVButtonsPressed(){
         return (
             Robot.oi.driverGamepad.getRawLeftButton() || 
             Robot.oi.driverGamepad.getRawTopButton()
@@ -43,7 +43,7 @@ public class DrivetrainDriveCommand extends Command {
 
     private boolean isDriverControlling = true;
     protected void setCameraMode() {
-        boolean controlling = !getCVButtons();
+        boolean controlling = !getCVButtonsPressed();
 
         // Optimization that prevents spamming network table
         if(controlling != isDriverControlling) {
@@ -98,7 +98,7 @@ public class DrivetrainDriveCommand extends Command {
             SmartDashboard.putNumber("Drivetrain Speed", speed);
             SmartDashboard.putNumber("Drivetrain Turn", turn);
             SmartDashboard.putBoolean("Drivetrain QuickTurn", quickTurn);
-            SmartDashboard.putBoolean("Drivetrain CV", getCVButtons());
+            SmartDashboard.putBoolean("Drivetrain CV", getCVButtonsPressed());
             SmartDashboard.putBoolean("Limelight Connected", Limelight.isConnected());
         }
 
