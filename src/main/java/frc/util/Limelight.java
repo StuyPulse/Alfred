@@ -28,7 +28,13 @@ public class Limelight {
         long currentTime = garbageTableEntry.getLastChange();
 
         long lastUpdate = (xAngleEntry.getLastChange() + yAngleEntry.getLastChange()) / 2;
-        return (currentTime - lastUpdate) < MAX_UPDATE_TIME;
+        long timeDifference = (currentTime - lastUpdate);
+
+        if (POST_TO_SMART_DASHBOARD) {
+            SmartDashboard.putNumber("Limelight Time Difference", timeDifference);
+        }
+
+        return timeDifference < MAX_UPDATE_TIME;
     }
 
     /* Commonly Used Contour Information */
