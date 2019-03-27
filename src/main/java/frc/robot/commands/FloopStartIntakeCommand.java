@@ -14,6 +14,7 @@ import frc.robot.Robot;
 public class FloopStartIntakeCommand extends Command {
 
   double startTime;
+  boolean finished;
 
   public FloopStartIntakeCommand() {
     super();
@@ -33,13 +34,14 @@ public class FloopStartIntakeCommand extends Command {
       startTime = Timer.getFPGATimestamp();
       if (Timer.getFPGATimestamp() - startTime >= 1) {
         Robot.floop.push();
+        finished = true;
       }
     }
   }
 
   @Override
   protected boolean isFinished() {
-    return false;
+    return finished;
   }
 
 }
