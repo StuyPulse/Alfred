@@ -73,35 +73,14 @@ public class Robot extends TimedRobot {
         oi = new OI();
         IRsensor = new DigitalInput(RobotMap.IR_SENSOR_PORT);
         relayController = new LEDRelayController(RobotMap.LED_CHANNEL);
+        
         //chooser.addOption("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
 
-       // CameraServer.getInstance().startAutomaticCapture(0);
-        SmartDashboard.putNumber("TURN_DIV", 20);
-        SmartDashboard.putNumber("MOVE_TURN_MUL", 5.5);
+        // CameraServer.getInstance().startAutomaticCapture(0);
+        SmartDashboard.putNumber("TURN_DIV", RobotMap.TURN_DIV);
+        SmartDashboard.putNumber("MOVE_TURN_MUL", RobotMap.MOVE_TURN_MUL);
 
-        //Tuning values to check if target is valid
-        SmartDashboard.putNumber("TURN_MIN_SPEED", 0.2);
-        SmartDashboard.putNumber("TURN_MIN_ANGLE", 1);
-
-        //Tuning values for autoDrive
-        
-        //TODO: test these values!
-        // SmartDashboard.putNumber("AUTODRIVE_MIN_SPEED", 0.15);
-        // SmartDashboard.putNumber("AUTODRIVE_FORWARD_AREA", 0.038);
-        // SmartDashboard.putNumber("AUTODRIVE_SPEED_MUL", 1.5);
-        //TODO: replace these after CNY
-        SmartDashboard.putNumber("AUTODRIVE_MIN_SPEED", 0.05);
-        SmartDashboard.putNumber("AUTODRIVE_FORWARD_AREA", 0.07);
-        SmartDashboard.putNumber("AUTODRIVE_SPEED_MUL", 2.75);
-
-        SmartDashboard.putBoolean("VALID_TARGET", false);
-        SmartDashboard.putBoolean("VALID_HEIGHT", false);
-        SmartDashboard.putBoolean("VALID_RATIO", false);
-        SmartDashboard.putBoolean("VALID_SKEW", false);
-
-        // SmartDashboard.putNumber("CAM_MODE", 1);
-        SmartDashboard.putNumber("LIMELIGHT_MOTOR_OUTPUT", 0);
         hasBeenZeroed = false;
     }
 
