@@ -143,6 +143,9 @@ public class Robot extends TimedRobot {
     @Override
     public void disabledPeriodic() {
         Scheduler.getInstance().run();
+        // Reset the gamepad types
+        oi.driverGamepad.resetGamepadType();
+        oi.operatorGamepad.resetGamepadType();
     }
 
     /**
