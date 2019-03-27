@@ -7,21 +7,35 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.InstantCommand;
+import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class FloopStartIntakeCommand extends InstantCommand {
+public class FloopStartIntakeCommand extends Command {
+
+  boolean wasInitialized;
+  Command stopIntakeCommand = new FloopStopIntakeCommand();
 
   public FloopStartIntakeCommand() {
     super();
     requires(Robot.floop);
   }
 
-  // Called once when the command executes
-  @Override
+  @Override 
   protected void initialize() {
     Robot.floop.close();
     Robot.floop.pull();
+  }
+
+  @Override
+  protected void execute() {
+    if (Robot.isGamePieceDetected()) {
+      stopIntakeCommand.start();
+    }
+  }
+
+  @Override
+  protected boolean isFinished() {
+    return false;
   }
 
 }

@@ -17,7 +17,6 @@ import frc.robot.commands.FloopCloseCommand;
 import frc.robot.commands.FloopOpenCommand;
 import frc.robot.commands.FloopPullCommand;
 import frc.robot.commands.FloopPushCommand;
-import frc.robot.commands.FloopPushWhenGamePieceDetectedCommand;
 import frc.robot.commands.FloopStartIntakeCommand;
 import frc.robot.commands.FloopStartScoreCommand;
 import frc.robot.commands.FloopStopIntakeCommand;
@@ -64,8 +63,7 @@ public class OI {
         operatorGamepad.getRightBumper().whenReleased(new RollersRampDownAcquireCommand(1));
         operatorGamepad.getLeftBumper().whileHeld(new RollersConstantDeacquireCommand());
 
-        operatorGamepad.getTopButton().whenPressed(new FloopStartIntakeCommand());
-        operatorGamepad.getTopButton().whileHeld(new FloopPushWhenGamePieceDetectedCommand());
+        operatorGamepad.getTopButton().whileHeld(new FloopStartIntakeCommand());
         operatorGamepad.getTopButton().whenReleased((new FloopStopIntakeCommand()));
         operatorGamepad.getRightButton().whenPressed(new FloopStartScoreCommand());
         operatorGamepad.getRightButton().whenReleased(new FloopStopScoreCommand());
