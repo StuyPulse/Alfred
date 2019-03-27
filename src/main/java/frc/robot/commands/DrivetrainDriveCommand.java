@@ -94,7 +94,7 @@ public class DrivetrainDriveCommand extends Command {
 
     // Sub commands for each curvature drive variable
     protected void updateDrivetrain() {
-        if(RobotMap.DRIVETRAIN_SMARTDASHBORD_DEBUG) {
+        if(RobotMap.DRIVETRAIN_SMARTDASHBOARD_DEBUG) {
             SmartDashboard.putNumber("Drivetrain Speed", speed);
             SmartDashboard.putNumber("Drivetrain Turn", turn);
             SmartDashboard.putBoolean("Drivetrain QuickTurn", quickTurn);
