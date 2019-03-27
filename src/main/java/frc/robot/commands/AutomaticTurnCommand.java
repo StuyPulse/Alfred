@@ -39,6 +39,10 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
             // Scale the Turn Delta
             turnDelta /= turnDiv;
             
+            if(RobotMap.DRIVETRAIN_SMARTDASHBOARD_DEBUG) {
+                SmartDashboard.putNumber("Drivetrain CV Turning", turnDelta);
+            }
+
             // Add Turn Delta to Turn
             turn += turnDelta;
         }
