@@ -49,6 +49,11 @@ public final class Floop extends Subsystem {
         return pusherSolenoid.get();
     }
 
+    public void prepareForRollers() {
+        pull();
+        open();
+    }
+
     @Override
     public void initDefaultCommand() {
     }

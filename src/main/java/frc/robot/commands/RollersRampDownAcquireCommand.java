@@ -16,6 +16,7 @@ public class RollersRampDownAcquireCommand extends TimedCommand {
     private double startTime;
     private double currTime;
     private double interval;
+
     public RollersRampDownAcquireCommand(double timeout) {
         super(timeout);
         requires(Robot.rollers);
@@ -25,6 +26,7 @@ public class RollersRampDownAcquireCommand extends TimedCommand {
     @Override
     protected void initialize() {
         startTime = Timer.getFPGATimestamp();
+        Robot.floop.prepareForRollers();
     }
 
     @Override

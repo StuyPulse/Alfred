@@ -15,6 +15,11 @@ public class RollersConstantDeacquireCommand extends Command {
     public RollersConstantDeacquireCommand() {
         requires(Robot.rollers);
     }
+    
+    @Override
+    protected void initialize() {
+        Robot.floop.prepareForRollers();
+    }
 
     @Override
     protected void execute() {
