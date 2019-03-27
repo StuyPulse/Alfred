@@ -18,6 +18,8 @@ public class FloopOpenCommand extends InstantCommand {
 
     @Override
     protected void initialize() {
-        Robot.floop.open();
+        if (!Robot.floop.isOpen()) {
+            Robot.floop.open();
+        }
     }
 }

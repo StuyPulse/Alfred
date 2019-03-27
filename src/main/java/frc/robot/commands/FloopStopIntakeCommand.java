@@ -14,10 +14,8 @@ import frc.robot.Robot;
 public class FloopStopIntakeCommand extends CommandGroup {
 
   public FloopStopIntakeCommand() {
-    if (!Robot.floop.isOpen() || !Robot.floop.pushed()) {
-      addSequential(new FloopOpenCommand());
-      addSequential(new WaitCommand(1));
-      addSequential(new FloopPushCommand());
-    }
+    addSequential(new FloopOpenCommand());
+    addSequential(new WaitCommand(1));
+    addSequential(new FloopPushCommand());
   }
 }
