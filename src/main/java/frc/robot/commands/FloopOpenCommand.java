@@ -19,8 +19,5 @@ public class FloopOpenCommand extends InstantCommand {
     @Override
     protected void initialize() {
         Robot.floop.open();
-        if(Robot.isGamePieceDetected()) { 
-            Robot.floop.push();
-        }
     }
 }
