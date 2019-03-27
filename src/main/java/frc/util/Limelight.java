@@ -17,7 +17,7 @@ public class Limelight {
     // Uses network tables to check status of limelight
     private static NetworkTableEntry garbageTableEntry = table.getEntry("GARBAGE_TEST_VALUE");
     private static boolean garbageTableValue = false;
-    public static long MAX_UPDATE_TIME = 1000;
+    public static final long MAX_UPDATE_TIME = 1000;
 
     /**
      * @return if limelight is connected
