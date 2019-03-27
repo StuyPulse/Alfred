@@ -7,13 +7,13 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 public class FloopStartIntakeCommand extends Command {
 
-  boolean wasInitialized;
-  Command stopIntakeCommand = new FloopStopIntakeCommand();
+  double startTime;
 
   public FloopStartIntakeCommand() {
     super();
@@ -29,7 +29,11 @@ public class FloopStartIntakeCommand extends Command {
   @Override
   protected void execute() {
     if (Robot.isGamePieceDetected()) {
-      stopIntakeCommand.start();
+      Robot.floop.open();
+      startTime = Timer.getFPGATimestamp();
+      if (Timer.getFPGATimestamp() - startTime >= 1) {
+        Robot.floop.push();
+      }
     }
   }
 
