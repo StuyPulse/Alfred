@@ -18,7 +18,7 @@ public class AutomaticDriveCommand extends AutomaticTurnCommand {
         // if no target is found, fall back on gamepad speed
         super.setSpeed();
         if (Limelight.hasValidTarget()) {
-            speed += RobotMap.AUTOMATIC_DRIVE_SPEED;
+            speed += SmartDashboard.getNumber("AUTOMATIC_DRIVE_SPEED", RobotMap.AUTOMATIC_DRIVE_SPEED);
 
             /** Scaling speed based on XAngle
              *  double turnSpeedDiv = 2;
