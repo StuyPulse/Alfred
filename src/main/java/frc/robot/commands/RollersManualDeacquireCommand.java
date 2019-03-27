@@ -15,6 +15,7 @@ public class RollersManualDeacquireCommand extends Command {
 
     public RollersManualDeacquireCommand() {
         requires(Robot.rollers);
+        requires(Robot.floop);
     }
 
     @Override

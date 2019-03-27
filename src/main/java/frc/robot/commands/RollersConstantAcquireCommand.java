@@ -14,6 +14,7 @@ public class RollersConstantAcquireCommand extends Command {
 
     public RollersConstantAcquireCommand() {
         requires(Robot.rollers);
+        requires(Robot.floop);
     }
 
     @Override

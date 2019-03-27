@@ -20,6 +20,7 @@ public class RollersRampDownAcquireCommand extends TimedCommand {
     public RollersRampDownAcquireCommand(double timeout) {
         super(timeout);
         requires(Robot.rollers);
+        requires(Robot.floop);
         interval = timeout/4;
     }
 
