@@ -7,22 +7,13 @@
 
 package frc.robot;
 
-import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.subsystems.Abom;
-import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.Floop;
-import frc.robot.subsystems.Lift;
-import frc.robot.subsystems.Rollers;
-import frc.robot.subsystems.Tail;
+import frc.plugin.FieldPosition;
+import frc.robot.subsystems.*;
 import frc.util.LEDRelayController;
 
 /**
@@ -55,6 +46,7 @@ public class Robot extends TimedRobot {
 
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<>();
+    SendableChooser<FieldPosition.StartingPosition> startPos = new SendableChooser<>();
 
     /**
      * This function is run when the robot is first started up and should be used
@@ -73,6 +65,10 @@ public class Robot extends TimedRobot {
         oi = new OI();
         IRsensor = new DigitalInput(RobotMap.IR_SENSOR_PORT);
         relayController = new LEDRelayController(RobotMap.LED_CHANNEL);
+        startPos.addOption("Right", FieldPosition.StartingPosition.RIGHT_CS);
+        startPos.addOption("Middle", FieldPosition.StartingPosition.MIDDLE);
+        startPos.addOption("Left", FieldPosition.StartingPosition.LEFT_CS);
+        SmartDashboard.putData("Position Chooser", startPos);
         //chooser.addOption("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
 

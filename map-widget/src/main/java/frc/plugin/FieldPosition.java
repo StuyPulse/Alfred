@@ -8,26 +8,33 @@ import java.util.Map;
 public final class FieldPosition extends ComplexData<FieldPosition> {
 
     private double[] pos = new double[2];
+    private double startAngle;
+    private double angle;
 
     @Override
     public Map<String, Object> asMap() {
         Map<String, Object> zzz = new HashMap<>();
         zzz.put("x", pos[0]);
         zzz.put("y", pos[1]);
+        zzz.put("angle", angle);
         return zzz;
     }
 
     public enum StartingPosition {
-        LEFT(-1, -1),
-        RIGHT(-1, -1),
-        MIDDLE(-1, -1);
+        LEFT_CS(new FieldPosition(-1, -1, -1)),
+        RIGHT_CS(new FieldPosition(-1, -1, -1)),
+        MIDDLE(new FieldPosition(-1, -1, -1)),
+        LEFT_R(new FieldPosition(-1, -1, -1)),
+        RIGHT_R(new FieldPosition(-1, -1, -1));
 
         double x;
         double y;
+        double angle;
 
-        StartingPosition(double x, double y) {
-            this.x = x;
-            this.y = y;
+        StartingPosition(FieldPosition pos) {
+            x = pos.getX();
+            y = pos.getY();
+            angle = pos.getAngle();
         }
 
         public double[] getCoordinates() {
@@ -35,20 +42,27 @@ public final class FieldPosition extends ComplexData<FieldPosition> {
         }
     }
 
-    public FieldPosition(StartingPosition prevPos) {
+    public FieldPosition(StartingPosition prevPos, double gyroAngle) {
         this.pos = prevPos.getCoordinates();
+        startAngle = gyroAngle;
+        angle = 0;
     }
 
-    public FieldPosition(double x, double y) {
+    public FieldPosition(double x, double y, double gyroAngle) {
         pos[0] = x;
         pos[1] = y;
+        angle = gyroAngle - startAngle;
     }
 
-    public FieldPosition setX(double x) {
-        return new FieldPosition(x, pos[1]);
+    public double getX() {
+        return pos[0];
     }
 
-    public FieldPosition setY(double y) {
-        return new FieldPosition(pos[0], y);
+    public double getY() {
+        return pos[1];
+    }
+
+    public double getAngle() {
+        return angle;
     }
 }
