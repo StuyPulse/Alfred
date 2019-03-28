@@ -14,17 +14,6 @@ public class Limelight {
     private static NetworkTableInstance tableInstance = NetworkTableInstance.getDefault();
     private static NetworkTable table = tableInstance.getTable("limelight");
 
-    /* Commonly Used Contour Information */
-    // Whether the limelight has any valid targets (0 or 1)
-    private static NetworkTableEntry validTargetEntry = table.getEntry("tv");
-
-    // Not final incase user wants
-    // to change them at runtime
-    public static double DEFAULT_TARGET_HEIGHT_THRESHOLD = 6;
-    public static double DEFAULT_MIN_ASPECT_RATIO = 1.2;
-    public static double DEFAULT_MAX_ASPECT_RATIO = 3.3;
-    public static double DEFAULT_ANGLE_THRESHOLD = 25;
-
     // Toggle for posting to SmartDashboard
     public static final boolean POST_TO_SMART_DASHBOARD = true;
     
@@ -67,7 +56,14 @@ public class Limelight {
              & hasValidBlueAspectRatio(minRatio, maxRatio)
              & hasValidBlueOrientation(angleThreshold);
     }
-
+    
+    // Not final incase user wants
+    // to change them at runtime
+    public static double DEFAULT_TARGET_HEIGHT_THRESHOLD = 6;
+    public static double DEFAULT_MIN_ASPECT_RATIO = 1.2;
+    public static double DEFAULT_MAX_ASPECT_RATIO = 3.3;
+    public static double DEFAULT_ANGLE_THRESHOLD = 25;
+    
     /**
      * @return Whether or not the limelight has a target in view
      */
@@ -79,6 +75,10 @@ public class Limelight {
             DEFAULT_ANGLE_THRESHOLD);
     }
 
+    /* Commonly Used Contour Information */
+    // Whether the limelight has any valid targets (0 or 1)
+    private static NetworkTableEntry validTargetEntry = table.getEntry("tv");
+    
     /**
      * Decides if a target shows up on limelight screen
      * @return If it has any target
