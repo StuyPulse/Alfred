@@ -65,4 +65,5 @@ public final class FieldPosition extends ComplexData<FieldPosition> {
     public double getAngle() {
         return angle;
     }
+
 }

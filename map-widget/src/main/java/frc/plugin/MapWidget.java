@@ -34,5 +34,4 @@ public class MapWidget extends SimpleAnnotatedWidget {
         gc.fillPolygon(new double[] {0, 0, 3}, new double[] {0, 2, 1}, 3);
         return mapPane;
     }
-
 }
