@@ -9,7 +9,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 
 @Description(dataTypes = {FieldPosition.class}, name = "Field Map")
 @ParametrizedController("MapWidget.fxml")
@@ -19,20 +18,17 @@ public class MapWidget extends SimpleAnnotatedWidget {
     Pane mapPane;
     @FXML
     Canvas canvas;
-    GraphicsContext gc = canvas.getGraphicsContext2D();
-
-    public void updateWidget(int x, int y, int angle) {
-        gc.translate(x, y);
-        gc.rotate(angle);
-    }
+    //TODO: FIND OUT WHY THIS LINE IS CAUSING PROBLEMS
+//    GraphicsContext gc = canvas.getGraphicsContext2D();
 
     @Override
     public Pane getView() {
-        //TODO: ADD PROPERTIES FILE TO MAKE THIS WORK
-        //Image fieldMap = new Image(getClass().getClassLoader().getResourceAsStream("frc/plugin/FieldMap.jpg"));
-        //gc.drawImage(fieldMap,Constants.imgX, Constants.imgY);
-        gc.setFill(Color.RED);
-        gc.fillPolygon(new double[] {0, 0, 3}, new double[] {0, 2, 1}, 3);
+        Image fieldMap = new Image(getClass().getResourceAsStream("FieldMap.jpg"));
+        //TODO: FIND OUT WHY THIS LINE WORKS
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        gc.drawImage(fieldMap,Constants.imgX, Constants.imgY);
+//        gc.setFill(Color.RED);
+//        gc.fillPolygon(new double[] {0, 0, 3}, new double[] {0, 2, 1}, 3);
         return mapPane;
     }
 }

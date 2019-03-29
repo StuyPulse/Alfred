@@ -65,9 +65,11 @@ public class Robot extends TimedRobot {
         oi = new OI();
         IRsensor = new DigitalInput(RobotMap.IR_SENSOR_PORT);
         relayController = new LEDRelayController(RobotMap.LED_CHANNEL);
-        startPos.addOption("Right", FieldPosition.StartingPosition.RIGHT_CS);
+        startPos.addOption("Left Cargo Ship", FieldPosition.StartingPosition.LEFT_CS);
+        startPos.addOption("Left Rocket Ship", FieldPosition.StartingPosition.LEFT_R);
         startPos.addOption("Middle", FieldPosition.StartingPosition.MIDDLE);
-        startPos.addOption("Left", FieldPosition.StartingPosition.LEFT_CS);
+        startPos.addOption("Right Cargo Ship", FieldPosition.StartingPosition.RIGHT_CS);
+        startPos.addOption("Right Rocket Ship", FieldPosition.StartingPosition.RIGHT_R);
         SmartDashboard.putData("Position Chooser", startPos);
         //chooser.addOption("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
