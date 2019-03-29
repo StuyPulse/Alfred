@@ -7,18 +7,14 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.InstantCommand;
-import frc.robot.Robot;
+import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 
-public class FloopStopScoreCommand extends InstantCommand {
+public class FloopStopScoreCommand extends CommandGroup {
+
   public FloopStopScoreCommand() {
-    requires(Robot.floop);
+    addSequential(new FloopPullCommand());
+    addSequential(new WaitCommand(0.25));
+    addSequential(new FloopOpenCommand());
   }
-
-  @Override
-  protected void initialize() {
-    Robot.floop.open();
-    Robot.floop.pull();
-  }
-
 }
