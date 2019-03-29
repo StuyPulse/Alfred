@@ -8,6 +8,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.drive.Vector2d; // Returning Goal Cordinates
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Notifier;
 
 public class Limelight {
     // Network Table used to contact Lime Light
@@ -22,9 +23,6 @@ public class Limelight {
     private static boolean garbageTableValue = false;
     public static final long MAX_UPDATE_TIME = 200_000; // Micro Seconds = 0.2 Seconds
     
-    // Tells if Limelgiht is connected.
-    boolean isConnected = false;
-    private static Notifier connectCheck = new Notifier(new PeriodicRunnable());
     class PeriodicRunnable implements java.lang.Runnable {
         public void run() {
             resetPilelineLatency();
@@ -37,6 +35,9 @@ public class Limelight {
             isConnected = (getPipelineLatencyMs() == IMAGE_CAPTURE_LATENCY);
         }
     }
+    // Tells if Limelgiht is connected.
+    boolean isConnected = false;
+    private static Notifier connectCheck = new Notifier(new PeriodicRunnable());
     public static void startConnectCheck(){
         connectCheck.startPeriodic(0.1);
     }
