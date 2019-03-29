@@ -33,11 +33,9 @@ public class Gamepad extends Joystick {
     public Gamepad(int port, GamepadSwitchMode switchMode) {
         super(port);
         this.port = port;
-        switch (switchMode) {
-            case AUTO_DETECT:
-                resetGamepadType();
-                break;
-        default:
+        if (switchMode == GamepadSwitchMode.AUTO_DETECT) {
+            resetGamepadType();
+        } else {
             this.switchMode = switchMode;
         }
     }
@@ -48,8 +46,7 @@ public class Gamepad extends Joystick {
     }
 
     /**
-     * Resets the type of the gamepad
-     * Makes Rio CPU% usage jump to 50% on the testboard (DO NOT CALL DURING TELEOP OR AUTON)
+     * Resets the type of the gamepad (Not expensive)
      */
     public void resetGamepadType() {
         controllerType = DriverStation.getInstance().getJoystickType(port);
