@@ -32,7 +32,7 @@ public class Limelight {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            isConnected = (getPipelineLatencyMs() == IMAGE_CAPTURE_LATENCY);
+            isConnected = (getLatencyMs() == IMAGE_CAPTURE_LATENCY);
         }
     }
     // Tells if Limelgiht is connected.
