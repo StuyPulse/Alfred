@@ -100,7 +100,7 @@ public class DrivetrainDriveCommand extends Command {
             SmartDashboard.putBoolean("Drivetrain QuickTurn", quickTurn);
             SmartDashboard.putBoolean("Drivetrain CV", getCVButtonsPressed());
 
-            boolean isConnected = Limelight.isConnected();
+            boolean isConnected = Robot.drivetrain.limelight.isConnected();
             SmartDashboard.putBoolean("Limelight Connected", isConnected);
         }
 

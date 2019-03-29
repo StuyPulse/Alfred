@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.RobotMap;
 import frc.robot.commands.DrivetrainDriveCommand;
+import frc.util.Limelight;
 import frc.util.NEOEncoder;
 
 public final class Drivetrain extends Subsystem {
@@ -45,6 +46,8 @@ public final class Drivetrain extends Subsystem {
     private AHRS navX;
     
     private Solenoid gearShift;
+
+    public Limelight limelight = new Limelight();
     
     public Drivetrain() {
         // Left Side Motors
