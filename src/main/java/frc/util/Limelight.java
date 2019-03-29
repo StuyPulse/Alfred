@@ -42,7 +42,7 @@ public class Limelight {
     /**
      * @return if limelight is connected
      */
-    public static boolean isConnected() { 
+    public boolean isConnected() { 
         return isConnected;
     }
 
