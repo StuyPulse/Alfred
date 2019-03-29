@@ -21,6 +21,26 @@ public class Limelight {
     private static NetworkTableEntry garbageTableEntry = table.getEntry("GARBAGE_TEST_VALUE");
     private static boolean garbageTableValue = false;
     public static final long MAX_UPDATE_TIME = 200_000; // Micro Seconds = 0.2 Seconds
+    
+    // Tells if Limelgiht is connected.
+    boolean isConnected = false;
+    private static Notifier connectCheck = new Notifier(new PeriodicRunnable());
+    class PeriodicRunnable implements java.lang.Runnable {
+        public void run() {
+            resetPilelineLatency();
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            isConnected = (getPipelineLatencyMs() == IMAGE_CAPTURE_LATENCY);
+        }
+    }
+    public staic void startConnectCheck(){
+        connectCheck.startPeriodic(0.1);
+    }
+    
 
     /**
      * @return if limelight is connected
@@ -206,6 +226,9 @@ public class Limelight {
         return latencyEntry.getDouble(0) + IMAGE_CAPTURE_LATENCY;
     }
 
+    private void resetPilelineLatency(){
+        latencyEntry.setValue(0.0);
+    }
     // Pixel information returned from these functions
     public static final double MIN_SIDE_LENGTH = 0;
     public static final double MAX_SIDE_LENGTH = 320;
