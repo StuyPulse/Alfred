@@ -37,7 +37,7 @@ public class Limelight {
             isConnected = (getPipelineLatencyMs() == IMAGE_CAPTURE_LATENCY);
         }
     }
-    public staic void startConnectCheck(){
+    public static void startConnectCheck(){
         connectCheck.startPeriodic(0.1);
     }
     
