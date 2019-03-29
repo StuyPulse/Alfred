@@ -16,6 +16,8 @@ public final class Floop extends Subsystem {
     private Solenoid floopSolenoid;
     private Solenoid pusherSolenoid;
 
+    public boolean automationOn;
+
     public Floop() {
         floopSolenoid = new Solenoid(RobotMap.FLOOP_CHANNEL);
         pusherSolenoid = new Solenoid(RobotMap.PUSHER_CHANNEL);
@@ -29,8 +31,12 @@ public final class Floop extends Subsystem {
         floopSolenoid.set(true);
     }
 
-    public void toggle() {
+    public void toggleFloop() {
         floopSolenoid.set(!isOpen());
+    }
+
+    public void toggleAutomation() {
+        automationOn = !automationOn;
     }
 
     public boolean isOpen() {

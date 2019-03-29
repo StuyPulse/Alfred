@@ -19,8 +19,6 @@ public class FloopPushCommand extends InstantCommand {
 
   @Override
   protected void initialize() {
-    if (!Robot.floop.pushed()) {
       Robot.floop.push();
-    }
   }
 }

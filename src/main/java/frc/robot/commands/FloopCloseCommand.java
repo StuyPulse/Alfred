@@ -23,13 +23,13 @@ public class FloopCloseCommand extends Command {
 
     @Override
     protected void execute() {
-        if (Robot.isGamePieceDetected()) {
+        if (Robot.floop.automationOn && Robot.isGamePieceDetected()) {
             Robot.floop.open();
         }
     }
 
     @Override
     protected boolean isFinished() {
-        return Robot.isGamePieceDetected();
+        return Robot.floop.automationOn && Robot.isGamePieceDetected();
     }
 }
