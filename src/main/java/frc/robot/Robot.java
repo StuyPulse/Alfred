@@ -14,7 +14,6 @@ import java.time.format.DateTimeFormatter;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
@@ -22,7 +21,6 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.LiftMoveToHeightCommand;
 import frc.robot.subsystems.Abom;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Fangs;
@@ -56,8 +54,11 @@ public class Robot extends TimedRobot {
     public static double liftSpeedGoingDown;
 
     public static DigitalInput IRsensor;
+    public static double autonStartTime;
+    public static double autonCurrTime;
 
     public static LEDRelayController relayController;
+    public boolean hasBeenZeroed;
 
     public static Logger logger;
     private File writeFile;
@@ -89,17 +90,17 @@ public class Robot extends TimedRobot {
         SmartDashboard.putData("Auto mode", chooser);
         SmartDashboard.putBoolean("Enable compressor", true);
 
-        CameraServer.getInstance().startAutomaticCapture(0);
-        SmartDashboard.putNumber("TURN_DIV", 35);
-        SmartDashboard.putNumber("MOVE_TURN_MUL", 6);
+        // CameraServer.getInstance().startAutomaticCapture(0);
+        // SmartDashboard.putNumber("TURN_DIV", 30);
+        // SmartDashboard.putNumber("MOVE_TURN_MUL", 5.5);
 
-        SmartDashboard.putNumber("TURN_MIN_SPEED", 0.2);
-        SmartDashboard.putNumber("TURN_MIN_ANGLE", 1);
+        // SmartDashboard.putNumber("TURN_MIN_SPEED", 0.2);
+        // SmartDashboard.putNumber("TURN_MIN_ANGLE", 1);
 
-        SmartDashboard.putBoolean("VALID_TARGET", false);
-        SmartDashboard.putBoolean("VALID_HEIGHT", false);
-        SmartDashboard.putBoolean("VALID_RATIO", false);
-        SmartDashboard.putBoolean("VALID_SKEW", false);
+        // SmartDashboard.putBoolean("VALID_TARGET", false);
+        // SmartDashboard.putBoolean("VALID_HEIGHT", false);
+        // SmartDashboard.putBoolean("VALID_RATIO", false);
+        // SmartDashboard.putBoolean("VALID_SKEW", false);
 
         SmartDashboard.putNumber("CAM_MODE", 1);
 
@@ -109,6 +110,9 @@ public class Robot extends TimedRobot {
             writeFolder.mkdir();
         }
 
+        // SmartDashboard.putNumber("CAM_MODE", 1);
+        // SmartDashboard.putNumber("LIMELIGHT_MOTOR_OUTPUT", 0);
+        hasBeenZeroed = false;
     }
 
     /**
@@ -124,8 +128,15 @@ public class Robot extends TimedRobot {
     @Override
     public void robotPeriodic() {
         controlCompressor();
-        SmartDashboard.putBoolean("IR Sensor", isGamePieceDetected());
-        liftSpeedGoingDown = SmartDashboard.getNumber("Lift Auto Complete Speed Going Down", 0.5);
+        // SmartDashboard.putNumber("Drivetrain Left Greyhill Encoder Val: ", Robot.drivetrain.getLeftGreyhillDistance());
+        // SmartDashboard.putNumber("Drivetrain Right Greyhill Encoder Val: ",
+        //         Robot.drivetrain.getRightGreyhillDistance());
+        // SmartDashboard.putNumber("Drivetrain Left Greyhill Raw Val: ", Robot.drivetrain.getLeftGreyhillTicks());
+        // SmartDashboard.putNumber("Drivetrain Right Greyhill Raw Val: ",
+        //         Robot.drivetrain.getRightGreyhillTicks());
+        SmartDashboard.putNumber("Lift Encoder Val: ", Robot.lift.getHeight());
+        // SmartDashboard.putBoolean("Lift Bottom Optical Sensor: ", Robot.lift.isAtBottom());
+        // liftSpeedGoingDown = SmartDashboard.getNumber("Lift Auto Complete Speed Going Down", 0.5);
         SmartDashboard.putString("Match Time", returnTime());
     }
 
@@ -161,14 +172,14 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousInit() {
-        autonomousCommand = new LiftMoveToHeightCommand(RobotMap.LEVEL_1_HEIGHT);
-        Robot.lift.tiltForward();
-        Robot.tail.engageSingleSolenoid();
-
         // Logging
         writeFile = new File("/home/lvuser/Logs/" + getTime() + "_Auton.csv");
         logger = new Logger(writeFile);
         
+        // autonomousCommand = new LiftMoveToHeightCommand(RobotMap.LEVEL_1_HEIGHT);
+        lift.tiltForward();
+        lift.setHeight(-1 * RobotMap.START_HEIGHT);
+        autonStartTime = Timer.getFPGATimestamp();
         /*
          * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
          * switch(autoSelected) { case "My Auto": autonomousCommand = new
@@ -177,10 +188,9 @@ public class Robot extends TimedRobot {
          */
 
         // schedule the autonomous command (example)
-        if (autonomousCommand != null) {
-            autonomousCommand.start();
-        }
-        time = Timer.getFPGATimestamp();
+        // if (autonomousCommand != null) {
+        //     autonomousCommand.start();
+        // }
     }
 
     /**
@@ -217,6 +227,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopPeriodic() {
+        double startTime = System.currentTimeMillis();
         // if(!isGamePieceDetected()) {
         // relayController.setLEDForward();
         // } else {
@@ -224,27 +235,16 @@ public class Robot extends TimedRobot {
         // }
         Log();
         Scheduler.getInstance().run();
-        SmartDashboard.putNumber("Drivetrain Left Greyhill Encoder Val: ", Robot.drivetrain.getLeftGreyhillDistance());
-        SmartDashboard.putNumber("Drivetrain Right Greyhill Encoder Val: ",
-                Robot.drivetrain.getRightGreyhillDistance());
-        SmartDashboard.putNumber("Drivetrain Left Greyhill Raw Val: ", Robot.drivetrain.getLeftGreyhillTicks());
-        SmartDashboard.putNumber("Drivetrain Right Greyhill Raw Val: ", Robot.drivetrain.getRightGreyhillTicks());
-        SmartDashboard.putNumber("Lift Encoder Val: ", Robot.lift.getHeight());
-        SmartDashboard.putBoolean("Lift Bottom Optical Sensor: ", Robot.lift.isAtBottom());
-        SmartDashboard.putBoolean("Is Lift Optical Sensor Overrided: ", Robot.lift.isOpticalSensorOverrided);
-        SmartDashboard.putNumber("Tom's Metric for Tail: ", Robot.tail.getTomsMetric());
-        // if(isGamePieceDetected()) {
-        // //Once a game piece is detected, it blinks two times and stops.
-        // blinkLED();
-        // }
-        // else {
-        // //Stops the LEDs as long as it doesn't detect a game piece.
-        // relayController.setLEDNeutral();
-        // }
-        if ((int) DriverStation.getInstance().getMatchTime() >= 118) {
-            tail.disengageSingleSolenoid();
-            tail.disengageRatchet();
+        // SmartDashboard.putBoolean("Is Lift Optical Sensor Overrided: ", Robot.lift.isOpticalSensorOverrided);
+        // SmartDashboard.putNumber("Tom's Metric for Tail: ", Robot.tail.getTomsMetric());
+        if(isGamePieceDetected()) {
+            //Once a game piece is detected, it blinks two times and stops.
+            blinkLED();
+        } else {
+            //Stops the LEDs as long as it doesn't detect a game piece.
+            relayController.setLEDNeutral();
         }
+        SmartDashboard.putNumber("Time Diff", System.currentTimeMillis() - startTime);
     }
 
     /**
@@ -256,16 +256,11 @@ public class Robot extends TimedRobot {
     }
 
     public void controlCompressor() {
-        if (!drivetrain.isMoving() && SmartDashboard.getBoolean("Enable compressor", false)) {
+        if (SmartDashboard.getBoolean("Enable compressor", false)) {
             compressor.start();
         } else {
             compressor.stop();
         }
-    }
-
-    private void setUpDoubleSolenoids() {
-        lift.tiltBack();
-        fangs.lower();
     }
 
     private boolean isGamePieceDetected() {
@@ -290,19 +285,6 @@ public class Robot extends TimedRobot {
         }
     }
 
-    // private void blinkLED() {
-    // double startTime = Timer.getFPGATimestamp();
-    // if(Timer.getFPGATimestamp() - startTime > 4) {
-    // relayController.setLEDForward();
-    // }
-    // else if((int)(Timer.getFPGATimestamp() - startTime) % 2 == 0) {
-    // relayController.setLEDForward();
-    // }
-    // else {
-    // relayController.setLEDNeutral();
-    // }
-    // }
-    
     public String getTime() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-hh-mm-ss");
         return LocalDateTime.now().minusHours(5).format(formatter);
@@ -319,6 +301,18 @@ public class Robot extends TimedRobot {
             logger.writePneumaticSubsystem(floop, floop.getPiston(), "");
             logger.writePneumaticSubsystem(abom, abom.getPiston(), Boolean.toString(abom.getWantPumpingStatus()));
             time = Timer.getFPGATimestamp();
-        // }
+    }
+
+    private void blinkLED() {
+        double startTime = Timer.getFPGATimestamp();
+        if(Timer.getFPGATimestamp() - startTime > 4) {
+            relayController.setLEDForward();
+        }
+        else if((int)(Timer.getFPGATimestamp() - startTime) % 2 == 0) {
+            relayController.setLEDForward();
+        }
+        else {
+            relayController.setLEDNeutral();
+        }
     }
 }
