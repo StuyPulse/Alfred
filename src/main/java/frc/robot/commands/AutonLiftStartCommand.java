@@ -19,6 +19,6 @@ public class AutonLiftStartCommand extends CommandGroup {
     addSequential(new LiftTiltFowardCommand());
     addSequential(new LiftMoveToBottomCommand(), 1.5);
     addSequential(new WaitCommand(0.5));
-    addSequential(new LiftMoveToHeightCommand(RobotMap.LEVEL_1_HEIGHT));
+    addSequential(new LiftMoveToHeightCommand(RobotMap.HP_LEVEL_1_HEIGHT));
   }
 }
