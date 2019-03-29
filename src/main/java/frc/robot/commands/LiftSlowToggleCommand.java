@@ -10,19 +10,15 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 
-/**
- * Add your docs here.
- */
 public class LiftSlowToggleCommand extends InstantCommand {
     public LiftSlowToggleCommand() {
         super();
         requires(Robot.lift);
     }
 
-    // Called once when the command executes
     @Override
     protected void initialize() {
         Robot.lift.toggleWantSlow();
     }
-
+    
 }

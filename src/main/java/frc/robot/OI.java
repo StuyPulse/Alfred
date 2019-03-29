@@ -73,7 +73,8 @@ public class OI {
         operatorGamepad.getDPadLeft().whenPressed(new LiftToggleCommand());
 
         operatorGamepad.getRightAnalogButton().whenPressed(new AbomToggleCommand());
-        operatorGamepad.getLeftAnalogButton().whenPressed(new LiftSlowToggleCommand());
+        operatorGamepad.getLeftAnalogButton().whileHeld(new LiftSlowToggleCommand());
+        operatorGamepad.getLeftAnalogButton().whenReleased(new LiftSlowToggleCommand());
 
         //FOR LEFT JOYSTICK: LiftMoveCommand (default of lift subsystem)
         //FOR RIGHT JOYSTICK: TailClimbCommand (default of tail subsystem)
