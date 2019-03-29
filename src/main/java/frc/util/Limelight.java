@@ -17,11 +17,7 @@ public class Limelight {
 
     // Toggle for posting to SmartDashboard
     public static final boolean POST_TO_SMART_DASHBOARD = true;
-    
-    // Uses network tables to check status of limelight
-    private static NetworkTableEntry garbageTableEntry = table.getEntry("GARBAGE_TEST_VALUE");
-    private static boolean garbageTableValue = false;
-    public static final long MAX_UPDATE_TIME = 200_000; // Micro Seconds = 0.2 Seconds
+
     
     class PeriodicRunnable implements java.lang.Runnable {
         public void run() {
@@ -37,28 +33,17 @@ public class Limelight {
     }
     // Tells if Limelgiht is connected.
     boolean isConnected = false;
-    private static Notifier connectCheck = new Notifier(new PeriodicRunnable());
-    public static void startConnectCheck(){
+    private Notifier connectCheck;
+    public void startConnectCheck(){
+        connectCheck = new Notifier(new PeriodicRunnable());
         connectCheck.startPeriodic(0.1);
     }
-    
 
     /**
      * @return if limelight is connected
      */
     public static boolean isConnected() { 
-        garbageTableValue = !garbageTableValue;
-        garbageTableEntry.forceSetBoolean(garbageTableValue);
-        long currentTime = garbageTableEntry.getLastChange();
-
-        long lastUpdate = (xAngleEntry.getLastChange() + yAngleEntry.getLastChange()) / 2;
-        long timeDifference = (currentTime - lastUpdate);
-
-        if (POST_TO_SMART_DASHBOARD) {
-            SmartDashboard.putNumber("Limelight Time Difference", timeDifference);
-        }
-
-        return timeDifference < MAX_UPDATE_TIME;
+        return isConnected;
     }
 
     /**
