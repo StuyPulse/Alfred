@@ -21,8 +21,9 @@ public class MapWidget extends SimpleAnnotatedWidget {
     Canvas canvas;
     GraphicsContext gc = canvas.getGraphicsContext2D();
 
-    public void updateWidget(int x, int y) {
+    public void updateWidget(int x, int y, int angle) {
         gc.translate(x, y);
+        gc.rotate(angle);
     }
 
     @Override

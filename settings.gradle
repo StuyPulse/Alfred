@@ -24,4 +24,5 @@ pluginManagement {
     }
 }
 
-rootProject.name='Alfred'
+include 'Alfred'
+include 'map-widget'
