@@ -29,8 +29,8 @@ public class MapWidget extends SimpleAnnotatedWidget {
     @Override
     public Pane getView() {
         //TODO: ADD PROPERTIES FILE TO MAKE THIS WORK
-        Image fieldMap = new Image(MapWidget.class.getResourceAsStream("FieldMap.jpg/"));
-        gc.drawImage(fieldMap,Constants.imgX, Constants.imgY);
+        //Image fieldMap = new Image(getClass().getClassLoader().getResourceAsStream("frc/plugin/FieldMap.jpg"));
+        //gc.drawImage(fieldMap,Constants.imgX, Constants.imgY);
         gc.setFill(Color.RED);
         gc.fillPolygon(new double[] {0, 0, 3}, new double[] {0, 2, 1}, 3);
         return mapPane;

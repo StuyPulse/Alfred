@@ -35,15 +35,16 @@ def getDeployDest() {
 //    }
 //}
 
+jar {
+    baseName = 'map-widget'
+}
+
 task ('deployWidget', type:Copy) {
-    dependsOn('build')
-    dependsOn('Alfred:build')
-    from ("build/libs") {
-        include "*.jar"
-    }
-    from file("src/main/resources/FieldMap.jpg")
+    from jar
     into getDeployDest()
 }
+
+build.dependsOn deployWidget
 
 dependencies {
     // This dependency is exported to consumers, that is to say found on their compile classpath.
