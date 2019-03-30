@@ -95,7 +95,7 @@ public interface RobotMap {
     int CV_PIPELINE = 0;
 
     /***************************************************************************************
-     * Drivetrain Constants
+     * Drivetrain CV Constants
      ****************************************************************************************/
     boolean DRIVETRAIN_SMARTDASHBOARD_DEBUG = true;
     double AUTOMATIC_DRIVE_SPEED = 0.3;
