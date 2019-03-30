@@ -98,19 +98,12 @@ public interface RobotMap {
     int CV_PIPELINE = 0;
 
     /***************************************************************************************
-     * CV Constants
+     * Drivetrain CV Constants
      ****************************************************************************************/
-    double TARGET_HEIGHT_THRESHOLD = 6;
-    double MIN_ASPECT_RATIO = 1.2;
-    double MAX_ASPECT_RATIO = 3.3;
-    double ANGLE_THRESHOLD = 25;
-
-    /***************************************************************************************
-     * Auton Assist Constants
-     ****************************************************************************************/
-    double FORWARD_AREA = 0.016; // Area at which robot will move forward
-    double MIN_AUTO_SPEED = 0.1; // Slowest speed for auto accelerate
-    double AUTO_SPEED_MUL = 1.5 / FORWARD_AREA; // Auto Drive Speed
+    boolean DRIVETRAIN_SMARTDASHBOARD_DEBUG = true;
+    double AUTOMATIC_DRIVE_SPEED = 0.3;
+    double MOVE_TURN_MUL = 5.5;
+    double TURN_DIV = 20;
     int JOYSTICK_SCALAR = 3; // Used to make joystick values smaller
 
     /***************************************************************************************
