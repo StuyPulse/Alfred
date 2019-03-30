@@ -24,11 +24,15 @@ public final class Floop extends Subsystem {
     }
 
     public void open() {
-        floopSolenoid.set(false);
+        if (!isOpen()) {
+            floopSolenoid.set(false);
+        }
     }
 
     public void close() {
-        floopSolenoid.set(true);
+        if (isOpen()) {
+            floopSolenoid.set(true);
+        }
     }
 
     public void toggleFloop() {
@@ -44,11 +48,15 @@ public final class Floop extends Subsystem {
     }
 
     public void push() {
-        pusherSolenoid.set(true);
+        if (!pushed()) {
+            pusherSolenoid.set(true);
+        }
     }
 
     public void pull() {
-        pusherSolenoid.set(false);
+        if (pushed()) {
+            pusherSolenoid.set(false);
+        }
     }
 
     public boolean pushed() {
