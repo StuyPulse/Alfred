@@ -58,7 +58,7 @@ public class OI {
         operatorGamepad.getLeftTrigger().whileHeld(new RollersManualDeacquireCommand());
 
         operatorGamepad.getRightBumper().whileHeld(new RollersSlowAcquireCommand());
-        operatorGamepad.getLeftBumper().whileHeld(new RollersSlowDeacquireCommand());
+        operatorGamepad.getLeftBumper().whileHeld(new RollersDeacquireCommand());
 
         operatorGamepad.getTopButton().whileHeld(new FloopPushCommand());
         operatorGamepad.getTopButton().whenReleased((new FloopPullCommand()));
