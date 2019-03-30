@@ -30,6 +30,7 @@ public class FloopCloseCommand extends Command {
 
     @Override
     protected boolean isFinished() {
-        return Robot.floop.automationOn && Robot.isGamePieceDetected();
+        //return Robot.floop.automationOn && Robot.isGamePieceDetected();
+        return false;
     }
 }
