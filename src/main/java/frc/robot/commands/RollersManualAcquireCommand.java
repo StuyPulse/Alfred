@@ -8,35 +8,38 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
-public class RollersManualAcquireCommand extends Command {
+public class RollersManualAcquireCommand extends CommandGroup {
 
     public RollersManualAcquireCommand() {
-        requires(Robot.rollers);
-        requires(Robot.floop);
+        addParallel(new FloopPrepareForRollersCommand());
+        addSequential(new RollersManualAcquire());
     }
 
-    @Override
-    protected void initialize() {
-        Robot.floop.prepareForRollers();
-    }
+    public class RollersManualAcquire extends Command {
 
-    @Override
-    protected void execute() {
-        double speed = Robot.oi.operatorGamepad.getRawRightTriggerAxis();
-        double tunedSpeed = Math.pow(speed, 2) * RobotMap.SLOW_ROLLER_MAXIMUM;
-        Robot.rollers.setSpeed(tunedSpeed);
-    }
+        public RollersManualAcquire() {
+            requires(Robot.rollers);
+        }
 
-    @Override
-    protected boolean isFinished() {
-        return false;
-    }
+        @Override
+        protected void execute() {
+            double speed = Robot.oi.operatorGamepad.getRawRightTriggerAxis();
+            double tunedSpeed = Math.pow(speed, 2) * RobotMap.SLOW_ROLLER_MAXIMUM;
+            Robot.rollers.setSpeed(tunedSpeed);
+        }
 
-    @Override
-    protected void end() {
-        Robot.rollers.stop();
+        @Override
+        protected boolean isFinished() {
+            return false;
+        }
+
+        @Override
+        protected void end() {
+            Robot.rollers.stop();
+        }
     }
 }

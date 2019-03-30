@@ -8,32 +8,35 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Robot;
 
-public class RollersConstantDeacquireCommand extends Command {
+public class RollersConstantDeacquireCommand extends CommandGroup {
 
     public RollersConstantDeacquireCommand() {
-        requires(Robot.rollers);
-        requires(Robot.floop);
+        addParallel(new FloopPrepareForRollersCommand());
+        addSequential(new RollersConstantDeacquire());
     }
 
-    @Override
-    protected void initialize() {
-        Robot.floop.prepareForRollers();
-    }
+    public class RollersConstantDeacquire extends Command {
 
-    @Override
-    protected void execute() {
-        Robot.rollers.deacquire();
-    }
+        public RollersConstantDeacquire() {
+            requires(Robot.rollers);
+        }
 
-    @Override
-    protected boolean isFinished() {
-        return false;
-    }
+        @Override
+        protected void execute() {
+            Robot.rollers.deacquire();
+        }
 
-    @Override
-    protected void end() {
-        Robot.rollers.stop();
+        @Override
+        protected boolean isFinished() {
+            return false;
+        }
+
+        @Override
+        protected void end() {
+            Robot.rollers.stop();
+        }
     }
 }
