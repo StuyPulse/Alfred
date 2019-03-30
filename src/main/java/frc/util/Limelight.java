@@ -47,6 +47,7 @@ public class Limelight {
 
         return timeDifference < MAX_UPDATE_TIME;
     }
+    
     /**
      * @param targetHeightThreshold Height threshold for target
      * @param minRatio              Min ratio for the blue aspect ratio
