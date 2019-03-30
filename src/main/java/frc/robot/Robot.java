@@ -53,6 +53,7 @@ public class Robot extends TimedRobot {
 
     public static LEDRelayController relayController;
     public boolean hasBeenZeroed;
+    public static boolean scoreCargo;
     
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<>();
@@ -227,6 +228,10 @@ public class Robot extends TimedRobot {
 
     public static boolean isGamePieceDetected() {
         return IRsensor.get();
+    }
+
+    public static void toggleScore() {
+        scoreCargo = !scoreCargo;
     }
 
     private String returnTime() {
