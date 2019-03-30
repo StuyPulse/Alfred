@@ -44,7 +44,7 @@ public final class Floop extends Subsystem {
     }
 
     public boolean isOpen() {
-        return floopSolenoid.get();
+        return !floopSolenoid.get();
     }
 
     public void push() {
