@@ -17,21 +17,29 @@ public class Limelight {
     // Toggle for posting to SmartDashboard
     public static final boolean POST_TO_SMART_DASHBOARD = true;
     
+
     // Uses network tables to check status of limelight
-    private static NetworkTableEntry garbageTableEntry = table.getEntry("GARBAGE_TEST_VALUE");
-    private static boolean garbageTableValue = false;
+    private static NetworkTableEntry timingTestEntry = table.getEntry("TIMING_TEST_ENTRY");
+    private static boolean timingTestEntryValue = false;
     public static final long MAX_UPDATE_TIME = 200_000; // Micro Seconds = 0.2 Seconds
 
     /**
      * @return if limelight is connected
      */
     public static boolean isConnected() { 
-        garbageTableValue = !garbageTableValue;
-        garbageTableEntry.forceSetBoolean(garbageTableValue);
-        long currentTime = garbageTableEntry.getLastChange();
+        // Force an update and get current time
+        timingTestEntryValue = !timingTestEntryValue; // flip test value
+        timingTestEntry.forceSetBoolean(timingTestEntryValue);
+        long currentTime = timingTestEntry.getLastChange();
 
-        long lastUpdate = (xAngleEntry.getLastChange() + yAngleEntry.getLastChange()) / 2;
-        long timeDifference = (currentTime - lastUpdate);
+        // Get most recent update from limelight
+        long lastUpdate = latencyEntry.getLastChange();
+        lastUpdate = Math.max(lastUpdate, validTargetEntry.getLastChange());
+        lastUpdate = Math.max(lastUpdate, xAngleEntry.getLastChange());
+        lastUpdate = Math.max(lastUpdate, yAngleEntry.getLastChange());
+
+        // Calculate limelights last update
+        long timeDifference = currentTime - lastUpdate;
 
         if (POST_TO_SMART_DASHBOARD) {
             SmartDashboard.putNumber("Limelight Time Difference", timeDifference);
@@ -39,7 +47,6 @@ public class Limelight {
 
         return timeDifference < MAX_UPDATE_TIME;
     }
-
     /**
      * @param targetHeightThreshold Height threshold for target
      * @param minRatio              Min ratio for the blue aspect ratio
