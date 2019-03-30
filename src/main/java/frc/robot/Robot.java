@@ -227,7 +227,7 @@ public class Robot extends TimedRobot {
     }
 
     public static boolean isGamePieceDetected() {
-        return IRsensor.get();
+        return !IRsensor.get();
     }
 
     public static void toggleScore() {
