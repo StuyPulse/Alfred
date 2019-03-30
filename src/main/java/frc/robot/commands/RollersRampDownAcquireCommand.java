@@ -12,10 +12,11 @@ import edu.wpi.first.wpilibj.command.TimedCommand;
 import frc.robot.Robot;
 
 public class RollersRampDownAcquireCommand extends TimedCommand {
-    
+
     private double startTime;
     private double currTime;
     private double interval;
+
     public RollersRampDownAcquireCommand(double timeout) {
         super(timeout);
         requires(Robot.rollers);

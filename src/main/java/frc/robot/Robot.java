@@ -47,12 +47,13 @@ public class Robot extends TimedRobot {
     public static double liftSpeedGoingDown;
 
     public static DigitalInput IRsensor;
+ 
     public static double autonStartTime;
     public static double autonCurrTime;
 
     public static LEDRelayController relayController;
     public boolean hasBeenZeroed;
-
+    
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<>();
 
@@ -72,6 +73,7 @@ public class Robot extends TimedRobot {
         rollers = new Rollers();
         oi = new OI();
         IRsensor = new DigitalInput(RobotMap.IR_SENSOR_PORT);
+
         relayController = new LEDRelayController(RobotMap.LED_CHANNEL);
         //chooser.addOption("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
@@ -243,7 +245,7 @@ public class Robot extends TimedRobot {
         }
     }
 
-    private boolean isGamePieceDetected() {
+    public static boolean isGamePieceDetected() {
         return IRsensor.get();
     }
 

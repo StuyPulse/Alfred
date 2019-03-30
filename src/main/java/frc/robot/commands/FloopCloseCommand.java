@@ -7,11 +7,11 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.InstantCommand;
+import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class FloopCloseCommand extends InstantCommand {
-    
+public class FloopCloseCommand extends Command {
+
     public FloopCloseCommand() {
         requires(Robot.floop);
     }
@@ -19,5 +19,17 @@ public class FloopCloseCommand extends InstantCommand {
     @Override
     protected void initialize() {
         Robot.floop.close();
+    }
+
+    @Override
+    protected void execute() {
+        if (Robot.floop.automationOn && Robot.isGamePieceDetected()) {
+            Robot.floop.open();
+        }
+    }
+
+    @Override
+    protected boolean isFinished() {
+        return Robot.floop.automationOn && Robot.isGamePieceDetected();
     }
 }

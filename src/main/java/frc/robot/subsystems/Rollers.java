@@ -7,20 +7,20 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
 public final class Rollers extends Subsystem {
 
-    private WPI_VictorSPX motor;
+    private CANSparkMax motor;
 
     public Rollers() {
-        motor = new WPI_VictorSPX(RobotMap.ROLLER_MOTOR_PORT);
+        motor = new CANSparkMax(RobotMap.ROLLER_MOTOR_PORT, MotorType.kBrushless);
         motor.setInverted(true);
-        motor.setNeutralMode(NeutralMode.Brake);
+        motor.setIdleMode(CANSparkMax.IdleMode.kBrake);
     }
 
     @Override
@@ -44,6 +44,6 @@ public final class Rollers extends Subsystem {
     }
 
     public void rampAcquire() {
-        motor.configOpenloopRamp(0.5, 0);
+        motor.setOpenLoopRampRate(0.5);
     }
 }

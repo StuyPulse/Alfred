@@ -588,8 +588,8 @@ public class Gamepad extends Joystick {
             return gamepad.getRawRightTrigger();
         }
     }
-
-    public void gamepadRumble(double intensity) {
+    
+    public void rumble(double intensity){
         setRumble(GenericHID.RumbleType.kLeftRumble, intensity);
         setRumble(GenericHID.RumbleType.kRightRumble, intensity);
     }
