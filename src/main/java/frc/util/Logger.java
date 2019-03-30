@@ -60,7 +60,7 @@ public class Logger {
                 Robot.drivetrain.getName() + ", " + Robot.drivetrain.getCurrentCommandName() + ", " +
                 Robot.drivetrain.getLeftMotorOutput() + ":" + Robot.drivetrain.getRightMotorOutput() + ", " +
                 Robot.drivetrain.getGreyhillDistance() + ", " + 
-                //TODO: Needs Motor stalling value
+                ", " + //TODO: Needs Motor stalling value
                 Robot.drivetrain.getLeftMotorCurrent() + ":" + Robot.drivetrain.getRightMotorCurrent() + ", " +
                 Robot.drivetrain.getLeftMotorVoltage() + ":" + Robot.drivetrain.getRightMotorVoltage() + ", " +
                 getCurvatureDriverInputs(Robot.oi.driverGamepad) + ", " + 
@@ -82,7 +82,7 @@ public class Logger {
                 Robot.lift.getName() + ", " + Robot.lift.getCurrentCommandName() + ", " +
                 Robot.lift.getMotorOutput() + ", " +
                 Robot.lift.getHeight() + ", " + 
-                //TODO: Needs Motor stalling value
+                ", " + //TODO: Needs Motor stalling value
                 Robot.lift.getMotorCurrent() + ", " +
                 Robot.lift.getMotorVoltage() + ":" + Robot.lift.getMotorVoltage() + ", " +
                 getCurvatureDriverInputs(Robot.oi.driverGamepad) + ", " + 
@@ -106,7 +106,7 @@ public class Logger {
                 subsystem.getName() + ", " + subsystem.getCurrentCommandName() + ", " +
                 motor.getAppliedOutput() + ", " +
                 "No Encoder, " + 
-                //TODO: Needs Motor stalling value
+                ", " + //TODO: Needs Motor stalling value
                 motor.getOutputCurrent() + ", " +
                 motor.getBusVoltage() + ", " +
                 getCurvatureDriverInputs(Robot.oi.driverGamepad) + ", " + 
@@ -130,7 +130,7 @@ public class Logger {
                 subsystem.getName() + ", " + subsystem.getCurrentCommandName() + ", " +
                 motor.getMotorOutputPercent() + ", " +
                 "No Encoder, " + 
-                //TODO: Needs Motor stalling value
+                ", " + //TODO: Needs Motor stalling value
                 "No Current, " +
                 motor.getBusVoltage() + ", " +
                 getCurvatureDriverInputs(Robot.oi.driverGamepad) + ", " + 
@@ -154,7 +154,7 @@ public class Logger {
                 subsystem.getName() + ", " + subsystem.getCurrentCommandName() + ", " +
                 piston.get() + ", " +
                 "No Encoder, " + 
-                //TODO: Needs Motor stalling value
+                ", " + //TODO: Needs Motor stalling value
                 "No Current, " +
                 "No Voltage, " +
                 getCurvatureDriverInputs(Robot.oi.driverGamepad) + ", " + 

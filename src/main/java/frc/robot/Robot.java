@@ -61,6 +61,8 @@ public class Robot extends TimedRobot {
     public static Logger logger;
     private File writeFile;
     private File writeFolder;
+    private Thread autonWriter;
+    private Thread teleopWriter;
 
     private double time;
     Command autonomousCommand;
@@ -156,6 +158,8 @@ public class Robot extends TimedRobot {
 
     @Override
     public void disabledInit() {
+        autonWriter.interrupt();
+        teleopWriter.interrupt();
         if (logger != null) {
             logger.close();
         }
@@ -199,12 +203,12 @@ public class Robot extends TimedRobot {
         // if (autonomousCommand != null) {
         //     autonomousCommand.start();
         // }
-        Thread thread = new Thread("Logging") {
-            public void run(){
-              Log();
+        autonWriter = new Thread(() -> {
+            while (!Thread.interrupted()) {
+                Log();
             }
-        };
-        thread.start();
+        });
+        autonWriter.start();
     }
 
     /**
@@ -212,7 +216,6 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousPeriodic() {
-        Log();
         Scheduler.getInstance().run();
     }
 
@@ -222,7 +225,7 @@ public class Robot extends TimedRobot {
         // teleop starts running. If you want the autonomous to
         // continue until interrupted by another command, remove
         // this line or comment it out.
-
+        autonWriter.interrupt();
         Robot.floop.open();
 
         // Logging
@@ -234,12 +237,12 @@ public class Robot extends TimedRobot {
         // autonomousCommand.cancel();
         // }
         time = Timer.getFPGATimestamp();
-        Thread thread = new Thread("Logging") {
-            public void run(){
-              Log();
+        teleopWriter = new Thread(() -> {
+            while (!Thread.interrupted()) {
+                Log();
             }
-        };
-        thread.start();
+        });
+        teleopWriter.start();
     }
 
     /**
