@@ -40,12 +40,8 @@ public class LiftMoveCommand extends Command {
             Robot.lift.move(Math.pow(Robot.oi.operatorGamepad.getLeftY(), 3));
         }
 
-        if (Robot.oi.operatorGamepad.getRawStartButton()) {
-            Robot.lift.toggleOpticalSensorOverride();
-        }
-
         if (Robot.oi.operatorGamepad.getRawSelectButton()) {
-            Robot.lift.resetEncoder();
+            Robot.lift.toggleOpticalSensorOverride();
         }
 
         setAutoComp();
