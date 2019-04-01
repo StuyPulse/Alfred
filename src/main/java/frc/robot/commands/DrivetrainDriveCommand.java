@@ -98,7 +98,7 @@ public class DrivetrainDriveCommand extends Command {
             SmartDashboard.putNumber("Drivetrain Turn", turn);
             SmartDashboard.putBoolean("Drivetrain QuickTurn", quickTurn);
             SmartDashboard.putBoolean("Drivetrain CV", getCVButtonsPressed());
-            Limelight.isConnected(); // Pushes to smart dashboard
+            Limelight.isConnected(); // Updates Smart Dashboard
         }
 
         Robot.drivetrain.curvatureDrive(speed, turn, quickTurn);
