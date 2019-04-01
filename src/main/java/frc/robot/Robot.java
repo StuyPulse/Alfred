@@ -209,6 +209,7 @@ public class Robot extends TimedRobot {
             relayController.setLEDNeutral();
         }
         SmartDashboard.putNumber("Time Diff", System.currentTimeMillis() - startTime);
+        SmartDashboard.putBoolean("Is Game piece detected", isGamePieceDetected());
     }
 
     /**

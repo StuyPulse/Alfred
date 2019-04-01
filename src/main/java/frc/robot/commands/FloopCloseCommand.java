@@ -23,6 +23,8 @@ public class FloopCloseCommand extends Command {
 
     @Override
     protected void execute() {
+        System.out.println("automationOn: " + Robot.floop.automationOn);
+        System.out.println("gamePieceDetected: " + Robot.isGamePieceDetected());
         if (Robot.floop.automationOn && Robot.isGamePieceDetected()) {
             Robot.floop.open();
         }

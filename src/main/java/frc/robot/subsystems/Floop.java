@@ -41,6 +41,7 @@ public final class Floop extends Subsystem {
 
     public void toggleAutomation() {
         automationOn = !automationOn;
+        System.out.println("AUTOMATION ON: " + automationOn);
     }
 
     public boolean isOpen() {

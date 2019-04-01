@@ -13,13 +13,13 @@ import frc.robot.commands.AutomaticTurnCommand;
 import frc.robot.commands.DrivetrainHighGearCommand;
 import frc.robot.commands.DrivetrainLowGearCommand;
 import frc.robot.commands.DrivetrainNudgeCommand;
-import frc.robot.commands.FloopAutomationToggleCommand;
 import frc.robot.commands.FloopCloseCommand;
 import frc.robot.commands.FloopOpenCommand;
 import frc.robot.commands.FloopPullCommand;
 import frc.robot.commands.FloopPushCommand;
 import frc.robot.commands.FloopStartScoreCommand;
 import frc.robot.commands.FloopStopScoreCommand;
+import frc.robot.commands.FloopToggleCommand;
 import frc.robot.commands.LiftMoveToHeightCommand;
 import frc.robot.commands.LiftSlowToggleCommand;
 import frc.robot.commands.LiftToggleCommand;
@@ -66,7 +66,9 @@ public class OI {
         operatorGamepad.getRightButton().whenReleased(new FloopOpenCommand());
         operatorGamepad.getBottomButton().whileHeld(new FloopStartScoreCommand());
         operatorGamepad.getBottomButton().whenReleased(new FloopStopScoreCommand());
-        operatorGamepad.getLeftButton().whenPressed(new FloopAutomationToggleCommand());
+        operatorGamepad.getLeftButton().whenPressed(new FloopOpenCommand());
+        operatorGamepad.getLeftButton().whenReleased(new FloopCloseCommand());
+        operatorGamepad.getStartButton().whenPressed(new FloopToggleCommand());
 
         operatorGamepad.getDPadLeft().whenPressed(new LiftToggleCommand());
 
