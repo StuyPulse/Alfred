@@ -30,6 +30,7 @@ public class DrivetrainDriveCommand extends Command {
         setSpeed();
         setTurn();
         setQuickTurn();
+        updateSmartdashboard();
         updateDrivetrain();
     }
 
@@ -91,8 +92,7 @@ public class DrivetrainDriveCommand extends Command {
         quickTurn = Math.abs(speed) < 0.125;
     }
 
-    // Sub commands for each curvature drive variable
-    protected void updateDrivetrain() {
+    protected void updateSmartdashboard() {
         if(RobotMap.DRIVETRAIN_SMARTDASHBOARD_DEBUG) {
             SmartDashboard.putNumber("Drivetrain Speed", speed);
             SmartDashboard.putNumber("Drivetrain Turn", turn);
@@ -100,7 +100,10 @@ public class DrivetrainDriveCommand extends Command {
             SmartDashboard.putBoolean("Drivetrain CV", getCVButtonsPressed());
             Limelight.isConnected(); // Updates Smart Dashboard
         }
+    }
 
+    // Sub commands for each curvature drive variable
+    protected void updateDrivetrain() {
         Robot.drivetrain.curvatureDrive(speed, turn, quickTurn);
     }
 
