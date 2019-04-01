@@ -76,7 +76,7 @@ public class DrivetrainDriveCommand extends Command {
         // Set the turn value to the joystick's x value
         double leftStick = Robot.oi.driverGamepad.getLeftX();
         leftStick = Math.pow(leftStick, RobotMap.JOYSTICK_SCALAR);
-        leftStick /= 2.0;
+        //leftStick /= 2.0;
 
         // Fix the sign for even powers
         if (RobotMap.JOYSTICK_SCALAR % 2 == 0) {
