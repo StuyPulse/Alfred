@@ -21,6 +21,7 @@ public final class Floop extends Subsystem {
     public Floop() {
         floopSolenoid = new Solenoid(RobotMap.FLOOP_CHANNEL);
         pusherSolenoid = new Solenoid(RobotMap.PUSHER_CHANNEL);
+        automationOn = true;
     }
 
     public void open() {
