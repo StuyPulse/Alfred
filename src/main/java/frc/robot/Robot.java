@@ -83,7 +83,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("TURN_DIV", RobotMap.TURN_DIV);
         SmartDashboard.putNumber("MOVE_TURN_MUL", RobotMap.MOVE_TURN_MUL);
         SmartDashboard.putNumber("AUTOMATIC_DRIVE_SPEED", RobotMap.AUTOMATIC_DRIVE_SPEED);
-
+        SmartDashboard.getNumber("AUTOMATIC_DRIVE_DIV", 2);
         hasBeenZeroed = false;
     }
 

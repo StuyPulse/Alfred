@@ -32,7 +32,7 @@ public class DrivetrainDriveCommand extends Command {
         setQuickTurn();
         updateDrivetrain();
     }
-
+    
     /* Switching between CV and Driver Mode */
     private boolean getCVButtonsPressed(){
         return (

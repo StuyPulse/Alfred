@@ -19,7 +19,7 @@ public class AutomaticDriveCommand extends AutomaticTurnCommand {
         super.setSpeed();
         if (Limelight.hasValidTarget()) {
             double targetXValue = Math.abs(Limelight.getTargetXAngle());
-            double accel = Limelight.MAX_X_ANGLE - targetXValue / 2.0;
+            double accel = Limelight.MAX_X_ANGLE - targetXValue / SmartDashboard.getNumber("AUTOMATIC_DRIVE_DIV",2);
             accel /= Limelight.MAX_X_ANGLE;
             accel *= SmartDashboard.getNumber("AUTOMATIC_DRIVE_SPEED", RobotMap.AUTOMATIC_DRIVE_SPEED);
             speed += accel;
