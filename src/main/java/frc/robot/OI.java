@@ -54,7 +54,7 @@ public class OI {
         /******************************************  
          * Operator Code
          ******************************************/
-        operatorGamepad.getRightTrigger().whileHeld(new RollersConstantAcquireCommand());
+        operatorGamepad.getRightTrigger().whileHeld(new RollersManualAcquireCommand());
         operatorGamepad.getLeftTrigger().whileHeld(new RollersManualDeacquireCommand());
 
         operatorGamepad.getRightBumper().whileHeld(new RollersSlowAcquireCommand());
