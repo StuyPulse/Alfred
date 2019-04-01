@@ -27,9 +27,9 @@ public final class FieldPosition extends ComplexData<FieldPosition> {
         LEFT_R(new FieldPosition(-1, -1, -1)),
         RIGHT_R(new FieldPosition(-1, -1, -1));
 
-        double x;
-        double y;
-        double angle;
+        final double x;
+        final double y;
+        final double angle;
 
         StartingPosition(FieldPosition pos) {
             x = pos.getX();

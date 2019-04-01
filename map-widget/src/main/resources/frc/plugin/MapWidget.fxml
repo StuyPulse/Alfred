@@ -5,12 +5,9 @@
 <AnchorPane fx:controller="frc.plugin.MapWidget"
             xmlns:fx="http://javafx.com/fxml"
             fx:id="mapPane"
-            prefHeight="400.0" prefWidth="600.0">
-
-    <Canvas fx:id="canvas"
-            AnchorPane.topAnchor="0"
-            AnchorPane.bottomAnchor="0"
-            AnchorPane.leftAnchor="0"
-            AnchorPane.rightAnchor="0" />
-
+            prefHeight="515.0" prefWidth="515.0">
+    <children>
+        <Canvas fx:id="robotLayer" height="505.0" width="509.0"/>
+        <Canvas fx:id="mapLayer" height="505.0" width="509.0"/>
+    </children>
 </AnchorPane>

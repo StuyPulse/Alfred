@@ -1,9 +1,12 @@
 package frc.plugin;
 
 public interface Constants {
-    double imgX = 1236.75;
-    double imgY = 624.75;
-    //double pixelToInchConstant =
+//    double pixelToInchConstant =
+    /***************************************************************************************
+     * Robot Size
+     ***************************************************************************************/
+
+    double ROBOT_SIZE = 5; //unit = pixels
 
     /***************************************************************************************
      * Starting Location Coordinates

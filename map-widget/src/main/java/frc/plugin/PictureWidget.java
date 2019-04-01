@@ -19,7 +19,7 @@ public class PictureWidget extends SimpleAnnotatedWidget {
 
     @Override
     public Pane getView() {
-        img = new ImageView(new Image(getClass().getResourceAsStream("FieldMap.png")));
+        img = new ImageView(new Image(getClass().getResourceAsStream("2019-FieldMap.png")));
         return pane;
     }
 }

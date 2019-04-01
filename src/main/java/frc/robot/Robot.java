@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.plugin.FieldPosition;
+import frc.plugin.MapWidget;
 import frc.robot.subsystems.*;
 import frc.util.LEDRelayController;
 
@@ -44,9 +45,11 @@ public class Robot extends TimedRobot {
     public static LEDRelayController relayController;
     public boolean hasBeenZeroed;
 
+    private MapWidget mapWidget;
+
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<>();
-    SendableChooser<FieldPosition.StartingPosition> startPos = new SendableChooser<>();
+    private SendableChooser<FieldPosition.StartingPosition> startPos = new SendableChooser<>();
 
     /**
      * This function is run when the robot is first started up and should be used
@@ -65,12 +68,14 @@ public class Robot extends TimedRobot {
         oi = new OI();
         IRsensor = new DigitalInput(RobotMap.IR_SENSOR_PORT);
         relayController = new LEDRelayController(RobotMap.LED_CHANNEL);
+        mapWidget = new MapWidget();
         startPos.addOption("Left Cargo Ship", FieldPosition.StartingPosition.LEFT_CS);
         startPos.addOption("Left Rocket Ship", FieldPosition.StartingPosition.LEFT_R);
         startPos.addOption("Middle", FieldPosition.StartingPosition.MIDDLE);
         startPos.addOption("Right Cargo Ship", FieldPosition.StartingPosition.RIGHT_CS);
         startPos.addOption("Right Rocket Ship", FieldPosition.StartingPosition.RIGHT_R);
         SmartDashboard.putData("Position Chooser", startPos);
+        mapWidget.initMap(startPos.getSelected());
         //chooser.addOption("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
 
