@@ -23,7 +23,7 @@ import frc.robot.commands.FloopToggleCommand;
 import frc.robot.commands.LiftMoveToHeightCommand;
 import frc.robot.commands.LiftSlowToggleCommand;
 import frc.robot.commands.LiftToggleCommand;
-import frc.robot.commands.RollersConstantAcquireCommand;
+import frc.robot.commands.RollersManualAcquireCommand;
 import frc.robot.commands.RollersDeacquireCommand;
 import frc.robot.commands.RollersManualDeacquireCommand;
 import frc.robot.commands.RollersSlowAcquireCommand;
@@ -54,10 +54,10 @@ public class OI {
         /******************************************  
          * Operator Code
          ******************************************/
-        operatorGamepad.getRightTrigger().whileHeld(new RollersConstantAcquireCommand());
-        operatorGamepad.getLeftTrigger().whileHeld(new RollersManualDeacquireCommand());
-
+        operatorGamepad.getRightTrigger().whileHeld(new RollersManualAcquireCommand());
         operatorGamepad.getRightBumper().whileHeld(new RollersSlowAcquireCommand());
+
+        operatorGamepad.getLeftTrigger().whileHeld(new RollersManualDeacquireCommand());
         operatorGamepad.getLeftBumper().whileHeld(new RollersDeacquireCommand());
 
         operatorGamepad.getTopButton().whileHeld(new FloopPushCommand());
