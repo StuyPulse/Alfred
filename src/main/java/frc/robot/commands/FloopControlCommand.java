@@ -9,14 +9,12 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.util.Limelight;
+import frc.util.Limelight.LEDMode;
 
 public class FloopControlCommand extends Command {
   public FloopControlCommand() {
     requires(Robot.floop);
-  }
-
-  @Override
-  protected void initialize() {
   }
 
   @Override
@@ -28,6 +26,11 @@ public class FloopControlCommand extends Command {
     }
 
     if (Robot.oi.operatorGamepad.getRawLeftButton()) {
+      Robot.floop.close();
+    } else if(Robot.oi.operatorGamepad.getRawRightButton() && Robot.isGamePieceDetected()) {
+      Robot.floop.open();
+      Limelight.setLEDMode(LEDMode.FORCE_BLINK);
+    } else if(Robot.oi.operatorGamepad.getRawRightButton()) {
       Robot.floop.close();
     } else {
       Robot.floop.open();
@@ -43,8 +46,6 @@ public class FloopControlCommand extends Command {
   protected void end() {
   }
 
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
   @Override
   protected void interrupted() {
   }
