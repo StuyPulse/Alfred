@@ -40,12 +40,14 @@ public class Limelight {
 
         // Calculate limelights last update
         long timeDifference = currentTime - lastUpdate;
+        boolean connected = lastUpdate < MAX_UPDATE_TIME;
 
         if (POST_TO_SMART_DASHBOARD) {
+            SmartDashboard.putBoolean("Limelight Connected", connected);
             SmartDashboard.putNumber("Limelight Time Difference", timeDifference);
         }
 
-        return timeDifference < MAX_UPDATE_TIME;
+        return connected;
     }
     
     /**

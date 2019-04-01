@@ -76,7 +76,6 @@ public class DrivetrainDriveCommand extends Command {
         // Set the turn value to the joystick's x value
         double leftStick = Robot.oi.driverGamepad.getLeftX();
         leftStick = Math.pow(leftStick, RobotMap.JOYSTICK_SCALAR);
-        leftStick /= 2.0;
 
         // Fix the sign for even powers
         if (RobotMap.JOYSTICK_SCALAR % 2 == 0) {
@@ -99,9 +98,7 @@ public class DrivetrainDriveCommand extends Command {
             SmartDashboard.putNumber("Drivetrain Turn", turn);
             SmartDashboard.putBoolean("Drivetrain QuickTurn", quickTurn);
             SmartDashboard.putBoolean("Drivetrain CV", getCVButtonsPressed());
-
-            boolean isConnected = Limelight.isConnected();
-            SmartDashboard.putBoolean("Limelight Connected", isConnected);
+            Limelight.isConnected(); // Pushes to smart dashboard
         }
 
         Robot.drivetrain.curvatureDrive(speed, turn, quickTurn);
