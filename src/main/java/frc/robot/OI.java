@@ -61,10 +61,10 @@ public class OI {
         operatorGamepad.getRightBumper().whileHeld(new RollersSlowAcquireCommand());
         operatorGamepad.getLeftBumper().whileHeld(new RollersDeacquireCommand());
 
-        operatorGamepad.getTopButton().whileHeld(new FloopPushCommand());
-        operatorGamepad.getTopButton().whenReleased((new FloopPullCommand()));
-        operatorGamepad.getRightButton().whileHeld(new FloopCloseCommand());
-        operatorGamepad.getRightButton().whenReleased(new FloopOpenCommand());
+        // operatorGamepad.getTopButton().whileHeld(new FloopPushCommand());
+        // operatorGamepad.getTopButton().whenReleased((new FloopPullCommand()));
+        // operatorGamepad.getRightButton().whileHeld(new FloopCloseCommand());
+        // operatorGamepad.getRightButton().whenReleased(new FloopOpenCommand());
         operatorGamepad.getBottomButton().whileHeld(new FloopStartScoreCommand());
         operatorGamepad.getBottomButton().whenReleased(new FloopStopScoreCommand());
         operatorGamepad.getLeftButton().whenPressed(new FloopCloseNoAutomationCommand());
