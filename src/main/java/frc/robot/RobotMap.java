@@ -102,7 +102,7 @@ public interface RobotMap {
      ****************************************************************************************/
     boolean DRIVETRAIN_SMARTDASHBOARD_DEBUG = true;
     double AUTOMATIC_DRIVE_SPEED = 0.3;
-    double SPEED_WHILE_TURNING = 1.5;
+    double SPEED_WHILE_TURNING = 2;
     double MOVE_TURN_MUL = 5.5;
     double TURN_DIV = 20;
     int JOYSTICK_SCALAR = 3; // Used to make joystick values smaller
