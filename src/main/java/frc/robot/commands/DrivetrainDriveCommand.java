@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.util.Limelight;
-import frc.util.Limelight.LEDMode;
 
 public class DrivetrainDriveCommand extends Command {
     // Variables to feed to curvature drive
@@ -52,11 +51,11 @@ public class DrivetrainDriveCommand extends Command {
             if(isDriverControlling){
                 Limelight.setPipeline(RobotMap.DRIVER_PIPELINE);
                 Limelight.setCamMode(Limelight.CamMode.DRIVER);
-                Limelight.setLEDMode(LEDMode.FORCE_OFF);
+                Limelight.setLEDMode(Limelight.LEDMode.FORCE_OFF);
             } else {
                 Limelight.setPipeline(RobotMap.CV_PIPELINE);
                 Limelight.setCamMode(Limelight.CamMode.VISION);
-                Limelight.setLEDMode(LEDMode.FORCE_ON);
+                Limelight.setLEDMode(Limelight.LEDMode.FORCE_ON);
             }
         }
     }
