@@ -190,6 +190,14 @@ public final class Drivetrain extends Subsystem {
         return Math.max(getLeftGreyhillDistance(), getRightGreyhillDistance());
     }
 
+    public double getLeftGreyhillRate() {
+        return leftGreyhill.getRate();
+    }
+
+    public double getRightGreyhillRate() {
+        return rightGreyhill.getRate();
+    }
+
     public void resetGreyhills() {
         leftGreyhill.reset();
         rightGreyhill.reset();
