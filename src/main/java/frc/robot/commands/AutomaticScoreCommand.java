@@ -14,7 +14,7 @@ import frc.util.Limelight;
 
 public class AutomaticScoreCommand extends CommandGroup {
   public AutomaticScoreCommand() {
-    if(Timer.getMatchTime() < 15 && Limelight.getTargetArea() > 0.06){
+    if(Timer.getMatchTime() > 135 && Limelight.getTargetArea() > 0.06){
         addSequential(new FloopStartScoreCommand());
         addSequential(new WaitCommand(0.2));
         addSequential(new FloopPullCommand());
