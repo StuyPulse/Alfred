@@ -31,7 +31,11 @@ public class RollersConstantAcquireCommand extends CommandGroup {
 
         @Override
         protected void execute() {
-            Robot.rollers.acquire();
+            if(Robot.isGamePieceDetected()) {
+                Robot.rollers.setSpeed(-0.2);
+            } else {
+                Robot.rollers.acquire();
+            }
         }
 
         @Override
