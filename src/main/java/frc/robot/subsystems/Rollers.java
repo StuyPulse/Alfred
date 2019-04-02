@@ -12,15 +12,19 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
+import frc.util.NEOEncoder;
 
 public final class Rollers extends Subsystem {
 
     private CANSparkMax motor;
 
+    private NEOEncoder encoder;
+
     public Rollers() {
         motor = new CANSparkMax(RobotMap.ROLLER_MOTOR_PORT, MotorType.kBrushless);
         motor.setInverted(true);
         motor.setIdleMode(CANSparkMax.IdleMode.kBrake);
+        encoder = new NEOEncoder(motor.getEncoder());
     }
 
     @Override
@@ -49,5 +53,9 @@ public final class Rollers extends Subsystem {
 
     public void disableRamping() {
         motor.setOpenLoopRampRate(0.0);
+    }
+
+    public double getEncoderVal() {
+        return encoder.getPosition();
     }
 }
