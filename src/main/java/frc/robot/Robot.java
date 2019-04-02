@@ -39,13 +39,14 @@ public class Robot extends TimedRobot {
     public static double liftSpeedGoingDown;
 
     public static DigitalInput IRsensor;
+ 
     public static double autonStartTime;
     public static double autonCurrTime;
 
     public static LEDRelayController relayController;
     public boolean hasBeenZeroed;
-
     private MapWidget mapWidget;
+    public static boolean scoreCargo;
 
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<>();
@@ -67,6 +68,7 @@ public class Robot extends TimedRobot {
         rollers = new Rollers();
         oi = new OI();
         IRsensor = new DigitalInput(RobotMap.IR_SENSOR_PORT);
+
         relayController = new LEDRelayController(RobotMap.LED_CHANNEL);
         mapWidget = new MapWidget();
         startPos.addOption("Left Cargo Ship", FieldPosition.StartingPosition.LEFT_CS);
@@ -76,35 +78,13 @@ public class Robot extends TimedRobot {
         startPos.addOption("Right Rocket Ship", FieldPosition.StartingPosition.RIGHT_R);
         SmartDashboard.putData("Position Chooser", startPos);
         mapWidget.initMap(startPos.getSelected());
-        //chooser.addOption("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
 
-       // CameraServer.getInstance().startAutomaticCapture(0);
-        SmartDashboard.putNumber("TURN_DIV", 20);
-        SmartDashboard.putNumber("MOVE_TURN_MUL", 5.5);
+        // CameraServer.getInstance().startAutomaticCapture(0);
+        SmartDashboard.putNumber("TURN_DIV", RobotMap.TURN_DIV);
+        SmartDashboard.putNumber("MOVE_TURN_MUL", RobotMap.MOVE_TURN_MUL);
+        SmartDashboard.putNumber("AUTOMATIC_DRIVE_SPEED", RobotMap.AUTOMATIC_DRIVE_SPEED);
 
-        //Tuning values to check if target is valid
-        SmartDashboard.putNumber("TURN_MIN_SPEED", 0.2);
-        SmartDashboard.putNumber("TURN_MIN_ANGLE", 1);
-
-        //Tuning values for autoDrive
-        
-        //TODO: test these values!
-        // SmartDashboard.putNumber("AUTODRIVE_MIN_SPEED", 0.15);
-        // SmartDashboard.putNumber("AUTODRIVE_FORWARD_AREA", 0.038);
-        // SmartDashboard.putNumber("AUTODRIVE_SPEED_MUL", 1.5);
-        //TODO: replace these after CNY
-        SmartDashboard.putNumber("AUTODRIVE_MIN_SPEED", 0.05);
-        SmartDashboard.putNumber("AUTODRIVE_FORWARD_AREA", 0.07);
-        SmartDashboard.putNumber("AUTODRIVE_SPEED_MUL", 2.75);
-
-        SmartDashboard.putBoolean("VALID_TARGET", false);
-        SmartDashboard.putBoolean("VALID_HEIGHT", false);
-        SmartDashboard.putBoolean("VALID_RATIO", false);
-        SmartDashboard.putBoolean("VALID_SKEW", false);
-
-        // SmartDashboard.putNumber("CAM_MODE", 1);
-        SmartDashboard.putNumber("LIMELIGHT_MOTOR_OUTPUT", 0);
         hasBeenZeroed = false;
     }
 
@@ -146,6 +126,9 @@ public class Robot extends TimedRobot {
     @Override
     public void disabledPeriodic() {
         Scheduler.getInstance().run();
+        // Reset the gamepad types
+        oi.driverGamepad.resetGamepadType();
+        oi.operatorGamepad.resetGamepadType();
     }
 
     /**
@@ -243,8 +226,12 @@ public class Robot extends TimedRobot {
         }
     }
 
-    private boolean isGamePieceDetected() {
+    public static boolean isGamePieceDetected() {
         return IRsensor.get();
+    }
+
+    public static void toggleScore() {
+        scoreCargo = !scoreCargo;
     }
 
     private String returnTime() {

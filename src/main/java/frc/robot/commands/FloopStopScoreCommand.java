@@ -7,27 +7,14 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Robot;
+import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 
-public class RollersConstantDeacquireCommand extends Command {
+public class FloopStopScoreCommand extends CommandGroup {
 
-    public RollersConstantDeacquireCommand() {
-        requires(Robot.rollers);
-    }
-
-    @Override
-    protected void execute() {
-        Robot.rollers.deacquire();
-    }
-
-    @Override
-    protected boolean isFinished() {
-        return false;
-    }
-
-    @Override
-    protected void end() {
-        Robot.rollers.stop();
-    }
+  public FloopStopScoreCommand() {
+    addSequential(new FloopPullCommand());
+    addSequential(new WaitCommand(0.25));
+    addSequential(new FloopOpenCommand());
+  }
 }

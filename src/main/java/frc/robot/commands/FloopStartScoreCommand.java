@@ -10,15 +10,15 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 
-public class LiftSlowToggleCommand extends InstantCommand {
-    public LiftSlowToggleCommand() {
-        super();
-        requires(Robot.lift);
-    }
+public class FloopStartScoreCommand extends InstantCommand {
+  public FloopStartScoreCommand() {
+    requires(Robot.floop);
+  }
 
-    @Override
-    protected void initialize() {
-        Robot.lift.toggleWantSlow();
-    }
-    
+  @Override
+  protected void initialize() {
+    Robot.floop.close();
+    Robot.floop.push();
+  }
+
 }

@@ -8,28 +8,35 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Robot;
 
-public class FloopCloseCommand extends Command {
+public class RollersDeacquireCommand extends CommandGroup {
 
-    public FloopCloseCommand() {
-        requires(Robot.floop);
-    }
+  public RollersDeacquireCommand() {
+    addParallel(new FloopPrepareForRollersCommand());
+    addSequential(new RollersDeacquire());
+  }
 
-    @Override
-    protected void initialize() {
-        Robot.floop.close();
+  public class RollersDeacquire extends Command {
+
+    public RollersDeacquire() {
+      requires(Robot.rollers);
     }
 
     @Override
     protected void execute() {
-        if (Robot.floop.automationOn && Robot.isGamePieceDetected()) {
-            Robot.floop.open();
-        }
+      Robot.rollers.setSpeed(-1.0);
     }
 
     @Override
     protected boolean isFinished() {
-        return Robot.floop.automationOn && Robot.isGamePieceDetected();
+      return false;
     }
+
+    @Override
+    protected void end() {
+      Robot.rollers.stop();
+    }
+  }
 }

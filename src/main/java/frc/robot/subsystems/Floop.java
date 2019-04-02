@@ -14,25 +14,53 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public final class Floop extends Subsystem {
 
     private Solenoid floopSolenoid;
+    private Solenoid pusherSolenoid;
+
+    public boolean automationOn;
 
     public Floop() {
         floopSolenoid = new Solenoid(RobotMap.FLOOP_CHANNEL);
+        pusherSolenoid = new Solenoid(RobotMap.PUSHER_CHANNEL);
     }
 
     public void open() {
-        floopSolenoid.set(false);
+        if (!isOpen()) {
+            floopSolenoid.set(false);
+        }
     }
 
     public void close() {
-        floopSolenoid.set(true);
+        if (isOpen()) {
+            floopSolenoid.set(true);
+        }
     }
 
-    public void toggle() {
+    public void toggleFloop() {
         floopSolenoid.set(!isOpen());
+    }
+
+    public void toggleAutomation() {
+        automationOn = !automationOn;
     }
 
     public boolean isOpen() {
         return floopSolenoid.get();
+    }
+
+    public void push() {
+        if (!pushed()) {
+            pusherSolenoid.set(true);
+        }
+    }
+
+    public void pull() {
+        if (pushed()) {
+            pusherSolenoid.set(false);
+        }
+    }
+
+    public boolean pushed() {
+        return pusherSolenoid.get();
     }
 
     @Override
