@@ -47,6 +47,10 @@ public final class Rollers extends Subsystem {
         motor.set(speed);
     }
 
+    public double getSpeed() {
+        return motor.get();
+    }
+
     public void enableRamping() {
         motor.setOpenLoopRampRate(0.2);
     }
