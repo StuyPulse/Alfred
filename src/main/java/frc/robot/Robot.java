@@ -107,7 +107,8 @@ public class Robot extends TimedRobot {
         // SmartDashboard.putNumber("Drivetrain Right Greyhill Raw Val: ",
         //         Robot.drivetrain.getRightGreyhillTicks());
         SmartDashboard.putNumber("Lift Encoder Val: ", Robot.lift.getHeight());
-        SmartDashboard.putBoolean("Lift Bottom Optical Sensor: ", Robot.lift.isAtBottom());
+        SmartDashboard.putBoolean("Lift Is At Bottom?: ", Robot.lift.isAtBottom());
+        SmartDashboard.putBoolean("Is Limit Switch Overridden: ", Robot.lift.isLimitSensorOverrided);
         
         // liftSpeedGoingDown = SmartDashboard.getNumber("Lift Auto Complete Speed Going Down", 0.5);
         SmartDashboard.putString("Match Time", returnTime());
@@ -208,6 +209,7 @@ public class Robot extends TimedRobot {
             relayController.setLEDNeutral();
         }
         SmartDashboard.putNumber("Time Diff", System.currentTimeMillis() - startTime);
+        SmartDashboard.putBoolean("Is Game piece detected", isGamePieceDetected());
     }
 
     /**
@@ -227,7 +229,7 @@ public class Robot extends TimedRobot {
     }
 
     public static boolean isGamePieceDetected() {
-        return IRsensor.get();
+        return !IRsensor.get();
     }
 
     public static void toggleScore() {

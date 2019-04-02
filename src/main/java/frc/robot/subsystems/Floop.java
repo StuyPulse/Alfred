@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import frc.robot.RobotMap;
 import frc.robot.commands.AutomaticScoreCommand;
+import frc.robot.commands.FloopControlCommand;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -22,6 +23,7 @@ public final class Floop extends Subsystem {
     public Floop() {
         floopSolenoid = new Solenoid(RobotMap.FLOOP_CHANNEL);
         pusherSolenoid = new Solenoid(RobotMap.PUSHER_CHANNEL);
+        automationOn = true;
     }
 
     public void open() {
@@ -42,10 +44,11 @@ public final class Floop extends Subsystem {
 
     public void toggleAutomation() {
         automationOn = !automationOn;
+        System.out.println("AUTOMATION ON: " + automationOn);
     }
 
     public boolean isOpen() {
-        return floopSolenoid.get();
+        return !floopSolenoid.get();
     }
 
     public void push() {
@@ -66,6 +69,6 @@ public final class Floop extends Subsystem {
 
     @Override
     public void initDefaultCommand() {
-        setDefaultCommand(new AutomaticScoreCommand());
+        setDefaultCommand(new FloopControlCommand());
     }
 }

@@ -25,6 +25,11 @@ public class RollersConstantAcquireCommand extends CommandGroup {
         }
 
         @Override
+        protected void initialize() {
+          Robot.rollers.enableRamping();
+        }    
+
+        @Override
         protected void execute() {
             Robot.rollers.acquire();
         }
@@ -37,6 +42,7 @@ public class RollersConstantAcquireCommand extends CommandGroup {
         @Override
         protected void end() {
             Robot.rollers.stop();
+            Robot.rollers.disableRamping();
         }
     }
 }

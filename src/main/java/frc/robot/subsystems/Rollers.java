@@ -28,11 +28,11 @@ public final class Rollers extends Subsystem {
     }
 
     public void acquire() {
-        setSpeed(1.0);
+        setSpeed(-1.0);
     }
 
     public void deacquire() {
-        setSpeed(-1.0);
+        setSpeed(1.0);
     }
 
     public void stop() {
@@ -43,7 +43,11 @@ public final class Rollers extends Subsystem {
         motor.set(speed);
     }
 
-    public void rampAcquire() {
+    public void enableRamping() {
         motor.setOpenLoopRampRate(0.5);
+    }
+
+    public void disableRamping() {
+        motor.setOpenLoopRampRate(0.0);
     }
 }

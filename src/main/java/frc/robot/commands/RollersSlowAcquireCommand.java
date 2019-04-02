@@ -31,7 +31,7 @@ public class RollersSlowAcquireCommand extends CommandGroup {
 
     @Override
     protected void execute() {
-      Robot.rollers.setSpeed(0.1);
+      Robot.rollers.setSpeed(-0.2);
     }
 
     @Override
