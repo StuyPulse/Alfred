@@ -6,7 +6,6 @@ package frc.util;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.drive.Vector2d; // Returning Goal Cordinates
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Limelight {
@@ -16,7 +15,6 @@ public class Limelight {
 
     // Toggle for posting to SmartDashboard
     public static final boolean POST_TO_SMART_DASHBOARD = true;
-    
 
     // Uses network tables to check status of limelight
     private static NetworkTableEntry timingTestEntry = table.getEntry("TIMING_TEST_ENTRY");
@@ -40,12 +38,14 @@ public class Limelight {
 
         // Calculate limelights last update
         long timeDifference = currentTime - lastUpdate;
+        boolean connected = timeDifference < MAX_UPDATE_TIME;
 
         if (POST_TO_SMART_DASHBOARD) {
+            SmartDashboard.putBoolean("Limelight Connected", connected);
             SmartDashboard.putNumber("Limelight Time Difference", timeDifference);
         }
 
-        return timeDifference < MAX_UPDATE_TIME;
+        return connected;
     }
     
     /**

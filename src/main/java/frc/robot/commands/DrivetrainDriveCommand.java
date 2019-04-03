@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.util.Limelight;
-import frc.util.Limelight.LEDMode;
 
 public class DrivetrainDriveCommand extends Command {
     // Variables to feed to curvature drive
@@ -30,6 +29,7 @@ public class DrivetrainDriveCommand extends Command {
         setSpeed();
         setTurn();
         setQuickTurn();
+        updateSmartdashboard();
         updateDrivetrain();
     }
 
@@ -52,11 +52,11 @@ public class DrivetrainDriveCommand extends Command {
             if(isDriverControlling){
                 Limelight.setPipeline(RobotMap.DRIVER_PIPELINE);
                 Limelight.setCamMode(Limelight.CamMode.DRIVER);
-                Limelight.setLEDMode(LEDMode.FORCE_OFF);
+                Limelight.setLEDMode(Limelight.LEDMode.FORCE_OFF);
             } else {
                 Limelight.setPipeline(RobotMap.CV_PIPELINE);
                 Limelight.setCamMode(Limelight.CamMode.VISION);
-                Limelight.setLEDMode(LEDMode.FORCE_ON);
+                Limelight.setLEDMode(Limelight.LEDMode.FORCE_ON);
             }
         }
     }
@@ -76,7 +76,6 @@ public class DrivetrainDriveCommand extends Command {
         // Set the turn value to the joystick's x value
         double leftStick = Robot.oi.driverGamepad.getLeftX();
         leftStick = Math.pow(leftStick, RobotMap.JOYSTICK_SCALAR);
-        leftStick /= 2.0;
 
         // Fix the sign for even powers
         if (RobotMap.JOYSTICK_SCALAR % 2 == 0) {
@@ -92,18 +91,18 @@ public class DrivetrainDriveCommand extends Command {
         quickTurn = Math.abs(speed) < 0.125;
     }
 
-    // Sub commands for each curvature drive variable
-    protected void updateDrivetrain() {
+    protected void updateSmartdashboard() {
         if(RobotMap.DRIVETRAIN_SMARTDASHBOARD_DEBUG) {
             SmartDashboard.putNumber("Drivetrain Speed", speed);
             SmartDashboard.putNumber("Drivetrain Turn", turn);
             SmartDashboard.putBoolean("Drivetrain QuickTurn", quickTurn);
             SmartDashboard.putBoolean("Drivetrain CV", getCVButtonsPressed());
-
-            boolean isConnected = Limelight.isConnected();
-            SmartDashboard.putBoolean("Limelight Connected", isConnected);
+            Limelight.isConnected(); // Updates Smart Dashboard
         }
+    }
 
+    // Sub commands for each curvature drive variable
+    protected void updateDrivetrain() {
         Robot.drivetrain.curvatureDrive(speed, turn, quickTurn);
     }
 
