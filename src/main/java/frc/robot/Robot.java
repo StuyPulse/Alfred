@@ -227,14 +227,14 @@ public class Robot extends TimedRobot {
         
         // Motor Stall Stuff
         double change_from_start = System.currentTimeMillis() - start_time;
-        if (change_from_start > 200) {
+        if (change_from_start > 100) {
             start_time = System.currentTimeMillis();
             // current_encoder_value needs to be replaced with distance instead
             double current_encoder_value = Math.abs(Robot.rollers.getEncoderVal());
             double change_distance = Math.abs(current_encoder_value - start_encoder_value);
 
             SmartDashboard.putNumber("Change In Distance Encoder", change_distance);
-            if (change_distance <= encoder_approach_stall_threshold && Robot.oi.operatorGamepad.getRawRightTrigger()) {
+            if (change_distance <= encoder_approach_stall_threshold) {
                 SmartDashboard.putBoolean("Motor Stall Status:", true);
                 rollersStalling = true;
             } else {
@@ -243,7 +243,6 @@ public class Robot extends TimedRobot {
             }
             start_encoder_value = current_encoder_value;
         }
-        SmartDashboard.putNumber("Motor Speed:", Robot.rollers.getSpeed());
     }
 
     /**

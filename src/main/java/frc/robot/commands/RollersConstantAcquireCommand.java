@@ -23,8 +23,6 @@ public class RollersConstantAcquireCommand extends CommandGroup {
     // Move the joystick right at the edge of where a motor doesn't move and does
     // This POC is using ticks
     double encoder_approach_stall_threshold = 5.0;
-    double startTime;
-    double passedTime;
 
     public RollersConstantAcquireCommand() {
         addParallel(new FloopPrepareForRollersCommand());
@@ -39,23 +37,21 @@ public class RollersConstantAcquireCommand extends CommandGroup {
 
         @Override
         protected void initialize() {
-            // Robot.rollers.enableRamping();
+            Robot.rollers.enableRamping();
             raw_distance = Robot.rollers.getEncoderVal();
             abs_raw_distance = Math.abs(raw_distance);
             start_encoder_value = abs_raw_distance;
-            startTime = Timer.getFPGATimestamp();
         }
 
         @Override
         protected void execute() {
             System.out.println("ROLLERS CONSTANT ACQUIRE COMMAND EXECUTE");
-            passedTime = Timer.getFPGATimestamp() - startTime;
-            SmartDashboard.putNumber("TIME PASSED FOR ROLLERS", passedTime);
-            if (Robot.isRollersStalling() && passedTime > 0.5) {
+            if (Robot.isRollersStalling()) {
                 Robot.rollers.setSpeed(-0.2);
             } else {
                 Robot.rollers.acquire();
             }
+            SmartDashboard.putNumber("Motor Speed:", Robot.rollers.getSpeed());
         }
 
         @Override
