@@ -9,8 +9,6 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.util.Limelight;
-import frc.util.Limelight.LEDMode;
 
 public class FloopControlCommand extends Command {
   public FloopControlCommand() {
@@ -29,7 +27,6 @@ public class FloopControlCommand extends Command {
       Robot.floop.close();
     } else if(Robot.oi.operatorGamepad.getRawRightButton() && Robot.isGamePieceDetected()) {
       Robot.floop.open();
-      Limelight.setLEDMode(LEDMode.FORCE_BLINK);
     } else if(Robot.oi.operatorGamepad.getRawRightButton()) {
       Robot.floop.close();
     } else {

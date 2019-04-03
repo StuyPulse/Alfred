@@ -29,6 +29,7 @@ public class DrivetrainDriveCommand extends Command {
         setSpeed();
         setTurn();
         setQuickTurn();
+        updateSmartdashboard();
         updateDrivetrain();
     }
 
@@ -75,7 +76,6 @@ public class DrivetrainDriveCommand extends Command {
         // Set the turn value to the joystick's x value
         double leftStick = Robot.oi.driverGamepad.getLeftX();
         leftStick = Math.pow(leftStick, RobotMap.JOYSTICK_SCALAR);
-        //leftStick /= 2.0;
 
         // Fix the sign for even powers
         if (RobotMap.JOYSTICK_SCALAR % 2 == 0) {
@@ -91,18 +91,17 @@ public class DrivetrainDriveCommand extends Command {
         quickTurn = Math.abs(speed) < 0.125;
     }
 
-    // Sub commands for each curvature drive variable
-    protected void updateDrivetrain() {
+    protected void updateSmartdashboard() {
         if(RobotMap.DRIVETRAIN_SMARTDASHBOARD_DEBUG) {
             SmartDashboard.putNumber("Drivetrain Speed", speed);
             SmartDashboard.putNumber("Drivetrain Turn", turn);
             SmartDashboard.putBoolean("Drivetrain QuickTurn", quickTurn);
             SmartDashboard.putBoolean("Drivetrain CV", getCVButtonsPressed());
-
-            boolean isConnected = Limelight.isConnected();
-            SmartDashboard.putBoolean("Limelight Connected", isConnected);
         }
+    }
 
+    // Sub commands for each curvature drive variable
+    protected void updateDrivetrain() {
         Robot.drivetrain.curvatureDrive(speed, turn, quickTurn);
     }
 
