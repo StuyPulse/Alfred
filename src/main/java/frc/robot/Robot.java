@@ -23,6 +23,7 @@ import frc.robot.subsystems.Lift;
 import frc.robot.subsystems.Rollers;
 import frc.robot.subsystems.Tail;
 import frc.util.LEDRelayController;
+import frc.util.Limelight;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -93,6 +94,8 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("AUTOMATIC_DRIVE_SPEED", RobotMap.AUTOMATIC_DRIVE_SPEED);
         SmartDashboard.putNumber("SPEED_WHILE_TURNING", RobotMap.SPEED_WHILE_TURNING);
 
+        Limelight.setLEDMode(Limelight.LEDMode.FORCE_OFF);
+
         hasBeenZeroed = false;
     }
 
@@ -116,6 +119,7 @@ public class Robot extends TimedRobot {
         // Robot.drivetrain.getLeftGreyhillTicks());
         // SmartDashboard.putNumber("Drivetrain Right Greyhill Raw Val: ",
         // Robot.drivetrain.getRightGreyhillTicks());
+        SmartDashboard.putBoolean("IR Sensor: ", isGamePieceDetected());
         SmartDashboard.putNumber("Lift Encoder Val: ", Robot.lift.getHeight());
         SmartDashboard.putBoolean("Lift Is At Bottom?: ", Robot.lift.isAtBottom());
         SmartDashboard.putBoolean("Is Limit Switch Overridden: ", Robot.lift.isLimitSensorOverrided);
@@ -214,13 +218,13 @@ public class Robot extends TimedRobot {
         // Robot.lift.isOpticalSensorOverrided);
         // SmartDashboard.putNumber("Tom's Metric for Tail: ",
         // Robot.tail.getTomsMetric());
-        if (isGamePieceDetected()) {
-            // Once a game piece is detected, it blinks two times and stops.
-            blinkLED();
-        } else {
-            // Stops the LEDs as long as it doesn't detect a game piece.
-            relayController.setLEDNeutral();
-        }
+        // if (isGamePieceDetected()) {
+        //     // Once a game piece is detected, it blinks two times and stops.
+        //     blinkLED();
+        // } else {
+        //     // Stops the LEDs as long as it doesn't detect a game piece.
+        //     relayController.setLEDNeutral();
+        // }
         SmartDashboard.putNumber("Time Diff", System.currentTimeMillis() - startTime);
         SmartDashboard.putBoolean("Is Game piece detected", isGamePieceDetected());
         
