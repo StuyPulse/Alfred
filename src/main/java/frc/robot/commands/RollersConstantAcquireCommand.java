@@ -7,15 +7,14 @@
 
 package frc.robot.commands;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
 public class RollersConstantAcquireCommand extends CommandGroup {
-    Long start_time;
+    double start_time;
     double change_distance = 0.0;
     double start_encoder_value;
     double abs_raw_distance;
@@ -38,7 +37,6 @@ public class RollersConstantAcquireCommand extends CommandGroup {
 
         @Override
         protected void initialize() {
-            start_time = System.currentTimeMillis();
             Robot.rollers.enableRamping();
             raw_distance = Robot.rollers.getEncoderVal();
             abs_raw_distance = Math.abs(raw_distance);
@@ -48,26 +46,12 @@ public class RollersConstantAcquireCommand extends CommandGroup {
         @Override
         protected void execute() {
             System.out.println("ROLLERS CONSTANT ACQUIRE COMMAND EXECUTE");
-            Long current_time = System.currentTimeMillis();
-            Long change_from_start = current_time - start_time;
-            if (change_from_start > 100) {
-                start_time = System.currentTimeMillis();
-                // current_encoder_value needs to be replaced with distance instead
-                double current_encoder_value = Math.abs(Robot.rollers.getEncoderVal());
-                double change_distance = Math.abs(current_encoder_value - start_encoder_value);
-
-                SmartDashboard.putNumber("Change In Distance Encoder", change_distance);
-                if (change_distance <= encoder_approach_stall_threshold) {
-                    SmartDashboard.putBoolean("Motor Stall Status:", true);
-                    Robot.rollers.setSpeed(-0.2);
-                } else {
-                    SmartDashboard.putBoolean("Motor Stall Status:", false);
-                }
-                start_encoder_value = current_encoder_value;
+            if (Robot.isRollersStalling()) {
+                Robot.rollers.setSpeed(-0.2);
             } else {
                 Robot.rollers.acquire();
             }
-            SmartDashboard.putNumber("Motor Stall Speed:", Robot.rollers.getSpeed());
+            SmartDashboard.putNumber("Motor Speed:", Robot.rollers.getSpeed());
         }
 
         @Override
