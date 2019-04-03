@@ -56,8 +56,7 @@ public final class Tail extends Subsystem {
     public double getTomsMetric() {
         return tailMotor.getBusVoltage() * tailMotor.getOutputCurrent();
     }
-
-    //TODO: check this values
+    
     public void disengageRatchet() {
         ratchetSingleSolenoid.set(true);
     }
