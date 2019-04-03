@@ -1,3 +1,4 @@
+//TODO: MAKE THIS IN KOTLIN SO THAT IT'S SHORTER AND EASIER TO READ 
 package frc.plugin;
 
 import edu.wpi.first.shuffleboard.api.data.ComplexData;
@@ -7,7 +8,7 @@ import java.util.Map;
 
 public final class FieldPosition extends ComplexData<FieldPosition> {
 
-    private double[] pos = new double[2];
+    private double[] pos;
     private double startAngle;
     private double angle;
 
@@ -21,20 +22,20 @@ public final class FieldPosition extends ComplexData<FieldPosition> {
     }
 
     public enum StartingPosition {
-        LEFT_CS(new FieldPosition(-1, -1, -1)),
-        RIGHT_CS(new FieldPosition(-1, -1, -1)),
-        MIDDLE(new FieldPosition(-1, -1, -1)),
-        LEFT_R(new FieldPosition(-1, -1, -1)),
-        RIGHT_R(new FieldPosition(-1, -1, -1));
+        LEFT_CS(new double[] {73, 188, 90}),
+        RIGHT_CS(new double[] {0, 0, 0}),
+        MIDDLE(new double[] {-1, -1, -1}),
+        LEFT_R(new double[] {-1, -1, -1}),
+        RIGHT_R(new double[] {-1, -1, -1});
 
         final double x;
         final double y;
         final double angle;
 
-        StartingPosition(FieldPosition pos) {
-            x = pos.getX();
-            y = pos.getY();
-            angle = pos.getAngle();
+        StartingPosition(double[] pos) {
+            x = pos[0];
+            y = pos[1];
+            angle = pos[2];
         }
 
         public double[] getCoordinates() {
@@ -48,7 +49,7 @@ public final class FieldPosition extends ComplexData<FieldPosition> {
         angle = 0;
     }
 
-    public FieldPosition(double x, double y, double gyroAngle) {
+    public void update(double x, double y, double gyroAngle) {
         pos[0] = x;
         pos[1] = y;
         angle = gyroAngle - startAngle;

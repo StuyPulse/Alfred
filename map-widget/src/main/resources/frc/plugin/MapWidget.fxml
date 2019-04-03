@@ -7,7 +7,7 @@
             fx:id="mapPane"
             prefHeight="515.0" prefWidth="515.0">
     <children>
-        <Canvas fx:id="robotLayer" height="505.0" width="509.0"/>
+<!--        <Canvas fx:id="robotLayer" height="505.0" width="509.0"/>-->
         <Canvas fx:id="mapLayer" height="505.0" width="509.0"/>
     </children>
 </AnchorPane>

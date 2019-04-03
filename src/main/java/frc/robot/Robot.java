@@ -45,8 +45,10 @@ public class Robot extends TimedRobot {
 
     public static LEDRelayController relayController;
     public boolean hasBeenZeroed;
-    private MapWidget mapWidget;
     public static boolean scoreCargo;
+
+    private MapWidget mapWidget;
+    public static FieldPosition robotLocation;
 
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<>();
@@ -70,14 +72,12 @@ public class Robot extends TimedRobot {
         IRsensor = new DigitalInput(RobotMap.IR_SENSOR_PORT);
 
         relayController = new LEDRelayController(RobotMap.LED_CHANNEL);
-        mapWidget = new MapWidget();
         startPos.addOption("Left Cargo Ship", FieldPosition.StartingPosition.LEFT_CS);
         startPos.addOption("Left Rocket Ship", FieldPosition.StartingPosition.LEFT_R);
         startPos.addOption("Middle", FieldPosition.StartingPosition.MIDDLE);
         startPos.addOption("Right Cargo Ship", FieldPosition.StartingPosition.RIGHT_CS);
         startPos.addOption("Right Rocket Ship", FieldPosition.StartingPosition.RIGHT_R);
         SmartDashboard.putData("Position Chooser", startPos);
-        mapWidget.initMap(startPos.getSelected());
         SmartDashboard.putData("Auto mode", chooser);
 
         // CameraServer.getInstance().startAutomaticCapture(0);
@@ -149,6 +149,8 @@ public class Robot extends TimedRobot {
         lift.tiltForward();
         lift.setHeight(-1 * RobotMap.START_HEIGHT);
         autonStartTime = Timer.getFPGATimestamp();
+        robotLocation = new FieldPosition(startPos.getSelected(), drivetrain.getGyroAngle());
+        mapWidget = new MapWidget();
         /*
          * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
          * switch(autoSelected) { case "My Auto": autonomousCommand = new
