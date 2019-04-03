@@ -16,6 +16,7 @@ import frc.plugin.FieldPosition;
 import frc.plugin.MapWidget;
 import frc.robot.subsystems.*;
 import frc.util.LEDRelayController;
+import frc.util.Odometry;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -52,6 +53,8 @@ public class Robot extends TimedRobot {
 
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<>();
+    //TODO: get rid of this sendablechooser and replace with one that whips with map-widget
+    //Need to perform the above to get on with it outside of auton
     private SendableChooser<FieldPosition.StartingPosition> startPos = new SendableChooser<>();
 
     /**
@@ -111,6 +114,7 @@ public class Robot extends TimedRobot {
         
         // liftSpeedGoingDown = SmartDashboard.getNumber("Lift Auto Complete Speed Going Down", 0.5);
         SmartDashboard.putString("Match Time", returnTime());
+        //mapWidget.update(robotLocation);
     }
 
     /**
@@ -210,6 +214,7 @@ public class Robot extends TimedRobot {
             relayController.setLEDNeutral();
         }
         SmartDashboard.putNumber("Time Diff", System.currentTimeMillis() - startTime);
+        Odometry.setCoordinates(robotLocation, Robot.drivetrain.getGreyhillDistance());
     }
 
     /**

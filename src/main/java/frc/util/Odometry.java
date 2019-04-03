@@ -1,9 +1,13 @@
 package frc.util;
 
+import frc.plugin.FieldPosition;
 import frc.robot.Robot;
 
 public final class Odometry {
-    public void getCoordinates(double camHeight, double camAngle, double yAngle, double xAngle, double targetHeight, double[] targetCoordinates) {
+
+    private static double prevEncoderVal = 0;
+
+    public static void setCoordinates(double camHeight, double camAngle, double yAngle, double xAngle, double targetHeight, double[] targetCoordinates) {
         double height = targetHeight - camHeight;
         double displacementAngle = yAngle - camAngle;
         double distanceFromTarget = height / Math.tan(displacementAngle);
@@ -12,8 +16,10 @@ public final class Odometry {
         Robot.robotLocation.update(x, y, Robot.drivetrain.getGyroAngle());
     }
 
-    public void getCoordinates(double[] prevPos, double prevEncoderVal, double encoderVal, double gyroAngle) {
+    public static void setCoordinates(FieldPosition prevPos, double encoderVal) {
         double distanceTravelled = encoderVal - prevEncoderVal;
-        Robot.robotLocation.update(Math.cos(distanceTravelled), Math.sin(distanceTravelled), Robot.drivetrain.getGyroAngle());
+        prevEncoderVal = encoderVal;
+        prevPos.update(Math.cos(distanceTravelled), Math.sin(distanceTravelled), Robot.drivetrain.getGyroAngle());
     }
+    //TODO:Add slick paths (hopefully)
 }

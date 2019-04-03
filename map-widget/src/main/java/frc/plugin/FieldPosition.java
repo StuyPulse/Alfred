@@ -1,4 +1,4 @@
-//TODO: MAKE THIS IN KOTLIN SO THAT IT'S SHORTER AND EASIER TO READ 
+//TODO: MAKE THIS IN KOTLIN SO THAT IT'S SHORTER & HOPEFULLY LESS JANK
 package frc.plugin;
 
 import edu.wpi.first.shuffleboard.api.data.ComplexData;
