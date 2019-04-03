@@ -97,7 +97,6 @@ public class DrivetrainDriveCommand extends Command {
             SmartDashboard.putNumber("Drivetrain Turn", turn);
             SmartDashboard.putBoolean("Drivetrain QuickTurn", quickTurn);
             SmartDashboard.putBoolean("Drivetrain CV", getCVButtonsPressed());
-            Limelight.isConnected(); // Updates Smart Dashboard
         }
     }
 

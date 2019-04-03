@@ -62,7 +62,8 @@ public class Limelight {
         return hasAnyTarget() 
              & hasValidHeight(targetHeightThreshold) 
              & hasValidBlueAspectRatio(minRatio, maxRatio)
-             & hasValidBlueOrientation(angleThreshold);
+             & hasValidBlueOrientation(angleThreshold)
+             & isConnected();
     }
     
     // Not final incase user wants
