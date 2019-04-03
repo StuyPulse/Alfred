@@ -476,4 +476,37 @@ public class Limelight {
     public static void setSnapshotMode(SnapshotMode mode) {
         SnapshotModeEntry.setNumber(mode.getCodeValue());
     }
+
+    // Solve 3D Support
+    private static NetworkTableEntry Solve3DEntry = table.getEntry("camtran");
+
+    public static class Solve3DResult {
+        public double x, y, z;
+        public double pitch, yaw, roll;
+
+        Solve3DResult() {
+            x = 0; y = 0; z = 0;
+            pitch = 0; yaw = 0;
+            roll = 0;
+        }
+
+        Solve3DResult(double[] data) {
+            this();
+            if(data.length == 6) {
+                x = data[0];
+                y = data[1];
+                z = data[2];
+                pitch = data[3];
+                yaw = data[4];
+                roll = data[5];
+            } 
+        }
+    }
+
+    /**
+     * @return Class that contains x,y,z,pitch,yaw,roll according to the limelight
+     */
+    public static Solve3DResult getSolve3D() {
+        return new Solve3DResult(Solve3DEntry.getDoubleArray(new double[1]));
+    }
 }
