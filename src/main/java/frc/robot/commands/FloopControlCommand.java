@@ -9,6 +9,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
 
 import frc.util.Limelight;
 import frc.util.Limelight.LEDMode;
@@ -23,7 +24,7 @@ public class FloopControlCommand extends Command {
             Limelight.setLEDMode(LEDMode.FORCE_BLINK);
             
             try {
-                Thread.sleep(500);
+                Thread.sleep(RobotMap.BLINK_TIME_MS);
             } catch(InterruptedException e) { 
                 System.out.println(e);
             } 
