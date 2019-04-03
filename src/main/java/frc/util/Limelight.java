@@ -16,7 +16,6 @@ public class Limelight {
 
     // Toggle for posting to SmartDashboard
     public static final boolean POST_TO_SMART_DASHBOARD = true;
-    
 
     // Uses network tables to check status of limelight
     private static NetworkTableEntry timingTestEntry = table.getEntry("TIMING_TEST_ENTRY");
