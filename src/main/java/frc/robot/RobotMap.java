@@ -35,8 +35,7 @@ public interface RobotMap {
 
     /***************************************************************************************
      * Tail and Abom Ports
-     ****************************************************************************************/
-    //TODO: find actual ports
+     ****************************************************************************************/    //
     int RATCHET_DOUBLE_SOLENOID_FORWARD_PORT = 2;
     int RATCHET_DOUBLE_SOLENOID_REVERSE_PORT = 3; 
     int RATCHET_SINGLE_SOLENOID_PORT = 1; 
@@ -119,7 +118,7 @@ public interface RobotMap {
     /***************************************************************************************
      * Drivetrain Greyhill Encoder Constants
      ****************************************************************************************/
-    double GREYHILL_PULSES_PER_REVOLUTION = 256 * 4.0; //TODO: check this
+    double GREYHILL_PULSES_PER_REVOLUTION = 256 * 4.0;
     double DRIVETRAIN_OUTER_GEAR_RATIO = 24.0 / 60.0;
     double DRIVETRAIN_ENCODER_EMPIRICAL_MULTIPLIER = 1.3;
     double DRIVETRAIN_GREYHILL_INCHES_PER_PULSE = ((WHEEL_INCHES_PER_REVOLUTION * DRIVETRAIN_OUTER_GEAR_RATIO) / GREYHILL_PULSES_PER_REVOLUTION) * DRIVETRAIN_ENCODER_EMPIRICAL_MULTIPLIER;
@@ -158,6 +157,5 @@ public interface RobotMap {
      * Rollers Constants
      ****************************************************************************************/
     double SLOW_ROLLER_MULTIPLIER = 0.75;
-    //TODO: find the actual max speed
     double SLOW_ROLLER_MAXIMUM = 1;
 }
