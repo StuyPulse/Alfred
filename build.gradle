@@ -64,6 +64,7 @@ jar {
     manifest edu.wpi.first.gradlerio.GradleRIOPlugin.javaManifest(ROBOT_MAIN_CLASS)
 }
 
+//TODO: uncomment these lines before merging to master
 //File file = new File("src/main/java/frc/robot/RobotMap.java")
 //System.out.println("=========================")
 //if(file.text.contains('ROBOT_NAME = "Alfred"')) {
