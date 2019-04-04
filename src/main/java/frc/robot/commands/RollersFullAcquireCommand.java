@@ -11,16 +11,16 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Robot;
 
-public class RollersSlowAcquireCommand extends CommandGroup {
+public class RollersFullAcquireCommand extends CommandGroup {
 
-  public RollersSlowAcquireCommand() {
+  public RollersFullAcquireCommand() {
     addParallel(new FloopPrepareForRollersCommand());
-    addSequential(new RollersSlowAcquire());
+    addSequential(new RollersFullAcquire());
   }
 
-  public class RollersSlowAcquire extends Command {
+  public class RollersFullAcquire extends Command {
 
-    public RollersSlowAcquire() {
+    public RollersFullAcquire() {
       requires(Robot.rollers);
     }
 
@@ -31,7 +31,7 @@ public class RollersSlowAcquireCommand extends CommandGroup {
 
     @Override
     protected void execute() {
-      Robot.rollers.setSpeed(-0.2);
+      Robot.rollers.acquire();
     }
 
     @Override

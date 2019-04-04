@@ -13,11 +13,8 @@ import frc.robot.commands.AutomaticTurnCommand;
 import frc.robot.commands.DrivetrainHighGearCommand;
 import frc.robot.commands.DrivetrainLowGearCommand;
 import frc.robot.commands.DrivetrainNudgeCommand;
-import frc.robot.commands.FloopAutomationToggleCommand;
-import frc.robot.commands.FloopCloseCommand;
+import frc.robot.commands.FloopCloseNoAutomationCommand;
 import frc.robot.commands.FloopOpenCommand;
-import frc.robot.commands.FloopPullCommand;
-import frc.robot.commands.FloopPushCommand;
 import frc.robot.commands.FloopStartScoreCommand;
 import frc.robot.commands.FloopStopScoreCommand;
 import frc.robot.commands.LiftMoveToHeightCommand;
@@ -25,8 +22,8 @@ import frc.robot.commands.LiftSlowToggleCommand;
 import frc.robot.commands.LiftToggleCommand;
 import frc.robot.commands.RollersConstantAcquireCommand;
 import frc.robot.commands.RollersDeacquireCommand;
+import frc.robot.commands.RollersFullAcquireCommand;
 import frc.robot.commands.RollersManualDeacquireCommand;
-import frc.robot.commands.RollersSlowAcquireCommand;
 import frc.util.Gamepad;
 import frc.util.Gamepad.GamepadSwitchMode;
 
@@ -37,8 +34,8 @@ public class OI {
 
     public OI() {
         
-        driverGamepad = new Gamepad(RobotMap.DRIVER_GAMEPAD_PORT, GamepadSwitchMode.PS4);
-        operatorGamepad = new Gamepad(RobotMap.OPERATOR_GAMEPAD_PORT, GamepadSwitchMode.SWITCH_X);
+        driverGamepad = new Gamepad(RobotMap.DRIVER_GAMEPAD_PORT, GamepadSwitchMode.AUTO_DETECT);
+        operatorGamepad = new Gamepad(RobotMap.OPERATOR_GAMEPAD_PORT, GamepadSwitchMode.AUTO_DETECT);
 
         /******************************************
          * Driver Code
@@ -57,16 +54,17 @@ public class OI {
         operatorGamepad.getRightTrigger().whileHeld(new RollersConstantAcquireCommand());
         operatorGamepad.getLeftTrigger().whileHeld(new RollersManualDeacquireCommand());
 
-        operatorGamepad.getRightBumper().whileHeld(new RollersSlowAcquireCommand());
+        operatorGamepad.getRightBumper().whileHeld(new RollersFullAcquireCommand());
         operatorGamepad.getLeftBumper().whileHeld(new RollersDeacquireCommand());
 
-        operatorGamepad.getTopButton().whileHeld(new FloopPushCommand());
-        operatorGamepad.getTopButton().whenReleased((new FloopPullCommand()));
-        operatorGamepad.getRightButton().whileHeld(new FloopCloseCommand());
-        operatorGamepad.getRightButton().whenReleased(new FloopOpenCommand());
+        // operatorGamepad.getTopButton().whileHeld(new FloopPushCommand());
+        // operatorGamepad.getTopButton().whenReleased((new FloopPullCommand()));
+        // operatorGamepad.getRightButton().whileHeld(new FloopCloseCommand());
+        // operatorGamepad.getRightButton().whenReleased(new FloopOpenCommand());
         operatorGamepad.getBottomButton().whileHeld(new FloopStartScoreCommand());
         operatorGamepad.getBottomButton().whenReleased(new FloopStopScoreCommand());
-        operatorGamepad.getLeftButton().whenPressed(new FloopAutomationToggleCommand());
+        operatorGamepad.getLeftButton().whenPressed(new FloopCloseNoAutomationCommand());
+        operatorGamepad.getLeftButton().whenReleased(new FloopOpenCommand());
 
         operatorGamepad.getDPadLeft().whenPressed(new LiftToggleCommand());
 

@@ -9,6 +9,8 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.util.Limelight;
+import frc.util.Limelight.LEDMode;
 
 public class FloopCloseCommand extends Command {
 
@@ -23,13 +25,17 @@ public class FloopCloseCommand extends Command {
 
     @Override
     protected void execute() {
+        System.out.println("automationOn: " + Robot.floop.automationOn);
+        System.out.println("gamePieceDetected: " + Robot.isGamePieceDetected());
         if (Robot.floop.automationOn && Robot.isGamePieceDetected()) {
             Robot.floop.open();
+            Limelight.setLEDMode(LEDMode.FORCE_BLINK);
         }
     }
 
     @Override
     protected boolean isFinished() {
-        return Robot.floop.automationOn && Robot.isGamePieceDetected();
+        //return Robot.floop.automationOn && Robot.isGamePieceDetected();
+        return false;
     }
 }

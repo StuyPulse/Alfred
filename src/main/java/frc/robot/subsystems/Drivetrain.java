@@ -84,7 +84,6 @@ public final class Drivetrain extends Subsystem {
         lowRightMiddleMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
         rightBottomMotor.setIdleMode(CANSparkMax.IdleMode.kCoast);
 
-        //TODO: Ask engineering about motor polarity
         highRightTopMotor.setInverted(true);
         highRightMiddleMotor.setInverted(true);
         lowRightTopMotor.setInverted(true);
