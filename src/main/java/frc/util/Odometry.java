@@ -7,13 +7,13 @@ public final class Odometry {
 
     private static double prevEncoderVal = 0;
 
-    public static void setCoordinates(double camHeight, double camAngle, double yAngle, double xAngle, double targetHeight, double[] targetCoordinates) {
+    public static void setCoordinates(FieldPosition pos, double camHeight, double camAngle, double yAngle, double xAngle, double targetHeight, double[] targetCoordinates) {
         double height = targetHeight - camHeight;
         double displacementAngle = yAngle - camAngle;
         double distanceFromTarget = height / Math.tan(displacementAngle);
         double x = targetCoordinates[0] - Math.sin(xAngle) * distanceFromTarget;
         double y = targetCoordinates[1] - Math.cos(xAngle) * distanceFromTarget;
-        Robot.robotLocation.update(x, y, Robot.drivetrain.getGyroAngle());
+        pos.update(x, y, Robot.drivetrain.getGyroAngle());
     }
 
     public static void setCoordinates(FieldPosition prevPos, double encoderVal) {

@@ -7,6 +7,10 @@
 
 package frc.robot;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -49,13 +53,14 @@ public class Robot extends TimedRobot {
     public static boolean scoreCargo;
 
     private MapWidget mapWidget;
-    public static FieldPosition robotLocation;
 
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<>();
     //TODO: get rid of this sendablechooser and replace with one that whips with map-widget
     //Need to perform the above to get on with it outside of auton
     private SendableChooser<FieldPosition.StartingPosition> startPos = new SendableChooser<>();
+//    private NetworkTableEntry xEntry;
+//    private NetworkTableEntry yEntry;
 
     /**
      * This function is run when the robot is first started up and should be used
@@ -88,6 +93,11 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("MOVE_TURN_MUL", RobotMap.MOVE_TURN_MUL);
         SmartDashboard.putNumber("AUTOMATIC_DRIVE_SPEED", RobotMap.AUTOMATIC_DRIVE_SPEED);
 
+//        NetworkTableInstance ntInst = NetworkTableInstance.getDefault();
+//        NetworkTable table = ntInst.getTable("Map Coordinates");
+//        xEntry = table.getEntry("X");
+//        yEntry = table.getEntry("Y");
+
         hasBeenZeroed = false;
     }
 
@@ -115,6 +125,12 @@ public class Robot extends TimedRobot {
         // liftSpeedGoingDown = SmartDashboard.getNumber("Lift Auto Complete Speed Going Down", 0.5);
         SmartDashboard.putString("Match Time", returnTime());
         //mapWidget.update(robotLocation);
+        Odometry.setCoordinates(MapWidget.robotLocation,Robot.drivetrain.getGreyhillDistance());
+//        xEntry.setDouble(MapWidget.robotLocation.getX());
+//        xEntry.addListener(event -> {
+//            mapWidget.update()
+//        })
+//        yEntry.setDouble(MapWidget.robotLocation.getY());
     }
 
     /**
@@ -153,7 +169,7 @@ public class Robot extends TimedRobot {
         lift.tiltForward();
         lift.setHeight(-1 * RobotMap.START_HEIGHT);
         autonStartTime = Timer.getFPGATimestamp();
-        robotLocation = new FieldPosition(startPos.getSelected(), drivetrain.getGyroAngle());
+        MapWidget.robotLocation = new FieldPosition(startPos.getSelected(), drivetrain.getGyroAngle());
         mapWidget = new MapWidget();
         /*
          * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
@@ -173,7 +189,6 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousPeriodic() {
-
         Scheduler.getInstance().run();
     }
 
@@ -214,7 +229,6 @@ public class Robot extends TimedRobot {
             relayController.setLEDNeutral();
         }
         SmartDashboard.putNumber("Time Diff", System.currentTimeMillis() - startTime);
-        Odometry.setCoordinates(robotLocation, Robot.drivetrain.getGreyhillDistance());
     }
 
     /**

@@ -1,8 +1,12 @@
 package frc.plugin;
 
+import edu.wpi.first.shuffleboard.api.data.MapData;
+import edu.wpi.first.shuffleboard.api.data.types.MapType;
 import edu.wpi.first.shuffleboard.api.widget.Description;
 import edu.wpi.first.shuffleboard.api.widget.ParametrizedController;
 import edu.wpi.first.shuffleboard.api.widget.SimpleAnnotatedWidget;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -15,14 +19,16 @@ import javafx.scene.paint.Color;
 
 @Description(dataTypes = {FieldPosition.class}, name = "Field Map")
 @ParametrizedController("MapWidget.fxml")
-public final class MapWidget extends SimpleAnnotatedWidget {
+public final class MapWidget extends SimpleAnnotatedWidget<MapData> implements ChangeListener<MapData> {
 
     @FXML
     Pane mapPane;
     @FXML
     Canvas mapLayer;
 
-    FieldPosition fieldPosition;
+    //TODO: Move this line to Constants after you change it to kotlin
+    public static FieldPosition robotLocation;
+
     //TODO: Implement the camera switcher in the field map
 //    @FXML
 //    Canvas cameraLayer;
@@ -31,6 +37,10 @@ public final class MapWidget extends SimpleAnnotatedWidget {
 //    private ObjectProperty<Image> img =
 //        new SimpleObjectProperty<>(new Image(getClass().
 //        getResource("2019-FieldMap.jpg").toExternalForm()));
+
+    public MapWidget() {
+        this.dataProperty().addListener(this);
+    }
 
     public void update(FieldPosition pos, GraphicsContext gc) {
         drawRobot(gc, pos.getX(), pos.getY(), pos.getAngle());
@@ -71,6 +81,11 @@ public final class MapWidget extends SimpleAnnotatedWidget {
         gc.fillPolygon(val[0], val[1], 4);
         gc.rotate(angle);
         return val;
+    }
+
+    @Override
+    public void changed(ObservableValue<? extends MapData> observableValue, MapData fieldPosition, MapData t1) {
+        update(robotLocation, mapLayer.getGraphicsContext2D());
     }
 }
 
