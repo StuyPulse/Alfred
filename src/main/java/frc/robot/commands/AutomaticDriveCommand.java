@@ -18,6 +18,7 @@ public class AutomaticDriveCommand extends AutomaticTurnCommand {
         // if no target is found, fall back on gamepad speed
         super.setSpeed();
         if (Limelight.hasValidTarget()) {
+            //TODO: Check if we want to square the angle.
             double targetXValue = Math.abs(Limelight.getTargetXAngle());
             targetXValue /= SmartDashboard.getNumber("SPEED_WHILE_TURNING", RobotMap.SPEED_WHILE_TURNING);
             double accel = Limelight.MAX_X_ANGLE - targetXValue;
