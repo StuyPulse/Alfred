@@ -18,7 +18,7 @@ public class AutomaticScoreCommand extends CommandGroup {
     public AutomaticScoreCommand() {
     if(Timer.getMatchTime() > 135 &&
        Limelight.getTargetArea() > 0.06 &&
-        Robot.isGamePieceDetected()){ 
+        Robot.isGamePieceDetected() && Robot.drivetrain.getLeftGreyhillRate() > 1){ 
         addSequential(new FloopStartScoreCommand());
         addSequential(new WaitCommand(0.2));
         addSequential(new FloopPullCommand());
