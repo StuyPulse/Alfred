@@ -164,6 +164,7 @@ public class Robot extends TimedRobot {
         lift.tiltForward();
         lift.setHeight(-1 * RobotMap.START_HEIGHT);
         autonStartTime = Timer.getFPGATimestamp();
+        Limelight.setLEDMode(Limelight.LEDMode.FORCE_OFF);
         /*
          * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
          * switch(autoSelected) { case "My Auto": autonomousCommand = new
