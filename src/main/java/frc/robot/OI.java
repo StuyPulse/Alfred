@@ -14,6 +14,7 @@ import frc.robot.commands.DrivetrainHighGearCommand;
 import frc.robot.commands.DrivetrainLowGearCommand;
 import frc.robot.commands.DrivetrainNudgeCommand;
 import frc.robot.commands.FloopCloseNoAutomationCommand;
+import frc.robot.commands.FloopControlCommand;
 import frc.robot.commands.FloopOpenCommand;
 import frc.robot.commands.FloopStartScoreCommand;
 import frc.robot.commands.FloopStopScoreCommand;
@@ -34,8 +35,8 @@ public class OI {
 
     public OI() {
         
-        driverGamepad = new Gamepad(RobotMap.DRIVER_GAMEPAD_PORT, GamepadSwitchMode.AUTO_DETECT);
-        operatorGamepad = new Gamepad(RobotMap.OPERATOR_GAMEPAD_PORT, GamepadSwitchMode.AUTO_DETECT);
+        driverGamepad = new Gamepad(RobotMap.DRIVER_GAMEPAD_PORT, GamepadSwitchMode.PS4);
+        operatorGamepad = new Gamepad(RobotMap.OPERATOR_GAMEPAD_PORT, GamepadSwitchMode.SWITCH_X);
 
         /******************************************
          * Driver Code
@@ -59,7 +60,7 @@ public class OI {
 
         // operatorGamepad.getTopButton().whileHeld(new FloopPushCommand());
         // operatorGamepad.getTopButton().whenReleased((new FloopPullCommand()));
-        // operatorGamepad.getRightButton().whileHeld(new FloopCloseCommand());
+        // operatorGamepad.getRightButton().whileHeld(new FloopControlCommand());
         // operatorGamepad.getRightButton().whenReleased(new FloopOpenCommand());
         operatorGamepad.getBottomButton().whileHeld(new FloopStartScoreCommand());
         operatorGamepad.getBottomButton().whenReleased(new FloopStopScoreCommand());

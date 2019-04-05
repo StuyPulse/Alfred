@@ -95,7 +95,6 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("SPEED_WHILE_TURNING", RobotMap.SPEED_WHILE_TURNING);
 
         Limelight.setLEDMode(Limelight.LEDMode.FORCE_OFF);
-
         hasBeenZeroed = false;
     }
 
@@ -266,7 +265,7 @@ public class Robot extends TimedRobot {
     }
 
     public static boolean isGamePieceDetected() {
-        return !IRsensor.get();
+        return IRsensor.get(); //EDWIN HAS THIS INVERTED
     }
 
     public static void toggleScore() {
