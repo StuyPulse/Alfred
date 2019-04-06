@@ -266,7 +266,7 @@ public class Robot extends TimedRobot {
     }
 
     public static boolean isGamePieceDetected() {
-        return IRsensor.get(); //EDWIN HAS THIS INVERTED
+        return !IRsensor.get(); 
     }
 
     public static void toggleScore() {
