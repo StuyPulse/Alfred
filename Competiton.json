@@ -10,7 +10,7 @@
         "hgap": 16.0,
         "vgap": 16.0,
         "tiles": {
-          "7,2": {
+          "8,2": {
             "size": [
               2,
               1
@@ -21,7 +21,7 @@
               "_title": "SmartDashboard/Enable compressor"
             }
           },
-          "7,3": {
+          "8,3": {
             "size": [
               2,
               1
@@ -32,7 +32,7 @@
               "_title": "Lift Encoder Val: "
             }
           },
-          "7,0": {
+          "8,0": {
             "size": [
               2,
               1
@@ -43,22 +43,35 @@
               "_title": "Match Time"
             }
           },
-          "7,1": {
+          "8,4": {
             "size": [
               2,
               1
             ],
             "content": {
               "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/Lift Bottom Optical Sensor: ",
-              "_title": "SmartDashboard/Lift Bottom Optical Sensor: ",
+              "_source0": "network_table:///SmartDashboard/Motor Stall Status:",
+              "_title": "/SmartDashboard/Motor Stall Status:",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "8,1": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Lift Is At Bottom?: ",
+              "_title": "/SmartDashboard/Lift Is At Bottom?: ",
               "Colors/Color when true": "#7CFC00FF",
               "Colors/Color when false": "#8B0000FF"
             }
           },
           "0,0": {
             "size": [
-              7,
+              8,
               5
             ],
             "content": {
@@ -71,8 +84,8 @@
               "Controls/Rotation": "NONE",
               "compression": -1.0,
               "fps": -1,
-              "imageWidth": -1,
-              "imageHeight": -1
+              "imageWidth": 0,
+              "imageHeight": 0
             }
           }
         }
@@ -140,7 +153,7 @@
               "Colors/Color when false": "#8B0000FF"
             }
           },
-          "6,2": {
+          "6,1": {
             "size": [
               2,
               1
@@ -149,28 +162,6 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/TURN_DIV",
               "_title": "SmartDashboard/TURN_DIV"
-            }
-          },
-          "6,1": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/TURN_MIN_ANGLE",
-              "_title": "SmartDashboard/TURN_MIN_ANGLE"
-            }
-          },
-          "6,3": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/TURN_MIN_SPEED",
-              "_title": "SmartDashboard/TURN_MIN_SPEED"
             }
           },
           "6,0": {
@@ -184,7 +175,7 @@
               "_title": "SmartDashboard/MOVE_TURN_MUL"
             }
           },
-          "3,2": {
+          "3,1": {
             "size": [
               1,
               1
@@ -193,39 +184,6 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/TURN_AREA",
               "_title": "SmartDashboard/TURN_AREA"
-            }
-          },
-          "3,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/AUTODRIVE_FORWARD_AREA",
-              "_title": "SmartDashboard/AUTODRIVE_FORWARD_AREA"
-            }
-          },
-          "3,1": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/AUTODRIVE_MIN_SPEED",
-              "_title": "SmartDashboard/AUTODRIVE_MIN_SPEED"
-            }
-          },
-          "2,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/AUTODRIVE_SPEED_MUL",
-              "_title": "SmartDashboard/AUTODRIVE_SPEED_MUL"
             }
           },
           "3,3": {
@@ -240,15 +198,37 @@
               "Colors/Color when true": "#7CFC00FF",
               "Colors/Color when false": "#8B0000FF"
             }
+          },
+          "6,2": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/AUTOMATIC_DRIVE_SPEED",
+              "_title": "/SmartDashboard/AUTOMATIC_DRIVE_SPEED"
+            }
+          },
+          "1,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/SPEED_WHILE_TURNING",
+              "_title": "/SmartDashboard/SPEED_WHILE_TURNING"
+            }
           }
         }
       }
     }
   ],
   "windowGeometry": {
-    "x": -7.199999809265137,
-    "y": -7.199999809265137,
-    "width": 1550.4000244140625,
-    "height": 838.4000244140625
+    "x": -6.400000095367432,
+    "y": 1.600000023841858,
+    "width": 1545.5999755859375,
+    "height": 828.7999877929688
   }
 }
