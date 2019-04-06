@@ -82,6 +82,7 @@ public class DrivetrainDriveCommand extends Command {
             leftStick *= Math.signum((Robot.oi.driverGamepad.getLeftX()));
         }
 
+        leftStick *= RobotMap.DRIVETRAIN_TURN_UPPER_LIMIT;
         turn = leftStick;
     }
 

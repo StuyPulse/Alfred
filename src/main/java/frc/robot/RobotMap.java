@@ -110,6 +110,7 @@ public interface RobotMap {
     double MOVE_TURN_MUL = 6.3;
     double TURN_DIV = 20;
     int JOYSTICK_SCALAR = 3; // Used to make joystick values smaller
+    double DRIVETRAIN_TURN_UPPER_LIMIT = 2.0 / 3;
 
     /***************************************************************************************
      * Drivetrain Motor Constants
