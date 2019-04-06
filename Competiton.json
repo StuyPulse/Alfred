@@ -10,17 +10,6 @@
         "hgap": 16.0,
         "vgap": 16.0,
         "tiles": {
-          "8,2": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Toggle Button",
-              "_source0": "network_table:///SmartDashboard/Enable compressor",
-              "_title": "SmartDashboard/Enable compressor"
-            }
-          },
           "8,3": {
             "size": [
               2,
@@ -72,7 +61,7 @@
           "0,0": {
             "size": [
               8,
-              5
+              4
             ],
             "content": {
               "_type": "Camera Stream",
@@ -83,9 +72,20 @@
               "Controls/Show controls": true,
               "Controls/Rotation": "NONE",
               "compression": -1.0,
-              "fps": -1,
-              "imageWidth": 0,
-              "imageHeight": 0
+              "fps": 15,
+              "imageWidth": 200,
+              "imageHeight": 100
+            }
+          },
+          "8,2": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Toggle Button",
+              "_source0": "network_table:///SmartDashboard/Enable compressor",
+              "_title": "SmartDashboard/Enable compressor"
             }
           }
         }
@@ -226,9 +226,9 @@
     }
   ],
   "windowGeometry": {
-    "x": -6.400000095367432,
-    "y": 1.600000023841858,
-    "width": 1545.5999755859375,
-    "height": 828.7999877929688
+    "x": -7.199999809265137,
+    "y": -7.199999809265137,
+    "width": 1550.4000244140625,
+    "height": 838.4000244140625
   }
 }
