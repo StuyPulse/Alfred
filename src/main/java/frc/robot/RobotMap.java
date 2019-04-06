@@ -148,8 +148,8 @@ public interface RobotMap {
     double LIFT_RAMP_MOVE_TO_HEIGHT_THRESHOLD = 5.0;
 
     double HP_LEVEL_1_HEIGHT = 0; //8.68 + 2.0
-    double HP_LEVEL_2_HEIGHT = 28.82; //37.5 + 2.0; 
-    double HP_LEVEL_3_HEIGHT = 55.92; //64.6 + 2.0;
+    double HP_LEVEL_2_HEIGHT = 29; //37.5 + 2.0; 
+    double HP_LEVEL_3_HEIGHT = 58.5; //64.6 + 2.0;
     double C_LEVEL_1_HEIGHT = 16.0;
     double C_LEVEL_2_HEIGHT = 43.75;
     double C_LEVEL_3_HEIGHT = 71.25;

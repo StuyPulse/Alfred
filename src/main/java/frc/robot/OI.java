@@ -69,9 +69,9 @@ public class OI {
 
         operatorGamepad.getDPadLeft().whenPressed(new LiftToggleCommand());
 
-        operatorGamepad.getDPadUp().whenPressed(Robot.scoreCargo ? new LiftMoveToHeightCommand(RobotMap.C_LEVEL_3_HEIGHT) : new LiftMoveToHeightCommand(RobotMap.HP_LEVEL_3_HEIGHT));
-        operatorGamepad.getDPadRight().whenPressed(Robot.scoreCargo ? new LiftMoveToHeightCommand(RobotMap.C_LEVEL_2_HEIGHT) : new LiftMoveToHeightCommand(RobotMap.HP_LEVEL_2_HEIGHT));
-        operatorGamepad.getDPadDown().whenPressed(Robot.scoreCargo ? new LiftMoveToHeightCommand(RobotMap.C_LEVEL_1_HEIGHT) : new LiftMoveToHeightCommand(RobotMap.HP_LEVEL_1_HEIGHT));
+        operatorGamepad.getDPadUp().whenPressed(new LiftMoveToHeightCommand(RobotMap.HP_LEVEL_3_HEIGHT));
+        operatorGamepad.getDPadRight().whenPressed(new LiftMoveToHeightCommand(RobotMap.HP_LEVEL_2_HEIGHT));
+        operatorGamepad.getDPadDown().whenPressed(new LiftMoveToHeightCommand(RobotMap.HP_LEVEL_1_HEIGHT));
 
         operatorGamepad.getRightAnalogButton().whenPressed(new AbomToggleCommand());
         operatorGamepad.getLeftAnalogButton().whileHeld(new LiftSlowToggleCommand());
