@@ -126,6 +126,8 @@ public final class Drivetrain extends Subsystem {
         lowDifferentialDrive.setSafetyEnabled(false);
         //Default currentDrive set to low.
         currentDifferentialDrive = lowDifferentialDrive;
+
+        enableRamping();
       }
 
     @Override
@@ -220,4 +222,33 @@ public final class Drivetrain extends Subsystem {
     public void toggleGearShift(){
         gearShift.set(!(gearShift.get()));
     }
+
+    public void enableRamping() {
+        highRightTopMotor.setOpenLoopRampRate(RobotMap.DRIVETRAIN_RAMP_RATE);
+        highRightMiddleMotor.setOpenLoopRampRate(RobotMap.DRIVETRAIN_RAMP_RATE);
+        lowRightTopMotor.setOpenLoopRampRate(RobotMap.DRIVETRAIN_RAMP_RATE);
+        lowRightMiddleMotor.setOpenLoopRampRate(RobotMap.DRIVETRAIN_RAMP_RATE);
+        rightBottomMotor.setOpenLoopRampRate(RobotMap.DRIVETRAIN_RAMP_RATE);
+        
+        highLeftTopMotor.setOpenLoopRampRate(RobotMap.DRIVETRAIN_RAMP_RATE);
+        highLeftMiddleMotor.setOpenLoopRampRate(RobotMap.DRIVETRAIN_RAMP_RATE);
+        lowLeftTopMotor.setOpenLoopRampRate(RobotMap.DRIVETRAIN_RAMP_RATE);
+        lowLeftMiddleMotor.setOpenLoopRampRate(RobotMap.DRIVETRAIN_RAMP_RATE);
+        leftBottomMotor.setOpenLoopRampRate(RobotMap.DRIVETRAIN_RAMP_RATE);
+    }
+
+    public void disableRamping() {
+        highRightTopMotor.setOpenLoopRampRate(0.0);
+        highRightMiddleMotor.setOpenLoopRampRate(0.0);
+        lowRightTopMotor.setOpenLoopRampRate(0.0);
+        lowRightMiddleMotor.setOpenLoopRampRate(0.0);
+        rightBottomMotor.setOpenLoopRampRate(0.0);
+        
+        highLeftTopMotor.setOpenLoopRampRate(0.0);
+        highLeftMiddleMotor.setOpenLoopRampRate(0.0);
+        lowLeftTopMotor.setOpenLoopRampRate(0.0);
+        lowLeftMiddleMotor.setOpenLoopRampRate(0.0);
+        leftBottomMotor.setOpenLoopRampRate(0.0);
+    }
+
 }

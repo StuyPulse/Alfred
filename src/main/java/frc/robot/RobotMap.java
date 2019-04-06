@@ -120,6 +120,8 @@ public interface RobotMap {
     double NEO_ENCODER_EMPIRICAL_MULTIPLIER = 1;
     double NEO_ENCODER_RAW_MULTIPLIER = WHEEL_INCHES_PER_REVOLUTION * NEO_ENCODER_EMPIRICAL_MULTIPLIER;
 
+    double DRIVETRAIN_RAMP_RATE = 0.3;
+
     /***************************************************************************************
      * Drivetrain Greyhill Encoder Constants
      ****************************************************************************************/
