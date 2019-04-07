@@ -194,7 +194,7 @@ public class Robot extends TimedRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         Robot.floop.open();
-        SmartDashboard.putBoolean("Enable compressor", false);
+        SmartDashboard.putBoolean("Enable compressor", true);
         // if (autonomousCommand != null) {
         // autonomousCommand.cancel();
         // }
@@ -258,7 +258,7 @@ public class Robot extends TimedRobot {
     }
 
     public void controlCompressor() {
-        if (SmartDashboard.getBoolean("Enable compressor", false)) {
+        if (SmartDashboard.getBoolean("Enable compressor", true)) {
             compressor.start();
         } else {
             compressor.stop();
