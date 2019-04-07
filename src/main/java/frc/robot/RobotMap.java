@@ -61,7 +61,7 @@ public interface RobotMap {
     /***************************************************************************************
      * Pusher Solenoid Port
      ****************************************************************************************/
-    int PUSHER_CHANNEL = 3;
+    int PUSHER_CHANNEL = 0;
     /***************************************************************************************
      * Rollers Motor Port
      ****************************************************************************************/
@@ -105,9 +105,9 @@ public interface RobotMap {
      * Drivetrain CV Constants
      ****************************************************************************************/
     boolean DRIVETRAIN_SMARTDASHBOARD_DEBUG = true;
-    double AUTOMATIC_DRIVE_SPEED = 0.3;
-    double SPEED_WHILE_TURNING = 2;
-    double MOVE_TURN_MUL = 5.5;
+    double AUTOMATIC_DRIVE_SPEED = 0.2;
+    double SPEED_WHILE_TURNING = 0.1;
+    double MOVE_TURN_MUL = 6.3;
     double TURN_DIV = 20;
     int JOYSTICK_SCALAR = 3; // Used to make joystick values smaller
 
