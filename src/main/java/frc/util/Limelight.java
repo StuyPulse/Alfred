@@ -163,8 +163,8 @@ public class Limelight {
      */
     public static double getTargetXAngle() {
 
-        double X_SHIFT = SmartDashboard.getNumber("X_SHIFT", 0);
-        if(X_SHIFT == 0) SmartDashboard.putNumber("X_SHIFT", X_ANGLE_SHIFT);
+        double X_SHIFT = SmartDashboard.getNumber("X_SHIFT", 1000);
+        if(Math.abs(X_SHIFT) >= 694) SmartDashboard.putNumber("X_SHIFT", X_ANGLE_SHIFT);
         return xAngleEntry.getDouble(0) + X_SHIFT;
     }
 
