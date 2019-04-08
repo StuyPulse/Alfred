@@ -88,7 +88,7 @@ public class DrivetrainDriveCommand extends Command {
     /* Updating Quick Turn */
     protected void setQuickTurn() {
         // Enable Quick Turn if robot is not moving
-        quickTurn = Math.abs(speed) < 0.125;
+        quickTurn = Math.abs(speed) < 0.02;
     }
 
     protected void updateSmartdashboard() {
