@@ -95,7 +95,6 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("SPEED_WHILE_TURNING", RobotMap.SPEED_WHILE_TURNING);
 
         Limelight.setLEDMode(Limelight.LEDMode.FORCE_OFF);
-
         hasBeenZeroed = false;
     }
 
@@ -165,6 +164,7 @@ public class Robot extends TimedRobot {
         lift.tiltForward();
         lift.setHeight(-1 * RobotMap.START_HEIGHT);
         autonStartTime = Timer.getFPGATimestamp();
+        Limelight.setLEDMode(Limelight.LEDMode.FORCE_OFF);
         /*
          * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
          * switch(autoSelected) { case "My Auto": autonomousCommand = new
@@ -194,7 +194,7 @@ public class Robot extends TimedRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         Robot.floop.open();
-        SmartDashboard.putBoolean("Enable compressor", false);
+        SmartDashboard.putBoolean("Enable compressor", true);
         // if (autonomousCommand != null) {
         // autonomousCommand.cancel();
         // }
@@ -258,7 +258,7 @@ public class Robot extends TimedRobot {
     }
 
     public void controlCompressor() {
-        if (SmartDashboard.getBoolean("Enable compressor", false)) {
+        if (SmartDashboard.getBoolean("Enable compressor", true)) {
             compressor.start();
         } else {
             compressor.stop();
@@ -266,7 +266,7 @@ public class Robot extends TimedRobot {
     }
 
     public static boolean isGamePieceDetected() {
-        return !IRsensor.get();
+        return !IRsensor.get(); 
     }
 
     public static void toggleScore() {
