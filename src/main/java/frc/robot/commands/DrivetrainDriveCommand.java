@@ -93,7 +93,7 @@ public class DrivetrainDriveCommand extends Command {
         if (quickTurn) {
             // Slow down quick turn as it is only used
             // when the driver is scoring
-            turn /= RobotMap.QUICKTURN_SPEED;
+            turn *= RobotMap.QUICKTURN_SPEED;
         }
     }
 
