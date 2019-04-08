@@ -144,6 +144,8 @@ public class Robot extends TimedRobot {
         // Reset the gamepad types
         oi.driverGamepad.resetGamepadType();
         oi.operatorGamepad.resetGamepadType();
+        System.out.println("Driver: " + oi.driverGamepad.getGamepadType());
+        System.out.println("Operator: " + oi.operatorGamepad.getGamepadType());
     }
 
     /**
@@ -161,6 +163,8 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
         // autonomousCommand = new LiftMoveToHeightCommand(RobotMap.LEVEL_1_HEIGHT);
+        oi.driverGamepad.resetGamepadType();
+        oi.operatorGamepad.resetGamepadType();
         lift.tiltForward();
         lift.setHeight(-1 * RobotMap.START_HEIGHT);
         autonStartTime = Timer.getFPGATimestamp();
@@ -193,6 +197,8 @@ public class Robot extends TimedRobot {
         // teleop starts running. If you want the autonomous to
         // continue until interrupted by another command, remove
         // this line or comment it out.
+        oi.driverGamepad.resetGamepadType();
+        oi.operatorGamepad.resetGamepadType();
         Robot.floop.open();
         SmartDashboard.putBoolean("Enable compressor", false);
         // if (autonomousCommand != null) {

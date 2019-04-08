@@ -29,12 +29,15 @@ public class Gamepad extends Joystick {
     private GamepadSwitchMode switchMode;
     private int port;
     private int controllerType;
+    private boolean isAutoDetect;
 
     public Gamepad(int port, GamepadSwitchMode switchMode) {
         super(port);
         this.port = port;
+        this.isAutoDetect = false;
         if (switchMode == GamepadSwitchMode.AUTO_DETECT) {
             resetGamepadType();
+            this.isAutoDetect = true;
         } else {
             this.switchMode = switchMode;
         }
@@ -45,22 +48,27 @@ public class Gamepad extends Joystick {
         this(port, GamepadSwitchMode.SWITCH_D);
     }
 
+    public GamepadSwitchMode getGamepadType() {
+        return switchMode;
+    }
     /**
      * Resets the type of the gamepad (Not expensive)
      */
     public void resetGamepadType() {
-        controllerType = DriverStation.getInstance().getJoystickType(port);
-        switch (controllerType) {
+        if (isAutoDetect) {
+            controllerType = DriverStation.getInstance().getJoystickType(port);
+            switch (controllerType) {
             case 1:
                 switchMode = GamepadSwitchMode.SWITCH_X;
                 break;
             case 21:
                 switchMode = GamepadSwitchMode.PS4;
                 break;
-        default:
-            // Make sure the code doesn't break when this gamepad is called
-            // SWITCH_D has a controller type of 20
-            switchMode = GamepadSwitchMode.SWITCH_D;
+            default:
+                // Make sure the code doesn't break when this gamepad is called
+                // SWITCH_D has a controller type of 20
+                switchMode = GamepadSwitchMode.SWITCH_D;
+            }
         }
     }
 
@@ -588,8 +596,8 @@ public class Gamepad extends Joystick {
             return gamepad.getRawRightTrigger();
         }
     }
-    
-    public void rumble(double intensity){
+
+    public void rumble(double intensity) {
         setRumble(GenericHID.RumbleType.kLeftRumble, intensity);
         setRumble(GenericHID.RumbleType.kRightRumble, intensity);
     }
