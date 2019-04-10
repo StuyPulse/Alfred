@@ -36,8 +36,8 @@ public class Gamepad extends Joystick {
         this.port = port;
         this.isAutoDetect = false;
         if (switchMode == GamepadSwitchMode.AUTO_DETECT) {
-            resetGamepadType();
             this.isAutoDetect = true;
+            resetGamepadType();
         } else {
             this.switchMode = switchMode;
         }
@@ -48,8 +48,8 @@ public class Gamepad extends Joystick {
         this(port, GamepadSwitchMode.SWITCH_D);
     }
 
-    public GamepadSwitchMode getGamepadType() {
-        return switchMode;
+    public String getGamepadType() {
+        return switchMode.name();
     }
     /**
      * Resets the type of the gamepad (Not expensive)
@@ -58,16 +58,16 @@ public class Gamepad extends Joystick {
         if (isAutoDetect) {
             controllerType = DriverStation.getInstance().getJoystickType(port);
             switch (controllerType) {
-            case 1:
-                switchMode = GamepadSwitchMode.SWITCH_X;
+            case 20:
+                switchMode = GamepadSwitchMode.SWITCH_D;
                 break;
             case 21:
                 switchMode = GamepadSwitchMode.PS4;
                 break;
             default:
                 // Make sure the code doesn't break when this gamepad is called
-                // SWITCH_D has a controller type of 20
-                switchMode = GamepadSwitchMode.SWITCH_D;
+                // SWITCH_X has a controller type of 21
+                switchMode = GamepadSwitchMode.SWITCH_X;
             }
         }
     }

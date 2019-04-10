@@ -126,6 +126,10 @@ public class Robot extends TimedRobot {
         // liftSpeedGoingDown = SmartDashboard.getNumber("Lift Auto Complete Speed Going
         // Down", 0.5);
         SmartDashboard.putString("Match Time", returnTime());
+        SmartDashboard.putString("Driver Gamepad Type", oi.driverGamepad.getGamepadType());
+        SmartDashboard.putString("Operator Gamepad Type", oi.operatorGamepad.getGamepadType());
+        SmartDashboard.putString("Driver Triggers: ", oi.driverGamepad.getRawLeftTriggerAxis() + ", " + oi.driverGamepad.getRawRightTriggerAxis());
+        SmartDashboard.putString("Operator Triggers: ", oi.operatorGamepad.getRawLeftTriggerAxis() + ", " + oi.operatorGamepad.getRawRightTriggerAxis());
     }
 
     /**
@@ -144,8 +148,6 @@ public class Robot extends TimedRobot {
         // Reset the gamepad types
         oi.driverGamepad.resetGamepadType();
         oi.operatorGamepad.resetGamepadType();
-        System.out.println("Driver: " + oi.driverGamepad.getGamepadType());
-        System.out.println("Operator: " + oi.operatorGamepad.getGamepadType());
     }
 
     /**
