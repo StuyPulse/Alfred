@@ -61,7 +61,7 @@ public interface RobotMap {
     /***************************************************************************************
      * Pusher Solenoid Port
      ****************************************************************************************/
-    int PUSHER_CHANNEL = 3;
+    int PUSHER_CHANNEL = 0;
     /***************************************************************************************
      * Rollers Motor Port
      ****************************************************************************************/
@@ -98,8 +98,8 @@ public interface RobotMap {
     /***************************************************************************************
      * Limelight Pipeline Constants
      ****************************************************************************************/
-    int DRIVER_PIPELINE = 1;
-    int CV_PIPELINE = 0;
+    int DRIVER_PIPELINE = 0;
+    int CV_PIPELINE = 1;
 
     /***************************************************************************************
      * Drivetrain CV Constants
@@ -115,8 +115,9 @@ public interface RobotMap {
     
     double QUICKTURN_THRESHOLD = 0.03;
     double QUICKTURN_SPEED = 1.0/3.0;
-
+  
     int JOYSTICK_SCALAR = 3; // Used to make joystick values smaller
+    double DRIVETRAIN_TURN_UPPER_LIMIT = 2.0 / 3;
 
     /***************************************************************************************
      * Drivetrain Motor Constants
@@ -126,6 +127,8 @@ public interface RobotMap {
 
     double NEO_ENCODER_EMPIRICAL_MULTIPLIER = 1;
     double NEO_ENCODER_RAW_MULTIPLIER = WHEEL_INCHES_PER_REVOLUTION * NEO_ENCODER_EMPIRICAL_MULTIPLIER;
+
+    double DRIVETRAIN_RAMP_RATE = 0.3;
 
     /***************************************************************************************
      * Drivetrain Greyhill Encoder Constants
@@ -155,8 +158,8 @@ public interface RobotMap {
     double LIFT_RAMP_MOVE_TO_HEIGHT_THRESHOLD = 5.0;
 
     double HP_LEVEL_1_HEIGHT = 0; //8.68 + 2.0
-    double HP_LEVEL_2_HEIGHT = 37.5 + 2.0; 
-    double HP_LEVEL_3_HEIGHT = 64.6 + 2.0;
+    double HP_LEVEL_2_HEIGHT = 29; //37.5 + 2.0; 
+    double HP_LEVEL_3_HEIGHT = 58.5; //64.6 + 2.0;
     double C_LEVEL_1_HEIGHT = 16.0;
     double C_LEVEL_2_HEIGHT = 43.75;
     double C_LEVEL_3_HEIGHT = 71.25;
