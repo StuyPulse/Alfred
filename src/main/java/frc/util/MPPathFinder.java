@@ -33,11 +33,14 @@ public class MPPathFinder {
     }
 
     public static Vector2D[] getPath(Vector2D[] points, int accuracy) {
-        Vector2D[] path = new Vector2D[accuracy];
+        Vector2D[] path = new Vector2D[accuracy+1];
 
-        for(int i = 0; i < accuracy; ++i) {
-            path[i] = HelperFunctions.getPosition(points, ((double)i)/((double)accuracy-1));
+        path[0] = points[1];
+        for(int i = 1; i < accuracy; ++i) {
+            path[i] = HelperFunctions.getPosition(points, ((double)i)/((double)accuracy));
         }
+
+        path[accuracy] = points[points.length - 1];
 
         return path;
     }
