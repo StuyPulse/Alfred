@@ -89,7 +89,13 @@ public class DrivetrainDriveCommand extends Command {
     /* Updating Quick Turn */
     protected void setQuickTurn() {
         // Enable Quick Turn if robot is not moving
-        quickTurn = Math.abs(speed) < 0.125;
+        quickTurn = Math.abs(speed) < RobotMap.QUICKTURN_THRESHOLD;
+        
+        if (quickTurn) {
+            // Slow down quick turn as it is only used
+            // when the driver is scoring
+            turn *= RobotMap.QUICKTURN_SPEED;
+        }
     }
 
     protected void updateSmartdashboard() {

@@ -105,10 +105,17 @@ public interface RobotMap {
      * Drivetrain CV Constants
      ****************************************************************************************/
     boolean DRIVETRAIN_SMARTDASHBOARD_DEBUG = true;
-    double AUTOMATIC_DRIVE_SPEED = 0.125;
-    double SPEED_WHILE_TURNING = 2;
-    double MOVE_TURN_MUL = 6.3;
-    double TURN_DIV = 20;
+    
+    interface CV { // Values for autodrive/turn
+        double AUTOMATIC_DRIVE_SPEED = 0.125; // Speed robot moves in autodrive
+        double SPEED_WHILE_TURNING = 2; // If lower, slows robot at steep angles
+        double MOVE_TURN_MUL = 6.3; // Increase turning when moving faster
+        double TURN_DIV = 20; // Speed robot turns towards target
+    }
+    
+    double QUICKTURN_THRESHOLD = 0.04;
+    double QUICKTURN_SPEED = 1.0/3.0;
+  
     int JOYSTICK_SCALAR = 3; // Used to make joystick values smaller
     double DRIVETRAIN_TURN_UPPER_LIMIT = 2.0 / 3;
 
