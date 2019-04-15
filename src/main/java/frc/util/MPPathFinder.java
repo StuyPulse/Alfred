@@ -10,6 +10,7 @@ public class MPPathFinder {
      */
 
     public static class HelperFunctions {
+        // Weighted sum of points
         public static Vector2D average(Vector2D a, Vector2D b, double preportion) {
             Vector2D out = new Vector2D();
             out.x = a.x * preportion + b.x * (1.0 - preportion);
@@ -18,17 +19,20 @@ public class MPPathFinder {
             return out;
         }
 
+        // Weighted sum of points, and then weighted sum of those points
         public static Vector2D getPosition(Vector2D[] points, double preportion) {
-            Vector2D[][] calcSpace = new Vector2D[points.length][points.length];
-            calcSpace[0] = points;
+            Vector2D[] lines = points;
             
-            for(int i = 1; i < points.length; ++i) {
-                for(int j = 0; j < points.length - i; ++j) {
-                    calcSpace[i][j] = average(calcSpace[i-1][j], calcSpace[i-1][j+1], preportion);
+            while(lines.length > 1) {
+                Vector2D[] newLines = new Vector2D[points.length - 1];
+                for(int i = 0; i < newLines.length ; ++i) {
+                    newLines[i] = average(lines[i], lines[i+1], preportion);
                 }
+
+                lines = newLines;
             }
     
-            return calcSpace[points.length-1][0];
+            return lines[0];
         }
     }
 
