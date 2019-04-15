@@ -16,7 +16,7 @@ import frc.util.Limelight;
 public class DrivetrainDriveCommand extends Command {
     // Variables to feed to curvature drive
     protected double speed = 0;
-    protected double turn = 0;
+    protected double turn = 0; 
     protected boolean quickTurn = true;
 
     public DrivetrainDriveCommand() {
@@ -28,6 +28,7 @@ public class DrivetrainDriveCommand extends Command {
         setCameraMode();
         setSpeed();
         setTurn();
+        setNudging();
         setQuickTurn();
         updateSmartdashboard();
         updateDrivetrain();
@@ -84,6 +85,13 @@ public class DrivetrainDriveCommand extends Command {
 
         leftStick *= RobotMap.DRIVETRAIN_TURN_UPPER_LIMIT;
         turn = leftStick;
+    }
+
+    protected void setNudging() {
+        if(false) { // TODO: Get Button For Nugging
+            speed *= RobotMap.NUDGE_SPEED;
+            turn *= RobotMap.NUDGE_SPEED;
+        }
     }
 
     /* Updating Quick Turn */

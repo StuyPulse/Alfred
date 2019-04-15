@@ -114,7 +114,8 @@ public interface RobotMap {
     }
     
     double QUICKTURN_THRESHOLD = 0.04;
-    double QUICKTURN_SPEED = 1.0/3.0;
+    double QUICKTURN_SPEED = 1.0;
+    double NUDGE_SPEED = 1.0/4.0;
   
     int JOYSTICK_SCALAR = 3; // Used to make joystick values smaller
     double DRIVETRAIN_TURN_UPPER_LIMIT = 2.0 / 3;
