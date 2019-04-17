@@ -1,5 +1,9 @@
 package frc.robot;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
+
 public class Robot extends TimedRobot {
 	NetworkTable fieldMap;
 	NetworkTableEntry encoderDist;
