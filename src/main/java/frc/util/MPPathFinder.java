@@ -24,7 +24,7 @@ public class MPPathFinder {
             Vector2D[] lines = points;
             
             while(lines.length > 1) {
-                Vector2D[] newLines = new Vector2D[points.length - 1];
+                Vector2D[] newLines = new Vector2D[lines.length - 1];
                 for(int i = 0; i < newLines.length ; ++i) {
                     newLines[i] = average(lines[i], lines[i+1], preportion);
                 }
