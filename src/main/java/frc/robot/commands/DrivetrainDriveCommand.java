@@ -65,14 +65,18 @@ public class DrivetrainDriveCommand extends Command {
     protected void setSpeed() {
         // Reset the speed to prevent this from becoming acceleration
         speed = 0;
-
         // Set speed to the axes of the triggers
         speed += Math.pow(Robot.oi.driverGamepad.getRawRightTriggerAxis(), 2);
         speed -= Math.pow(Robot.oi.driverGamepad.getRawLeftTriggerAxis(), 2);
+            
     }
 
     /* Updating Turning */
     protected void setTurn() {
+        if(Robot.oi.driverGamepad.getRawTopButton() && Limelight.hasValidTarget()){
+            turn = 0;
+            return;
+        }
         // Set the turn value to the joystick's x value
         double leftStick = Robot.oi.driverGamepad.getLeftX();
         leftStick = Math.pow(leftStick, RobotMap.JOYSTICK_SCALAR);

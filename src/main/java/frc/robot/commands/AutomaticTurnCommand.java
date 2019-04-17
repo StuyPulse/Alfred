@@ -22,7 +22,7 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
     protected void setTurn() {
         // Get Gamepad Input
         super.setTurn();
-
+        
         // If Using CV
         if(Limelight.hasValidTarget()) {
             // Get Turn Div from Smart Dash Board
@@ -42,7 +42,7 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
             if(RobotMap.DRIVETRAIN_SMARTDASHBOARD_DEBUG) {
                 SmartDashboard.putNumber("Drivetrain CV Turning", turnDelta);
             }
-
+            
             // Add Turn Delta to Turn
             turn += turnDelta;
         }
