@@ -19,13 +19,22 @@ public class AutomaticDriveCommand extends AutomaticTurnCommand {
         super.setSpeed();
         if (Limelight.hasValidTarget()) {
             double targetXValue = Math.abs(Limelight.getTargetXAngle());
-            targetXValue /= SmartDashboard.getNumber("SPEED_WHILE_TURNING", RobotMap.CV.SPEED_WHILE_TURNING);
+            targetXValue /= RobotMap.CV.CHECK_SMARTDASHBOARD 
+                ? SmartDashboard.getNumber("SPEED_WHILE_TURNING", RobotMap.CV.SPEED_WHILE_TURNING)
+                : RobotMap.CV.SPEED_WHILE_TURNING;
+
             double accel = Limelight.MAX_X_ANGLE - targetXValue;
             accel /= Limelight.MAX_X_ANGLE;
-            accel *= SmartDashboard.getNumber("AUTOMATIC_DRIVE_SPEED", RobotMap.CV.AUTOMATIC_DRIVE_SPEED);
+
+            accel *= RobotMap.CV.CHECK_SMARTDASHBOARD 
+                ? SmartDashboard.getNumber("AUTOMATIC_DRIVE_SPEED", RobotMap.CV.AUTOMATIC_DRIVE_SPEED)
+                : RobotMap.CV.AUTOMATIC_DRIVE_SPEED;
+
             speed += accel;
         } else {
-            speed += SmartDashboard.getNumber("AUTOMATIC_DRIVE_SPEED", RobotMap.CV.AUTOMATIC_DRIVE_SPEED);
+            speed += RobotMap.CV.CHECK_SMARTDASHBOARD 
+                ? SmartDashboard.getNumber("AUTOMATIC_DRIVE_SPEED", RobotMap.CV.AUTOMATIC_DRIVE_SPEED)
+                : RobotMap.CV.AUTOMATIC_DRIVE_SPEED;
         }
     }
 }

@@ -26,8 +26,12 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
         // If Using CV
         if(Limelight.hasValidTarget()) {
             // Get Turn Div from Smart Dash Board
-            double turnDiv = SmartDashboard.getNumber("TURN_DIV", RobotMap.CV.TURN_DIV);
-            double moveTurnMult = SmartDashboard.getNumber("MOVE_TURN_MUL", RobotMap.CV.MOVE_TURN_MUL);
+            double turnDiv = RobotMap.CV.CHECK_SMARTDASHBOARD 
+                ? SmartDashboard.getNumber("TURN_DIV", RobotMap.CV.TURN_DIV)
+                : RobotMap.CV.TURN_DIV;
+            double moveTurnMult = RobotMap.CV.CHECK_SMARTDASHBOARD 
+                ? SmartDashboard.getNumber("MOVE_TURN_MUL", RobotMap.CV.MOVE_TURN_MUL)
+                : RobotMap.CV.MOVE_TURN_MUL;
 
             // Take The Square Root of the X Angle
             double turnDelta = Limelight.getTargetXAngle();

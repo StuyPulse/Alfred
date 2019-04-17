@@ -107,6 +107,7 @@ public interface RobotMap {
     boolean DRIVETRAIN_SMARTDASHBOARD_DEBUG = true;
     
     interface CV { // Values for autodrive/turn
+        boolean CHECK_SMARTDASHBOARD = true;
         double AUTOMATIC_DRIVE_SPEED = 0.125; // Speed robot moves in autodrive
         double SPEED_WHILE_TURNING = 2; // If lower, slows robot at steep angles
         double MOVE_TURN_MUL = 6.3; // Increase turning when moving faster
