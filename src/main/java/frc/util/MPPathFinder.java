@@ -21,15 +21,16 @@ public class MPPathFinder {
 
         // Weighted sum of points, and then weighted sum of those points
         public static Vector2D getPosition(Vector2D[] points, double preportion) {
-            Vector2D[] lines = points;
+            // Make copy to do calculations on
+            Vector2D[] lines = new Vector2D[points.length];
+            for(int i = 0; i < points.length; ++i) {
+                lines[i] = points[i];
+            }
             
-            while(lines.length > 1) {
-                Vector2D[] newLines = new Vector2D[lines.length - 1];
-                for(int i = 0; i < newLines.length ; ++i) {
-                    newLines[i] = average(lines[i], lines[i+1], preportion);
+            for(int max = points.length - 1; max > 0; --max) {
+                for(int i = 0; i < max; ++i) {
+                    lines[i] = average(lines[i], lines[i+1], preportion);
                 }
-
-                lines = newLines;
             }
     
             return lines[0];
