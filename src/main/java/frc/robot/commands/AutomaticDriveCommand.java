@@ -32,9 +32,7 @@ public class AutomaticDriveCommand extends AutomaticTurnCommand {
 
             speed += accel;
         } else {
-            speed += RobotMap.CV.CHECK_SMARTDASHBOARD 
-                ? SmartDashboard.getNumber("AUTOMATIC_DRIVE_SPEED", RobotMap.CV.AUTOMATIC_DRIVE_SPEED)
-                : RobotMap.CV.AUTOMATIC_DRIVE_SPEED;
+            
         }
     }
 }
