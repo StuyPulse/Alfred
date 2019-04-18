@@ -3,27 +3,26 @@ package frc.robot;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.TimedRobot;
 
 public class Robot extends TimedRobot {
 	NetworkTable fieldMap;
 	NetworkTableEntry encoderDist;
 	NetworkTableEntry gyroAngle;
-	NetworkTableEntry origGyroAngle;
+    NetworkTableEntry origGyroAngle;
+    NetworkTableEntry robotLength;
+    NetworkTableEntry robotWidth;
 
 	@Override
-	protected void robotInit() {
-	    fieldMap = NetworkTableInstace.getDefault().getTable("FieldMap");
+	public void robotInit() {
+	    fieldMap = NetworkTableInstance.getDefault().getTable("FieldMap");
 	    encoderDist = fieldMap.getEntry("EncoderDistance");
 	    gyroAngle = fieldMap.getEntry("GyroAngle");
 	    origGyroAngle = fieldMap.getEntry("OriginalGyroAngle"); //Gyro angle at the start of match
 	    robotLength = fieldMap.getEntry("RobotLength");
-	    origGyroAngle.setDefaultDouble(drivetrain.getGyroAngle());
-	}
-
-	@Override
-	protected void robotPeriodic() {
-	    encoderDist.setDouble(drivetrain.getGreyhillDistance());
-	    gyroAngle.setDouble(drivetrain.getGyroAngle());
+		origGyroAngle.setDefaultDouble(0);
+		encoderDist.setDefaultDouble(0);
+	    gyroAngle.setDefaultDouble(0);
 	    robotLength.setDefaultDouble(35.0);
 	    robotWidth.setDefaultDouble(24.0);
 	}
