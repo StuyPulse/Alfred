@@ -40,7 +40,7 @@ public class Robot extends TimedRobot {
     double start_encoder_value;
     double abs_raw_distance;
     double raw_distance;
-    double encoder_approach_stall_threshold = 5.0;
+    double encoder_approach_stall_threshold = 4.0;
 
     public static Drivetrain drivetrain;
     public static OI oi;
