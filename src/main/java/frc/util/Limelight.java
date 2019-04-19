@@ -7,6 +7,7 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.RobotMap.CV;
 
 public class Limelight {
     // Network Table used to contact Lime Light
@@ -68,20 +69,31 @@ public class Limelight {
     
     // Not final incase user wants
     // to change them at runtime
-    public static double DEFAULT_TARGET_HEIGHT_THRESHOLD = 7;
-    public static double DEFAULT_MIN_ASPECT_RATIO = 1.2;
-    public static double DEFAULT_MAX_ASPECT_RATIO = 3.3;
-    public static double DEFAULT_ANGLE_THRESHOLD = 25;
-    
+    public static double DEFAULT_TARGET_HEIGHT_THRESHOLD = CV.DEFAULT_TARGET_HEIGHT_THRESHOLD;
+    public static double DEFAULT_MIN_ASPECT_RATIO = CV.DEFAULT_MIN_ASPECT_RATIO;
+    public static double DEFAULT_MAX_ASPECT_RATIO = CV.DEFAULT_MAX_ASPECT_RATIO;
+    public static double DEFAULT_ANGLE_THRESHOLD = CV.DEFAULT_ANGLE_THRESHOLD;
+    public static final double X_ANGLE_SHIFT = CV.DEFAULT_X_ANGLE_SHIFT;
     /**
      * @return Whether or not the limelight has a target in view
      */
     public static boolean hasValidTarget() {
+        if(SmartDashboard.getBoolean("CV_FILTER_OVERRIDE", false)){
+            return hasValidTarget(
+                SmartDashboard.getNumber("HEIGHT_THRESHOLD",
+                 DEFAULT_TARGET_HEIGHT_THRESHOLD),
+                SmartDashboard.getNumber("MIN_ASPECT_RATIO",
+                 DEFAULT_MIN_ASPECT_RATIO),
+                SmartDashboard.getNumber("MAX_ASPECT_RATIO",
+                 DEFAULT_MAX_ASPECT_RATIO),
+                SmartDashboard.getNumber("SKEW_THRESHOLD",
+                 DEFAULT_ANGLE_THRESHOLD));
+        }
         return hasValidTarget(
-            DEFAULT_TARGET_HEIGHT_THRESHOLD, 
-            DEFAULT_MIN_ASPECT_RATIO, 
-            DEFAULT_MAX_ASPECT_RATIO,
-            DEFAULT_ANGLE_THRESHOLD);
+        DEFAULT_TARGET_HEIGHT_THRESHOLD, 
+        DEFAULT_MIN_ASPECT_RATIO, 
+        DEFAULT_MAX_ASPECT_RATIO,
+        DEFAULT_ANGLE_THRESHOLD);
     }
 
     /* Commonly Used Contour Information */
@@ -155,7 +167,6 @@ public class Limelight {
     // Horizontal Offset From Crosshair To Target (-27 degrees to 27 degrees)
     public static final double MIN_X_ANGLE = -27;
     public static final double MAX_X_ANGLE = 27;
-    public static final double X_ANGLE_SHIFT = -1.5;
     private static NetworkTableEntry xAngleEntry = table.getEntry("tx");
 
     /**

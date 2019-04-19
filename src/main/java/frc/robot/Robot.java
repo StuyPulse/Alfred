@@ -89,6 +89,13 @@ public class Robot extends TimedRobot {
         SmartDashboard.putData("Auto mode", chooser);
 
         // CameraServer.getInstance().startAutomaticCapture(0);
+        SmartDashboard.putBoolean("CV_FILTER_OVERRIDE", false);
+        SmartDashboard.putNumber("HEIGHT_THRESHOLD",RobotMap.CV.DEFAULT_TARGET_HEIGHT_THRESHOLD);
+        SmartDashboard.putNumber("MIN_ASPECT_RATIO",RobotMap.CV.DEFAULT_MIN_ASPECT_RATIO);
+        SmartDashboard.putNumber("MAX_ASPECT_RATIO",RobotMap.CV.DEFAULT_MAX_ASPECT_RATIO);
+        SmartDashboard.putNumber("SKEW_THRESHOLD",RobotMap.CV.DEFAULT_ANGLE_THRESHOLD);
+        
+        
         SmartDashboard.putNumber("TURN_DIV", RobotMap.CV.TURN_DIV);
         SmartDashboard.putNumber("MOVE_TURN_MUL", RobotMap.CV.MOVE_TURN_MUL);
         SmartDashboard.putNumber("AUTOMATIC_DRIVE_SPEED", RobotMap.CV.AUTOMATIC_DRIVE_SPEED);
