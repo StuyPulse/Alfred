@@ -110,7 +110,7 @@ public interface RobotMap {
         double AUTOMATIC_DRIVE_SPEED = 0.125; // Speed robot moves in autodrive
         double SPEED_WHILE_TURNING = 2; // If lower, slows robot at steep angles
         double MOVE_TURN_MUL = 7.5; // Increase turning when moving faster
-        double TURN_DIV = 16; // Speed robot turns towards target
+        double TURN_DIV = 20; // Speed robot turns towards target
 
         double DEFAULT_TARGET_HEIGHT_THRESHOLD = 7;
         double DEFAULT_MIN_ASPECT_RATIO = 1.2;

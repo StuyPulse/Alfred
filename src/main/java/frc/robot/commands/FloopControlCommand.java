@@ -42,6 +42,7 @@ public class FloopControlCommand extends Command {
         } else {
             Robot.floop.pull();
         }
+        
 
         if (Robot.oi.operatorGamepad.getRawLeftButton()) {
             Robot.floop.close();
