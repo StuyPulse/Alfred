@@ -16,10 +16,11 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 	    fieldMap = NetworkTableInstance.getDefault().getTable("FieldMap");
-	    encoderDist = fieldMap.getEntry("EncoderDistance");
+	    encoderDist = fieldMap.getEntry("EncoderValues");
 	    gyroAngle = fieldMap.getEntry("GyroAngle");
 	    origGyroAngle = fieldMap.getEntry("OriginalGyroAngle"); //Gyro angle at the start of match
-	    robotLength = fieldMap.getEntry("RobotLength");
+        robotLength = fieldMap.getEntry("RobotLength");
+        robotWidth = fieldMap.getEntry("RobotWidth");
 		origGyroAngle.setDefaultDouble(0);
 		encoderDist.setDefaultDouble(0);
 	    gyroAngle.setDefaultDouble(0);
