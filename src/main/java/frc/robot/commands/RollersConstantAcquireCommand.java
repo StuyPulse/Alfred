@@ -52,6 +52,8 @@ public class RollersConstantAcquireCommand extends CommandGroup {
             passedTime = Timer.getFPGATimestamp() - startTime;
             SmartDashboard.putNumber("TIME PASSED FOR ROLLERS", passedTime);
             if (Robot.isRollersStalling() && passedTime > 0.5) {
+                Robot.rollers.setSpeed(-0.6);
+            } else if (Robot.isRollersStalling() && passedTime > 1) {
                 Robot.rollers.setSpeed(-0.2);
             } else {
                 Robot.rollers.acquire();
