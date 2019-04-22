@@ -131,7 +131,7 @@ public interface RobotMap {
         double QUICKTURN_THRESHOLD = 0.0625; // 1.0/16.0 (powers of 2 = easy for computers)
 
         // Speed at which drivetrain turns when using quick turn
-        double QUICKTURN_SPEED = 1.0;
+        double QUICKTURN_SPEED = 1.0/3.0;
 
         // Speed at which robot moves during nudging
         double NUDGE_SPEED = 1.0/4.0;
