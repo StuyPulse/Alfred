@@ -96,15 +96,13 @@ public interface RobotMap {
     long BLINK_TIME_MS = 500;
     
     /***************************************************************************************
-     * Limelight Pipeline Constants
+     * Drivetrain/Limelight Constants
      ****************************************************************************************/
-    int DRIVER_PIPELINE = 0;
-    int CV_PIPELINE = 1;
+    interface Pipeline {
+        int DRIVER = 0;
+        int CV = 1;
+    }
 
-    /***************************************************************************************
-     * Drivetrain CV Constants
-     ****************************************************************************************/
-    
     interface CV { 
         // Leave this as true, otherwise it will ignore smartdashboard
         boolean CHECK_SMARTDASHBOARD = true;
@@ -144,7 +142,6 @@ public interface RobotMap {
         int JOYSTICK_SCALAR = 3;
         int TRIGGER_SCALAR = 2;
     }
-
 
     /***************************************************************************************
      * Drivetrain Motor Constants

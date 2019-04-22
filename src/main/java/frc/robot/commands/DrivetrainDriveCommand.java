@@ -37,10 +37,10 @@ public class DrivetrainDriveCommand extends Command {
     // Used for changing state of limelight without spamming networktable
     public enum Mode { Start, Driver, CV; }
     protected static Mode currentState = Mode.Start;
-    
+
     protected void setCameraMode() {
         if(currentState != Mode.Driver) {
-            Limelight.setPipeline(RobotMap.DRIVER_PIPELINE);
+            Limelight.setPipeline(RobotMap.Pipeline.DRIVER);
             Limelight.setCamMode(Limelight.CamMode.DRIVER);
             Limelight.setLEDMode(Limelight.LEDMode.FORCE_OFF);
             currentState = Mode.Driver;
