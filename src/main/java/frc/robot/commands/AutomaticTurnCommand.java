@@ -30,8 +30,8 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
 
     @Override
     protected void setTurn() {
-        // Get Gamepad Input
-        super.setTurn();
+        // Reset turn value.
+        turn = 0;
 
         // If Using CV
         if(Limelight.hasValidTarget()) {
