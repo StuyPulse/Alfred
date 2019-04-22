@@ -128,12 +128,19 @@ public interface RobotMap {
         // Prints Information to Smartdashboard
         boolean SMARTDASHBOARD_DEBUG = true;
 
-        double QUICKTURN_THRESHOLD = 0.03125; // 1.0/32.0 (powers of 2 = easy for computers)
+        // Speed at which curvature drive enables quick turn
+        double QUICKTURN_THRESHOLD = 0.0625; // 1.0/16.0 (powers of 2 = easy for computers)
+
+        // Speed at which drivetrain turns when using quick turn
         double QUICKTURN_SPEED = 1.0;
+
+        // Speed at which robot moves during nudging
         double NUDGE_SPEED = 1.0/4.0;
       
+        // Max speed robot should turn
         double TURN_UPPER_LIMIT = 2.0 / 3;
 
+        // Scaling joysticks and triggers using exponents
         int JOYSTICK_SCALAR = 3;
         int TRIGGER_SCALAR = 2;
     }
