@@ -63,8 +63,17 @@ public class Robot extends TimedRobot {
     public static boolean scoreCargo;
     public static boolean rollersStalling;
 
+    NetworkTable fieldMapTable;
+    NetworkTableEntry encoderDist;
+    NetworkTableEntry gyroAngle;
+    NetworkTableEntry origGyroAngle;
+    NetworkTableEntry robotLength;
+    NetworkTableEntry robotWidth;
+    NetworkTableEntry startPosition;
+
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<>();
+    SendableChooser<double[]> startPositionChooser;
 
     /**
      * This function is run when the robot is first started up and should be used
@@ -86,6 +95,27 @@ public class Robot extends TimedRobot {
         relayController = new LEDRelayController(RobotMap.LED_CHANNEL);
 
         // chooser.addOption("My Auto", new MyAutoCommand());
+
+        // Field Map Values begin here
+        fieldMapTable = NetworkTableInstance.getDefault().getTable("FieldMap");
+        encoderDist = fieldMap.getEntry("EncoderValues");
+        gyroAngle = fieldMap.getEntry("GyroAngle");
+        origGyroAngle = fieldMap.getEntry("OriginalGyroAngle"); //Gyro angle at the start of match
+        robotLength = fieldMap.getEntry("RobotLength");
+        robotWidth = fieldMap.getEntry("RobotWidth");
+        startPosition = fieldMap.getEntry("StartPosition");
+        /*
+        Shuffleboard.getTab("Field Map")
+            .add("Start Position", startPositionChooser)
+            .buildInto(fieldMapTable, fieldMapTable.getSubtable("Start Position"));
+            */
+        startPositionChooser.addOption("Right Cargo Ship", new double[] {73, 326, 0});
+        startPositionChooser.addOption("Middle", new double[] {127, 254, 0});
+        startPositionChooser.addOption("Left Cargo Ship", new double[] {73, 182, 0});
+        origGyroAngle.setDouble(drivetrain.getGyroAngle());
+        robotLength.setDefaultDouble(35.0);
+        robotWidth.setDefaultDouble(24.0);
+        SmartDashboard.putData("Start Position", startPositionChooser);
         SmartDashboard.putData("Auto mode", chooser);
 
         // CameraServer.getInstance().startAutomaticCapture(0);
@@ -126,6 +156,9 @@ public class Robot extends TimedRobot {
         // liftSpeedGoingDown = SmartDashboard.getNumber("Lift Auto Complete Speed Going
         // Down", 0.5);
         SmartDashboard.putString("Match Time", returnTime());
+        startPosition.setValue(startPositionChooser.getSelected());
+        encoderDist.setDouble(drivetrain.getGreyhillDistance());
+        gyroAngle.setDouble(drivetrain.getGyroAngle());
     }
 
     /**
