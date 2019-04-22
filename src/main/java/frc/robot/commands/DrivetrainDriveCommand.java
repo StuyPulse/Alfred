@@ -73,6 +73,10 @@ public class DrivetrainDriveCommand extends Command {
 
     /* Updating Turning */
     protected void setTurn() {
+        if(Robot.oi.driverGamepad.getRawTopButton() && Limelight.hasValidTarget()){
+            turn = 0;
+            return;
+        }
         // Set the turn value to the joystick's x value
         double leftStick = Robot.oi.driverGamepad.getLeftX();
         leftStick = Math.pow(leftStick, RobotMap.JOYSTICK_SCALAR);
