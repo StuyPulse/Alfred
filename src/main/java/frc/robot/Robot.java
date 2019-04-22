@@ -40,7 +40,7 @@ public class Robot extends TimedRobot {
     double start_encoder_value;
     double abs_raw_distance;
     double raw_distance;
-    double encoder_approach_stall_threshold = 4.0;
+    double encoder_approach_stall_threshold = 3.0;
 
     public static Drivetrain drivetrain;
     public static OI oi;
@@ -62,6 +62,7 @@ public class Robot extends TimedRobot {
     public boolean hasBeenZeroed;
     public static boolean scoreCargo;
     public static boolean rollersStalling;
+    public static double startStalling;
 
     Command autonomousCommand;
     SendableChooser<Command> chooser = new SendableChooser<>();
@@ -100,6 +101,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("MOVE_TURN_MUL", RobotMap.CV.MOVE_TURN_MUL);
         SmartDashboard.putNumber("AUTOMATIC_DRIVE_SPEED", RobotMap.CV.AUTOMATIC_DRIVE_SPEED);
         SmartDashboard.putNumber("SPEED_WHILE_TURNING", RobotMap.CV.SPEED_WHILE_TURNING);
+        SmartDashboard.putNumber("X_SHIFT", RobotMap.CV.DEFAULT_X_ANGLE_SHIFT);
         
         Limelight.setLEDMode(Limelight.LEDMode.FORCE_OFF);
         hasBeenZeroed = false;
@@ -190,7 +192,6 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousPeriodic() {
-
         Scheduler.getInstance().run();
     }
 
@@ -246,6 +247,9 @@ public class Robot extends TimedRobot {
             SmartDashboard.putNumber("Change In Distance Encoder", change_distance);
             if (change_distance <= encoder_approach_stall_threshold && Robot.oi.operatorGamepad.getRawRightTrigger()) {
                 SmartDashboard.putBoolean("Motor Stall Status:", true);
+                if (rollersStalling = false) {
+                    startStalling = Timer.getFPGATimestamp();
+                }
                 rollersStalling = true;
             } else {
                 SmartDashboard.putBoolean("Motor Stall Status:", false);

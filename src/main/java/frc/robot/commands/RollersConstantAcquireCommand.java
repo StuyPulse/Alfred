@@ -25,7 +25,7 @@ public class RollersConstantAcquireCommand extends CommandGroup {
     double encoder_approach_stall_threshold = 5.0;
     double startTime;
     double passedTime;
-
+    double timeStalling;
     public RollersConstantAcquireCommand() {
         addParallel(new FloopPrepareForRollersCommand());
         addSequential(new RollersConstantAcquire());
@@ -51,10 +51,17 @@ public class RollersConstantAcquireCommand extends CommandGroup {
             System.out.println("ROLLERS CONSTANT ACQUIRE COMMAND EXECUTE");
             passedTime = Timer.getFPGATimestamp() - startTime;
             SmartDashboard.putNumber("TIME PASSED FOR ROLLERS", passedTime);
+            if (Robot.isRollersStalling()) {
+                timeStalling = Timer.getFPGATimestamp() - Robot.startStalling;
+            }
             if (Robot.isRollersStalling() && passedTime > 0.5) {
-                Robot.rollers.setSpeed(-0.6);
-            } else if (Robot.isRollersStalling() && passedTime > 1) {
-                Robot.rollers.setSpeed(-0.2);
+                if (timeStalling < 1.5) {
+                    Robot.rollers.setSpeed(-1.0);
+                } else if(timeStalling < 1.0) {
+                    Robot.rollers.setSpeed(-0.6);
+                } else {
+                    Robot.rollers.setSpeed(-0.2);
+                }
             } else {
                 Robot.rollers.acquire();
             }
