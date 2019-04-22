@@ -2,8 +2,8 @@ package frc.plugin;
 
 public interface Constants {
 
-    double INCH_TO_PIXEL_CONSTANT = 0.658452;
-    double PIXEL_TO_INCH_CONSTANT = 1.518714; 
+    double PIXEL_TO_INCH_CONSTANT = 0.658452;
+    double INCH_TO_PIXEL_CONSTANT = 1.518714; 
     
     /***************************************************************************************
      * Robot Size
