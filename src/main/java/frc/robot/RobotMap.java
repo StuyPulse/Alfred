@@ -105,6 +105,7 @@ public interface RobotMap {
 
     interface CV { 
         // Leave this as true, otherwise it will ignore smartdashboard
+        // This should always be true, this is a backup
         boolean CHECK_SMARTDASHBOARD = true;
 
         // Speed robot moves in autodrive
