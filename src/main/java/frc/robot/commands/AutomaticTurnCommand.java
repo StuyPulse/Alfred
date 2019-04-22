@@ -19,6 +19,16 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
     }
 
     @Override
+    protected void setCameraMode() {
+        if(currentState != Mode.CV) {
+            Limelight.setPipeline(RobotMap.CV_PIPELINE);
+            Limelight.setCamMode(Limelight.CamMode.VISION);
+            Limelight.setLEDMode(Limelight.LEDMode.FORCE_ON);
+            currentState = Mode.CV;
+        }
+    }
+
+    @Override
     protected void setTurn() {
         // Get Gamepad Input
         super.setTurn();
@@ -43,7 +53,7 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
             // Scale the Turn Delta
             turnDelta /= turnDiv;
             
-            if(RobotMap.DRIVETRAIN_SMARTDASHBOARD_DEBUG) {
+            if(RobotMap.Drivetrain.SMARTDASHBOARD_DEBUG) {
                 SmartDashboard.putNumber("Drivetrain CV Turning", turnDelta);
             }
 

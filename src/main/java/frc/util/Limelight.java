@@ -14,12 +14,12 @@ public class Limelight {
     private static NetworkTable table = tableInstance.getTable("limelight");
 
     // Toggle for posting to SmartDashboard
-    public static final boolean POST_TO_SMART_DASHBOARD = true;
+    public static boolean POST_TO_SMART_DASHBOARD = true;
 
     // Uses network tables to check status of limelight
     private static NetworkTableEntry timingTestEntry = table.getEntry("TIMING_TEST_ENTRY");
     private static boolean timingTestEntryValue = false;
-    public static final long MAX_UPDATE_TIME = 200_000; // Micro Seconds = 0.2 Seconds
+    public static final long MAX_UPDATE_TIME = 125_000; // Micro Seconds = 0.125 Seconds
 
     /**
      * @return if limelight is connected
@@ -31,10 +31,8 @@ public class Limelight {
         long currentTime = timingTestEntry.getLastChange();
 
         // Get most recent update from limelight
-        long lastUpdate = latencyEntry.getLastChange();
+        long lastUpdate = latencyEntry.getLastChange(); // Latency is always updated
         lastUpdate = Math.max(lastUpdate, validTargetEntry.getLastChange());
-        lastUpdate = Math.max(lastUpdate, xAngleEntry.getLastChange());
-        lastUpdate = Math.max(lastUpdate, yAngleEntry.getLastChange());
 
         // Calculate limelights last update
         long timeDifference = currentTime - lastUpdate;
@@ -68,7 +66,7 @@ public class Limelight {
     
     // Not final incase user wants
     // to change them at runtime
-    public static double DEFAULT_TARGET_HEIGHT_THRESHOLD = 6;
+    public static double DEFAULT_TARGET_HEIGHT_THRESHOLD = 8;
     public static double DEFAULT_MIN_ASPECT_RATIO = 1.2;
     public static double DEFAULT_MAX_ASPECT_RATIO = 3.3;
     public static double DEFAULT_ANGLE_THRESHOLD = 25;
@@ -162,7 +160,6 @@ public class Limelight {
      * @return Horizontal side length of the target
      */
     public static double getTargetXAngle() {
-
         double X_SHIFT = SmartDashboard.getNumber("X_SHIFT", 1000);
         if(Math.abs(X_SHIFT) >= 694) SmartDashboard.putNumber("X_SHIFT", X_ANGLE_SHIFT);
         return xAngleEntry.getDouble(0) + X_SHIFT;

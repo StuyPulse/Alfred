@@ -104,22 +104,40 @@ public interface RobotMap {
     /***************************************************************************************
      * Drivetrain CV Constants
      ****************************************************************************************/
-    boolean DRIVETRAIN_SMARTDASHBOARD_DEBUG = true;
     
-    interface CV { // Values for autodrive/turn
+    interface CV { 
+        // Leave this as true, otherwise it will ignore smartdashboard
         boolean CHECK_SMARTDASHBOARD = true;
-        double AUTOMATIC_DRIVE_SPEED = 0.125; // Speed robot moves in autodrive
-        double SPEED_WHILE_TURNING = 2; // If lower, slows robot at steep angles
-        double MOVE_TURN_MUL = 6.3; // Increase turning when moving faster
-        double TURN_DIV = 20; // Speed robot turns towards target
+
+        // Speed robot moves in autodrive
+        double AUTOMATIC_DRIVE_SPEED = 0.125; // 0 - 1
+
+        // If lower, slows robot at steep angles
+        // If higher, robot will usually move at automatic drive speed
+        double SPEED_WHILE_TURNING = 2; 
+
+        // Increase limelight turn/adjustments at higher speeds
+        double MOVE_TURN_MUL = 6.3;
+
+        // If higher, robot turns slower towards target
+        // If lower, robot turns faster towards target, but may oscilate
+        double TURN_DIV = 20; 
     }
     
-    double QUICKTURN_THRESHOLD = 0.04;
-    double QUICKTURN_SPEED = 1.0;
-    double NUDGE_SPEED = 1.0/4.0;
-  
-    int JOYSTICK_SCALAR = 3; // Used to make joystick values smaller
-    double DRIVETRAIN_TURN_UPPER_LIMIT = 2.0 / 3;
+    interface Drivetrain {
+        // Prints Information to Smartdashboard
+        boolean SMARTDASHBOARD_DEBUG = true;
+
+        double QUICKTURN_THRESHOLD = 0.03125; // 1.0/32.0 (powers of 2 = easy for computers)
+        double QUICKTURN_SPEED = 1.0;
+        double NUDGE_SPEED = 1.0/4.0;
+      
+        double TURN_UPPER_LIMIT = 2.0 / 3;
+
+        int JOYSTICK_SCALAR = 3;
+        int TRIGGER_SCALAR = 2;
+    }
+
 
     /***************************************************************************************
      * Drivetrain Motor Constants

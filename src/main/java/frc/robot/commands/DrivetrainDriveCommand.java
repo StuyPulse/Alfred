@@ -23,6 +23,10 @@ public class DrivetrainDriveCommand extends Command {
         requires(Robot.drivetrain);
     }
 
+    // Used for changing state of limelight without spamming networktable
+    public enum Mode { Start, Driver, CV; }
+    protected static Mode currentState = Mode.Start;
+
     @Override
     protected void execute() {
         setCameraMode();
@@ -34,31 +38,12 @@ public class DrivetrainDriveCommand extends Command {
         updateDrivetrain();
     }
 
-    /* Switching between CV and Driver Mode */
-    private boolean getCVButtonsPressed(){
-        return (
-            Robot.oi.driverGamepad.getRawLeftButton() || 
-            Robot.oi.driverGamepad.getRawTopButton()
-        );
-    }
-
-    private boolean isDriverControlling = true;
     protected void setCameraMode() {
-        boolean controlling = !getCVButtonsPressed();
-
-        // Optimization that prevents spamming network table
-        if(controlling != isDriverControlling) {
-            isDriverControlling = controlling;
-
-            if(isDriverControlling){
-                Limelight.setPipeline(RobotMap.DRIVER_PIPELINE);
-                Limelight.setCamMode(Limelight.CamMode.DRIVER);
-                Limelight.setLEDMode(Limelight.LEDMode.FORCE_OFF);
-            } else {
-                Limelight.setPipeline(RobotMap.CV_PIPELINE);
-                Limelight.setCamMode(Limelight.CamMode.VISION);
-                Limelight.setLEDMode(Limelight.LEDMode.FORCE_ON);
-            }
+        if(currentState != Mode.Driver) {
+            Limelight.setPipeline(RobotMap.DRIVER_PIPELINE);
+            Limelight.setCamMode(Limelight.CamMode.DRIVER);
+            Limelight.setLEDMode(Limelight.LEDMode.FORCE_OFF);
+            currentState = Mode.Driver;
         }
     }
 
@@ -68,50 +53,50 @@ public class DrivetrainDriveCommand extends Command {
         speed = 0;
 
         // Set speed to the axes of the triggers
-        speed += Math.pow(Robot.oi.driverGamepad.getRawRightTriggerAxis(), 2);
-        speed -= Math.pow(Robot.oi.driverGamepad.getRawLeftTriggerAxis(), 2);
+        speed += Math.pow(Robot.oi.driverGamepad.getRawRightTriggerAxis(), RobotMap.Drivetrain.TRIGGER_SCALAR);
+        speed -= Math.pow(Robot.oi.driverGamepad.getRawLeftTriggerAxis(), RobotMap.Drivetrain.TRIGGER_SCALAR);
     }
 
     /* Updating Turning */
     protected void setTurn() {
         // Set the turn value to the joystick's x value
         double leftStick = Robot.oi.driverGamepad.getLeftX();
-        leftStick = Math.pow(leftStick, RobotMap.JOYSTICK_SCALAR);
+        leftStick = Math.pow(leftStick, RobotMap.Drivetrain.JOYSTICK_SCALAR);
 
         // Fix the sign for even powers
-        if (RobotMap.JOYSTICK_SCALAR % 2 == 0) {
-            leftStick *= Math.signum((Robot.oi.driverGamepad.getLeftX()));
+        if (RobotMap.Drivetrain.JOYSTICK_SCALAR % 2 == 0) {
+            leftStick *= Math.signum(Robot.oi.driverGamepad.getLeftX());
         }
 
-        leftStick *= RobotMap.DRIVETRAIN_TURN_UPPER_LIMIT;
+        leftStick *= RobotMap.Drivetrain.TURN_UPPER_LIMIT;
         turn = leftStick;
     }
 
     protected void setNudging() {
         if(false) { // TODO: Get Button For Nugging
-            speed *= RobotMap.NUDGE_SPEED;
-            turn *= RobotMap.NUDGE_SPEED;
+            speed *= RobotMap.Drivetrain.NUDGE_SPEED;
+            turn *= RobotMap.Drivetrain.NUDGE_SPEED;
         }
     }
 
     /* Updating Quick Turn */
     protected void setQuickTurn() {
         // Enable Quick Turn if robot is not moving
-        quickTurn = Math.abs(speed) < RobotMap.QUICKTURN_THRESHOLD;
+        quickTurn = Math.abs(speed) < RobotMap.Drivetrain.QUICKTURN_THRESHOLD;
         
         if (quickTurn) {
             // Slow down quick turn as it is only used
             // when the driver is scoring
-            turn *= RobotMap.QUICKTURN_SPEED;
+            turn *= RobotMap.Drivetrain.QUICKTURN_SPEED;
         }
     }
 
     protected void updateSmartdashboard() {
-        if(RobotMap.DRIVETRAIN_SMARTDASHBOARD_DEBUG) {
+        if(RobotMap.Drivetrain.SMARTDASHBOARD_DEBUG) {
             SmartDashboard.putNumber("Drivetrain Speed", speed);
             SmartDashboard.putNumber("Drivetrain Turn", turn);
             SmartDashboard.putBoolean("Drivetrain QuickTurn", quickTurn);
-            SmartDashboard.putBoolean("Drivetrain CV", getCVButtonsPressed());
+            SmartDashboard.putBoolean("Drivetrain CV", currentState == Mode.CV);
         }
     }
 
