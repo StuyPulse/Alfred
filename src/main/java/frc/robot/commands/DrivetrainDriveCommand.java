@@ -73,23 +73,31 @@ public class DrivetrainDriveCommand extends Command {
 
     /* Updating Turning */
     protected void setTurn() {
-        // Set the turn value to the joystick's x value
-        double leftStick = Robot.oi.driverGamepad.getLeftX();
-        leftStick = Math.pow(leftStick, RobotMap.JOYSTICK_SCALAR);
+        if (Robot.oi.driverGamepad.getRawTopButton() && Limelight.hasValidTarget()) {
+            turn = 0;
+        } else {
+            // Set the turn value to the joystick's x value
+            double leftStick = Robot.oi.driverGamepad.getLeftX();
+            leftStick = Math.pow(leftStick, RobotMap.JOYSTICK_SCALAR);
 
-        // Fix the sign for even powers
-        if (RobotMap.JOYSTICK_SCALAR % 2 == 0) {
-            leftStick *= Math.signum((Robot.oi.driverGamepad.getLeftX()));
+            // Fix the sign for even powers
+            if (RobotMap.JOYSTICK_SCALAR % 2 == 0) {
+                leftStick *= Math.signum((Robot.oi.driverGamepad.getLeftX()));
+            }
+
+            leftStick *= RobotMap.DRIVETRAIN_TURN_UPPER_LIMIT;
+            turn = leftStick;
         }
-
-        leftStick *= RobotMap.DRIVETRAIN_TURN_UPPER_LIMIT;
-        turn = leftStick;
     }
 
     /* Updating Quick Turn */
     protected void setQuickTurn() {
         // Enable Quick Turn if robot is not moving
-        quickTurn = Math.abs(speed) < 0.125;
+        quickTurn = Math.abs(speed) < 0.04;
+
+        if (quickTurn) {
+            turn *= 2.0/3.0;
+        }
     }
 
     protected void updateSmartdashboard() {

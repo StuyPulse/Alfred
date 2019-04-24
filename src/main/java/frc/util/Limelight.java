@@ -32,9 +32,6 @@ public class Limelight {
 
         // Get most recent update from limelight
         long lastUpdate = latencyEntry.getLastChange();
-        lastUpdate = Math.max(lastUpdate, validTargetEntry.getLastChange());
-        lastUpdate = Math.max(lastUpdate, xAngleEntry.getLastChange());
-        lastUpdate = Math.max(lastUpdate, yAngleEntry.getLastChange());
 
         // Calculate limelights last update
         long timeDifference = currentTime - lastUpdate;
@@ -62,13 +59,12 @@ public class Limelight {
         return hasAnyTarget() 
              & hasValidHeight(targetHeightThreshold) 
              & hasValidBlueAspectRatio(minRatio, maxRatio)
-             & hasValidBlueOrientation(angleThreshold)
-             & isConnected();
+             & hasValidBlueOrientation(angleThreshold);
     }
     
     // Not final incase user wants
     // to change them at runtime
-    public static double DEFAULT_TARGET_HEIGHT_THRESHOLD = 6;
+    public static double DEFAULT_TARGET_HEIGHT_THRESHOLD = 7;
     public static double DEFAULT_MIN_ASPECT_RATIO = 1.2;
     public static double DEFAULT_MAX_ASPECT_RATIO = 3.3;
     public static double DEFAULT_ANGLE_THRESHOLD = 25;
