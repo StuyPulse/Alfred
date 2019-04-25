@@ -153,7 +153,7 @@ public interface RobotMap {
             // What percent that quickturn speeds up (Higher = Slower)
             // Used for Smooth Quickturn
             interface Weight {
-                double INCREASE = 32;
+                double INCREASE = 48;
                 double DECREASE = 2;
             }
             
