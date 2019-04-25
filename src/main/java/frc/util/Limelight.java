@@ -169,6 +169,7 @@ public class Limelight {
     // Horizontal Offset From Crosshair To Target (-27 degrees to 27 degrees)
     public static final double MIN_X_ANGLE = -27;
     public static final double MAX_X_ANGLE = 27;
+    public static final double X_ANGLE_SHIFT = -1.5;
     private static NetworkTableEntry xAngleEntry = table.getEntry("tx");
 
     /**
