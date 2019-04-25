@@ -71,7 +71,21 @@ public class DrivetrainDriveCommand extends Command {
         }
 
         leftStick *= Drivetrain.TurnSpeed.MAX;
-        turn = leftStick;
+
+        if(quickTurn) {
+            // Smoothly increase or decrease speed of
+            // drivetrain turn in quickturn, based on
+            // if the turn is accelerating or decelerating
+            double weight = (Math.abs(leftStick) < Math.abs(turn)) 
+                          ? Drivetrain.QuickTurn.Weight.DECREASE
+                          : Drivetrain.QuickTurn.Weight.INCREASE;
+
+            turn *= weight - 1;
+            turn += leftStick;
+            turn /= weight;
+        } else {
+            turn = leftStick;
+        }
     }
 
     protected void setNudging() {
