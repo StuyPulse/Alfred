@@ -151,7 +151,7 @@ public class Limelight {
     // Horizontal Offset From Crosshair To Target (-27 degrees to 27 degrees)
     public static final double MIN_X_ANGLE = -27;
     public static final double MAX_X_ANGLE = 27;
-    public static final double X_ANGLE_SHIFT = 1.5;
+    public static final double X_ANGLE_SHIFT = -1.5;
     private static NetworkTableEntry xAngleEntry = table.getEntry("tx");
 
     /**
@@ -159,8 +159,8 @@ public class Limelight {
      */
     public static double getTargetXAngle() {
 
-        double X_SHIFT = SmartDashboard.getNumber("X_SHIFT", 0);
-        if(X_SHIFT == 0) SmartDashboard.putNumber("X_SHIFT", X_ANGLE_SHIFT);
+        double X_SHIFT = SmartDashboard.getNumber("X_SHIFT", 1000);
+        if(X_SHIFT > 694) SmartDashboard.putNumber("X_SHIFT", X_ANGLE_SHIFT);
         return xAngleEntry.getDouble(0) + X_SHIFT;
     }
 
