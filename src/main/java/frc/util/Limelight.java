@@ -79,6 +79,17 @@ public class Limelight {
      * @return Whether or not the limelight has a target in view
      */
     public static boolean hasValidTarget() {
+        if(SmartDashboard.getBoolean("CV_FILTER_OVERRIDE", false)){
+            return hasValidTarget(
+                SmartDashboard.getNumber("HEIGHT_THRESHOLD",
+                 DEFAULT_TARGET_HEIGHT_THRESHOLD),
+                SmartDashboard.getNumber("MIN_ASPECT_RATIO",
+                 DEFAULT_MIN_ASPECT_RATIO),
+                SmartDashboard.getNumber("MAX_ASPECT_RATIO",
+                 DEFAULT_MAX_ASPECT_RATIO),
+                SmartDashboard.getNumber("SKEW_THRESHOLD",
+                 DEFAULT_ANGLE_THRESHOLD));
+        }
         return hasValidTarget(
             SmarterDashboard.getNumber("HEIGHT_THRESHOLD", DEFAULT_TARGET_HEIGHT_THRESHOLD), 
             SmarterDashboard.getNumber("MIN_ASPECT_RATIO", DEFAULT_MIN_ASPECT_RATIO), 
@@ -158,7 +169,6 @@ public class Limelight {
     // Horizontal Offset From Crosshair To Target (-27 degrees to 27 degrees)
     public static final double MIN_X_ANGLE = -27;
     public static final double MAX_X_ANGLE = 27;
-    public static final double X_ANGLE_SHIFT = 1.5;
     private static NetworkTableEntry xAngleEntry = table.getEntry("tx");
 
     /**

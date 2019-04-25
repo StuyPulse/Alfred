@@ -89,7 +89,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putData("Auto mode", chooser);
 
         // CameraServer.getInstance().startAutomaticCapture(0);
-        
+      
         hasBeenZeroed = false;
     }
 
