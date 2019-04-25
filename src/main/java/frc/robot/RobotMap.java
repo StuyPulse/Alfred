@@ -114,10 +114,10 @@ public interface RobotMap {
     
             // If lower, slows robot at steep angles
             // If higher, robot will usually move at automatic drive speed
-            double SPEED_WHILE_TURNING = 2; 
+            double SPEED_WHILE_TURNING = 2; // 1 - 2
     
             // Increase limelight turn/adjustments at higher speeds
-            double MOVE_TURN_MUL = 6.3;
+            double MOVE_TURN_MUL = 0; // DISABLED
     
             // If higher, robot turns slower towards target
             // If lower, robot turns faster towards target, but may oscilate
@@ -142,10 +142,10 @@ public interface RobotMap {
             double THRESHOLD = 0.04;
 
             // Threshold used for autodrive
-            double AUTO_THRESHOLD = 0.125;
+            double AUTO_THRESHOLD = 694.0; // Quickturn is always on for auto
 
             // Speed at which drivetrain turns when using quick turn
-            double SPEED = 1.0/3.0;
+            double SPEED = 2.0/3.0;
         }
 
         interface Controls {
