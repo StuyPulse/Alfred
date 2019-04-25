@@ -72,7 +72,7 @@ public class DrivetrainDriveCommand extends Command {
 
         leftStick *= Drivetrain.TurnSpeed.MAX;
 
-        if(quickTurn) {
+        if(quickTurn && Drivetrain.QuickTurn.SMOOTH) {
             // Smoothly increase or decrease speed of
             // drivetrain turn in quickturn, based on
             // if the turn is accelerating or decelerating

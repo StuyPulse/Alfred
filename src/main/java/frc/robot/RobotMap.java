@@ -147,7 +147,11 @@ public interface RobotMap {
             // Speed at which drivetrain turns when using quick turn
             double SPEED = 2.0/3.0;
 
+            // Enables or Disables "Smooth Quickturn"
+            boolean SMOOTH = false;
+
             // What percent that quickturn speeds up (Higher = Slower)
+            // Used for Smooth Quickturn
             interface Weight {
                 double INCREASE = 32;
                 double DECREASE = 2;
