@@ -278,26 +278,13 @@ public class Robot extends TimedRobot {
         if (dTime == -1) {
             dTime = 0;
         }
+        
         String minutes = Integer.toString(dTime / 60);
         String seconds = Integer.toString(dTime % 60);
         if (dTime % 60 < 10) {
             seconds = "0" + seconds;
         }
-        if (isAuton) {
-            return "Sandstorm: " + minutes + ":" + seconds;
-        } else {
-            return "Teleop: " + minutes + ":" + seconds;
-        }
-    }
 
-    private void blinkLED() {
-        double startTime = Timer.getFPGATimestamp();
-        if (Timer.getFPGATimestamp() - startTime > 4) {
-            relayController.setLEDForward();
-        } else if ((int) (Timer.getFPGATimestamp() - startTime) % 2 == 0) {
-            relayController.setLEDForward();
-        } else {
-            relayController.setLEDNeutral();
-        }
+        return (isAuton ? "Sandstorm: " : "Teleop: ")  + minutes + ":" + seconds;
     }
 }
