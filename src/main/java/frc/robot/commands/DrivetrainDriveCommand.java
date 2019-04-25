@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotMap.Drivetrain;
-import frc.robot.RobotMap.Pipeline;
 import frc.util.Limelight;
 import frc.util.SmarterDashboard;
 
@@ -43,7 +42,7 @@ public class DrivetrainDriveCommand extends Command {
 
     protected void setCameraMode() {
         if(currentState != Mode.Driver) {
-            Limelight.setPipeline(Pipeline.DRIVER);
+            Limelight.setPipeline(Drivetrain.Pipeline.DRIVER);
             Limelight.setCamMode(Limelight.CamMode.DRIVER);
             Limelight.setLEDMode(Limelight.LEDMode.FORCE_OFF);
             currentState = Mode.Driver;
@@ -56,29 +55,34 @@ public class DrivetrainDriveCommand extends Command {
         speed = 0;
 
         // Set speed to the axes of the triggers
-        speed += Math.pow(Robot.oi.driverGamepad.getRawRightTriggerAxis(), Drivetrain.TRIGGER_SCALAR);
-        speed -= Math.pow(Robot.oi.driverGamepad.getRawLeftTriggerAxis(), Drivetrain.TRIGGER_SCALAR);
+        speed += Math.pow(Robot.oi.driverGamepad.getRawRightTriggerAxis(), Drivetrain.Controls.TRIGGER_SCALAR);
+        speed -= Math.pow(Robot.oi.driverGamepad.getRawLeftTriggerAxis(), Drivetrain.Controls.TRIGGER_SCALAR);
     }
 
     /* Updating Turning */
     protected void setTurn() {
         // Set the turn value to the joystick's x value
         double leftStick = Robot.oi.driverGamepad.getLeftX();
-        leftStick = Math.pow(leftStick, Drivetrain.JOYSTICK_SCALAR);
+        leftStick = Math.pow(leftStick, Drivetrain.Controls.JOYSTICK_SCALAR);
 
         // Fix the sign for even powers
-        if (Drivetrain.JOYSTICK_SCALAR % 2 == 0) {
+        if (Drivetrain.Controls.JOYSTICK_SCALAR % 2 == 0) {
             leftStick *= Math.signum(Robot.oi.driverGamepad.getLeftX());
         }
 
-        leftStick *= Drivetrain.TURN_UPPER_LIMIT;
+        leftStick *= Drivetrain.TurnSpeed.MAX;
         turn = leftStick;
     }
 
     protected void setNudging() {
         if(false) { // TODO: Get Button For Nugging
-            speed *= Drivetrain.NUDGE_SPEED;
-            turn *= Drivetrain.NUDGE_SPEED;
+            speed *= Drivetrain.TurnSpeed.NUDGE;
+            turn *= Drivetrain.TurnSpeed.NUDGE;
+
+            if(quickTurn) {
+                speed *= Drivetrain.TurnSpeed.QUICKTURN_NUDGE;
+                turn *= Drivetrain.TurnSpeed.QUICKTURN_NUDGE;
+            }
         }
     }
 
@@ -86,13 +90,13 @@ public class DrivetrainDriveCommand extends Command {
     protected void setQuickTurn() {
         // Enable Quick Turn if robot is not moving
         quickTurn = Math.abs(speed) < SmarterDashboard.getNumber("QUICKTURN_THRESHOLD", 
-                                      Drivetrain.QUICKTURN_THRESHOLD);
+                                      Drivetrain.QuickTurn.THRESHOLD);
         
         if (quickTurn) {
             // Slow down quick turn as it is only used
             // when the driver is scoring
             turn *= SmarterDashboard.getNumber("QUICKTURN_SPEED", 
-                    Drivetrain.QUICKTURN_SPEED);
+                    Drivetrain.QuickTurn.SPEED);
         }
     }
 

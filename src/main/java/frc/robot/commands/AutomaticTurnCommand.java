@@ -8,8 +8,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.RobotMap.CV;
-import frc.robot.RobotMap.Pipeline;
 import frc.robot.RobotMap.Drivetrain;
 import frc.util.Limelight;
 import frc.util.SmarterDashboard;
@@ -23,7 +21,7 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
     @Override
     protected void setCameraMode() {
         if(currentState != Mode.CV) {
-            Limelight.setPipeline(Pipeline.CV);
+            Limelight.setPipeline(Drivetrain.Pipeline.CV);
             Limelight.setCamMode(Limelight.CamMode.VISION);
             Limelight.setLEDMode(Limelight.LEDMode.FORCE_ON);
             currentState = Mode.CV;
@@ -38,8 +36,8 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
         // If Using CV
         if(Limelight.hasValidTarget()) {
             // Get Turn Div from Smart Dash Board
-            double turnDiv = SmarterDashboard.getNumber("TURN_DIV", CV.TURN_DIV);
-            double moveTurnMult = SmarterDashboard.getNumber("MOVE_TURN_MUL", CV.MOVE_TURN_MUL);;
+            double turnDiv = SmarterDashboard.getNumber("TURN_DIV", Drivetrain.CV.TURN_DIV);
+            double moveTurnMult = SmarterDashboard.getNumber("MOVE_TURN_MUL", Drivetrain.CV.MOVE_TURN_MUL);;
 
             // Take The Square Root of the X Angle
             double turnDelta = Limelight.getTargetXAngle();

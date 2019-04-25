@@ -7,7 +7,6 @@
 
 package frc.robot.commands;
 
-import frc.robot.RobotMap.CV;
 import frc.robot.RobotMap.Drivetrain;
 import frc.util.Limelight;
 import frc.util.SmarterDashboard;
@@ -20,9 +19,9 @@ public class AutomaticDriveCommand extends AutomaticTurnCommand {
         super.setSpeed();
         if (Limelight.hasValidTarget()) {
             double speedWhileTurning   = SmarterDashboard.getNumber("SPEED_WHILE_TURNING",
-                                         CV.SPEED_WHILE_TURNING);
+                                         Drivetrain.CV.SPEED_WHILE_TURNING);
             double automaticDriveSpeed = SmarterDashboard.getNumber("AUTOMATIC_DRIVE_SPEED",
-                                         CV.AUTOMATIC_DRIVE_SPEED);
+                                         Drivetrain.CV.AUTOMATIC_DRIVE_SPEED);
 
             double targetXValue = Math.abs(Limelight.getTargetXAngle());
             
@@ -39,6 +38,6 @@ public class AutomaticDriveCommand extends AutomaticTurnCommand {
 
     @Override
     protected void setQuickTurn() {
-        quickTurn = Math.abs(speed) < Drivetrain.AUTO_QUICKTURN_THRESHOLD;
+        quickTurn = Math.abs(speed) < Drivetrain.QuickTurn.AUTO_THRESHOLD;
     }
 }

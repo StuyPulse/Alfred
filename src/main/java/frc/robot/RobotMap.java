@@ -98,47 +98,61 @@ public interface RobotMap {
     /***************************************************************************************
      * Drivetrain/Limelight Constants
      ****************************************************************************************/
-    interface Pipeline {
-        int DRIVER = 0;
-        int CV = 1;
-    }
 
-    interface CV { 
-        // Speed robot moves in autodrive
-        double AUTOMATIC_DRIVE_SPEED = 0.125; // 0 - 1
-
-        // If lower, slows robot at steep angles
-        // If higher, robot will usually move at automatic drive speed
-        double SPEED_WHILE_TURNING = 2; 
-
-        // Increase limelight turn/adjustments at higher speeds
-        double MOVE_TURN_MUL = 6.3;
-
-        // If higher, robot turns slower towards target
-        // If lower, robot turns faster towards target, but may oscilate
-        double TURN_DIV = 20; 
-    }
-    
     interface Drivetrain {
         // Prints Information to Smartdashboard
         boolean SMARTDASHBOARD_DEBUG = true;
 
-        // Speed at which curvature drive enables quick turn
-        double QUICKTURN_THRESHOLD = 0.04;
-        double AUTO_QUICKTURN_THRESHOLD = 0.125;
+        interface Pipeline {
+            int DRIVER = 0;
+            int CV = 1;
+        }
+    
+        interface CV { 
+            // Speed robot moves in autodrive
+            double AUTOMATIC_DRIVE_SPEED = 0.125; // 0 - 1
+    
+            // If lower, slows robot at steep angles
+            // If higher, robot will usually move at automatic drive speed
+            double SPEED_WHILE_TURNING = 2; 
+    
+            // Increase limelight turn/adjustments at higher speeds
+            double MOVE_TURN_MUL = 6.3;
+    
+            // If higher, robot turns slower towards target
+            // If lower, robot turns faster towards target, but may oscilate
+            double TURN_DIV = 20; 
+        }
 
-        // Speed at which drivetrain turns when using quick turn
-        double QUICKTURN_SPEED = 1.0/3.0;
+        interface TurnSpeed {
+            // Max speed robot should turn
+            // Every value after this is effectivly 
+            // multiplied by this value
+            double MAX = 2.0 / 3.0;
 
-        // Speed at which robot moves during nudging
-        double NUDGE_SPEED = 1.0/4.0;
-      
-        // Max speed robot should turn
-        double TURN_UPPER_LIMIT = 2.0 / 3;
+            // Speed at which robot moves during nudging
+            double NUDGE = 1.0/2.0;
 
-        // Scaling joysticks and triggers using exponents
-        int JOYSTICK_SCALAR = 3;
-        int TRIGGER_SCALAR = 2;
+            // Additional Nudging for Quick Turn
+            double QUICKTURN_NUDGE = 1.0/3.0;
+        }
+
+        interface QuickTurn {
+            // Speed at which curvature drive enables quick turn
+            double THRESHOLD = 0.04;
+
+            // Threshold used for autodrive
+            double AUTO_THRESHOLD = 0.125;
+
+            // Speed at which drivetrain turns when using quick turn
+            double SPEED = 1.0/3.0;
+        }
+
+        interface Controls {
+            // Scaling joysticks and triggers using exponents
+            int JOYSTICK_SCALAR = 3;
+            int TRIGGER_SCALAR = 2;
+        }
     }
 
     /***************************************************************************************
