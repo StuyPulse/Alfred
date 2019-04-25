@@ -8,6 +8,8 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import frc.util.SmarterDashboard;
+
 public class Limelight {
     // Network Table used to contact Lime Light
     private static NetworkTableInstance tableInstance = NetworkTableInstance.getDefault();
@@ -20,6 +22,8 @@ public class Limelight {
     private static NetworkTableEntry timingTestEntry = table.getEntry("TIMING_TEST_ENTRY");
     private static boolean timingTestEntryValue = false;
     public static final long MAX_UPDATE_TIME = 125_000; // Micro Seconds = 0.125 Seconds
+
+    public static final boolean IS_CONNECTED_REQUIRED = false;
 
     /**
      * @return if limelight is connected
@@ -61,7 +65,7 @@ public class Limelight {
              & hasValidHeight(targetHeightThreshold) 
              & hasValidBlueAspectRatio(minRatio, maxRatio)
              & hasValidBlueOrientation(angleThreshold)
-             & isConnected();
+             & (IS_CONNECTED_REQUIRED ? isConnected() : true);
     }
     
     // Not final incase user wants
@@ -76,10 +80,11 @@ public class Limelight {
      */
     public static boolean hasValidTarget() {
         return hasValidTarget(
-            DEFAULT_TARGET_HEIGHT_THRESHOLD, 
-            DEFAULT_MIN_ASPECT_RATIO, 
-            DEFAULT_MAX_ASPECT_RATIO,
-            DEFAULT_ANGLE_THRESHOLD);
+            SmarterDashboard.getNumber("HEIGHT_THRESHOLD", DEFAULT_TARGET_HEIGHT_THRESHOLD), 
+            SmarterDashboard.getNumber("MIN_ASPECT_RATIO", DEFAULT_MIN_ASPECT_RATIO), 
+            SmarterDashboard.getNumber("MAX_ASPECT_RATIO", DEFAULT_MAX_ASPECT_RATIO), 
+            SmarterDashboard.getNumber("ANGLE_THRESHOLD", DEFAULT_ANGLE_THRESHOLD)
+        );
     }
 
     /* Commonly Used Contour Information */
@@ -160,8 +165,7 @@ public class Limelight {
      * @return Horizontal side length of the target
      */
     public static double getTargetXAngle() {
-        double X_SHIFT = SmartDashboard.getNumber("X_SHIFT", 1000);
-        if(Math.abs(X_SHIFT) >= 694) SmartDashboard.putNumber("X_SHIFT", X_ANGLE_SHIFT);
+        double X_SHIFT = SmarterDashboard.getNumber("X_SHIFT", X_ANGLE_SHIFT);
         return xAngleEntry.getDouble(0) + X_SHIFT;
     }
 

@@ -8,9 +8,11 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.RobotMap;
+import frc.robot.RobotMap.CV;
+import frc.robot.RobotMap.Pipeline;
+import frc.robot.RobotMap.Drivetrain;
 import frc.util.Limelight;
-
+import frc.util.SmarterDashboard;
 public class AutomaticTurnCommand extends DrivetrainDriveCommand {
 
     @Override
@@ -21,7 +23,7 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
     @Override
     protected void setCameraMode() {
         if(currentState != Mode.CV) {
-            Limelight.setPipeline(RobotMap.Pipeline.CV);
+            Limelight.setPipeline(Pipeline.CV);
             Limelight.setCamMode(Limelight.CamMode.VISION);
             Limelight.setLEDMode(Limelight.LEDMode.FORCE_ON);
             currentState = Mode.CV;
@@ -36,12 +38,8 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
         // If Using CV
         if(Limelight.hasValidTarget()) {
             // Get Turn Div from Smart Dash Board
-            double turnDiv = RobotMap.CV.CHECK_SMARTDASHBOARD 
-                ? SmartDashboard.getNumber("TURN_DIV", RobotMap.CV.TURN_DIV)
-                : RobotMap.CV.TURN_DIV;
-            double moveTurnMult = RobotMap.CV.CHECK_SMARTDASHBOARD 
-                ? SmartDashboard.getNumber("MOVE_TURN_MUL", RobotMap.CV.MOVE_TURN_MUL)
-                : RobotMap.CV.MOVE_TURN_MUL;
+            double turnDiv = SmarterDashboard.getNumber("TURN_DIV", CV.TURN_DIV);
+            double moveTurnMult = SmarterDashboard.getNumber("MOVE_TURN_MUL", CV.MOVE_TURN_MUL);;
 
             // Take The Square Root of the X Angle
             double turnDelta = Limelight.getTargetXAngle();
@@ -53,7 +51,7 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
             // Scale the Turn Delta
             turnDelta /= turnDiv;
             
-            if(RobotMap.Drivetrain.SMARTDASHBOARD_DEBUG) {
+            if(Drivetrain.SMARTDASHBOARD_DEBUG) {
                 SmartDashboard.putNumber("Drivetrain CV Turning", turnDelta);
             }
 

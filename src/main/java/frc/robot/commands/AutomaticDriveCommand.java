@@ -7,9 +7,10 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.RobotMap;
+import frc.robot.RobotMap.CV;
+import frc.robot.RobotMap.Drivetrain;
 import frc.util.Limelight;
+import frc.util.SmarterDashboard;
 
 public class AutomaticDriveCommand extends AutomaticTurnCommand {
 
@@ -18,21 +19,26 @@ public class AutomaticDriveCommand extends AutomaticTurnCommand {
         // if no target is found, fall back on gamepad speed
         super.setSpeed();
         if (Limelight.hasValidTarget()) {
+            double speedWhileTurning   = SmarterDashboard.getNumber("SPEED_WHILE_TURNING",
+                                         CV.SPEED_WHILE_TURNING);
+            double automaticDriveSpeed = SmarterDashboard.getNumber("AUTOMATIC_DRIVE_SPEED",
+                                         CV.AUTOMATIC_DRIVE_SPEED);
+
             double targetXValue = Math.abs(Limelight.getTargetXAngle());
-            targetXValue /= RobotMap.CV.CHECK_SMARTDASHBOARD 
-                ? SmartDashboard.getNumber("SPEED_WHILE_TURNING", RobotMap.CV.SPEED_WHILE_TURNING)
-                : RobotMap.CV.SPEED_WHILE_TURNING;
+            
+            targetXValue /= speedWhileTurning;
 
             double accel = Limelight.MAX_X_ANGLE - targetXValue;
             accel /= Limelight.MAX_X_ANGLE;
 
-            accel *= RobotMap.CV.CHECK_SMARTDASHBOARD 
-                ? SmartDashboard.getNumber("AUTOMATIC_DRIVE_SPEED", RobotMap.CV.AUTOMATIC_DRIVE_SPEED)
-                : RobotMap.CV.AUTOMATIC_DRIVE_SPEED;
+            accel *= automaticDriveSpeed;
 
             speed += accel;
-        } else {
-            
-        }
+        } 
+    }
+
+    @Override
+    protected void setQuickTurn() {
+        quickTurn = Math.abs(speed) < Drivetrain.AUTO_QUICKTURN_THRESHOLD;
     }
 }

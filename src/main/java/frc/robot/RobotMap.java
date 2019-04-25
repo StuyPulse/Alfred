@@ -104,10 +104,6 @@ public interface RobotMap {
     }
 
     interface CV { 
-        // Leave this as true, otherwise it will ignore smartdashboard
-        // This should always be true, this is a backup
-        boolean CHECK_SMARTDASHBOARD = true;
-
         // Speed robot moves in autodrive
         double AUTOMATIC_DRIVE_SPEED = 0.125; // 0 - 1
 
@@ -128,7 +124,8 @@ public interface RobotMap {
         boolean SMARTDASHBOARD_DEBUG = true;
 
         // Speed at which curvature drive enables quick turn
-        double QUICKTURN_THRESHOLD = 0.0625; // 1.0/16.0 (powers of 2 = easy for computers)
+        double QUICKTURN_THRESHOLD = 0.04;
+        double AUTO_QUICKTURN_THRESHOLD = 0.125;
 
         // Speed at which drivetrain turns when using quick turn
         double QUICKTURN_SPEED = 1.0/3.0;
