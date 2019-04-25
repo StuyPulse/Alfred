@@ -48,7 +48,6 @@ public class RollersConstantAcquireCommand extends CommandGroup {
 
         @Override
         protected void execute() {
-            System.out.println("ROLLERS CONSTANT ACQUIRE COMMAND EXECUTE");
             passedTime = Timer.getFPGATimestamp() - startTime;
             SmartDashboard.putNumber("TIME PASSED FOR ROLLERS", passedTime);
             if (Robot.isRollersStalling() && passedTime > 0.5) {
