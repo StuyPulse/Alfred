@@ -74,19 +74,11 @@ public class DrivetrainDriveCommand extends Command {
         // Adjust Left stick to max speed
         newTurn *= Drivetrain.TurnSpeed.MAX;
 
-        if(Drivetrain.Weights.SMOOTH_QUICKTURN) {
-            double weight = Drivetrain.Weights.STANDARD;
+        if(quickTurn && Drivetrain.Weights.SMOOTH_QUICKTURN) {
+            double weight = (Math.abs(turn) < Math.abs(newTurn))
+                ? Drivetrain.Weights.Quick.ACCEL
+                : Drivetrain.Weights.Quick.DECEL;
 
-            // If quick turn is enabled, use smooth quickturn
-            if(quickTurn) {
-                if(Math.abs(turn) < Math.abs(newTurn)) {
-                    weight = Drivetrain.Weights.Quick.ACCEL;
-                } else {
-                    weight = Drivetrain.Weights.Quick.DECEL;
-                }
-            } 
-
-            // Use weighted average to approximate acceleration
             turn = (newTurn + turn * (weight - 1.0)) / weight;
         } else {
             turn = newTurn;

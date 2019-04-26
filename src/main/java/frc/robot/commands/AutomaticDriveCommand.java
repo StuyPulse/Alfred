@@ -37,6 +37,15 @@ public class AutomaticDriveCommand extends AutomaticTurnCommand {
     }
 
     @Override
+    protected void getPlayerTurn() {
+        if(Limelight.hasValidTarget()) {
+            turn = 0;
+        } else {
+            super.getPlayerTurn();
+        }
+    }
+
+    @Override
     protected void setQuickTurn() {
         quickTurn = Math.abs(speed) < Drivetrain.QuickTurn.AUTO_THRESHOLD;
     }

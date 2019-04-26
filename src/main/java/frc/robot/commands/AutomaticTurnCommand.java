@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap.Drivetrain;
 import frc.util.Limelight;
 import frc.util.SmarterDashboard;
+
 public class AutomaticTurnCommand extends DrivetrainDriveCommand {
 
     @Override
@@ -28,11 +29,16 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
         }
     }
 
+    protected void getPlayerTurn() {
+        // Get Player Input from DrivetrainDriveCommand
+        super.setTurn();
+    }
+
     @Override
     protected void setTurn() {
-        // Reset turn value.
-        turn = 0;
-
+        // Set Turn to Player Input
+        getPlayerTurn();
+        
         // If Using CV
         if(Limelight.hasValidTarget()) {
             // Get Turn Div from Smart Dash Board
