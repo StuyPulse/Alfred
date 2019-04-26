@@ -121,7 +121,7 @@ public interface RobotMap {
     
             // If higher, robot turns slower towards target
             // If lower, robot turns faster towards target, but may oscilate
-            double TURN_DIV = 20; 
+            double TURN_DIV = 22; 
         }
 
         interface TurnSpeed {
@@ -134,7 +134,7 @@ public interface RobotMap {
             double NUDGE = 1.0/2.0;
 
             // Additional Nudging for Quick Turn
-            double QUICKTURN_NUDGE = 1.0/3.0;
+            double QUICKTURN_NUDGE = 10;
         }
 
         interface QuickTurn {
@@ -146,17 +146,20 @@ public interface RobotMap {
 
             // Speed at which drivetrain turns when using quick turn
             double SPEED = 2.0/3.0;
+        }
 
+        // What percent that quickturn speeds up (Higher = Slower)
+        // Used for Smooth Quickturn
+        interface Weights {
             // Enables or Disables "Smooth Quickturn"
-            boolean SMOOTH = false;
+            boolean SMOOTH_QUICKTURN = false;
 
-            // What percent that quickturn speeds up (Higher = Slower)
-            // Used for Smooth Quickturn
-            interface Weight {
-                double INCREASE = 48;
-                double DECREASE = 2;
+            double STANDARD = 1;
+
+            interface Quick {
+                double ACCEL = 48;
+                double DECEL = 2;
             }
-            
         }
 
         interface Controls {

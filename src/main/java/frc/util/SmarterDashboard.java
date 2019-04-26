@@ -6,19 +6,12 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 
 // 694 original
 public class SmarterDashboard {
-    private static final double DEFAULT_DEFAULT = 0;
-    private static final boolean DEFAULT_CHECK_SMARTDASH = true;
-
-    public static double getNumber(String name) {
-        return getNumber(name, DEFAULT_DEFAULT);
-    }
+    private static final boolean DEFAULT_OVERRIDE = true;
 
     public static double getNumber(String name, double def) {
-        return getNumber(name, def, DEFAULT_CHECK_SMARTDASH);
-    }
-
-    public static double getNumber(String name, double def, boolean checkSmartDashboard) {
-        if(checkSmartDashboard) {
+        if(DEFAULT_OVERRIDE) {
+            return def;
+        } else {
             NetworkTableEntry entry = SmartDashboard.getEntry(name);
 
             if(entry.exists()) {
@@ -27,9 +20,6 @@ public class SmarterDashboard {
                 SmartDashboard.putNumber(name, def);
                 return def;
             }
-
-        } else {
-            return def;
         }
     }
 }

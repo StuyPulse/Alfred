@@ -14,6 +14,7 @@ import frc.robot.RobotMap.Drivetrain;
 import frc.util.Limelight;
 import frc.util.SmarterDashboard;
 
+@SuppressWarnings("unused")
 public class DrivetrainDriveCommand extends Command {
     
     // Variables to feed to curvature drive
@@ -62,29 +63,33 @@ public class DrivetrainDriveCommand extends Command {
     /* Updating Turning */
     protected void setTurn() {
         // Set the turn value to the joystick's x value
-        double leftStick = Robot.oi.driverGamepad.getLeftX();
-        leftStick = Math.pow(leftStick, Drivetrain.Controls.JOYSTICK_SCALAR);
+        double newTurn = Robot.oi.driverGamepad.getLeftX();
+        newTurn = Math.pow(newTurn, Drivetrain.Controls.JOYSTICK_SCALAR);
 
         // Fix the sign for even powers
         if (Drivetrain.Controls.JOYSTICK_SCALAR % 2 == 0) {
-            leftStick *= Math.signum(Robot.oi.driverGamepad.getLeftX());
+            newTurn *= Math.signum(Robot.oi.driverGamepad.getLeftX());
         }
 
-        leftStick *= Drivetrain.TurnSpeed.MAX;
+        // Adjust Left stick to max speed
+        newTurn *= Drivetrain.TurnSpeed.MAX;
 
-        if(quickTurn && Drivetrain.QuickTurn.SMOOTH) {
-            // Smoothly increase or decrease speed of
-            // drivetrain turn in quickturn, based on
-            // if the turn is accelerating or decelerating
-            double weight = (Math.abs(leftStick) < Math.abs(turn)) 
-                          ? Drivetrain.QuickTurn.Weight.DECREASE
-                          : Drivetrain.QuickTurn.Weight.INCREASE;
+        if(Drivetrain.Weights.SMOOTH_QUICKTURN) {
+            double weight = Drivetrain.Weights.STANDARD;
 
-            turn *= weight - 1;
-            turn += leftStick;
-            turn /= weight;
+            // If quick turn is enabled, use smooth quickturn
+            if(quickTurn) {
+                if(Math.abs(turn) < Math.abs(newTurn)) {
+                    weight = Drivetrain.Weights.Quick.ACCEL;
+                } else {
+                    weight = Drivetrain.Weights.Quick.DECEL;
+                }
+            } 
+
+            // Use weighted average to approximate acceleration
+            turn = (newTurn + turn * (weight - 1.0)) / weight;
         } else {
-            turn = leftStick;
+            turn = newTurn;
         }
     }
 
