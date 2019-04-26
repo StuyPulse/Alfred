@@ -157,8 +157,8 @@ public interface RobotMap {
             double STANDARD = 1;
 
             interface Quick {
-                double ACCEL = 9;
-                double DECEL = 2;
+                double ACCEL = 36;
+                double DECEL = 3;
             }
         }
 
