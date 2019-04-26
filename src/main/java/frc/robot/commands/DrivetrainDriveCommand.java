@@ -73,13 +73,10 @@ public class DrivetrainDriveCommand extends Command {
         leftStick *= Drivetrain.TurnSpeed.MAX;
 
         if(quickTurn && Drivetrain.QuickTurn.SMOOTH) {
-            boolean accelerating = Math.abs(turn) < Math.abs(leftStick);
-            accelerating &= Math.signum(turn) == Math.signum(leftStick);
-
             // Smoothly increase or decrease speed of
             // drivetrain turn in quickturn, based on
             // if the turn is accelerating or decelerating
-            double weight = accelerating 
+            double weight = (Math.abs(leftStick) < Math.abs(turn)) 
                           ? Drivetrain.QuickTurn.Weight.DECREASE
                           : Drivetrain.QuickTurn.Weight.INCREASE;
 
