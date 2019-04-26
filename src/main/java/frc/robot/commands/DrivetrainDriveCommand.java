@@ -31,7 +31,6 @@ public class DrivetrainDriveCommand extends Command {
         setCameraMode();
         setSpeed();
         setTurn();
-        setNudging();
         setQuickTurn();
         updateSmartdashboard();
         updateDrivetrain();
@@ -84,19 +83,6 @@ public class DrivetrainDriveCommand extends Command {
             turn = newTurn;
         }
     }
-
-    protected void setNudging() {
-        if(false) { // TODO: Get Button For Nugging
-            speed *= Drivetrain.TurnSpeed.NUDGE;
-            turn *= Drivetrain.TurnSpeed.NUDGE;
-
-            if(quickTurn) {
-                speed *= Drivetrain.TurnSpeed.QUICKTURN_NUDGE;
-                turn *= Drivetrain.TurnSpeed.QUICKTURN_NUDGE;
-            }
-        }
-    }
-
     /* Updating Quick Turn */
     protected void setQuickTurn() {
         // Enable Quick Turn if robot is not moving

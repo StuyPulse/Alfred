@@ -131,10 +131,7 @@ public interface RobotMap {
             double MAX = 2.0 / 3.0;
 
             // Speed at which robot moves during nudging
-            double NUDGE = 1.0/2.0;
-
-            // Additional Nudging for Quick Turn
-            double QUICKTURN_NUDGE = 10;
+            double NUDGE = 1.0/3.0;
         }
 
         interface QuickTurn {
