@@ -121,7 +121,7 @@ public interface RobotMap {
     
             // If higher, robot turns slower towards target
             // If lower, robot turns faster towards target, but may oscilate
-            double TURN_DIV = 22; 
+            double TURN_DIV = 20; 
         }
 
         interface TurnSpeed {
@@ -155,7 +155,7 @@ public interface RobotMap {
 
             interface Quick {
                 double ACCEL = 36;
-                double DECEL = 3;
+                double DECEL = 2;
             }
         }
 
