@@ -33,10 +33,11 @@ public abstract class DrivetrainCommand extends Command {
         updateDrivetrain();
     }
 
-    // Used for changing state of limelight without spamming networktable
+    /* Current mode of the drivetrain */
     public enum States { START, DRIVER, CV, OTHER; }
     protected static States state = States.START;
 
+    /* Updating limelight camera */
     protected abstract void setCameraMode();
 
     /* Updating Speed */
