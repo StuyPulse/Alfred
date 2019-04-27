@@ -21,11 +21,11 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
 
     @Override
     protected void setCameraMode() {
-        if(currentState != Mode.CV) {
+        if(state != States.CV) {
             Limelight.setPipeline(Drivetrain.Pipeline.CV);
             Limelight.setCamMode(Limelight.CamMode.VISION);
             Limelight.setLEDMode(Limelight.LEDMode.FORCE_ON);
-            currentState = Mode.CV;
+            state = States.CV;
         }
     }
 

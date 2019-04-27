@@ -22,6 +22,8 @@ public class Limelight {
     private static NetworkTableEntry timingTestEntry = table.getEntry("TIMING_TEST_ENTRY");
     private static boolean timingTestEntryValue = false;
     public static final long MAX_UPDATE_TIME = 125_000; // Micro Seconds = 0.125 Seconds
+    public static final long MIN_WARNING_TIME = 500_000; // Micro Seconds = 0.5 Seconds
+    public static final long MAX_WARNING_TIME = 2_500_000; // Micro Seconds = 5.0 Seconds
 
     public static final boolean IS_CONNECTED_REQUIRED = false;
 
@@ -47,6 +49,13 @@ public class Limelight {
             SmartDashboard.putNumber("Limelight Time Difference", timeDifference);
         }
 
+        if(MIN_WARNING_TIME < timeDifference && timeDifference < MAX_WARNING_TIME) {
+            double milli = (double)timeDifference / 1000.0;
+
+            System.err.println("WARNING: Limelight has disconnected and is not responding!");
+            System.err.println("         Limelight last updated " + milli + "ms ago!");
+        }
+
         return connected;
     }
     
@@ -65,7 +74,7 @@ public class Limelight {
              & hasValidHeight(targetHeightThreshold) 
              & hasValidBlueAspectRatio(minRatio, maxRatio)
              & hasValidBlueOrientation(angleThreshold)
-             & (IS_CONNECTED_REQUIRED ? isConnected() : true);
+             & (!IS_CONNECTED_REQUIRED | isConnected());
     }
     
     // Not final incase user wants
