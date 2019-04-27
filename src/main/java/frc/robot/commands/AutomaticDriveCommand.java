@@ -47,6 +47,6 @@ public class AutomaticDriveCommand extends AutomaticTurnCommand {
 
     @Override
     protected void setQuickTurn() {
-        quickTurn = Math.abs(speed) < Drivetrain.QuickTurn.AUTO_THRESHOLD;
+        quickTurn = true;
     }
 }

@@ -138,9 +138,6 @@ public interface RobotMap {
             // Speed at which curvature drive enables quick turn
             double THRESHOLD = 0.04;
 
-            // Threshold used for autodrive
-            double AUTO_THRESHOLD = 694.0; // Quickturn is always on for auto
-
             // Speed at which drivetrain turns when using quick turn
             double SPEED = 2.0/3.0;
         }
