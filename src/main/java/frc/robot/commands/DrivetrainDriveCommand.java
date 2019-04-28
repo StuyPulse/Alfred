@@ -14,7 +14,7 @@ import frc.util.SmarterDashboard;
 import frc.util.Limelight;
 
 @SuppressWarnings("unused")
-public class DrivetrainDriveCommand extends DrivetrainCommand {
+public class DrivetrainDriveCommand extends DrivetrainCommand{
     
     protected void setCameraMode() {
         if(state != States.DRIVER) {
@@ -61,17 +61,4 @@ public class DrivetrainDriveCommand extends DrivetrainCommand {
         }
     }
 
-    /* Updating Quick Turn */
-    protected void setQuickTurn() {
-        // Enable Quick Turn if robot is not moving
-        quickTurn = Math.abs(speed) < SmarterDashboard.getNumber("QUICKTURN_THRESHOLD", 
-                                      Drivetrain.QuickTurn.THRESHOLD);
-        
-        if (quickTurn) {
-            // Slow down quick turn as it is only used
-            // when the driver is scoring
-            turn *= SmarterDashboard.getNumber("QUICKTURN_SPEED", 
-                    Drivetrain.QuickTurn.SPEED);
-        }
-    }
 }

@@ -18,7 +18,7 @@ public abstract class DrivetrainCommand extends Command {
     protected double speed = 0;
     protected double turn = 0; 
     protected boolean quickTurn = true;
-
+    protected QuickTurn.QuickTurnFunction quickMode = QuickTurn.RAMP;
     public DrivetrainCommand() {
         requires(Robot.drivetrain);
     }
@@ -46,8 +46,10 @@ public abstract class DrivetrainCommand extends Command {
     /* Updating Turning */
     protected abstract void setTurn();
 
-    /* Updating Quick Turn */
-    protected abstract void setQuickTurn();
+    /* Updating Quickturn */
+    protected void setQuickTurn(){
+        quickMode.setQuickTurn(this);
+    }
 
     /* Updating SmartDashboard */
     protected void updateSmartdashboard() {
