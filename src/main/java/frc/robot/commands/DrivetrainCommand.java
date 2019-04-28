@@ -12,8 +12,32 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap.Drivetrain;
 import frc.robot.Robot;
 
-@SuppressWarnings("unused")
 public abstract class DrivetrainCommand extends Command {
+
+    // Helper class used to get gamepad controls
+    public static class Controller {
+        public static double getTriggers() {
+            double speed;
+            
+            speed = Math.pow(Robot.oi.driverGamepad.getRawRightTriggerAxis(), Drivetrain.Controls.TRIGGER_SCALAR);
+            speed -= Math.pow(Robot.oi.driverGamepad.getRawLeftTriggerAxis(), Drivetrain.Controls.TRIGGER_SCALAR);
+            
+            return speed;
+        }
+
+        @SuppressWarnings("unused")
+        public static double getJoystick() {
+            double leftStick = Robot.oi.driverGamepad.getLeftX();
+            leftStick = Math.pow(leftStick, Drivetrain.Controls.JOYSTICK_SCALAR);
+    
+            if (Drivetrain.Controls.JOYSTICK_SCALAR % 2 == 0) {
+                leftStick *= Math.signum(Robot.oi.driverGamepad.getLeftX());
+            }
+
+            return leftStick;
+        }
+    }
+    
     // Variables to feed to curvature drive
     protected double speed = 0;
     protected double turn = 0; 

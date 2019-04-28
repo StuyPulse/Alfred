@@ -143,12 +143,9 @@ public interface RobotMap {
         }
 
         // What percent that quickturn speeds up (Higher = Slower)
-        // Used for Smooth Quickturn
-        interface Weights {
-            // Enables or Disables "Smooth Quickturn"
-            boolean SMOOTH_QUICKTURN = false;
-
-            double STANDARD = 1;
+        interface SmoothTurn {
+            // Enables or Disables "Smooth Turn"
+            boolean ENABLED = false;
 
             double ACCEL = 36;
             double DECEL = 2;

@@ -26,50 +26,38 @@ public class DrivetrainDriveCommand extends DrivetrainCommand {
     }
 
     protected void setSpeed() {
-        // Reset the speed to prevent this from becoming acceleration
-        speed = 0;
-
-        // Set speed to the axes of the triggers
-        speed += Math.pow(Robot.oi.driverGamepad.getRawRightTriggerAxis(), Drivetrain.Controls.TRIGGER_SCALAR);
-        speed -= Math.pow(Robot.oi.driverGamepad.getRawLeftTriggerAxis(), Drivetrain.Controls.TRIGGER_SCALAR);
+        speed = Controller.getTriggers();
     }
 
     protected void setTurn() {
-        // Set the turn value to the joystick's x value
-        double newTurn = Robot.oi.driverGamepad.getLeftX();
-        newTurn = Math.pow(newTurn, Drivetrain.Controls.JOYSTICK_SCALAR);
-
-        // Fix the sign for even powers
-        if (Drivetrain.Controls.JOYSTICK_SCALAR % 2 == 0) {
-            newTurn *= Math.signum(Robot.oi.driverGamepad.getLeftX());
-        }
-
-        // Adjust Left stick to max speed
+        double newTurn = Controller.getJoystick();
         newTurn *= Drivetrain.TurnSpeed.MAX;
 
-        // Smooth Quickturn Implementation
-        if(quickTurn 
-        && SmarterDashboard.getBoolean("SMOOTH_QUICKTURN", Drivetrain.Weights.SMOOTH_QUICKTURN)
-        ) {
-            double weight = (Math.abs(turn) < Math.abs(newTurn))
-                ? SmarterDashboard.getNumber("QUICK_ACCEL", Drivetrain.Weights.ACCEL)
-                : SmarterDashboard.getNumber("QUICK_DECEL", Drivetrain.Weights.DECEL);
-
-            turn = (newTurn + turn * (weight - 1.0)) / weight;
+        if(SmarterDashboard.getBoolean("SMOOTH_TURN", Drivetrain.SmoothTurn.ENABLED)) {
+            useSmoothTurn(newTurn);
         } else {
             turn = newTurn;
         }
     }
 
+    private void useSmoothTurn(double newTurn) {
+        if(quickTurn) {
+            double weight = (Math.abs(turn) < Math.abs(newTurn))
+                ? SmarterDashboard.getNumber("SMOOTH_ACCEL", Drivetrain.SmoothTurn.ACCEL)
+                : SmarterDashboard.getNumber("SMOOTH_DECEL", Drivetrain.SmoothTurn.DECEL);
+
+            turn *= weight - 1.0;
+            turn += newTurn;
+            turn /= weight;
+        }
+    }
+
     /* Updating Quick Turn */
     protected void setQuickTurn() {
-        // Enable Quick Turn if robot is not moving
         quickTurn = Math.abs(speed) < SmarterDashboard.getNumber("QUICKTURN_THRESHOLD", 
                                       Drivetrain.QuickTurn.THRESHOLD);
         
         if (quickTurn) {
-            // Slow down quick turn as it is only used
-            // when the driver is scoring
             turn *= SmarterDashboard.getNumber("QUICKTURN_SPEED", 
                     Drivetrain.QuickTurn.SPEED);
         }
