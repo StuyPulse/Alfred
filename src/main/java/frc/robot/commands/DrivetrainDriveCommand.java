@@ -49,6 +49,8 @@ public class DrivetrainDriveCommand extends DrivetrainCommand {
             turn *= weight - 1.0;
             turn += newTurn;
             turn /= weight;
+        } else {
+            turn = newTurn;
         }
     }
 
