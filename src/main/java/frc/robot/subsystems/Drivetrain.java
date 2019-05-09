@@ -20,8 +20,9 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.RobotMap;
 import frc.robot.commands.DrivetrainDriveCommand;
 import frc.util.NEOEncoder;
+import frc.util.FRCLogger;
 
-public final class Drivetrain extends Subsystem {
+public final class Drivetrain extends Subsystem implements FRCLogger.Loggable{
     
     private CANSparkMax highLeftTopMotor,
                         highLeftMiddleMotor,
@@ -251,4 +252,10 @@ public final class Drivetrain extends Subsystem {
         leftBottomMotor.setOpenLoopRampRate(0.0);
     }
 
+    // Example get log implementation
+    public String getLog() {
+        return getName() + ", " + 
+            getCurrentCommandName() + ", " +
+            getGreyhillDistance();
+    }
 }
