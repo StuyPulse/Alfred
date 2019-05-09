@@ -21,11 +21,11 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
 
     @Override
     protected void setCameraMode() {
-        if(state != States.CV) {
+        if(mState != States.CV) {
             Limelight.setPipeline(Drivetrain.Pipeline.CV);
             Limelight.setCamMode(Limelight.CamMode.VISION);
             Limelight.setLEDMode(Limelight.LEDMode.FORCE_ON);
-            state = States.CV;
+            mState = States.CV;
         }
     }
 
@@ -50,7 +50,7 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
             turnDelta = Math.signum(turnDelta) * Math.sqrt(Math.abs(turnDelta));
 
             // Increase Turning if robot is moving faster
-            turnDelta *= Math.max(moveTurnMult * speed, 1);
+            turnDelta *= Math.max(moveTurnMult * mSpeed, 1);
 
             // Scale the Turn Delta
             turnDelta /= turnDiv;
@@ -60,7 +60,7 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
             }
 
             // Add Turn Delta to Turn
-            turn += turnDelta;
+            mTurn += turnDelta;
         }
     }
 }

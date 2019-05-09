@@ -32,14 +32,14 @@ public class AutomaticDriveCommand extends AutomaticTurnCommand {
 
             accel *= automaticDriveSpeed;
 
-            speed += accel;
+            mSpeed += accel;
         } 
     }
 
     @Override
     protected void getPlayerTurn() {
         if(Limelight.hasValidTarget()) {
-            turn = 0;
+            mTurn = 0;
         } else {
             super.getPlayerTurn();
         }
@@ -47,6 +47,6 @@ public class AutomaticDriveCommand extends AutomaticTurnCommand {
 
     @Override
     protected void setQuickTurn() {
-        quickTurn = true;
+        mQuickTurn = true;
     }
 }

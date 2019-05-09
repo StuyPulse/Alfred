@@ -17,16 +17,16 @@ import frc.util.Limelight;
 public class DrivetrainDriveCommand extends DrivetrainCommand {
     
     protected void setCameraMode() {
-        if(state != States.DRIVER) {
+        if(mState != States.DRIVER) {
             Limelight.setPipeline(Drivetrain.Pipeline.DRIVER);
             Limelight.setCamMode(Limelight.CamMode.DRIVER);
             Limelight.setLEDMode(Limelight.LEDMode.FORCE_OFF);
-            state = States.DRIVER;
+            mState = States.DRIVER;
         }
     }
 
     protected void setSpeed() {
-        speed = Controller.getTriggers();
+        mSpeed = Controller.getTriggers();
     }
 
     protected void setTurn() {
@@ -36,31 +36,31 @@ public class DrivetrainDriveCommand extends DrivetrainCommand {
         if(SmarterDashboard.getBoolean("SMOOTH_TURN", Drivetrain.SmoothTurn.ENABLED)) {
             useSmoothTurn(newTurn);
         } else {
-            turn = newTurn;
+            mTurn = newTurn;
         }
     }
 
     private void useSmoothTurn(double newTurn) {
-        if(quickTurn) {
-            double weight = (Math.abs(turn) < Math.abs(newTurn))
+        if(mQuickTurn) {
+            double weight = (Math.abs(mTurn) < Math.abs(newTurn))
                 ? SmarterDashboard.getNumber("SMOOTH_ACCEL", Drivetrain.SmoothTurn.ACCEL)
                 : SmarterDashboard.getNumber("SMOOTH_DECEL", Drivetrain.SmoothTurn.DECEL);
 
-            turn *= weight - 1.0;
-            turn += newTurn;
-            turn /= weight;
+            mTurn *= weight - 1.0;
+            mTurn += newTurn;
+            mTurn /= weight;
         } else {
-            turn = newTurn;
+            mTurn = newTurn;
         }
     }
 
     /* Updating Quick Turn */
     protected void setQuickTurn() {
-        quickTurn = Math.abs(speed) < SmarterDashboard.getNumber("QUICKTURN_THRESHOLD", 
+        mQuickTurn = Math.abs(mSpeed) < SmarterDashboard.getNumber("QUICKTURN_THRESHOLD", 
                                       Drivetrain.QuickTurn.THRESHOLD);
         
-        if (quickTurn) {
-            turn *= SmarterDashboard.getNumber("QUICKTURN_SPEED", 
+        if (mQuickTurn) {
+            mTurn *= SmarterDashboard.getNumber("QUICKTURN_SPEED", 
                     Drivetrain.QuickTurn.SPEED);
         }
     }

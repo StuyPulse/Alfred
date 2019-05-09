@@ -17,12 +17,12 @@ public abstract class DrivetrainCommand extends Command {
     // Helper class used to get gamepad controls
     public static class Controller {
         public static double getTriggers() {
-            double speed;
+            double mSpeed;
             
-            speed = Math.pow(Robot.oi.driverGamepad.getRawRightTriggerAxis(), Drivetrain.Controls.TRIGGER_SCALAR);
-            speed -= Math.pow(Robot.oi.driverGamepad.getRawLeftTriggerAxis(), Drivetrain.Controls.TRIGGER_SCALAR);
+            mSpeed = Math.pow(Robot.oi.driverGamepad.getRawRightTriggerAxis(), Drivetrain.Controls.TRIGGER_SCALAR);
+            mSpeed -= Math.pow(Robot.oi.driverGamepad.getRawLeftTriggerAxis(), Drivetrain.Controls.TRIGGER_SCALAR);
             
-            return speed;
+            return mSpeed;
         }
 
         @SuppressWarnings("unused")
@@ -39,9 +39,9 @@ public abstract class DrivetrainCommand extends Command {
     }
     
     // Variables to feed to curvature drive
-    protected double speed = 0;
-    protected double turn = 0; 
-    protected boolean quickTurn = true;
+    protected double mSpeed = 0;
+    protected double mTurn = 0; 
+    protected boolean mQuickTurn = true;
 
     public DrivetrainCommand() {
         requires(Robot.drivetrain);
@@ -59,7 +59,7 @@ public abstract class DrivetrainCommand extends Command {
 
     /* Current mode of the drivetrain */
     public enum States { START, DRIVER, CV, OTHER; }
-    protected static States state = States.START;
+    protected static States mState = States.START;
 
     /* Updating limelight camera */
     protected abstract void setCameraMode();
@@ -76,16 +76,16 @@ public abstract class DrivetrainCommand extends Command {
     /* Updating SmartDashboard */
     protected void updateSmartdashboard() {
         if(Drivetrain.SMARTDASHBOARD_DEBUG) {
-            SmartDashboard.putNumber("Drivetrain Speed", speed);
-            SmartDashboard.putNumber("Drivetrain Turn", turn);
-            SmartDashboard.putBoolean("Drivetrain QuickTurn", quickTurn);
-            SmartDashboard.putString("Drivetrain Mode", state.name());
+            SmartDashboard.putNumber("Drivetrain Speed", mSpeed);
+            SmartDashboard.putNumber("Drivetrain Turn", mTurn);
+            SmartDashboard.putBoolean("Drivetrain QuickTurn", mQuickTurn);
+            SmartDashboard.putString("Drivetrain Mode", mState.name());
         }
     }
 
     // Sub commands for each curvature drive variable
     protected void updateDrivetrain() {
-        Robot.drivetrain.curvatureDrive(speed, turn, quickTurn);
+        Robot.drivetrain.curvatureDrive(mSpeed, mTurn, mQuickTurn);
     }
 
     @Override

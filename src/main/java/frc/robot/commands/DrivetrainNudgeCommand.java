@@ -8,6 +8,6 @@ class DrivetrainNudgeCommand extends DrivetrainDriveCommand {
     @Override
     protected void setTurn() {
         super.setTurn();
-        turn *= Drivetrain.TurnSpeed.NUDGE;
+        mTurn *= Drivetrain.TurnSpeed.NUDGE;
     }
 }
