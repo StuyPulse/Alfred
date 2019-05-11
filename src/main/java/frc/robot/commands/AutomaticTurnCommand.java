@@ -34,6 +34,9 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
         super.setTurn();
     }
 
+    // Used in PID loop
+    double mIntegral, mPreviousError;
+
     @Override
     protected void setTurn() {
         // Set Turn to Player Input
@@ -41,26 +44,16 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
         
         // If Using CV
         if(Limelight.hasValidTarget()) {
-            // Get Turn Div from Smart Dash Board
-            double turnDiv = SmarterDashboard.getNumber("TURN_DIV", Drivetrain.CV.TURN_DIV);
-            double moveTurnMult = SmarterDashboard.getNumber("MOVE_TURN_MUL", Drivetrain.CV.MOVE_TURN_MUL);;
-
-            // Take The Square Root of the X Angle
-            double turnDelta = Limelight.getTargetXAngle();
-            turnDelta = Math.signum(turnDelta) * Math.sqrt(Math.abs(turnDelta));
-
-            // Increase Turning if robot is moving faster
-            turnDelta *= Math.max(moveTurnMult * mSpeed, 1);
-
-            // Scale the Turn Delta
-            turnDelta /= turnDiv;
+            double P = SmarterDashboard.getNumber("Autoturn P", Drivetrain.CV.P);
+            double I = SmarterDashboard.getNumber("Autoturn I", Drivetrain.CV.I);
+            double D = SmarterDashboard.getNumber("Autoturn D", Drivetrain.CV.D);
             
-            if(Drivetrain.SMARTDASHBOARD_DEBUG) {
-                SmartDashboard.putNumber("Drivetrain CV Turning", turnDelta);
-            }
+            double error = Limelight.getTargetXAngle(); // P
+            mIntegral += error * Drivetrain.CV.TIME; // I
+            double derivative = (error - mPreviousError) / Drivetrain.CV.TIME; // D
 
-            // Add Turn Delta to Turn
-            mTurn += turnDelta;
+            mTurn = (P * error) + (I * mIntegral) + (D * derivative);
+            mPreviousError = error;
         }
     }
 }
