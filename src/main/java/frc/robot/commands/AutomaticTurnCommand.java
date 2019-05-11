@@ -7,16 +7,58 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDOutput;
+import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.PIDSourceType;
+
 import frc.robot.RobotMap.Drivetrain;
 import frc.util.Limelight;
 import frc.util.SmarterDashboard;
 
 public class AutomaticTurnCommand extends DrivetrainDriveCommand {
 
+    private class AlignPIDSource implements PIDSource {
+        @Override
+        public void setPIDSourceType(PIDSourceType source) {}
+
+        @Override
+        public PIDSourceType getPIDSourceType() {
+            return PIDSourceType.kDisplacement;
+        }
+
+        @Override
+        public double pidGet() {
+            if(Limelight.hasValidTarget()) {
+                return Limelight.getTargetXAngle() / Limelight.MAX_X_ANGLE;
+            } else {
+                return 0;
+            }
+        }
+    }
+
+    private class AlignPIDOutput implements PIDOutput {
+        @Override
+        public void pidWrite(double output) {
+            mAlignPIDResult = output;
+        }
+    }
+
+    private PIDController mAlignPID;
+    private double mAlignPIDResult = 0;
+
     @Override
     protected void initialize() {
         setInterruptible(false);
+
+        mAlignPID = new PIDController(
+            SmarterDashboard.getNumber("Autoturn P", Drivetrain.CV.P), 
+            SmarterDashboard.getNumber("Autoturn I", Drivetrain.CV.I), 
+            SmarterDashboard.getNumber("Autoturn D", Drivetrain.CV.D), 
+            new AlignPIDSource(), new AlignPIDOutput());
+
+        mAlignPID.setSetpoint(0);
+        mAlignPID.enable();
     }
 
     @Override
@@ -30,7 +72,6 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
     }
 
     protected void getPlayerTurn() {
-        // Get Player Input from DrivetrainDriveCommand
         super.setTurn();
     }
 
@@ -38,29 +79,9 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
     protected void setTurn() {
         // Set Turn to Player Input
         getPlayerTurn();
-        
-        // If Using CV
+                         
         if(Limelight.hasValidTarget()) {
-            // Get Turn Div from Smart Dash Board
-            double turnDiv = SmarterDashboard.getNumber("TURN_DIV", Drivetrain.CV.TURN_DIV);
-            double moveTurnMult = SmarterDashboard.getNumber("MOVE_TURN_MUL", Drivetrain.CV.MOVE_TURN_MUL);;
-
-            // Take The Square Root of the X Angle
-            double turnDelta = Limelight.getTargetXAngle();
-            turnDelta = Math.signum(turnDelta) * Math.sqrt(Math.abs(turnDelta));
-
-            // Increase Turning if robot is moving faster
-            turnDelta *= Math.max(moveTurnMult * mSpeed, 1);
-
-            // Scale the Turn Delta
-            turnDelta /= turnDiv;
-            
-            if(Drivetrain.SMARTDASHBOARD_DEBUG) {
-                SmartDashboard.putNumber("Drivetrain CV Turning", turnDelta);
-            }
-
-            // Add Turn Delta to Turn
-            mTurn += turnDelta;
-        }
+            mTurn += mAlignPIDResult;
+        } 
     }
 }

@@ -110,18 +110,11 @@ public interface RobotMap {
     
         interface CV { 
             // Speed robot moves in autodrive
+            double SPEED_WHILE_TURNING = 1; // 1 - 4
             double AUTOMATIC_DRIVE_SPEED = 0.125; // 0 - 1
     
-            // If lower, slows robot at steep angles
-            // If higher, robot will usually move at automatic drive speed
-            double SPEED_WHILE_TURNING = 2; // 1 - 2
-    
-            // Increase limelight turn/adjustments at higher speeds
-            double MOVE_TURN_MUL = 0; // DISABLED
-    
-            // If higher, robot turns slower towards target
-            // If lower, robot turns faster towards target, but may oscilate
-            double TURN_DIV = 20; 
+            double P = 0, I = 0, D = 1;
+            double MAX_TIME = 0.4;
         }
 
         interface TurnSpeed {
