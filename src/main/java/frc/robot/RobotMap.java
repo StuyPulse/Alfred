@@ -114,7 +114,7 @@ public interface RobotMap {
             double AUTOMATIC_DRIVE_SPEED = 0.125; // 0 - 1
     
             double P = 0, I = 0, D = 1;
-            double TIME = 0.02; // .02 is used because bot updates 50 times a second
+            double MAX_TIME = 0.4;
         }
 
         interface TurnSpeed {

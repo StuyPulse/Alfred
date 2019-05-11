@@ -35,7 +35,7 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
     }
 
     // Used in PID loop
-    double mIntegral, mPreviousError;
+    double mIntegral, mPreviousError, mPreviousTime;
 
     @Override
     protected void setTurn() {
@@ -48,10 +48,27 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
             double I = SmarterDashboard.getNumber("Autoturn I", Drivetrain.CV.I);
             double D = SmarterDashboard.getNumber("Autoturn D", Drivetrain.CV.D);
             
-            double error = Limelight.getTargetXAngle() / Limelight.MAX_X_ANGLE; // P
-            mIntegral += error * Drivetrain.CV.TIME; // I
-            double derivative = (error - mPreviousError) / Drivetrain.CV.TIME; // D
+            // Get Time Between Loops
+            double currentTime = System.currentTimeMillis() / 1000.0;
+            double time = currentTime - mPreviousTime;
+            mPreviousTime = currentTime;
 
+            // P loop
+            double error = Limelight.getTargetXAngle() / Limelight.MAX_X_ANGLE;
+
+            // Prevent Scene Shifts
+            if(time > Drivetrain.CV.MAX_TIME) {
+                mPreviousError = error;
+                time = 0;
+            }
+
+            // I Loop
+            mIntegral += error * time;
+
+            // D Loop
+            double derivative = (error - mPreviousError) / time;
+
+            // Update turn values
             mTurn = (P * error) + (I * mIntegral) + (D * derivative);
             mPreviousError = error;
         }
