@@ -48,7 +48,7 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
             double I = SmarterDashboard.getNumber("Autoturn I", Drivetrain.CV.I);
             double D = SmarterDashboard.getNumber("Autoturn D", Drivetrain.CV.D);
             
-            double error = Limelight.getTargetXAngle(); // P
+            double error = Limelight.getTargetXAngle() / Limelight.MAX_X_ANGLE; // P
             mIntegral += error * Drivetrain.CV.TIME; // I
             double derivative = (error - mPreviousError) / Drivetrain.CV.TIME; // D
 
