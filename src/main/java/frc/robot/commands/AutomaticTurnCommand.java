@@ -30,7 +30,7 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
         @Override
         public double pidGet() {
             if(Limelight.hasValidTarget()) {
-                return Limelight.getTargetXAngle();
+                return Limelight.getTargetXAngle() / Limelight.MAX_X_ANGLE;
             } else {
                 return 0;
             }
