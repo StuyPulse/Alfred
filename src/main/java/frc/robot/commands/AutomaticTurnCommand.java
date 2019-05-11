@@ -29,7 +29,11 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
 
         @Override
         public double pidGet() {
-            return Limelight.getTargetXAngle();
+            if(Limelight.hasValidTarget()) {
+                return Limelight.getTargetXAngle();
+            } else {
+                return 0;
+            }
         }
     }
 
@@ -54,6 +58,7 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
             new AlignPIDSource(), new AlignPIDOutput());
 
         mAlignPID.setSetpoint(0);
+        mAlignPID.enable();
     }
 
     @Override
@@ -69,24 +74,14 @@ public class AutomaticTurnCommand extends DrivetrainDriveCommand {
     protected void getPlayerTurn() {
         super.setTurn();
     }
-    
+
     @Override
     protected void setTurn() {
         // Set Turn to Player Input
         getPlayerTurn();
                          
         if(Limelight.hasValidTarget()) {
-            if(!mAlignPID.isEnabled()) {
-                mAlignPID.enable();
-            }
-
             mTurn += mAlignPIDResult;
-        } else {
-            if(mAlignPID.isEnabled()) {
-                mAlignPID.disable();
-            }
-
-            mAlignPIDResult = 0;
-        }
+        } 
     }
 }
