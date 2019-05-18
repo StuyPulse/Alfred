@@ -9,8 +9,9 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.RobotMap.Drivetrain;
 import frc.robot.Robot;
+import frc.robot.RobotMap.Drivetrain;
+import frc.util.Scalars;
 
 public abstract class DrivetrainCommand extends Command {
 
@@ -19,22 +20,15 @@ public abstract class DrivetrainCommand extends Command {
         public static double getTriggers() {
             double mSpeed;
             
-            mSpeed = Math.pow(Robot.oi.driverGamepad.getRawRightTriggerAxis(), Drivetrain.Controls.TRIGGER_SCALAR);
-            mSpeed -= Math.pow(Robot.oi.driverGamepad.getRawLeftTriggerAxis(), Drivetrain.Controls.TRIGGER_SCALAR);
+            mSpeed = Scalars.circular(Robot.oi.driverGamepad.getRawRightTriggerAxis());
+            mSpeed -= Scalars.circular(Robot.oi.driverGamepad.getRawLeftTriggerAxis());
             
             return mSpeed;
         }
 
         @SuppressWarnings("unused")
         public static double getJoystick() {
-            double leftStick = Robot.oi.driverGamepad.getLeftX();
-            leftStick = Math.pow(leftStick, Drivetrain.Controls.JOYSTICK_SCALAR);
-    
-            if (Drivetrain.Controls.JOYSTICK_SCALAR % 2 == 0) {
-                leftStick *= Math.signum(Robot.oi.driverGamepad.getLeftX());
-            }
-
-            return leftStick;
+            return Scalars.pow(Robot.oi.driverGamepad.getLeftX(), Drivetrain.Controls.JOYSTICK_SCALAR);;
         }
     }
     
