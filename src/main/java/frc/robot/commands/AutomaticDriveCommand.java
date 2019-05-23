@@ -27,4 +27,9 @@ public class AutomaticDriveCommand extends AutomaticTurnCommand {
             speed += accel;
         }
     }
+
+    @Override
+    protected void setQuickTurn() {
+        quickTurn = true;
+    }
 }

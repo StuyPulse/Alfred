@@ -33,9 +33,6 @@ public class Limelight {
 
         // Get most recent update from limelight
         long lastUpdate = latencyEntry.getLastChange();
-        lastUpdate = Math.max(lastUpdate, validTargetEntry.getLastChange());
-        lastUpdate = Math.max(lastUpdate, xAngleEntry.getLastChange());
-        lastUpdate = Math.max(lastUpdate, yAngleEntry.getLastChange());
 
         // Calculate limelights last update
         long timeDifference = currentTime - lastUpdate;
@@ -63,18 +60,15 @@ public class Limelight {
         return hasAnyTarget() 
              & hasValidHeight(targetHeightThreshold) 
              & hasValidBlueAspectRatio(minRatio, maxRatio)
-             & hasValidBlueOrientation(angleThreshold)
-             & isConnected();
+             & hasValidBlueOrientation(angleThreshold);
     }
     
     // Not final incase user wants
     // to change them at runtime
-    public static double DEFAULT_TARGET_HEIGHT_THRESHOLD = CV.DEFAULT_TARGET_HEIGHT_THRESHOLD;
-    public static double DEFAULT_MIN_ASPECT_RATIO = CV.DEFAULT_MIN_ASPECT_RATIO;
-    public static double DEFAULT_MAX_ASPECT_RATIO = CV.DEFAULT_MAX_ASPECT_RATIO;
-    public static double DEFAULT_ANGLE_THRESHOLD = CV.DEFAULT_ANGLE_THRESHOLD;
-
-     public static final double X_ANGLE_SHIFT = CV.DEFAULT_X_ANGLE_SHIFT;
+    public static double DEFAULT_TARGET_HEIGHT_THRESHOLD = 7;
+    public static double DEFAULT_MIN_ASPECT_RATIO = 1.2;
+    public static double DEFAULT_MAX_ASPECT_RATIO = 3.3;
+    public static double DEFAULT_ANGLE_THRESHOLD = 25;
     
     /**
      * @return Whether or not the limelight has a target in view
@@ -169,6 +163,7 @@ public class Limelight {
     // Horizontal Offset From Crosshair To Target (-27 degrees to 27 degrees)
     public static final double MIN_X_ANGLE = -27;
     public static final double MAX_X_ANGLE = 27;
+    public static final double X_ANGLE_SHIFT = -1.5;
     private static NetworkTableEntry xAngleEntry = table.getEntry("tx");
 
     /**
@@ -177,7 +172,7 @@ public class Limelight {
     public static double getTargetXAngle() {
 
         double X_SHIFT = SmartDashboard.getNumber("X_SHIFT", 1000);
-        if(Math.abs(X_SHIFT) >= 694) SmartDashboard.putNumber("X_SHIFT", X_ANGLE_SHIFT);
+        if(X_SHIFT > 694) SmartDashboard.putNumber("X_SHIFT", X_ANGLE_SHIFT);
         return xAngleEntry.getDouble(0) + X_SHIFT;
     }
 
