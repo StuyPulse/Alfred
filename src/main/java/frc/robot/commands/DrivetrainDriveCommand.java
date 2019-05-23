@@ -44,7 +44,6 @@ public class DrivetrainDriveCommand extends Command {
     private boolean isDriverControlling = true;
     protected void setCameraMode() {
         boolean controlling = !getCVButtonsPressed();
-
         // Optimization that prevents spamming network table
         if(controlling != isDriverControlling) {
             isDriverControlling = controlling;

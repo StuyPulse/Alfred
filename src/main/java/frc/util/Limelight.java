@@ -7,6 +7,7 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.RobotMap.CV;
 
 public class Limelight {
     // Network Table used to contact Lime Light
@@ -73,9 +74,20 @@ public class Limelight {
      * @return Whether or not the limelight has a target in view
      */
     public static boolean hasValidTarget() {
+        if(SmartDashboard.getBoolean("CV_FILTER_OVERRIDE", false)){
+            return hasValidTarget(
+                SmartDashboard.getNumber("HEIGHT_THRESHOLD",
+                 DEFAULT_TARGET_HEIGHT_THRESHOLD),
+                SmartDashboard.getNumber("MIN_ASPECT_RATIO",
+                 DEFAULT_MIN_ASPECT_RATIO),
+                SmartDashboard.getNumber("MAX_ASPECT_RATIO",
+                 DEFAULT_MAX_ASPECT_RATIO),
+                SmartDashboard.getNumber("SKEW_THRESHOLD",
+                 DEFAULT_ANGLE_THRESHOLD));
+        }
         return hasValidTarget(
-            DEFAULT_TARGET_HEIGHT_THRESHOLD, 
-            DEFAULT_MIN_ASPECT_RATIO, 
+            DEFAULT_TARGET_HEIGHT_THRESHOLD,
+            DEFAULT_MIN_ASPECT_RATIO,
             DEFAULT_MAX_ASPECT_RATIO,
             DEFAULT_ANGLE_THRESHOLD);
     }
