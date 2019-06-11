@@ -33,7 +33,6 @@ public final class Lift extends Subsystem {
 
     public boolean rampDisabled;
     public boolean isLimitSensorOverrided;
-    private boolean wantSlow;
 
     public Lift() {
         masterTalon = new WPI_TalonSRX(RobotMap.LIFT_MASTER_TALON_MOTOR_PORT);
@@ -191,11 +190,4 @@ public final class Lift extends Subsystem {
         followerTalon.configOpenloopRamp(0);
     }
 
-    public boolean getWantSlow() {
-        return wantSlow;
-    }
-
-    public void toggleWantSlow() {
-        wantSlow = !wantSlow;
-    }
 }

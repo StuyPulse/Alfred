@@ -19,7 +19,6 @@ import frc.robot.commands.FloopOpenCommand;
 import frc.robot.commands.FloopStartScoreCommand;
 import frc.robot.commands.FloopStopScoreCommand;
 import frc.robot.commands.LiftMoveToHeightCommand;
-import frc.robot.commands.LiftSlowToggleCommand;
 import frc.robot.commands.LiftToggleCommand;
 import frc.robot.commands.RollersConstantAcquireCommand;
 import frc.robot.commands.RollersDeacquireCommand;
@@ -74,8 +73,6 @@ public class OI {
         operatorGamepad.getDPadDown().whenPressed(new LiftMoveToHeightCommand(RobotMap.HP_LEVEL_1_HEIGHT));
 
         operatorGamepad.getRightAnalogButton().whenPressed(new AbomToggleCommand());
-        operatorGamepad.getLeftAnalogButton().whileHeld(new LiftSlowToggleCommand());
-        operatorGamepad.getLeftAnalogButton().whenReleased(new LiftSlowToggleCommand());
         //FOR LEFT JOYSTICK: LiftMoveCommand (default of lift subsystem)
         //FOR RIGHT JOYSTICK: TailClimbCommand (default of tail subsystem)
     }

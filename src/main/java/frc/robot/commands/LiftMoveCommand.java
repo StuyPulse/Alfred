@@ -34,9 +34,7 @@ public class LiftMoveCommand extends Command {
 
     @Override
     protected void execute() {
-        if(targetLevel == Level.ZERO && Robot.lift.getWantSlow()) {
-            Robot.lift.move(Math.pow(Robot.oi.operatorGamepad.getLeftY(), 3) / 3.0);
-        } else if (targetLevel == Level.ZERO) {
+        if (targetLevel == Level.ZERO) {
             Robot.lift.move(Math.pow(Robot.oi.operatorGamepad.getLeftY(), 3));
         }
 
