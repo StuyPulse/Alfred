@@ -68,8 +68,6 @@ public class OI {
 
         operatorGamepad.getDPadLeft().whenPressed(new LiftToggleCommand());
 
-        operatorGamepad.getDPadUp().whenPressed(new LiftMoveToHeightCommand(RobotMap.HP_LEVEL_3_HEIGHT));
-        operatorGamepad.getDPadRight().whenPressed(new LiftMoveToHeightCommand(RobotMap.HP_LEVEL_2_HEIGHT));
         operatorGamepad.getDPadDown().whenPressed(new LiftMoveToHeightCommand(RobotMap.HP_LEVEL_1_HEIGHT));
 
         operatorGamepad.getRightAnalogButton().whenPressed(new AbomToggleCommand());
