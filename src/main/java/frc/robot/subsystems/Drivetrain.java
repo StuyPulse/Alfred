@@ -18,8 +18,7 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.RobotMap;
-import frc.robot.commands.DrivetrainDriveCommand;
-import frc.util.NEOEncoder;
+import com.stuypulse.stuylib.encoder.NEOEncoder;
 
 public final class Drivetrain extends Subsystem {
     
@@ -132,7 +131,6 @@ public final class Drivetrain extends Subsystem {
 
     @Override
     public void initDefaultCommand() {
-         setDefaultCommand(new DrivetrainDriveCommand());
     }
 
     public void curvatureDrive(double speed, double angle) {
@@ -168,8 +166,8 @@ public final class Drivetrain extends Subsystem {
     }
 
     public void resetNEOEncoders() {
-        leftNEOEncoder.resetEncoder();
-        rightNEOEncoder.resetEncoder();
+        leftNEOEncoder.reset();
+        rightNEOEncoder.reset();
     } 
     public double getLeftGreyhillTicks() {
         return leftGreyhill.get();
