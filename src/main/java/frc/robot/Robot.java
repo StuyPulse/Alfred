@@ -35,32 +35,32 @@ public class Robot extends TimedRobot {
     public static Compressor compressor = new Compressor();
 
     public static IStream mRawForwards = () -> gamepad.getLeftY();
-    public static IStream mRawSideways = () -> gamepad.getLeftX();
-    public static IStream mRawTurn = () -> gamepad.getRightX();
+    public static IStream mRawSideways = () -> gamepad.getRightX();
+    public static IStream mRawTurn = () -> gamepad.getLeftX();
 
     public static IStream mForwards = new FilteredIStream(mRawForwards, new IStreamFilterGroup(
         new BasicFilters.Square(),
-        new RollingAverage(16),
+        new RollingAverage(32),
         new BasicFilters.Deadband(0.1),
         (x) -> x * 0.5
     ));
 
     public static IStream mSideways = new FilteredIStream(mRawSideways, new IStreamFilterGroup(
         new BasicFilters.Square(),
-        new RollingAverage(16),
+        new RollingAverage(32),
         new BasicFilters.Deadband(0.1),
         (x) -> x * 0.5
     ));
 
     public static IStream mTurn = new FilteredIStream(mRawTurn, new IStreamFilterGroup(
         new BasicFilters.Square(),
-        new RollingAverage(16),
+        new RollingAverage(32),
         new BasicFilters.Deadband(0.1),
         (x) -> x * 0.5
     ));
 
     public static final double kRobotHz = 50;
-    public static final double kTimePerOscillation = 1.0;
+    public static final double kTimePerOscillation = 3.0 / 4.0;
 
     public static double mTime = 0.0;
 
