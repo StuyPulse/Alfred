@@ -41,13 +41,15 @@ public class Robot extends TimedRobot {
     public static IStream mForwards = new FilteredIStream(mRawForwards, new IStreamFilterGroup(
         new BasicFilters.Square(),
         new RollingAverage(16),
-        new BasicFilters.Deadband(0.1)
+        new BasicFilters.Deadband(0.1),
+        (x) -> x * 0.5
     ));
 
     public static IStream mSideways = new FilteredIStream(mRawSideways, new IStreamFilterGroup(
         new BasicFilters.Square(),
-        new RollingAverage(16),
-        new BasicFilters.Deadband(0.1)
+        new RollingAverage(8),
+        new BasicFilters.Deadband(0.1),
+        (x) -> x * 0.5
     ));
 
     public static double mTime = 0.0;
