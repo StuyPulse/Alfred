@@ -14,8 +14,8 @@ import frc.robot.subsystems.Drivetrain;
 
 import java.util.Arrays;
 
-import com.stuypulse.stuylib.math.stream.*;
-import com.stuypulse.stuylib.math.stream.filter.*;
+import com.stuypulse.stuylib.math.streams.*;
+import com.stuypulse.stuylib.math.streams.filters.*;
 
 import com.stuypulse.stuylib.input.*;
 import com.stuypulse.stuylib.input.gamepads.*;
@@ -35,22 +35,26 @@ public class Robot extends TimedRobot {
     public static Drivetrain drivetrain = new Drivetrain();
     public static Compressor compressor = new Compressor();
 
-    public static InputStream rawSpeed = () -> gamepad.getLeftY();
-    public static InputStream rawAngle = () -> gamepad.getLeftX();
+    public static IStream rawSpeed = () -> gamepad.getLeftY();
+    public static IStream rawAngle = () -> gamepad.getLeftX();
 
-    public static InputStream speed = new FilteredInputStream(
-        rawSpeed, new StreamFilterGroup(Arrays.asList(
+    public static IStream speed = new FilteredIStream(
+        rawSpeed, new IStreamFilterGroup(
             new BasicFilters.Circular(),
-            new WeightedMovingAverage(64)
+            new RollingAverage(48),
+            (x) -> x * 0.75,
+            new BasicFilters.Deadband(0.1)
         )
-    ));
+    );
 
-    public static InputStream angle = new FilteredInputStream(
-        rawAngle, new StreamFilterGroup(Arrays.asList(
+    public static IStream angle = new FilteredIStream(
+        rawAngle, new IStreamFilterGroup(
             new BasicFilters.Circular(),
-            new WeightedMovingAverage(64)
+            new RollingAverage(48),
+            (x) -> x * 0.75,
+            new BasicFilters.Deadband(0.1)
         )
-    ));
+    );
 
     /**
      * This function is run when the robot is first started up and should be used
@@ -141,7 +145,12 @@ public class Robot extends TimedRobot {
             angleval = rawAngle.get();
         } 
 
-        drivetrain.curvatureDrive(speedval * 0.6, angleval * 0.8, true);
+        if(gamepad.getRawKey("shift")) {
+            speedval = 0;
+            angleval = 0;
+        } 
+
+        drivetrain.curvatureDrive(speedval, angleval, true);
     }
 
     /**
