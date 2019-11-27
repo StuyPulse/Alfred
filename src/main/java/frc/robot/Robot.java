@@ -35,26 +35,22 @@ public class Robot extends TimedRobot {
     public static Drivetrain drivetrain = new Drivetrain();
     public static Compressor compressor = new Compressor();
 
-    public static IStream rawSpeed = () -> gamepad.getLeftY();
-    public static IStream rawAngle = () -> gamepad.getLeftX();
+    public static IStream mRawForwards = () -> gamepad.getLeftY();
+    public static IStream mRawSideways = () -> gamepad.getLeftX();
 
-    public static IStream speed = new FilteredIStream(
-        rawSpeed, new IStreamFilterGroup(
-            new BasicFilters.Circular(),
-            new RollingAverage(48),
-            (x) -> x * 0.75,
-            new BasicFilters.Deadband(0.1)
-        )
-    );
+    public static IStream mForwards = new FilteredIStream(mRawForwards, new IStreamFilterGroup(
+        new BasicFilters.Square(),
+        new RollingAverage(16),
+        new BasicFilters.Deadband(0.1)
+    ));
 
-    public static IStream angle = new FilteredIStream(
-        rawAngle, new IStreamFilterGroup(
-            new BasicFilters.Circular(),
-            new RollingAverage(48),
-            (x) -> x * 0.75,
-            new BasicFilters.Deadband(0.1)
-        )
-    );
+    public static IStream mSideways = new FilteredIStream(mRawSideways, new IStreamFilterGroup(
+        new BasicFilters.Square(),
+        new RollingAverage(16),
+        new BasicFilters.Deadband(0.1)
+    ));
+
+    public static double mTime = 0.0;
 
     /**
      * This function is run when the robot is first started up and should be used
@@ -121,7 +117,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopInit() {
-
+        mTime = 0.0;
     }
 
     /**
@@ -129,28 +125,15 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopPeriodic() {
-        if(gamepad.getRawKey("c") != compressor.enabled()) {
-            if(gamepad.getRawKey("c")) {
-                compressor.start();
-            } else {
-                compressor.stop();
-            }
-        }
-    
-        double speedval = speed.get();
-        double angleval = angle.get();
+        mTime += Math.PI / 100.0;
+
+        double forwards = mForwards.get();
+        double sideways = mSideways.get();
+
+        double lmotor = forwards + Math.cos(mTime) * sideways;
+        double rmotor = forwards + Math.sin(mTime) * sideways;
         
-        if(gamepad.getRawKey("space")) {
-            speedval = rawSpeed.get();
-            angleval = rawAngle.get();
-        } 
-
-        if(gamepad.getRawKey("shift")) {
-            speedval = 0;
-            angleval = 0;
-        } 
-
-        drivetrain.curvatureDrive(speedval, angleval, true);
+        drivetrain.tankDrive(lmotor, rmotor);
     }
 
     /**

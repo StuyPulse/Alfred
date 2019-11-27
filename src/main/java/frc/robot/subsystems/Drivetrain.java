@@ -133,6 +133,10 @@ public final class Drivetrain extends Subsystem {
     public void initDefaultCommand() {
     }
 
+    public void tankDrive(double l, double r) {
+        currentDifferentialDrive.tankDrive(l, r, false);
+    }
+
     public void curvatureDrive(double speed, double angle) {
         currentDifferentialDrive.curvatureDrive(speed, angle, false);
     }
