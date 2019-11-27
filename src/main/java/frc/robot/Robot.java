@@ -36,6 +36,7 @@ public class Robot extends TimedRobot {
 
     public static IStream mRawForwards = () -> gamepad.getLeftY();
     public static IStream mRawSideways = () -> gamepad.getLeftX();
+    public static IStream mRawTurn = () -> gamepad.getRightX();
 
     public static IStream mForwards = new FilteredIStream(mRawForwards, new IStreamFilterGroup(
         new BasicFilters.Square(),
@@ -46,10 +47,20 @@ public class Robot extends TimedRobot {
 
     public static IStream mSideways = new FilteredIStream(mRawSideways, new IStreamFilterGroup(
         new BasicFilters.Square(),
-        new RollingAverage(8),
+        new RollingAverage(16),
         new BasicFilters.Deadband(0.1),
         (x) -> x * 0.5
     ));
+
+    public static IStream mTurn = new FilteredIStream(mRawTurn, new IStreamFilterGroup(
+        new BasicFilters.Square(),
+        new RollingAverage(16),
+        new BasicFilters.Deadband(0.1),
+        (x) -> x * 0.5
+    ));
+
+    public static final double kRobotHz = 50;
+    public static final double kTimePerOscillation = 1.0;
 
     public static double mTime = 0.0;
 
@@ -70,13 +81,17 @@ public class Robot extends TimedRobot {
     public void teleopPeriodic() {
         double forwards = mForwards.get();
         double sideways = mSideways.get();
+        double turn = mTurn.get();
 
         if(Math.abs(sideways) < 0.05) { mTime = 0.0; }
-        else { mTime += Math.PI / 50.0; }
+        else { mTime += Math.PI / (kTimePerOscillation * kRobotHz); }
 
-        double lmotor = forwards + Math.cos(mTime) * sideways;
-        double rmotor = forwards + Math.sin(mTime) * sideways;
-        
+        double lmotor = forwards + turn;
+        double rmotor = forwards - turn;
+
+        lmotor += ((sideways > 0) ? Math.cos(mTime) : Math.sin(mTime)) * Math.abs(sideways);
+        rmotor += ((sideways > 0) ? Math.sin(mTime) : Math.cos(mTime)) * Math.abs(sideways);
+
         drivetrain.tankDrive(lmotor, rmotor);
     }
 
