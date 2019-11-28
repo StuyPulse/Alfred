@@ -14,6 +14,7 @@ import frc.robot.subsystems.Drivetrain;
 
 import java.util.Arrays;
 
+import com.stuypulse.stuylib.math.SLMath;
 import com.stuypulse.stuylib.math.streams.*;
 import com.stuypulse.stuylib.math.streams.filters.*;
 
@@ -31,28 +32,30 @@ import com.stuypulse.stuylib.input.gamepads.*;
 
 public class Robot extends TimedRobot {
 
-    public static NetKeyGamepad gamepad = new NetKeyGamepad(0);
+    public static NetKeyGamepad keygamepad = new NetKeyGamepad(0);
+    
+    public static Gamepad gamepad = new Logitech.XMode(0);
     public static Drivetrain drivetrain = new Drivetrain();
     public static Compressor compressor = new Compressor();
 
-    public static IStream rawSpeed = () -> gamepad.getLeftY();
+    public static IStream rawSpeed = () -> gamepad.getRawRightTriggerAxis() - gamepad.getRawLeftTriggerAxis();
     public static IStream rawAngle = () -> gamepad.getLeftX();
 
     public static IStream speed = new FilteredIStream(
         rawSpeed, new IStreamFilterGroup(
-            new BasicFilters.Circular(),
-            new RollingAverage(48),
+            SLMathFilter.square(),
+            new RollingAverage(24),
             (x) -> x * 0.75,
-            new BasicFilters.Deadband(0.1)
+            SLMathFilter.deadband(0.05)
         )
     );
 
     public static IStream angle = new FilteredIStream(
         rawAngle, new IStreamFilterGroup(
-            new BasicFilters.Circular(),
-            new RollingAverage(48),
+            SLMathFilter.square(),
+            new RollingAverage(8),
             (x) -> x * 0.75,
-            new BasicFilters.Deadband(0.1)
+            SLMathFilter.deadband(0.05)
         )
     );
 
@@ -116,7 +119,6 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousPeriodic() {
-
     }
 
     @Override
@@ -129,8 +131,8 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopPeriodic() {
-        if(gamepad.getRawKey("c") != compressor.enabled()) {
-            if(gamepad.getRawKey("c")) {
+        if(keygamepad.getRawKey("c") != compressor.enabled()) {
+            if(keygamepad.getRawKey("c")) {
                 compressor.start();
             } else {
                 compressor.stop();
@@ -140,14 +142,12 @@ public class Robot extends TimedRobot {
         double speedval = speed.get();
         double angleval = angle.get();
         
-        if(gamepad.getRawKey("space")) {
+        if(gamepad.getRawRightButton()) {
             speedval = rawSpeed.get();
-            angleval = rawAngle.get();
         } 
 
-        if(gamepad.getRawKey("shift")) {
-            speedval = 0;
-            angleval = 0;
+        if(gamepad.getRawBottomButton()) {
+            angleval = rawAngle.get();
         } 
 
         drivetrain.curvatureDrive(speedval, angleval, true);
