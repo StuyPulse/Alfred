@@ -1,6 +1,10 @@
 # Alfred
 
-FRC 2019 Robot Code
+FRC 2019 Robot Code  
+Testing Status: Gyro slanted at angle. Uses NEOs  
+
+## Controls
+![operator](docs/2019-operator-gamepad.jpg)
 
 ## Subsystems
 
@@ -20,10 +24,6 @@ FRC 2019 Robot Code
 
 - Drivetrain
   - Used in the motion of the robot
-
-## Testing details
-
-- The gyro is slanted at an angle, making it slightly harder to get measurements.  Several methods to fix this can be found in the branch ds/gyroMath
 
 ## Drivetrain Motor 
 Variable | Port
